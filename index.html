@@ -203,6 +203,10 @@ footer a:hover{color:var(--teal)}
 .back-top.show{display:flex}
 .back-top:hover{background:var(--teal-dark);transform:translateY(-2px)}
 </style>
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 <body>
 
@@ -721,10 +725,5 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 </script>
 
-<!-- Vercel Speed Insights -->
-<script type="module">
-  import { injectSpeedInsights } from 'https://cdn.jsdelivr.net/npm/@vercel/speed-insights@2.0.0/dist/index.mjs';
-  injectSpeedInsights();
-</script>
 </body>
 </html>

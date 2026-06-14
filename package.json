@@ -1,0 +1,14 @@
+{
+  "name": "sleepcalc",
+  "version": "1.0.0",
+  "description": "GoodSleep - Sleep Cycle Calculator",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.12"
+  },
+  "keywords": ["sleep", "calculator", "health"],
+  "author": "",
+  "license": "ISC"
+}
