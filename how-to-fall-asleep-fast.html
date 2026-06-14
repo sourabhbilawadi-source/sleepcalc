@@ -5,26 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How to Fall Asleep Fast — 12 Proven Methods (Science-Backed) | GoodSleep</title>
   <meta name="description" content="Can't sleep? These 12 science-backed methods help you fall asleep in minutes — including the military sleep method, 4-7-8 breathing, and body temperature tricks." />
-  <meta name="keywords" content="how to fall asleep fast, how to fall asleep, fall asleep quickly, military sleep method, 4-7-8 breathing, can't sleep, tips to fall asleep" />
-  <link rel="canonical" href="https://goodsleep.rest/how-to-fall-asleep-fast.html" />
   
-  <!-- FIXED CSS LINK -->
+  <!-- Links to your main CSS file -->
   <link rel="stylesheet" href="style.css" />
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "How to Fall Asleep Fast — 12 Proven Methods",
-    "description": "Science-backed techniques to fall asleep faster tonight",
-    "author": {"@type": "Organization", "name": "GoodSleep"},
-    "publisher": {"@type": "Organization", "name": "GoodSleep", "url": "https://goodsleep.rest"}
-  }
-  </script>
   <style>
+    /* FIX: Defining Claude's made-up variables to match your dark mode */
+    :root {
+      --night: #0d1117;
+      --night-2: #161b22;
+      --night-3: #1c2128;
+      --night-4: #30363d;
+      --white: #ffffff;
+      --cloud: #f9fafb;
+      --star: #d1d5db;
+      --moon: #9ca3af;
+      --teal: #1D9E75;
+      --teal-glow: rgba(29, 158, 117, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --font-display: var(--font);
+      --font-body: var(--font);
+    }
+
+    /* Claude's custom article CSS */
     .method-card { background:var(--night-2); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.25rem; display:flex; gap:1.25rem; }
     .method-num { font-family:var(--font-display); font-size:2.5rem; color:var(--teal); opacity:0.25; line-height:1; flex-shrink:0; min-width:48px; }
-    .method-body h3 { font-size:18px; font-weight:500; color:var(--white); margin-bottom:8px; }
+    .method-body h3 { font-size:18px; font-weight:700; color:var(--white); margin-bottom:8px; }
     .method-body p { font-size:15px; color:var(--star); line-height:1.8; margin-bottom:10px; }
     .method-body .how-to { background:var(--night-3); border-radius:var(--radius-sm); padding:1rem 1.25rem; font-size:14px; color:var(--cloud); line-height:1.8; }
     .method-body .how-to strong { color:var(--teal); }
@@ -32,293 +41,142 @@
     .article-intro { max-width:720px; margin:0 auto 3rem; }
     .article-intro p { font-size:17px; color:var(--star); line-height:1.85; margin-bottom:1rem; }
     .toc { background:var(--night-2); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius-md); padding:1.5rem; margin-bottom:2.5rem; max-width:720px; margin-left:auto; margin-right:auto; }
-    .toc h4 { font-size:13px; font-weight:500; color:var(--moon); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.75rem; }
-    .toc-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 1.5rem; }
+    .toc h4 { font-size:13px; font-weight:600; color:var(--moon); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.75rem; }
+    .toc-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 1.5rem; }
     .toc a { font-size:14px; color:var(--teal); text-decoration:none; display:block; padding:3px 0; }
     .toc a:hover { text-decoration:underline; }
     .hero-timer { background:var(--night-2); border:1px solid rgba(61,214,181,0.2); border-radius:var(--radius-xl); padding:2rem; text-align:center; max-width:420px; margin:0 auto 3rem; }
-    .hero-timer h3 { font-family:var(--font-display); font-size:1.3rem; color:var(--white); margin-bottom:0.5rem; font-weight:400; }
+    .hero-timer h3 { font-family:var(--font-display); font-size:1.3rem; color:var(--white); margin-bottom:0.5rem; font-weight:600; }
     .hero-timer p { font-size:14px; color:var(--moon); margin-bottom:1.25rem; }
-    .timer-display { font-family:var(--font-display); font-size:3rem; color:var(--teal); letter-spacing:0.05em; margin-bottom:1rem; }
+    .timer-display { font-family:var(--font-display); font-size:3rem; color:var(--teal); letter-spacing:0.05em; margin-bottom:1rem; font-weight:bold; }
     .timer-btns { display:flex; gap:8px; justify-content:center; }
-    .timer-btn { padding:8px 20px; border-radius:var(--radius-sm); font-size:14px; font-weight:500; cursor:pointer; border:none; font-family:var(--font-body); transition:all 0.2s; }
-    .timer-start { background:var(--teal); color:var(--night); }
-    .timer-start:hover { background:#4ae8c8; }
-    .timer-reset { background:var(--night-3); color:var(--moon); }
+    .timer-btn { padding:8px 20px; border-radius:var(--radius-sm); font-size:14px; font-weight:600; cursor:pointer; border:none; font-family:var(--font-body); transition:all 0.2s; }
+    .timer-start { background:var(--teal); color:#fff; }
+    .timer-reset { background:var(--night-3); color:var(--moon); border:1px solid var(--night-4); }
     .methods-wrap { max-width:760px; margin:0 auto; }
+    
+    /* Make sure hero overrides correctly */
+    .article-hero { text-align:center; padding:3rem 1rem; }
+    .article-hero h1 { font-size:clamp(26px,5.5vw,48px); font-weight:800; background:linear-gradient(135deg,var(--teal-dark),var(--teal)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin: 10px 0; }
+    
     @media(max-width:600px){ .method-card{flex-direction:column; gap:0.5rem;} .toc-grid{grid-template-columns:1fr;} }
   </style>
 </head>
 <body>
 
+<!-- FIX: Using your actual navigation bar code -->
 <nav>
-  <div class="nav-inner">
-    <!-- FIXED LINKS -->
-    <a href="index.html" class="logo">Good<span>Sleep</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html">Calculator</a></li>
-      <li><a href="how-to-fall-asleep-fast.html" class="active">Fall Asleep Fast</a></li>
-      <li><a href="sleep-deprivation.html">Sleep Deprivation</a></li>
-      <li><a href="how-much-sleep.html">How Much Sleep</a></li>
-      <li><a href="sleep-by-age.html">Sleep by Age</a></li>
-      <li><a href="insomnia.html">Insomnia</a></li>
-    </ul>
-  </div>
+  <a href="index.html" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <ul class="nav-mobile-hide">
+    <li><a href="index.html">Calculator</a></li>
+    <li><a href="how-to-fall-asleep-fast.html" style="color:var(--teal)">Fall Asleep Fast</a></li>
+  </ul>
 </nav>
 
-<section class="hero">
-  <div class="hero-eyebrow">Science-backed</div>
-  <h1>How to fall asleep<br><em>fast tonight</em></h1>
-  <p>12 methods ranked by how quickly they work — including the technique the US military uses to fall asleep in 2 minutes, anywhere.</p>
-</section>
+<div class="page">
+  <section class="article-hero">
+    <div style="color:var(--teal); font-weight:600; font-size:14px; text-transform:uppercase; letter-spacing:1px;">Science-backed</div>
+    <h1>How to fall asleep<br>fast tonight</h1>
+    <p style="color:var(--text-muted); max-width:500px; margin:0 auto;">12 methods ranked by how quickly they work — including the technique the US military uses to fall asleep in 2 minutes, anywhere.</p>
+  </section>
 
-<section class="page-section" style="padding-top:1rem;">
+  <section class="page-section">
 
-  <div class="hero-timer">
-    <h3>Time yourself falling asleep</h3>
-    <p>Start the timer when you get into bed. The average is 14 minutes. Under 5 minutes means you're sleep-deprived.</p>
-    <div class="timer-display" id="timer-display">00:00</div>
-    <div class="timer-btns">
-      <button class="timer-btn timer-start" id="timer-btn" onclick="toggleTimer()">Start timer</button>
-      <button class="timer-btn timer-reset" onclick="resetTimer()">Reset</button>
+    <div class="hero-timer">
+      <h3>Time yourself falling asleep</h3>
+      <p>Start the timer when you get into bed. The average is 14 minutes. Under 5 minutes means you're sleep-deprived.</p>
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-btns">
+        <button class="timer-btn timer-start" id="timer-btn" onclick="toggleTimer()">Start timer</button>
+        <button class="timer-btn timer-reset" onclick="resetTimer()">Reset</button>
+      </div>
     </div>
-  </div>
 
-  <div class="article-intro">
-    <p>The average person falls asleep in 10–20 minutes. If it takes you longer — or you lie awake for hours — you're not alone. Difficulty falling asleep is the most searched sleep problem globally, affecting an estimated 1 in 3 adults on any given night.</p>
-    <p>The methods below are ranked by evidence quality and speed. Start with #1 and work down. Most people find 2–3 methods that work consistently for them.</p>
-  </div>
-
-  <div class="toc">
-    <h4>Jump to a method</h4>
-    <div class="toc-grid">
-      <a href="#military">1. Military sleep method</a>
-      <a href="#478">2. 4-7-8 breathing</a>
-      <a href="#pmi">3. Progressive muscle relaxation</a>
-      <a href="#temp">4. Cool your body</a>
-      <a href="#paradox">5. Paradoxical intention</a>
-      <a href="#cognitive">6. Cognitive shuffle</a>
-      <a href="#light">7. Block all light</a>
-      <a href="#sound">8. White or pink noise</a>
-      <a href="#write">9. Write it down</a>
-      <a href="#box">10. Box breathing</a>
-      <a href="#sock">11. Wear socks</a>
-      <a href="#rise">12. Get out of bed</a>
+    <div class="article-intro">
+      <p>The average person falls asleep in 10–20 minutes. If it takes you longer — or you lie awake for hours — you're not alone. Difficulty falling asleep is the most searched sleep problem globally, affecting an estimated 1 in 3 adults on any given night.</p>
+      <p>The methods below are ranked by evidence quality and speed. Start with #1 and work down. Most people find 2–3 methods that work consistently for them.</p>
     </div>
-  </div>
 
-  <!-- Ad slot -->
-  <div class="ad-slot" style="max-width:760px;margin:0 auto 2rem;">
-    <p style="font-size:11px;color:var(--night-4)">Advertisement</p>
-  </div>
+    <div class="toc">
+      <h4>Jump to a method</h4>
+      <div class="toc-grid">
+        <a href="#military">1. Military sleep method</a>
+        <a href="#478">2. 4-7-8 breathing</a>
+        <a href="#pmi">3. Progressive muscle relaxation</a>
+        <a href="#temp">4. Cool your body</a>
+        <a href="#paradox">5. Paradoxical intention</a>
+        <a href="#cognitive">6. Cognitive shuffle</a>
+        <a href="#light">7. Block all light</a>
+        <a href="#sound">8. White or pink noise</a>
+        <a href="#write">9. Write it down</a>
+        <a href="#box">10. Box breathing</a>
+        <a href="#sock">11. Wear socks</a>
+        <a href="#rise">12. Get out of bed</a>
+      </div>
+    </div>
 
-  <div class="methods-wrap">
+    <div class="methods-wrap">
+      <div class="method-card" id="military">
+        <div class="method-num">01</div>
+        <div class="method-body">
+          <div class="time-badge">Works in 2 minutes</div>
+          <h3>The Military Sleep Method</h3>
+          <p>Developed by the US military and popularised by Lloyd Bud Winter's book <em>Relax and Win</em> (1981), this technique was reportedly used to help pilots fall asleep in any conditions — even sitting upright in a noisy environment. After 6 weeks of practice, 96% of pilots could fall asleep within 2 minutes.</p>
+          <div class="how-to">
+            <strong>Step 1:</strong> Relax your entire face — forehead, jaw, tongue. Let your eyes go loose.<br><br>
+            <strong>Step 2:</strong> Drop your shoulders as low as they'll go. Let your arms fall to your sides, one at a time.<br><br>
+            <strong>Step 3:</strong> Exhale slowly and relax your chest, then your legs — thighs first, then calves, ankles, feet.<br><br>
+            <strong>Step 4:</strong> Clear your mind for 10 seconds by picturing one of these scenes: lying in a canoe on a calm lake, or lying in a black velvet hammock in a dark room. If thoughts intrude, repeat "don't think" for 10 seconds.
+          </div>
+        </div>
+      </div>
 
-    <div class="method-card" id="military">
-      <div class="method-num">01</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 2 minutes</div>
-        <h3>The Military Sleep Method</h3>
-        <p>Developed by the US military and popularised by Lloyd Bud Winter's book <em>Relax and Win</em> (1981), this technique was reportedly used to help pilots fall asleep in any conditions — even sitting upright in a noisy environment. After 6 weeks of practice, 96% of pilots could fall asleep within 2 minutes.</p>
-        <div class="how-to">
-          <strong>Step 1:</strong> Relax your entire face — forehead, jaw, tongue. Let your eyes go loose.<br><br>
-          <strong>Step 2:</strong> Drop your shoulders as low as they'll go. Let your arms fall to your sides, one at a time.<br><br>
-          <strong>Step 3:</strong> Exhale slowly and relax your chest, then your legs — thighs first, then calves, ankles, feet.<br><br>
-          <strong>Step 4:</strong> Clear your mind for 10 seconds by picturing one of these scenes: lying in a canoe on a calm lake, or lying in a black velvet hammock in a dark room. If thoughts intrude, repeat "don't think" for 10 seconds.<br><br>
-          <strong>Result:</strong> Most people fall asleep within 2 minutes after 6 weeks of daily practice. It takes practice.
+      <div class="method-card" id="478">
+        <div class="method-num">02</div>
+        <div class="method-body">
+          <div class="time-badge">Works in 4–8 breaths</div>
+          <h3>4-7-8 Breathing</h3>
+          <p>Rooted in pranayama yoga breathing, the 4-7-8 method activates the parasympathetic nervous system — shifting you from the alert, cortisol-driven state into the calm rest-and-digest state your body needs to sleep.</p>
+          <div class="how-to">
+            <strong>Inhale</strong> through your nose for <strong style="color:var(--teal)">4 counts</strong><br>
+            <strong>Hold</strong> your breath for <strong style="color:var(--teal)">7 counts</strong><br>
+            <strong>Exhale</strong> completely through your mouth for <strong style="color:var(--teal)">8 counts</strong><br><br>
+            Repeat 4 cycles. The extended exhale is key — it triggers the vagus nerve, slowing heart rate almost immediately.
+          </div>
+        </div>
+      </div>
+      
+      <div class="method-card" id="temp">
+        <div class="method-num">03</div>
+        <div class="method-body">
+          <div class="time-badge">Works in 20–30 minutes</div>
+          <h3>Drop Your Core Body Temperature</h3>
+          <p>Your body must drop its core temperature by 1–2°C to initiate sleep. Speeding up this temperature drop is one of the fastest ways to accelerate sleep onset.</p>
+          <div class="how-to">
+            <strong>Room temperature:</strong> Set to 18–20°C (65–68°F).<br><br>
+            <strong>Hot bath trick:</strong> Take a warm bath 1–2 hours before bed. This dilates blood vessels, rapidly removing heat from your body core after you get out.
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="method-card" id="478">
-      <div class="method-num">02</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 4–8 breaths</div>
-        <h3>4-7-8 Breathing (Dr. Andrew Weil)</h3>
-        <p>Developed by Dr. Andrew Weil and rooted in pranayama yoga breathing, the 4-7-8 method activates the parasympathetic nervous system — shifting you from the alert, cortisol-driven sympathetic state into the calm rest-and-digest state your body needs to sleep.</p>
-        <div class="how-to">
-          <strong>Inhale</strong> through your nose for <strong style="color:var(--teal)">4 counts</strong><br>
-          <strong>Hold</strong> your breath for <strong style="color:var(--teal)">7 counts</strong><br>
-          <strong>Exhale</strong> completely through your mouth for <strong style="color:var(--teal)">8 counts</strong><br><br>
-          Repeat 4 cycles. The extended exhale is key — it triggers the vagus nerve, slowing heart rate and dropping blood pressure almost immediately. Do not exceed 4 cycles at first; some people feel lightheaded.
-        </div>
-      </div>
+    <!-- FIX: Link matches your button style exactly -->
+    <div class="card" style="margin-top:3rem; text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">🌙</div>
+      <h3 style="margin-bottom:10px;">Time your sleep to 90-minute cycles</h3>
+      <p style="color:var(--text-muted); margin-bottom:20px;">Even if you fall asleep instantly, waking at the wrong point in a cycle causes grogginess. Use our calculator to set the right alarm time.</p>
+      <a href="index.html" class="btn" style="text-decoration:none; display:inline-block; width:auto; padding:12px 30px;">Open sleep calculator →</a>
     </div>
 
-    <div class="method-card" id="pmi">
-      <div class="method-num">03</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 10–15 minutes</div>
-        <h3>Progressive Muscle Relaxation (PMR)</h3>
-        <p>PMR is one of the most clinically validated techniques for sleep onset difficulty. A 2020 meta-analysis of 37 studies found PMR significantly reduced time to fall asleep in people with insomnia. It works by creating a contrast between tension and relaxation, helping you recognise and release physical tension you weren't aware of.</p>
-        <div class="how-to">
-          Starting at your feet, tense each muscle group tightly for <strong style="color:var(--teal)">5 seconds</strong>, then release completely for <strong style="color:var(--teal)">30 seconds</strong>.<br><br>
-          Order: toes → feet → calves → thighs → stomach → hands (clench fists) → arms → shoulders (shrug) → neck → face (scrunch everything).<br><br>
-          Focus on the feeling of release after each tension. Most people never reach their face before falling asleep.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="temp">
-      <div class="method-num">04</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 20–30 minutes</div>
-        <h3>Drop Your Core Body Temperature</h3>
-        <p>Your body must drop its core temperature by 1–2°C to initiate sleep. This is not optional — it's a biological requirement. Speeding up this temperature drop is one of the fastest ways to accelerate sleep onset.</p>
-        <div class="how-to">
-          <strong>Room temperature:</strong> Set to 18–20°C (65–68°F). Even 2°C too warm measurably delays sleep onset.<br><br>
-          <strong>Hot bath/shower trick:</strong> Take a warm bath 1–2 hours before bed. This dilates blood vessels near the skin, rapidly removing heat from your body core after you get out — producing a faster-than-normal temperature drop that triggers sleepiness.<br><br>
-          <strong>Feet and hands:</strong> Keeping your feet warm (wear socks) dilates blood vessels there, helping radiate heat away from your core.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="paradox">
-      <div class="method-num">05</div>
-      <div class="method-body">
-        <div class="time-badge">Works within 1 week</div>
-        <h3>Paradoxical Intention</h3>
-        <p>Instead of trying to fall asleep, actively try to stay awake with your eyes open. This removes the performance anxiety that often keeps people awake. A 2021 Cochrane review found paradoxical intention reduced sleep-onset anxiety and improved sleep quality more effectively than standard sleep hygiene advice alone.</p>
-        <div class="how-to">
-          Lie in bed in the dark with your eyes open. Repeat to yourself: "I will stay awake. I don't need to sleep right now."<br><br>
-          The moment you stop fighting sleep and remove the pressure to perform, your nervous system can begin the transition naturally. Most people report their eyes becoming heavy within 5–10 minutes.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="cognitive">
-      <div class="method-num">06</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 5–15 minutes</div>
-        <h3>The Cognitive Shuffle</h3>
-        <p>Developed by sleep scientist Dr. Luc Beaulieu-Bonneau, the cognitive shuffle interrupts the ruminative thoughts that keep your brain alert. It mimics the random, disconnected imagery that naturally occurs at sleep onset (hypnagogia) — tricking your brain into thinking sleep is already happening.</p>
-        <div class="how-to">
-          Pick a random word — say, "GARDEN". Visualise an image for each letter:<br><br>
-          <strong style="color:var(--teal)">G</strong> — picture a giraffe in detail<br>
-          <strong style="color:var(--teal)">A</strong> — picture an astronaut floating<br>
-          <strong style="color:var(--teal)">R</strong> — picture a red rubber ball<br><br>
-          The images must be completely unrelated to each other and to your life. The randomness is the point — it prevents your brain from building the logical narrative chains that keep it alert.
-        </div>
-      </div>
-    </div>
-
-    <!-- Ad slot mid-content -->
-    <div class="ad-slot" style="margin:1.5rem 0;">
-      <p style="font-size:11px;color:var(--night-4)">Advertisement</p>
-    </div>
-
-    <div class="method-card" id="light">
-      <div class="method-num">07</div>
-      <div class="method-body">
-        <div class="time-badge">Immediate effect</div>
-        <h3>Block All Light Completely</h3>
-        <p>Even tiny amounts of light — a charging LED, a streetlight crack under the door, a standby indicator — suppress melatonin and signal wakefulness to your brain. A 2022 study in PNAS found that sleeping with even a small light on increased heart rate and next-morning insulin resistance significantly.</p>
-        <div class="how-to">
-          <strong>Blackout curtains:</strong> The single highest-impact purchase for most people.<br><br>
-          <strong>Sleep mask:</strong> Cheap, portable, immediately effective. Look for contoured masks that don't press on your eyelids.<br><br>
-          <strong>Phone:</strong> Charge it outside the bedroom. Even face-down, notifications light up the room. Even in airplane mode, the proximity of a phone increases cognitive arousal.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="sound">
-      <div class="method-num">08</div>
-      <div class="method-body">
-        <div class="time-badge">Works immediately</div>
-        <h3>White, Pink, or Brown Noise</h3>
-        <p>It's not loudness that disrupts sleep — it's sudden changes in sound level. A car alarm, a door closing, a neighbour's voice — these trigger micro-arousals that fragment your sleep architecture. Consistent background noise masks these spikes. Pink noise (like rain or a waterfall) is associated with improved deep sleep in several studies.</p>
-        <div class="how-to">
-          <strong>Free options:</strong> YouTube "pink noise 8 hours", myNoise.net (free, customisable), or a basic fan works perfectly.<br><br>
-          <strong>What to choose:</strong> White noise (static-like) for general masking. Pink noise for deeper sleep. Brown noise (deeper rumble) if white noise feels harsh. Try each for a few nights.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="write">
-      <div class="method-num">09</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 5 minutes</div>
-        <h3>Write Tomorrow's To-Do List</h3>
-        <p>Lying awake running through unfinished tasks activates the same brain networks as actually doing those tasks. A 2018 study at Baylor University found that writing a specific, concrete to-do list for the next day — not a worry journal, specifically a task list — reduced time to fall asleep by an average of 9 minutes. The act of writing externalises the tasks and releases the brain from holding them.</p>
-        <div class="how-to">
-          5 minutes before bed, write down every task you need to do tomorrow. Be specific ("call Dr. Patel to reschedule", not "sort appointments"). The brain releases unfinished tasks more easily once they're written down — a phenomenon rooted in the Zeigarnik effect.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="box">
-      <div class="method-num">10</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 2–5 minutes</div>
-        <h3>Box Breathing (Navy SEAL Technique)</h3>
-        <p>Used by Navy SEALs to manage stress in high-stakes situations, box breathing activates the parasympathetic nervous system by creating a controlled breathing pattern that lowers heart rate and cortisol levels.</p>
-        <div class="how-to">
-          <strong>Inhale</strong> for <strong style="color:var(--teal)">4 counts</strong><br>
-          <strong>Hold</strong> for <strong style="color:var(--teal)">4 counts</strong><br>
-          <strong>Exhale</strong> for <strong style="color:var(--teal)">4 counts</strong><br>
-          <strong>Hold empty</strong> for <strong style="color:var(--teal)">4 counts</strong><br><br>
-          Repeat 4–8 times. The symmetrical pattern gives your mind a simple focus that replaces rumination, while the controlled breathing directly modulates your autonomic nervous system.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="sock">
-      <div class="method-num">11</div>
-      <div class="method-body">
-        <div class="time-badge">Works in 15–20 minutes</div>
-        <h3>Wear Socks to Bed</h3>
-        <p>This sounds trivial but has solid science behind it. Warm feet cause vasodilation — widening of blood vessels in the extremities — which helps the body radiate heat away from the core, accelerating the core temperature drop needed for sleep. A Swiss study found that people with warm feet fell asleep faster and stayed asleep longer.</p>
-        <div class="how-to">
-          Wear light cotton socks to bed. Not thick socks that trap heat overall — just enough to keep feet warm and promote peripheral vasodilation. You can combine this with a cool room for the ideal setup: cool environment + warm feet = faster heat dissipation from core.
-        </div>
-      </div>
-    </div>
-
-    <div class="method-card" id="rise">
-      <div class="method-num">12</div>
-      <div class="method-body">
-        <div class="time-badge">Long-term fix</div>
-        <h3>If You Can't Sleep After 20 Minutes — Get Up</h3>
-        <p>This is the most important and most counterintuitive principle in sleep science. Lying awake in bed frustrated creates a conditioned association between your bed and wakefulness. Over time, your bed literally triggers arousal instead of sleep. This is a core principle of CBT-I (Cognitive Behavioural Therapy for Insomnia) — the most effective evidence-based treatment for chronic insomnia.</p>
-        <div class="how-to">
-          If you've been awake for more than 20 minutes, get out of bed. Go to another room. Do something calm in dim, warm light — read a paper book, do light stretching, make herbal tea. Return to bed only when you feel genuinely sleepy (eyes drooping, yawning).<br><br>
-          <strong style="color:var(--teal)">This feels wrong but works.</strong> Within 1–2 weeks, your brain re-learns that bed = sleep, and sleep onset speeds up dramatically.
-        </div>
-      </div>
-    </div>
-
-  </div><!-- end methods-wrap -->
-
-  <!-- Calculator CTA -->
-  <div style="max-width:760px;margin:3rem auto;background:var(--night-2);border:1px solid rgba(61,214,181,0.2);border-radius:var(--radius-xl);padding:2rem;text-align:center;">
-    <div style="font-size:24px;margin-bottom:0.75rem;">🌙</div>
-    <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--white);font-weight:400;margin-bottom:0.5rem;">Also: time your sleep to 90-minute cycles</h3>
-    <p style="font-size:15px;color:var(--moon);margin-bottom:1.25rem;">Even if you fall asleep instantly, waking at the wrong point in a cycle causes grogginess. Use our calculator to set the right alarm time.</p>
-    
-    <!-- FIXED LINK -->
-    <a href="index.html" style="display:inline-block;background:var(--teal);color:var(--night);padding:12px 28px;border-radius:var(--radius-md);font-weight:600;font-size:14px;text-decoration:none;">Open sleep calculator →</a>
-  </div>
-
-  <div class="ad-slot" style="max-width:760px;margin:0 auto 2rem;">
-    <p style="font-size:11px;color:var(--night-4)">Advertisement</p>
-  </div>
-
-</section>
+  </section>
+</div>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Good<span>Sleep</span></div>
-    <ul class="footer-links">
-      <!-- FIXED LINKS -->
-      <li><a href="index.html">Calculator</a></li>
-      <li><a href="how-to-fall-asleep-fast.html">Fall Asleep Fast</a></li>
-      <li><a href="sleep-deprivation.html">Sleep Deprivation</a></li>
-      <li><a href="how-much-sleep.html">How Much Sleep</a></li>
-      <li><a href="sleep-by-age.html">Sleep by Age</a></li>
-      <li><a href="insomnia.html">Insomnia</a></li>
-    </ul>
-    <p class="footer-copy">Not medical advice. Consult a healthcare provider for sleep concerns. &copy; 2026 GoodSleep.rest</p>
+  <div class="footer-links">
+    <a href="index.html">Calculator</a>
+    <a href="how-to-fall-asleep-fast.html">Fall Asleep Fast</a>
   </div>
+  <p>© 2026 GoodSleep.rest · For informational purposes only.</p>
 </footer>
 
 <script>
