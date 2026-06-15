@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insomnia — Causes, Types & How to Treat It Without Pills | GoodSleep</title>
+<meta name="description" content="Can't sleep? Learn what causes insomnia, the difference between acute and chronic insomnia, and the most effective treatment — CBT-I — that outperforms sleeping pills.">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/insomnia">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Insomnia — Causes, Types & How to Treat It Without Pills","description":"Learn what causes insomnia and the most effective treatment — CBT-I","url":"https://goodsleep.rest/insomnia","publisher":{"@type":"Organization","name":"GoodSleep","url":"https://goodsleep.rest"}}
+</script>
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* ── PAGE-SPECIFIC: INSOMNIA ── */
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--teal-light);color:var(--teal-dark);font-size:13px;font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:1rem}
+.article-wrap h2{font-size:clamp(18px,3vw,24px);font-weight:700;color:var(--text);margin:2.5rem 0 0.75rem;letter-spacing:-0.3px}
+.article-wrap h3{font-size:16px;font-weight:600;color:var(--text);margin:1.75rem 0 0.5rem}
+.article-wrap p{font-size:15px;color:var(--text-muted);line-height:1.85;margin-bottom:1rem}
+.article-wrap strong{color:var(--text);font-weight:600}
+.type-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+@media(max-width:600px){.type-cards{grid-template-columns:1fr}}
+.type-card{background:var(--bg-soft);border:1.5px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.type-card h4{font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px}
+.type-card p{font-size:13px;color:var(--text-muted);line-height:1.7;margin:0}
+.type-card .tag{font-size:11px;font-weight:700;letter-spacing:0.06em;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:8px;text-transform:uppercase}
+.tag-short{background:var(--teal-light);color:var(--teal-dark)}
+.tag-chronic{background:#FCEBEB;color:var(--red)}
+@media(prefers-color-scheme:dark){.tag-chronic{background:rgba(226,75,74,0.15)}}
+.cause-list{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
+.cause-item{display:flex;gap:12px;align-items:flex-start;background:var(--bg-soft);border:1.5px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem}
+.cause-icon{font-size:20px;flex-shrink:0}
+.cause-body h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.cause-body p{font-size:13px;color:var(--text-muted);line-height:1.65;margin:0}
+.cbti-steps{display:flex;flex-direction:column;gap:14px;margin:1.5rem 0}
+.cbti-step{display:flex;gap:1rem}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--teal-light);border:1.5px solid var(--teal-mid);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--teal-dark);flex-shrink:0}
+.step-body h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.step-body p{font-size:13px;color:var(--text-muted);line-height:1.65;margin:0}
+.insomnia-score{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--r);padding:1.75rem;box-shadow:var(--shadow);margin-bottom:2rem}
+.insomnia-score h3{font-size:clamp(17px,3vw,20px);font-weight:700;color:var(--text);margin-bottom:0.5rem}
+.insomnia-score>p{font-size:14px;color:var(--text-muted);margin-bottom:1.25rem}
+.score-q{margin-bottom:1rem}
+.score-q label{display:block;font-size:13px;color:var(--text);font-weight:500;margin-bottom:6px}
+.score-q .opts{display:flex;gap:6px;flex-wrap:wrap}
+.score-opt{padding:6px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:13px;color:var(--text-muted);cursor:pointer;transition:all 0.15s;background:var(--bg-soft);font-family:var(--font)}
+.score-opt:hover{border-color:var(--teal-mid);color:var(--teal-dark)}
+.score-opt.selected{border-color:var(--teal);color:var(--teal-dark);background:var(--teal-light)}
+.btn-calc{width:100%;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:0.5rem}
+.btn-calc:hover{background:var(--teal-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(29,158,117,0.35)}
+.score-result{display:none;margin-top:1.25rem;padding:1.25rem;background:var(--bg-soft);border-radius:var(--r);border:1.5px solid var(--border)}
+.score-result .score-num{font-size:2.5rem;font-weight:800;color:var(--teal-dark);line-height:1}
+.score-result p{font-size:14px;color:var(--text-muted);line-height:1.7;margin-top:6px}
+.doctor-box{margin-top:1rem;padding:1rem 1.25rem;background:var(--bg-soft);border-radius:var(--r);font-size:14px;color:var(--text-muted);border:1.5px solid var(--border)}
+.doctor-box strong{color:var(--text)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <ul class="nav-mobile-hide">
+    <li><a href="/nap-calculator">Nap</a></li>
+    <li><a href="/sleep-by-age">By Age</a></li>
+    <li><a href="/sleep-debt-calculator">Sleep Debt</a></li>
+    <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
+    <li><a href="/sleep-schedule">Schedule</a></li>
+    <li><a href="/chronotype">Chronotype</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Affects 1 in 3 adults</div>
+  <h1>Insomnia — what it is,<br>what causes it, <em>how to fix it</em></h1>
+  <p class="hero-sub">Most people who struggle to sleep are told to "try melatonin" or "avoid screens." But the most effective insomnia treatment isn't a pill — it's a structured programme that rewires how your brain relates to sleep.</p>
+  <div class="breadcrumb"><a href="/">Home</a> › Insomnia Guide</div>
+</div>
+
+<div class="page">
+
+  <!-- Self-assessment tool -->
+  <div class="insomnia-score">
+    <h3>Quick insomnia self-assessment</h3>
+    <p>Answer 5 questions to see whether your sleep difficulty looks like occasional insomnia or chronic insomnia.</p>
+
+    <div class="score-q">
+      <label>How often do you struggle to fall or stay asleep?</label>
+      <div class="opts">
+        <div class="score-opt" data-q="1" data-v="0" onclick="selectOpt(this)">Rarely</div>
+        <div class="score-opt" data-q="1" data-v="1" onclick="selectOpt(this)">1–2 nights/week</div>
+        <div class="score-opt" data-q="1" data-v="2" onclick="selectOpt(this)">3–4 nights/week</div>
+        <div class="score-opt" data-q="1" data-v="3" onclick="selectOpt(this)">Almost every night</div>
+      </div>
+    </div>
+    <div class="score-q">
+      <label>How long has this been happening?</label>
+      <div class="opts">
+        <div class="score-opt" data-q="2" data-v="0" onclick="selectOpt(this)">Under 1 month</div>
+        <div class="score-opt" data-q="2" data-v="1" onclick="selectOpt(this)">1–3 months</div>
+        <div class="score-opt" data-q="2" data-v="3" onclick="selectOpt(this)">Over 3 months</div>
+      </div>
+    </div>
+    <div class="score-q">
+      <label>How much does it affect your daytime function?</label>
+      <div class="opts">
+        <div class="score-opt" data-q="3" data-v="0" onclick="selectOpt(this)">Barely</div>
+        <div class="score-opt" data-q="3" data-v="1" onclick="selectOpt(this)">Somewhat</div>
+        <div class="score-opt" data-q="3" data-v="2" onclick="selectOpt(this)">Significantly</div>
+        <div class="score-opt" data-q="3" data-v="3" onclick="selectOpt(this)">I can barely function</div>
+      </div>
+    </div>
+    <div class="score-q">
+      <label>Do you worry about sleep before getting into bed?</label>
+      <div class="opts">
+        <div class="score-opt" data-q="4" data-v="0" onclick="selectOpt(this)">Never</div>
+        <div class="score-opt" data-q="4" data-v="1" onclick="selectOpt(this)">Sometimes</div>
+        <div class="score-opt" data-q="4" data-v="2" onclick="selectOpt(this)">Often</div>
+        <div class="score-opt" data-q="4" data-v="3" onclick="selectOpt(this)">Always</div>
+      </div>
+    </div>
+    <div class="score-q">
+      <label>Have you tried sleep aids (pills, supplements) regularly?</label>
+      <div class="opts">
+        <div class="score-opt" data-q="5" data-v="0" onclick="selectOpt(this)">Never</div>
+        <div class="score-opt" data-q="5" data-v="1" onclick="selectOpt(this)">Occasionally</div>
+        <div class="score-opt" data-q="5" data-v="2" onclick="selectOpt(this)">Regularly</div>
+      </div>
+    </div>
+
+    <button class="btn-calc" onclick="calcScore()">See my result</button>
+    <div class="score-result" id="score-result">
+      <div>Your sleep difficulty score:</div>
+      <div class="score-num" id="ins-score-num">—</div>
+      <p id="score-text"></p>
+    </div>
+  </div>
+
+  <div class="article-wrap">
+
+    <h2>What is insomnia?</h2>
+    <p>Insomnia is defined clinically as difficulty falling asleep, staying asleep, or waking too early — occurring at least 3 nights per week, for at least 3 months, despite adequate opportunity for sleep, and causing daytime impairment. It affects an estimated 10–15% of adults chronically, and up to 30% experience short-term symptoms at any given time.</p>
+    <p>Insomnia is not simply "not sleeping enough." People with insomnia often lie in bed for long periods but cannot sleep — the problem is not with the amount of time allocated to sleep, but with the brain's ability to transition into and maintain sleep.</p>
+
+    <h2>Types of insomnia</h2>
+    <div class="type-cards">
+      <div class="type-card">
+        <div class="tag tag-short">Short-term</div>
+        <h4>Acute insomnia</h4>
+        <p>Lasts days to weeks, triggered by a specific stressor — a life event, illness, travel, shift change, or new medication. Often resolves on its own when the stressor resolves.</p>
+      </div>
+      <div class="type-card">
+        <div class="tag tag-chronic">Chronic</div>
+        <h4>Chronic insomnia</h4>
+        <p>Persists for 3+ months, occurring 3+ nights per week. Often self-perpetuating — the fear of not sleeping becomes its own cause. Requires targeted treatment.</p>
+      </div>
+      <div class="type-card">
+        <div class="tag tag-short">Subtype</div>
+        <h4>Sleep onset insomnia</h4>
+        <p>Difficulty falling asleep. Takes 30+ minutes after getting into bed. Often linked to anxiety, rumination, or an irregular sleep schedule.</p>
+      </div>
+      <div class="type-card">
+        <div class="tag tag-short">Subtype</div>
+        <h4>Sleep maintenance insomnia</h4>
+        <p>Falls asleep but wakes frequently during the night or very early in the morning and can't return to sleep. More common in older adults and those with depression.</p>
+      </div>
+    </div>
+
+    <h2>What causes insomnia?</h2>
+  </div>
+
+  <div class="cause-list">
+    <div class="cause-item"><div class="cause-icon">😟</div><div class="cause-body"><h4>Stress and anxiety</h4><p>The most common cause. Cortisol and adrenaline — the stress hormones — are biologically incompatible with sleep onset. The brain interprets stress as danger, keeping it in a state of alert. Sleep anxiety (worrying about not sleeping) is particularly self-reinforcing.</p></div></div>
+    <div class="cause-item"><div class="cause-icon">🧠</div><div class="cause-body"><h4>Conditioned arousal (learned insomnia)</h4><p>Over time, the bed becomes associated with wakefulness and frustration rather than sleep. The brain learns to become alert when you get into bed — the opposite of what should happen. This is the core mechanism behind chronic insomnia.</p></div></div>
+    <div class="cause-item"><div class="cause-icon">💊</div><div class="cause-body"><h4>Medications</h4><p>Many common medications disrupt sleep: antidepressants (SSRIs, SNRIs), blood pressure medications (beta blockers), corticosteroids, decongestants, and some asthma medications. If sleep problems coincide with a new prescription, discuss alternatives with your doctor.</p></div></div>
+    <div class="cause-item"><div class="cause-icon">😴</div><div class="cause-body"><h4>Sleep disorders</h4><p>Undiagnosed sleep apnea causes repeated micro-awakenings that fragment sleep without full waking. Restless leg syndrome causes uncomfortable sensations that prevent sleep onset. Both are significantly underdiagnosed.</p></div></div>
+    <div class="cause-item"><div class="cause-icon">☕</div><div class="cause-body"><h4>Lifestyle factors</h4><p>Irregular sleep schedules, late caffeine, alcohol (suppresses REM), excessive screen use before bed, and irregular light exposure all disrupt the circadian system and sleep pressure in ways that can cause or worsen insomnia.</p></div></div>
+    <div class="cause-item"><div class="cause-icon">🏥</div><div class="cause-body"><h4>Medical and mental health conditions</h4><p>Depression, chronic pain, heart conditions, GERD, hyperthyroidism, and many other conditions are associated with insomnia. In these cases, treating the underlying condition often improves sleep.</p></div></div>
+  </div>
+
+  <div class="article-wrap">
+
+    <h2>The most effective treatment: CBT-I</h2>
+    <p>Cognitive Behavioural Therapy for Insomnia (CBT-I) is the first-line recommended treatment for chronic insomnia from the American College of Physicians, the British Sleep Society, and the European Sleep Research Society — all recommending it above sleeping pills.</p>
+    <p>A 2015 meta-analysis of 20 trials found CBT-I produced larger and more durable improvements than pharmacological treatment, with no side effects or dependency risk. Effects persist long after treatment ends; sleeping pills lose effectiveness and create dependency.</p>
+
+    <div class="cbti-steps">
+      <div class="cbti-step">
+        <div class="step-num">1</div>
+        <div class="step-body"><h4>Sleep restriction therapy</h4><p>Temporarily limit time in bed to your actual sleep time (e.g. 5.5 hours). This builds sleep pressure, consolidating fragmented sleep. Counterintuitive and temporarily uncomfortable — but highly effective within 1–2 weeks.</p></div>
+      </div>
+      <div class="cbti-step">
+        <div class="step-num">2</div>
+        <div class="step-body"><h4>Stimulus control therapy</h4><p>Use bed only for sleep and sex. If unable to sleep after 20 minutes, get up and return only when sleepy. Breaks the conditioned arousal association between bed and wakefulness.</p></div>
+      </div>
+      <div class="cbti-step">
+        <div class="step-num">3</div>
+        <div class="step-body"><h4>Sleep hygiene education</h4><p>Consistent schedule, light management, temperature optimisation, caffeine cutoff, exercise timing. Necessary but insufficient alone — most insomnia requires all CBT-I components.</p></div>
+      </div>
+      <div class="cbti-step">
+        <div class="step-num">4</div>
+        <div class="step-body"><h4>Cognitive restructuring</h4><p>Challenging unhelpful beliefs about sleep ("I must get 8 hours or tomorrow is ruined", "I've lost the ability to sleep"). These beliefs increase arousal and perpetuate insomnia. CBT challenges them directly.</p></div>
+      </div>
+      <div class="cbti-step">
+        <div class="step-num">5</div>
+        <div class="step-body"><h4>Relaxation techniques</h4><p>Progressive muscle relaxation, breathing exercises, and mindfulness reduce the physiological arousal that prevents sleep onset. Work best in combination with the other components.</p></div>
+      </div>
+    </div>
+
+    <div class="doctor-box">⚕️ <strong>When to see a doctor:</strong> If your insomnia persists for more than 3 months, significantly affects daily functioning, or is accompanied by loud snoring, gasping, or extreme daytime sleepiness — see a doctor. A sleep study may be warranted to rule out sleep apnea or other disorders.</div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h3>Start with cycle-aligned sleep</h3>
+    <p>One simple change for better sleep: align your alarm with cycle boundaries. Waking mid-cycle worsens sleep anxiety and daytime fatigue.</p>
+    <a href="/" class="btn" style="width:auto;display:inline-flex;padding:12px 28px;text-decoration:none">Calculate my ideal sleep time →</a>
+  </div>
+
+  <!-- EXPLORE -->
+  <div class="explore">
+    <h2 class="explore-title">Explore More Tools</h2>
+    <p class="explore-sub">Discover all the sleep tools GoodSleep has to offer</p>
+    <div class="explore-grid">
+      <a href="/" class="explore-card"><div class="e-emoji">⏰</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
+      <a href="/nap-calculator" class="explore-card"><div class="e-emoji">☀️</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
+      <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">👶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
+      <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">💤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
+      <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">😴</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
+      <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">⚠️</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
+      <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">💡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
+      <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">📅</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
+      <a href="/chronotype" class="explore-card"><div class="e-emoji">🦁</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+
+<footer>
+  <div class="footer-links">
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia" class="active">🌙 Insomnia</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+// ── INSOMNIA SELF-ASSESSMENT ──
+const scores = {};
+function selectOpt(el) {
+  const q = el.dataset.q;
+  document.querySelectorAll(`[data-q="${q}"]`).forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  scores[q] = parseInt(el.dataset.v);
+}
+
+function calcScore() {
+  if (Object.keys(scores).length < 5) { alert('Please answer all 5 questions'); return; }
+  const total = Object.values(scores).reduce((a,b) => a+b, 0);
+  const maxScore = 14;
+  document.getElementById('ins-score-num').textContent = `${total}/${maxScore}`;
+
+  let text = '';
+  if (total <= 3) text = 'Your sleep difficulty appears mild and occasional. Good sleep habits — consistent schedule, cool room, no screens before bed — are likely sufficient. Our calculator can help you time your sleep to 90-minute cycles for better mornings.';
+  else if (total <= 7) text = 'You show moderate signs of sleep difficulty. It may be worth tracking your sleep for 1–2 weeks and trying CBT-I techniques: consistent schedule, stimulus control (get out of bed if awake 20+ min), and a wind-down routine. If no improvement in 4–6 weeks, consider seeing a GP.';
+  else text = 'Your responses suggest significant and likely chronic insomnia. The most evidence-backed approach is CBT-I — consider a referral to a sleep specialist, or explore a digital CBT-I programme (several are validated and available online). Sleeping pills are not recommended as a long-term solution.';
+
+  document.getElementById('score-text').textContent = text;
+  document.getElementById('score-result').style.display = 'block';
+}
+
+// ── BACK TO TOP ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('back-top').classList.toggle('show',window.scrollY>400);
+},{passive:true});
+</script>
+</body>
+</html>
