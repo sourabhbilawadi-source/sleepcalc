@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nap Calculator â Best Nap Length for Energy | GoodSleep</title>
-<meta name="description" content="Free nap calculator. Find the perfect nap duration to boost energy without grogginess. Power nap, full cycle nap â know exactly when to wake up.">
+<title>Nap Calculator — Best Nap Length for Energy | GoodSleep</title>
+<meta name="description" content="Free nap calculator. Find the perfect nap duration to boost energy without grogginess. Power nap, full cycle nap — know exactly when to wake up.">
 <link rel="canonical" href="https://goodsleep.rest/nap-calculator">
-<meta property="og:title" content="Nap Calculator â GoodSleep.rest">
+<meta property="og:title" content="Nap Calculator — GoodSleep.rest">
 <meta property="og:description" content="Find the perfect nap length to boost energy without waking up groggy.">
 <meta name="theme-color" content="#0F6E56">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
@@ -75,6 +75,34 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
     <a href="/contact" class="drop-link"><span class="dl-emoji">✉️</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
   </div>
 </div>
+
+<div class="hero">
+  <h1>☀️ Nap Calculator</h1>
+  <p class="hero-sub">Find the perfect nap length — boost energy without waking up groggy</p>
+</div>
+
+<div class="page">
+
+  <div class="card">
+    <span class="label">Current time</span>
+    <div class="time-now" id="current-time">--:-- --</div>
+    <div class="time-sub">Napping now · wake time calculated automatically</div>
+
+    <div class="slider-wrap">
+      <div class="slider-top">
+        <div><div class="slider-val"><span id="nap-val">20</span><span class="slider-unit">min</span></div></div>
+        <div class="slider-hint" id="nap-tag">Power nap ⚡</div>
+      </div>
+      <input type="range" min="5" max="120" step="5" value="20" id="nap-slider" oninput="updateNap(this.value)">
+      <div class="tick-row"><span>5m</span><span>20m</span><span>45m</span><span>60m</span><span>90m</span><span>120m</span></div>
+    </div>
+
+    <div class="result-box good" id="result-box">
+      <div class="r-emoji" id="r-emoji">⚡</div>
+      <div class="r-name r-good" id="r-name">Power Nap</div>
+      <div class="r-desc" id="r-desc">Boosts alertness and focus without entering deep sleep. You'll wake up sharp, not groggy. Best for a midday energy boost.</div>
+      <div class="wake-row">Wake up at <div class="wake-time" id="wake-time">--:-- --</div></div>
+    </div>
   </div>
 
   <p style="font-size:13px;color:var(--text-hint);text-align:center;margin:-0.75rem 0 1.5rem">Or pick a nap type:</p>
@@ -88,22 +116,22 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
     <h2>Why nap length matters so much</h2>
     <p>The wrong nap length can leave you feeling worse than before. Here's what happens in your brain at each stage:</p>
     <div class="info-grid">
-      <div class="info-card"><h3>â¡ 10â20 min â Power nap</h3><p>Only light sleep (Stage 1â2). Your brain clears adenosine (the sleepiness chemical). You wake up sharp. Used by NASA pilots and surgeons before long procedures.</p></div>
-      <div class="info-card"><h3>â ï¸ 30â60 min â Danger zone</h3><p>You enter deep sleep (Stage 3) but don't complete a cycle. Waking here causes sleep inertia â that horrible groggy feeling that can last 30â60 minutes.</p></div>
-      <div class="info-card"><h3>ð 90 min â Full cycle</h3><p>One complete cycle including REM sleep. Memory consolidation, creativity boost, emotional reset. You wake naturally at cycle end â refreshed, not foggy.</p></div>
-      <div class="info-card"><h3>ð¤ 20 min + caffeine = Super nap</h3><p>Drink coffee immediately before a 20-min nap. Caffeine takes ~20 min to kick in â so it activates exactly when you wake up. Double energy boost.</p></div>
+      <div class="info-card"><h3>⚡ 10–20 min — Power nap</h3><p>Only light sleep (Stage 1–2). Your brain clears adenosine (the sleepiness chemical). You wake up sharp. Used by NASA pilots and surgeons before long procedures.</p></div>
+      <div class="info-card"><h3>⚠️ 30–60 min — Danger zone</h3><p>You enter deep sleep (Stage 3) but don't complete a cycle. Waking here causes sleep inertia — that horrible groggy feeling that can last 30–60 minutes.</p></div>
+      <div class="info-card"><h3>🌟 90 min — Full cycle</h3><p>One complete cycle including REM sleep. Memory consolidation, creativity boost, emotional reset. You wake naturally at cycle end — refreshed, not foggy.</p></div>
+      <div class="info-card"><h3>💤 20 min + caffeine = Super nap</h3><p>Drink coffee immediately before a 20-min nap. Caffeine takes ~20 min to kick in — so it activates exactly when you wake up. Double energy boost.</p></div>
     </div>
-    <div class="tip-box">ð¡ <strong>Best nap time:</strong> Between 1â3 PM when your body has a natural dip in alertness (the post-lunch dip). Napping after 4 PM can interfere with nighttime sleep.</div>
+    <div class="tip-box">💡 <strong>Best nap time:</strong> Between 1–3 PM when your body has a natural dip in alertness (the post-lunch dip). Napping after 4 PM can interfere with nighttime sleep.</div>
   </div>
 
   <div class="section">
     <h2>Who should nap?</h2>
     <p>Napping isn't just for toddlers. Research shows strategic napping improves performance across all age groups:</p>
     <div class="info-grid">
-      <div class="info-card"><h3>ð©âð» Office workers</h3><p>A 20-min nap improves alertness by 54% and performance by 34% (NASA study). Better than a 3rd coffee.</p></div>
-      <div class="info-card"><h3>ð Students</h3><p>90-min nap after studying boosts memory retention. The REM sleep during the nap consolidates what you just learned.</p></div>
-      <div class="info-card"><h3>ðï¸ Athletes</h3><p>Napping before competition improves sprint speed, reaction time, and mood. Used routinely by elite sports teams.</p></div>
-      <div class="info-card"><h3>ð Night shift workers</h3><p>A 90-min nap before a night shift reduces fatigue-related errors significantly. Critical for safety-sensitive jobs.</p></div>
+      <div class="info-card"><h3>👩‍💻 Office workers</h3><p>A 20-min nap improves alertness by 54% and performance by 34% (NASA study). Better than a 3rd coffee.</p></div>
+      <div class="info-card"><h3>🎓 Students</h3><p>90-min nap after studying boosts memory retention. The REM sleep during the nap consolidates what you just learned.</p></div>
+      <div class="info-card"><h3>🏋️ Athletes</h3><p>Napping before competition improves sprint speed, reaction time, and mood. Used routinely by elite sports teams.</p></div>
+      <div class="info-card"><h3>🚗 Night shift workers</h3><p>A 90-min nap before a night shift reduces fatigue-related errors significantly. Critical for safety-sensitive jobs.</p></div>
     </div>
   </div>
 
@@ -112,15 +140,15 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
     <h2 class="explore-title">Explore More Tools</h2>
     <p class="explore-sub">Discover all the sleep tools GoodSleep has to offer</p>
     <div class="explore-grid">
-      <a href="/" class="explore-card"><div class="e-emoji">â°</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
-      <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">ð¶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
-      <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">ð¤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
-      <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">ð´</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
-      <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">â ï¸</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
-      <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">ð¡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
-      <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
-      <a href="/chronotype" class="explore-card"><div class="e-emoji">ð¦</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
-      <a href="/insomnia" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
+      <a href="/" class="explore-card"><div class="e-emoji">⏰</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
+      <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">👶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
+      <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">💤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
+      <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">😴</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
+      <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">⚠️</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
+      <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">💡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
+      <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">📅</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
+      <a href="/chronotype" class="explore-card"><div class="e-emoji">🦁</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
+      <a href="/insomnia" class="explore-card"><div class="e-emoji">🌙</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
     </div>
   </div>
 </div>
@@ -146,16 +174,16 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
   <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
 </footer>
 
-<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">â</button>
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
 const napData=[
-  {min:5,max:12,cls:'good',emoji:'ð´',name:'Micro nap',tag:'Micro nap ð´',desc:'Even a 10-min nap reduces sleepiness and improves cognitive performance. You barely enter Stage 1 sleep but your brain gets a real reset.',color:'r-good'},
-  {min:13,max:25,cls:'good',emoji:'â¡',name:'Power Nap',tag:'Power nap â¡',desc:'The sweet spot for daytime napping. Boosts alertness and focus without entering deep sleep. You\'ll wake up sharp, not groggy. Best for a midday energy boost.',color:'r-good'},
-  {min:26,max:45,cls:'warn',emoji:'â ï¸',name:'Risky Zone',tag:'Risky zone â ï¸',desc:'You start entering deep sleep but don\'t complete it. Risk of waking mid-cycle and feeling groggy (sleep inertia) for 20â40 minutes. Try shortening to 20 min or extending to 90 min.',color:'r-warn'},
-  {min:46,max:75,cls:'bad',emoji:'ðµ',name:'Danger Zone',tag:'Danger zone ðµ',desc:'Deep sleep territory. High chance you\'ll wake mid-cycle feeling significantly worse than before the nap. Sleep inertia can last 30â60 minutes. Avoid unless you have 90 min.',color:'r-bad'},
-  {min:76,max:95,cls:'good',emoji:'ð',name:'Full Cycle Nap',tag:'Full cycle ð',desc:'One complete 90-minute sleep cycle including REM. Boosts creativity, memory consolidation, and emotional regulation. You wake naturally at cycle end feeling genuinely refreshed.',color:'r-good'},
-  {min:96,max:120,cls:'warn',emoji:'ð¤',name:'Extended Nap',tag:'Extended nap ð¤',desc:'More than one cycle. Can be beneficial if severely sleep-deprived, but risks making it harder to sleep at night. Best reserved for weekends or before night shifts.',color:'r-warn'},
+  {min:5,max:12,cls:'good',emoji:'😴',name:'Micro nap',tag:'Micro nap 😴',desc:'Even a 10-min nap reduces sleepiness and improves cognitive performance. You barely enter Stage 1 sleep but your brain gets a real reset.',color:'r-good'},
+  {min:13,max:25,cls:'good',emoji:'⚡',name:'Power Nap',tag:'Power nap ⚡',desc:'The sweet spot for daytime napping. Boosts alertness and focus without entering deep sleep. You\'ll wake up sharp, not groggy. Best for a midday energy boost.',color:'r-good'},
+  {min:26,max:45,cls:'warn',emoji:'⚠️',name:'Risky Zone',tag:'Risky zone ⚠️',desc:'You start entering deep sleep but don\'t complete it. Risk of waking mid-cycle and feeling groggy (sleep inertia) for 20–40 minutes. Try shortening to 20 min or extending to 90 min.',color:'r-warn'},
+  {min:46,max:75,cls:'bad',emoji:'😵',name:'Danger Zone',tag:'Danger zone 😵',desc:'Deep sleep territory. High chance you\'ll wake mid-cycle feeling significantly worse than before the nap. Sleep inertia can last 30–60 minutes. Avoid unless you have 90 min.',color:'r-bad'},
+  {min:76,max:95,cls:'good',emoji:'🌟',name:'Full Cycle Nap',tag:'Full cycle 🌟',desc:'One complete 90-minute sleep cycle including REM. Boosts creativity, memory consolidation, and emotional regulation. You wake naturally at cycle end feeling genuinely refreshed.',color:'r-good'},
+  {min:96,max:120,cls:'warn',emoji:'💤',name:'Extended Nap',tag:'Extended nap 💤',desc:'More than one cycle. Can be beneficial if severely sleep-deprived, but risks making it harder to sleep at night. Best reserved for weekends or before night shifts.',color:'r-warn'},
 ];
 function fmt(d){let h=d.getHours(),m=d.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||12;return`${h}:${m<10?'0'+m:m} ${ap}`}
 function updateClock(){document.getElementById('current-time').textContent=fmt(new Date())}

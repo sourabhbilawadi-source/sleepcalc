@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chronotype Quiz â Are You a Morning Lark or Night Owl? | GoodSleep</title>
-<meta name="description" content="Take the free chronotype quiz to discover your natural sleep type â Lion, Bear, Wolf, or Dolphin. Find out the best sleep schedule for your biology.">
-<meta property="og:title" content="Chronotype Quiz â Discover Your Sleep Type | GoodSleep">
+<title>Chronotype Quiz — Are You a Morning Lark or Night Owl? | GoodSleep</title>
+<meta name="description" content="Take the free chronotype quiz to discover your natural sleep type — Lion, Bear, Wolf, or Dolphin. Find out the best sleep schedule for your biology.">
+<meta property="og:title" content="Chronotype Quiz — Discover Your Sleep Type | GoodSleep">
 <meta property="og:description" content="Morning lark or night owl? Take our 10-question chronotype quiz and get a personalized sleep schedule based on your biology.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0F6E56">
 <link rel="canonical" href="https://goodsleep.rest/chronotype">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Quiz","name":"Chronotype Quiz â Morning Lark or Night Owl?","description":"Discover your sleep chronotype with 10 questions","url":"https://goodsleep.rest/chronotype","provider":{"@type":"Organization","name":"GoodSleep","url":"https://goodsleep.rest"}}
+{"@context":"https://schema.org","@type":"Quiz","name":"Chronotype Quiz — Morning Lark or Night Owl?","description":"Discover your sleep chronotype with 10 questions","url":"https://goodsleep.rest/chronotype","provider":{"@type":"Organization","name":"GoodSleep","url":"https://goodsleep.rest"}}
 </script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="stylesheet" href="/styles.css">
@@ -124,6 +124,39 @@
   </div>
 </div>
 
+<div class="hero">
+  <p class="breadcrumb"><a href="/">GoodSleep</a> › Chronotype quiz</p>
+  <h1>What's Your Chronotype?</h1>
+  <p class="hero-sub">10 questions to discover your biological sleep type — and the ideal schedule to match it</p>
+  <span class="hero-badge">🦉 Science-based &nbsp;·&nbsp; 2 minutes &nbsp;·&nbsp; Free</span>
+</div>
+
+<div class="page">
+
+<!-- TYPE OVERVIEW -->
+<div class="type-cards" id="type-preview">
+  <div class="type-card lion" onclick="jumpToQuiz()">
+    <div class="tc-emoji">🦁</div>
+    <div class="tc-name" style="color:#B36E00">Lion</div>
+    <div class="tc-pct">~15% of people</div>
+  </div>
+  <div class="type-card bear" onclick="jumpToQuiz()">
+    <div class="tc-emoji">🐻</div>
+    <div class="tc-name" style="color:var(--teal-dark)">Bear</div>
+    <div class="tc-pct">~55% of people</div>
+  </div>
+  <div class="type-card wolf" onclick="jumpToQuiz()">
+    <div class="tc-emoji">🐺</div>
+    <div class="tc-name" style="color:var(--purple)">Wolf</div>
+    <div class="tc-pct">~25% of people</div>
+  </div>
+  <div class="type-card dolphin" onclick="jumpToQuiz()">
+    <div class="tc-emoji">🐬</div>
+    <div class="tc-name" style="color:#c53030">Dolphin</div>
+    <div class="tc-pct">~5% of people</div>
+  </div>
+</div>
+
 <!-- QUIZ -->
 <div class="card" id="quiz-card">
   <div id="quiz-area">
@@ -146,30 +179,30 @@
     <h3 style="font-size:15px;font-weight:700;margin-bottom:0.75rem">Your traits</h3>
     <div class="traits-list" id="result-traits"></div>
     <div class="tip-box" id="result-tip"></div>
-    <button class="retake-btn" onclick="restartQuiz()">â© Retake quiz</button>
+    <button class="retake-btn" onclick="restartQuiz()">↩ Retake quiz</button>
   </div>
 </div>
 
 <!-- ALL CHRONOTYPES -->
 <div class="section">
   <h2 class="section-title">The four chronotypes</h2>
-  <p class="section-sub">Based on Dr. Michael Breus's research â your chronotype is largely genetic and changes with age</p>
+  <p class="section-sub">Based on Dr. Michael Breus's research — your chronotype is largely genetic and changes with age</p>
   <div class="types-section">
     <div class="type-info lion">
-      <div class="type-info-head"><span class="emoji">ð¦</span><h3 style="color:#B36E00">Lion â Early Riser</h3><span class="pct">~15%</span></div>
-      <p>Lions wake naturally before 6 AM, peak in the morning, and fade by evening. They're the most productive in the first half of the day. Lions make excellent executives and leaders, but struggle at late-night social events. Best bedtime: 9â10 PM. Best wake time: 5â6 AM.</p>
+      <div class="type-info-head"><span class="emoji">🦁</span><h3 style="color:#B36E00">Lion — Early Riser</h3><span class="pct">~15%</span></div>
+      <p>Lions wake naturally before 6 AM, peak in the morning, and fade by evening. They're the most productive in the first half of the day. Lions make excellent executives and leaders, but struggle at late-night social events. Best bedtime: 9–10 PM. Best wake time: 5–6 AM.</p>
     </div>
     <div class="type-info bear">
-      <div class="type-info-head"><span class="emoji">ð»</span><h3 style="color:var(--teal-dark)">Bear â Solar Follower</h3><span class="pct">~55%</span></div>
-      <p>Bears follow the solar cycle â they wake with the sun, hit peak performance mid-morning, and wind down in the evening. The "average" human sleep schedule was designed around Bears. Best bedtime: 10â11 PM. Best wake time: 7â8 AM.</p>
+      <div class="type-info-head"><span class="emoji">🐻</span><h3 style="color:var(--teal-dark)">Bear — Solar Follower</h3><span class="pct">~55%</span></div>
+      <p>Bears follow the solar cycle — they wake with the sun, hit peak performance mid-morning, and wind down in the evening. The "average" human sleep schedule was designed around Bears. Best bedtime: 10–11 PM. Best wake time: 7–8 AM.</p>
     </div>
     <div class="type-info wolf">
-      <div class="type-info-head"><span class="emoji">ðº</span><h3 style="color:var(--purple)">Wolf â Night Owl</h3><span class="pct">~25%</span></div>
-      <p>Wolves' brains don't hit peak performance until evening. They're creative, introverted, and struggle with early mornings â not by choice. Standard 9â5 schedules work against their biology. Best bedtime: 12â1 AM. Best wake time: 8â9 AM.</p>
+      <div class="type-info-head"><span class="emoji">🐺</span><h3 style="color:var(--purple)">Wolf — Night Owl</h3><span class="pct">~25%</span></div>
+      <p>Wolves' brains don't hit peak performance until evening. They're creative, introverted, and struggle with early mornings — not by choice. Standard 9–5 schedules work against their biology. Best bedtime: 12–1 AM. Best wake time: 8–9 AM.</p>
     </div>
     <div class="type-info dolphin">
-      <div class="type-info-head"><span class="emoji">ð¬</span><h3 style="color:#c53030">Dolphin â Light Sleeper</h3><span class="pct">~5%</span></div>
-      <p>Dolphins are light, fitful sleepers â even in animals, dolphins sleep with one hemisphere at a time. They're often highly intelligent, anxious perfectionists who wake easily. Best bedtime: 11:30 PM. Best wake time: 6:30 AM. Prioritize sleep environment over timing.</p>
+      <div class="type-info-head"><span class="emoji">🐬</span><h3 style="color:#c53030">Dolphin — Light Sleeper</h3><span class="pct">~5%</span></div>
+      <p>Dolphins are light, fitful sleepers — even in animals, dolphins sleep with one hemisphere at a time. They're often highly intelligent, anxious perfectionists who wake easily. Best bedtime: 11:30 PM. Best wake time: 6:30 AM. Prioritize sleep environment over timing.</p>
     </div>
   </div>
 </div>
@@ -179,19 +212,19 @@
   <h2 class="section-title" style="margin-bottom:1.25rem">Common questions</h2>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">Can I change my chronotype?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Partially. Your chronotype has a strong genetic component â it can't be fully changed. But you can shift your sleep timing by 1â2 hours through consistent sleep/wake times, strategic light exposure, and caffeine timing. Teenagers naturally shift toward Wolf, and tend to drift back toward Bear or Lion in their 20s.</div>
+    <div class="faq-a">Partially. Your chronotype has a strong genetic component — it can't be fully changed. But you can shift your sleep timing by 1–2 hours through consistent sleep/wake times, strategic light exposure, and caffeine timing. Teenagers naturally shift toward Wolf, and tend to drift back toward Bear or Lion in their 20s.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">Is being a night owl unhealthy?<span class="faq-icon">+</span></button>
-    <div class="faq-a">The health risks aren't from being a Wolf â they're from living in a world designed for Bears and Lions. When Wolves are forced to wake early every day, they accumulate chronic sleep debt. Studies on Wolves who can work on their own schedule show no health differences from Bears. It's the mismatch, not the chronotype, that causes problems.</div>
+    <div class="faq-a">The health risks aren't from being a Wolf — they're from living in a world designed for Bears and Lions. When Wolves are forced to wake early every day, they accumulate chronic sleep debt. Studies on Wolves who can work on their own schedule show no health differences from Bears. It's the mismatch, not the chronotype, that causes problems.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">How does chronotype change with age?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Children tend toward early chronotypes (Lion). Teens shift dramatically toward Wolf â peaking around age 19â21. Through your 20s and 30s, there's a gradual drift back toward Bear. After 60, many people shift toward Lion again. Hormones, particularly during puberty and menopause, drive these shifts.</div>
+    <div class="faq-a">Children tend toward early chronotypes (Lion). Teens shift dramatically toward Wolf — peaking around age 19–21. Through your 20s and 30s, there's a gradual drift back toward Bear. After 60, many people shift toward Lion again. Hormones, particularly during puberty and menopause, drive these shifts.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">What if my result doesn't feel accurate?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Think about your "free" days â weekends or holidays with no alarms or obligations. When do you naturally fall asleep and wake up? That's your true chronotype, unconstrained by social schedule. If you sleep until noon on free days, you're likely a Wolf even if you're forced to wake at 6 AM on workdays.</div>
+    <div class="faq-a">Think about your "free" days — weekends or holidays with no alarms or obligations. When do you naturally fall asleep and wake up? That's your true chronotype, unconstrained by social schedule. If you sleep until noon on free days, you're likely a Wolf even if you're forced to wake at 6 AM on workdays.</div>
   </div>
 </div>
 
@@ -200,15 +233,15 @@
   <h2 class="explore-title">Explore More Tools</h2>
   <p class="explore-sub">Discover all the sleep tools GoodSleep has to offer</p>
   <div class="explore-grid">
-    <a href="/" class="explore-card"><div class="e-emoji">â°</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
-    <a href="/nap-calculator" class="explore-card"><div class="e-emoji">âï¸</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
-    <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">ð¶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
-    <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">ð¤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
-    <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">ð´</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
-    <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">â ï¸</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
-    <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">ð¡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
-    <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
-    <a href="/insomnia" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
+    <a href="/" class="explore-card"><div class="e-emoji">⏰</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
+    <a href="/nap-calculator" class="explore-card"><div class="e-emoji">☀️</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
+    <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">👶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
+    <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">💤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
+    <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">😴</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
+    <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">⚠️</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
+    <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">💡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
+    <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">📅</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
+    <a href="/insomnia" class="explore-card"><div class="e-emoji">🌙</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
   </div>
 </div>
 
@@ -235,54 +268,54 @@
   <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
 </footer>
 
-<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">â</button>
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
 const questions=[
-  {q:'On a completely free day with no obligations, what time do you naturally wake up?',opts:['Before 6 AM','6â7 AM','7â9 AM','9â11 AM','After 11 AM'],scores:[0,1,2,3,4]},
-  {q:'On a free night, when do you naturally feel sleepy enough to go to bed?',opts:['Before 9 PM','9â10 PM','10â11 PM','11 PMâ1 AM','After 1 AM'],scores:[0,1,2,3,4]},
-  {q:'When do you feel most alert and mentally sharp?',opts:['Early morning (5â9 AM)','Late morning (9 AMâ12 PM)','Afternoon (12â4 PM)','Evening (4â10 PM)','Late night (after 10 PM)'],scores:[0,1,2,3,4]},
-  {q:'If you had to do your most important work, when would you schedule it?',opts:['5â8 AM','8â11 AM','11 AMâ2 PM','5â9 PM','After 9 PM'],scores:[0,1,2,3,4]},
-  {q:'How easy is it for you to wake up with an alarm in the morning?',opts:['Very easy â often wake before it','Easy â no problem','Moderate â takes a few minutes','Hard â feel groggy for a while','Very hard â feel terrible'],scores:[0,1,2,3,4]},
-  {q:'How do you feel about early morning social events (e.g. 7 AM breakfast meetings)?',opts:['Love them â I\'m already up','Fine â no issue','Neutral â depends on the day','Prefer to avoid them','Strongly dislike them'],scores:[0,1,2,3,4]},
-  {q:'After waking up, how long until you feel fully alert?',opts:['Immediately â I\'m a quick starter','Within 15 minutes','About 30 minutes','1 hour or more','I\'m never fully alert in the morning'],scores:[0,1,2,3,4]},
-  {q:'How do you generally sleep?',opts:['Deep and solid â rarely wake up','Mostly solid with occasional waking','Light â wake up once or twice','Fitful â wake several times','Very light â any noise wakes me'],scores:[0,1,2,4,4]},
-  {q:'If you had to go to bed 2 hours earlier than usual, how would you feel?',opts:['Fine â I\'m often in bed by then','Slightly tired but manageable','Somewhat uncomfortable','Very difficult â I wouldn\'t sleep','Impossible â I\'d just lie awake'],scores:[0,1,2,3,4]},
-  {q:'On weekdays vs. weekends, how much do your sleep times typically differ?',opts:['Less than 30 min','30â60 min','1â2 hours','2â3 hours','More than 3 hours'],scores:[0,1,2,3,4]},
+  {q:'On a completely free day with no obligations, what time do you naturally wake up?',opts:['Before 6 AM','6–7 AM','7–9 AM','9–11 AM','After 11 AM'],scores:[0,1,2,3,4]},
+  {q:'On a free night, when do you naturally feel sleepy enough to go to bed?',opts:['Before 9 PM','9–10 PM','10–11 PM','11 PM–1 AM','After 1 AM'],scores:[0,1,2,3,4]},
+  {q:'When do you feel most alert and mentally sharp?',opts:['Early morning (5–9 AM)','Late morning (9 AM–12 PM)','Afternoon (12–4 PM)','Evening (4–10 PM)','Late night (after 10 PM)'],scores:[0,1,2,3,4]},
+  {q:'If you had to do your most important work, when would you schedule it?',opts:['5–8 AM','8–11 AM','11 AM–2 PM','5–9 PM','After 9 PM'],scores:[0,1,2,3,4]},
+  {q:'How easy is it for you to wake up with an alarm in the morning?',opts:['Very easy — often wake before it','Easy — no problem','Moderate — takes a few minutes','Hard — feel groggy for a while','Very hard — feel terrible'],scores:[0,1,2,3,4]},
+  {q:'How do you feel about early morning social events (e.g. 7 AM breakfast meetings)?',opts:['Love them — I\'m already up','Fine — no issue','Neutral — depends on the day','Prefer to avoid them','Strongly dislike them'],scores:[0,1,2,3,4]},
+  {q:'After waking up, how long until you feel fully alert?',opts:['Immediately — I\'m a quick starter','Within 15 minutes','About 30 minutes','1 hour or more','I\'m never fully alert in the morning'],scores:[0,1,2,3,4]},
+  {q:'How do you generally sleep?',opts:['Deep and solid — rarely wake up','Mostly solid with occasional waking','Light — wake up once or twice','Fitful — wake several times','Very light — any noise wakes me'],scores:[0,1,2,4,4]},
+  {q:'If you had to go to bed 2 hours earlier than usual, how would you feel?',opts:['Fine — I\'m often in bed by then','Slightly tired but manageable','Somewhat uncomfortable','Very difficult — I wouldn\'t sleep','Impossible — I\'d just lie awake'],scores:[0,1,2,3,4]},
+  {q:'On weekdays vs. weekends, how much do your sleep times typically differ?',opts:['Less than 30 min','30–60 min','1–2 hours','2–3 hours','More than 3 hours'],scores:[0,1,2,3,4]},
 ];
 
 const types={
   lion:{
-    name:'Lion',emoji:'ð¦',cls:'lion',
+    name:'Lion',emoji:'🦁',cls:'lion',
     pct:'~15% of the population',
-    tagline:'You\'re a natural early riser â disciplined, driven, and most effective in the morning hours. You get more done before 10 AM than most people do all day.',
-    bedtime:'9:30 PM',wake:'5:30 AM',peakHours:'6â10 AM',
-    traits:['â Wake up naturally before most alarms go off','â Most productive in the morning hours','â Energy naturally fades by evening','â Often make excellent planners and executives','â Struggle at late-night social events','â Strong preference for routine and structure'],
-    tip:'<strong>Lion tip:</strong> Your biggest challenge is saying no to early morning commitments that eat into your peak hours. Protect 6â10 AM for your most demanding work. Schedule creative and strategic tasks in the morning, routine admin in the afternoon.'
+    tagline:'You\'re a natural early riser — disciplined, driven, and most effective in the morning hours. You get more done before 10 AM than most people do all day.',
+    bedtime:'9:30 PM',wake:'5:30 AM',peakHours:'6–10 AM',
+    traits:['✓ Wake up naturally before most alarms go off','✓ Most productive in the morning hours','✓ Energy naturally fades by evening','✓ Often make excellent planners and executives','✓ Struggle at late-night social events','✓ Strong preference for routine and structure'],
+    tip:'<strong>Lion tip:</strong> Your biggest challenge is saying no to early morning commitments that eat into your peak hours. Protect 6–10 AM for your most demanding work. Schedule creative and strategic tasks in the morning, routine admin in the afternoon.'
   },
   bear:{
-    name:'Bear',emoji:'ð»',cls:'bear',
+    name:'Bear',emoji:'🐻',cls:'bear',
     pct:'~55% of the population',
-    tagline:'You follow the solar cycle â the most common chronotype. Society\'s schedule was built for you. You balance productivity and social life more naturally than other types.',
-    bedtime:'10:30 PM',wake:'7:00 AM',peakHours:'10 AMâ2 PM',
-    traits:['â Sleep and wake times align with the solar cycle','â Peak performance in mid-morning to early afternoon','â Social and flexible with a wide energy window','â May hit an afternoon slump around 2â3 PM','â Energy declines steadily after 6 PM','â Standard 9â5 schedule feels natural'],
-    tip:'<strong>Bear tip:</strong> Use your 2â3 PM afternoon dip for routine tasks or a short 10-minute nap. Do not schedule your most important work here. Protect 10 AMânoon for creative or analytical work.'
+    tagline:'You follow the solar cycle — the most common chronotype. Society\'s schedule was built for you. You balance productivity and social life more naturally than other types.',
+    bedtime:'10:30 PM',wake:'7:00 AM',peakHours:'10 AM–2 PM',
+    traits:['✓ Sleep and wake times align with the solar cycle','✓ Peak performance in mid-morning to early afternoon','✓ Social and flexible with a wide energy window','✓ May hit an afternoon slump around 2–3 PM','✓ Energy declines steadily after 6 PM','✓ Standard 9–5 schedule feels natural'],
+    tip:'<strong>Bear tip:</strong> Use your 2–3 PM afternoon dip for routine tasks or a short 10-minute nap. Do not schedule your most important work here. Protect 10 AM–noon for creative or analytical work.'
   },
   wolf:{
-    name:'Wolf',emoji:'ðº',cls:'wolf',
+    name:'Wolf',emoji:'🐺',cls:'wolf',
     pct:'~25% of the population',
-    tagline:'You\'re a night owl â creative, introspective, and at your best when the world is winding down. You\'re not lazy for struggling with mornings â your biology just runs differently.',
-    bedtime:'12:00 AM',wake:'8:00 AM',peakHours:'5â10 PM',
-    traits:['â Struggle significantly with early morning waking','â Brain doesn\'t fully activate until late morning','â Burst of creativity and energy in the evening','â More introverted and creative than other types','â Prone to "social jet lag" in 9â5 roles','â Often most productive after 6 PM'],
-    tip:'<strong>Wolf tip:</strong> If you must work early, use strong morning light immediately upon waking. Don\'t schedule important meetings before 10 AM if you can avoid it. Your best window for creative work is 6â10 PM â protect it.'
+    tagline:'You\'re a night owl — creative, introspective, and at your best when the world is winding down. You\'re not lazy for struggling with mornings — your biology just runs differently.',
+    bedtime:'12:00 AM',wake:'8:00 AM',peakHours:'5–10 PM',
+    traits:['✓ Struggle significantly with early morning waking','✓ Brain doesn\'t fully activate until late morning','✓ Burst of creativity and energy in the evening','✓ More introverted and creative than other types','✓ Prone to "social jet lag" in 9–5 roles','✓ Often most productive after 6 PM'],
+    tip:'<strong>Wolf tip:</strong> If you must work early, use strong morning light immediately upon waking. Don\'t schedule important meetings before 10 AM if you can avoid it. Your best window for creative work is 6–10 PM — protect it.'
   },
   dolphin:{
-    name:'Dolphin',emoji:'ð¬',cls:'dolphin',
+    name:'Dolphin',emoji:'🐬',cls:'dolphin',
     pct:'~5% of the population',
     tagline:'You\'re a light, intelligent sleeper. Like the dolphin, you seem to sleep with one eye open. You\'re likely a perfectionist who takes a while to turn off your brain at night.',
-    bedtime:'11:30 PM',wake:'6:30 AM',peakHours:'10 AMâ12 PM',
-    traits:['â Light, easily-disrupted sleep','â Often wake during the night','â High intelligence and attention to detail','â Tendency toward anxiety or overthinking','â Don\'t feel rested even after adequate sleep','â Sensitive to caffeine, alcohol, and stress'],
-    tip:'<strong>Dolphin tip:</strong> Your sleep environment is everything. Blackout curtains, white noise, and a very cool room make a bigger difference for you than for other types. Avoid checking email or news in the 2 hours before bed â your anxious mind will run with it.'
+    bedtime:'11:30 PM',wake:'6:30 AM',peakHours:'10 AM–12 PM',
+    traits:['✓ Light, easily-disrupted sleep','✓ Often wake during the night','✓ High intelligence and attention to detail','✓ Tendency toward anxiety or overthinking','✓ Don\'t feel rested even after adequate sleep','✓ Sensitive to caffeine, alcohol, and stress'],
+    tip:'<strong>Dolphin tip:</strong> Your sleep environment is everything. Blackout curtains, white noise, and a very cool room make a bigger difference for you than for other types. Avoid checking email or news in the 2 hours before bed — your anxious mind will run with it.'
   }
 };
 
@@ -320,7 +353,7 @@ function showResult(){
   else if(pct<0.5)type='bear';
   else if(pct<0.75)type='wolf';
   else type='dolphin';
-  // Special dolphin check â high variance + high score
+  // Special dolphin check — high variance + high score
   const hasHighVariance=Math.max(...scores)-Math.min(...scores)>2;
   if(type==='wolf'&&hasHighVariance&&scores[7]>=3)type='dolphin';
 
@@ -358,7 +391,7 @@ function toggleFaq(btn){
   const open=ans.classList.contains('open');
   document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
   document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='Ã';}
+  if(!open){ans.classList.add('open');icon.textContent='×';}
 }
 
 window.addEventListener('scroll',()=>{

@@ -6,7 +6,7 @@
 <title>How Much Sleep Do You Need by Age? | GoodSleep</title>
 <meta name="description" content="How much sleep does a newborn, toddler, teenager, or adult need? Complete sleep hours guide by age backed by science. Free calculator included.">
 <link rel="canonical" href="https://goodsleep.rest/sleep-by-age">
-<meta property="og:title" content="Sleep Hours by Age Guide â GoodSleep.rest">
+<meta property="og:title" content="Sleep Hours by Age Guide — GoodSleep.rest">
 <meta name="theme-color" content="#0F6E56">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="stylesheet" href="/styles.css">
@@ -71,21 +71,46 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
   </div>
 </div>
 
+<div class="hero">
+  <h1>👶 Sleep by Age</h1>
+  <p class="hero-sub">How many hours of sleep does each age group actually need?</p>
+</div>
+
+<div class="page">
+
+  <div class="card">
+    <div class="age-picker-wrap">
+      <div class="age-label-row">
+        <div><span class="age-big" id="age-val">25</span><span class="age-unit"> years old</span></div>
+        <span style="font-size:13px;color:var(--text-hint)" id="age-group-label">Adult</span>
+      </div>
+      <input type="range" min="0" max="80" step="1" value="25" id="age-slider" oninput="updateAge(this.value)">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-hint);margin-top:6px"><span>Newborn</span><span>Teen</span><span>Adult</span><span>Senior</span></div>
+    </div>
+    <div class="age-result" id="age-result">
+      <div class="age-group" id="ag-group">Adult</div>
+      <div><span class="age-hours" id="ag-hours">7–9</span><span class="age-hours-unit">h</span></div>
+      <div class="age-range" id="ag-range">7 to 9 hours per night recommended</div>
+      <div class="age-desc" id="ag-desc">Adults need 7–9 hours (5–6 sleep cycles) for optimal health. Consistently getting under 7 hours increases risk of obesity, diabetes, heart disease, and weakened immunity.</div>
+      <div class="bedtime-row" id="ag-bedtimes"></div>
+    </div>
+  </div>
+
   <div class="section">
     <h2>Complete sleep guide by age</h2>
     <div class="card" style="padding:0;overflow:hidden">
       <table class="age-table">
         <thead><tr><th>Age group</th><th>Hours needed</th><th>Cycles</th></tr></thead>
         <tbody>
-          <tr><td><span class="age-emoji">ð¶</span> Newborn (0â3 months)</td><td><span class="hours-pill">14â17h</span></td><td>9â11 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð¼</span> Infant (4â11 months)</td><td><span class="hours-pill">12â15h</span></td><td>8â10 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð§</span> Toddler (1â2 years)</td><td><span class="hours-pill">11â14h</span></td><td>7â9 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð</span> Preschool (3â5 years)</td><td><span class="hours-pill">10â13h</span></td><td>7â9 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð</span> School age (6â12 years)</td><td><span class="hours-pill">9â12h</span></td><td>6â8 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð§</span> Teenager (13â17 years)</td><td><span class="hours-pill">8â10h</span></td><td>5â7 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð</span> Young adult (18â25 years)</td><td><span class="hours-pill">7â9h</span></td><td>5â6 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð¼</span> Adult (26â64 years)</td><td><span class="hours-pill">7â9h</span></td><td>5â6 cycles</td></tr>
-          <tr><td><span class="age-emoji">ð´</span> Senior (65+ years)</td><td><span class="hours-pill">7â8h</span></td><td>5â6 cycles</td></tr>
+          <tr><td><span class="age-emoji">👶</span> Newborn (0–3 months)</td><td><span class="hours-pill">14–17h</span></td><td>9–11 cycles</td></tr>
+          <tr><td><span class="age-emoji">🍼</span> Infant (4–11 months)</td><td><span class="hours-pill">12–15h</span></td><td>8–10 cycles</td></tr>
+          <tr><td><span class="age-emoji">🧒</span> Toddler (1–2 years)</td><td><span class="hours-pill">11–14h</span></td><td>7–9 cycles</td></tr>
+          <tr><td><span class="age-emoji">🎒</span> Preschool (3–5 years)</td><td><span class="hours-pill">10–13h</span></td><td>7–9 cycles</td></tr>
+          <tr><td><span class="age-emoji">📚</span> School age (6–12 years)</td><td><span class="hours-pill">9–12h</span></td><td>6–8 cycles</td></tr>
+          <tr><td><span class="age-emoji">🎧</span> Teenager (13–17 years)</td><td><span class="hours-pill">8–10h</span></td><td>5–7 cycles</td></tr>
+          <tr><td><span class="age-emoji">🎓</span> Young adult (18–25 years)</td><td><span class="hours-pill">7–9h</span></td><td>5–6 cycles</td></tr>
+          <tr><td><span class="age-emoji">💼</span> Adult (26–64 years)</td><td><span class="hours-pill">7–9h</span></td><td>5–6 cycles</td></tr>
+          <tr><td><span class="age-emoji">👴</span> Senior (65+ years)</td><td><span class="hours-pill">7–8h</span></td><td>5–6 cycles</td></tr>
         </tbody>
       </table>
     </div>
@@ -95,12 +120,12 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
   <div class="section">
     <h2>Signs your child isn't getting enough sleep</h2>
     <div class="signs-grid">
-      <div class="sign-card"><h3>ð¤ Behavioural issues</h3><p>Tantrums, aggression, and poor impulse control are often caused by sleep deprivation, not personality.</p></div>
-      <div class="sign-card"><h3>ð´ Hard to wake up</h3><p>A well-rested child wakes naturally near the right time. Dragging them out of bed daily means they need earlier bedtime.</p></div>
-      <div class="sign-card"><h3>ð Poor focus</h3><p>ADHD-like symptoms in kids are often sleep deprivation. Deep sleep is when the brain consolidates learning.</p></div>
-      <div class="sign-card"><h3>ð® Hyperactivity</h3><p>Unlike adults who get sluggish when tired, children often become hyperactive â a counter-intuitive sign of exhaustion.</p></div>
+      <div class="sign-card"><h3>😤 Behavioural issues</h3><p>Tantrums, aggression, and poor impulse control are often caused by sleep deprivation, not personality.</p></div>
+      <div class="sign-card"><h3>😴 Hard to wake up</h3><p>A well-rested child wakes naturally near the right time. Dragging them out of bed daily means they need earlier bedtime.</p></div>
+      <div class="sign-card"><h3>📉 Poor focus</h3><p>ADHD-like symptoms in kids are often sleep deprivation. Deep sleep is when the brain consolidates learning.</p></div>
+      <div class="sign-card"><h3>😮 Hyperactivity</h3><p>Unlike adults who get sluggish when tired, children often become hyperactive — a counter-intuitive sign of exhaustion.</p></div>
     </div>
-    <div class="tip-box">ð¡ <strong>Teenager tip:</strong> Teens have a biological phase delay â their melatonin releases later, making early bedtimes hard. Early school start times directly conflict with teenage biology. Where possible, let teens sleep until 8â9 AM on weekends.</div>
+    <div class="tip-box">💡 <strong>Teenager tip:</strong> Teens have a biological phase delay — their melatonin releases later, making early bedtimes hard. Early school start times directly conflict with teenage biology. Where possible, let teens sleep until 8–9 AM on weekends.</div>
   </div>
 
   <!-- EXPLORE -->
@@ -108,15 +133,15 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
     <h2 class="explore-title">Explore More Tools</h2>
     <p class="explore-sub">Discover all the sleep tools GoodSleep has to offer</p>
     <div class="explore-grid">
-      <a href="/" class="explore-card"><div class="e-emoji">â°</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
-      <a href="/nap-calculator" class="explore-card"><div class="e-emoji">âï¸</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
-      <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">ð¤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
-      <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">ð´</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
-      <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">â ï¸</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
-      <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">ð¡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
-      <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
-      <a href="/chronotype" class="explore-card"><div class="e-emoji">ð¦</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
-      <a href="/insomnia" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
+      <a href="/" class="explore-card"><div class="e-emoji">⏰</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
+      <a href="/nap-calculator" class="explore-card"><div class="e-emoji">☀️</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
+      <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">💤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
+      <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">😴</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
+      <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">⚠️</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
+      <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">💡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
+      <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">📅</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
+      <a href="/chronotype" class="explore-card"><div class="e-emoji">🦁</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
+      <a href="/insomnia" class="explore-card"><div class="e-emoji">🌙</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
     </div>
   </div>
 </div>
@@ -142,20 +167,20 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
   <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
 </footer>
 
-<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">â</button>
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
 const ageGroups=[
-  {min:0,max:0,group:'Newborn',hours:'14â17',min_h:14,desc:'Newborns sleep in 2â4 hour chunks around the clock. They have no circadian rhythm yet â it develops around 3â4 months. Sleep is critical for rapid brain development.',bedtimes:[]},
-  {min:1,max:0.9,group:'Newborn',hours:'14â17',min_h:14,desc:'Newborns need 14â17 hours across multiple sleep periods. This is normal â their brains are growing at an extraordinary rate.',bedtimes:[]},
-  {min:0,max:11/12,group:'Infant',hours:'12â15',min_h:12,desc:'Infants gradually develop a day-night pattern. Most start sleeping 5â6 hour stretches by 6 months. Total sleep includes naps.',bedtimes:[]},
-  {min:1,max:2,group:'Toddler',hours:'11â14',min_h:11,desc:'Toddlers need 11â14 hours including one daytime nap. Consistent bedtime routines are critical at this stage for healthy sleep architecture.',bedtimes:['6:30 PM','7:00 PM','7:30 PM']},
-  {min:3,max:5,group:'Preschool',hours:'10â13',min_h:10,desc:'Preschoolers still benefit from a midday nap. Brain development, emotional regulation, and immune function all depend heavily on deep sleep at this age.',bedtimes:['7:00 PM','7:30 PM','8:00 PM']},
-  {min:6,max:12,group:'School age',hours:'9â12',min_h:9,desc:'School-age children are chronically sleep-deprived due to early school times. 9â12 hours is the recommendation. Poor sleep directly impacts grades, mood, and weight.',bedtimes:['7:30 PM','8:00 PM','8:30 PM']},
-  {min:13,max:17,group:'Teenager',hours:'8â10',min_h:8,desc:'Teenagers have a biological phase delay â melatonin releases ~2 hours later than adults. This makes early bedtimes feel impossible. Early school start times are a public health issue.',bedtimes:['9:00 PM','9:30 PM','10:00 PM']},
-  {min:18,max:25,group:'Young adult',hours:'7â9',min_h:7,desc:'Young adults often sacrifice sleep for social life and study. Chronic sleep debt in this group increases anxiety, impairs memory formation, and disrupts metabolism.',bedtimes:['10:00 PM','10:30 PM','11:00 PM']},
-  {min:26,max:64,group:'Adult',hours:'7â9',min_h:7,desc:'Adults need 7â9 hours (5â6 sleep cycles) for optimal health. Consistently getting under 7 hours increases risk of obesity, diabetes, heart disease, and weakened immunity.',bedtimes:['10:00 PM','10:30 PM','11:00 PM']},
-  {min:65,max:100,group:'Senior',hours:'7â8',min_h:7,desc:'Older adults often have lighter, more fragmented sleep and wake earlier naturally. This is a normal change in sleep architecture, not insomnia. Quality matters more than total hours.',bedtimes:['9:00 PM','9:30 PM','10:00 PM']},
+  {min:0,max:0,group:'Newborn',hours:'14–17',min_h:14,desc:'Newborns sleep in 2–4 hour chunks around the clock. They have no circadian rhythm yet — it develops around 3–4 months. Sleep is critical for rapid brain development.',bedtimes:[]},
+  {min:1,max:0.9,group:'Newborn',hours:'14–17',min_h:14,desc:'Newborns need 14–17 hours across multiple sleep periods. This is normal — their brains are growing at an extraordinary rate.',bedtimes:[]},
+  {min:0,max:11/12,group:'Infant',hours:'12–15',min_h:12,desc:'Infants gradually develop a day-night pattern. Most start sleeping 5–6 hour stretches by 6 months. Total sleep includes naps.',bedtimes:[]},
+  {min:1,max:2,group:'Toddler',hours:'11–14',min_h:11,desc:'Toddlers need 11–14 hours including one daytime nap. Consistent bedtime routines are critical at this stage for healthy sleep architecture.',bedtimes:['6:30 PM','7:00 PM','7:30 PM']},
+  {min:3,max:5,group:'Preschool',hours:'10–13',min_h:10,desc:'Preschoolers still benefit from a midday nap. Brain development, emotional regulation, and immune function all depend heavily on deep sleep at this age.',bedtimes:['7:00 PM','7:30 PM','8:00 PM']},
+  {min:6,max:12,group:'School age',hours:'9–12',min_h:9,desc:'School-age children are chronically sleep-deprived due to early school times. 9–12 hours is the recommendation. Poor sleep directly impacts grades, mood, and weight.',bedtimes:['7:30 PM','8:00 PM','8:30 PM']},
+  {min:13,max:17,group:'Teenager',hours:'8–10',min_h:8,desc:'Teenagers have a biological phase delay — melatonin releases ~2 hours later than adults. This makes early bedtimes feel impossible. Early school start times are a public health issue.',bedtimes:['9:00 PM','9:30 PM','10:00 PM']},
+  {min:18,max:25,group:'Young adult',hours:'7–9',min_h:7,desc:'Young adults often sacrifice sleep for social life and study. Chronic sleep debt in this group increases anxiety, impairs memory formation, and disrupts metabolism.',bedtimes:['10:00 PM','10:30 PM','11:00 PM']},
+  {min:26,max:64,group:'Adult',hours:'7–9',min_h:7,desc:'Adults need 7–9 hours (5–6 sleep cycles) for optimal health. Consistently getting under 7 hours increases risk of obesity, diabetes, heart disease, and weakened immunity.',bedtimes:['10:00 PM','10:30 PM','11:00 PM']},
+  {min:65,max:100,group:'Senior',hours:'7–8',min_h:7,desc:'Older adults often have lighter, more fragmented sleep and wake earlier naturally. This is a normal change in sleep architecture, not insomnia. Quality matters more than total hours.',bedtimes:['9:00 PM','9:30 PM','10:00 PM']},
 ];
 function getAgeGroup(age){
   if(age<=0) return ageGroups[0];
