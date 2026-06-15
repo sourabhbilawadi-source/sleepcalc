@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Debt Calculator — How Much Sleep Do You Owe? | GoodSleep</title>
+<meta name="description" content="Calculate your sleep debt. Find out how many hours of sleep you've missed this week and how long it'll take to recover. Free sleep debt calculator.">
+<link rel="canonical" href="https://goodsleep.rest/sleep-debt-calculator">
+<meta property="og:title" content="Sleep Debt Calculator — GoodSleep.rest">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPjxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+PC9zdmc+">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#1D9E75;--teal-light:#E1F5EE;--teal-dark:#0F6E56;--red:#E24B4A;--red-light:#FCEBEB;--amber:#EF9F27;--amber-light:#FAEEDA;--text:#111827;--text-muted:#6b7280;--text-hint:#9ca3af;--bg:#fff;--bg-soft:#f3f4f6;--bg-card:#fff;--border:#e5e7eb;--r:14px;--r-sm:8px;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+@media(prefers-color-scheme:dark){:root{--text:#f9fafb;--text-muted:#9ca3af;--text-hint:#6b7280;--bg:#0d1117;--bg-soft:#161b22;--bg-card:#1c2128;--border:#30363d;--teal-light:#042C1E;--red-light:#2D1010;--amber-light:#2D2110}}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+nav{border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;background:var(--bg);z-index:100}
+.logo{font-size:16px;font-weight:700;color:var(--teal-dark);text-decoration:none;display:flex;align-items:center;gap:8px}
+nav ul{list-style:none;display:flex;gap:1.25rem}
+nav ul a{font-size:14px;color:var(--text-muted);text-decoration:none}
+nav ul a:hover,nav ul a.active{color:var(--teal)}
+@media(max-width:520px){nav ul{display:none}}
+.page{max-width:720px;margin:0 auto;padding:0 clamp(1rem,4vw,1.5rem) 5rem}
+.hero{text-align:center;padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,3vw,2rem)}
+.hero h1{font-size:clamp(24px,5vw,40px);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.75rem;background:linear-gradient(135deg,var(--teal-dark),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(14px,2vw,16px);color:var(--text-muted)}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.25rem,4vw,2rem);margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.nav-pages{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2rem}
+.nav-page-link{padding:8px 16px;border-radius:50px;border:1.5px solid var(--border);font-size:13px;color:var(--text-muted);text-decoration:none;transition:all .2s;background:var(--bg-card)}
+.nav-page-link:hover,.nav-page-link.active{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}
+.days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:1.5rem}
+@media(max-width:480px){.days-grid{grid-template-columns:repeat(4,1fr)}}
+.day-input{display:flex;flex-direction:column;align-items:center;gap:6px}
+.day-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase}
+.day-select{width:100%;padding:8px 4px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;font-weight:600;text-align:center;cursor:pointer;-webkit-appearance:none;appearance:none}
+.day-select:focus{outline:2px solid var(--teal);border-color:var(--teal)}
+.day-select.low{border-color:var(--red);background:var(--red-light)}
+.day-select.ok{border-color:var(--teal);background:var(--teal-light)}
+.need-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding:12px 16px;background:var(--bg-soft);border-radius:var(--r-sm)}
+.need-row label{font-size:14px;color:var(--text-muted)}
+.need-select{padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;font-weight:700;cursor:pointer}
+.btn{width:100%;padding:14px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s}
+.btn:hover{background:var(--teal-dark)}
+.result{display:none;margin-top:1.5rem;animation:up .4s ease}
+.result.show{display:block}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.debt-big{text-align:center;padding:1.5rem;border-radius:var(--r);margin-bottom:1rem}
+.debt-num{font-size:clamp(48px,10vw,72px);font-weight:800;line-height:1}
+.debt-unit{font-size:18px;font-weight:400}
+.debt-label{font-size:15px;margin-top:6px}
+.debt-0{background:var(--teal-light);border:2px solid var(--teal)}
+.debt-low{background:var(--amber-light);border:2px solid var(--amber)}
+.debt-high{background:var(--red-light);border:2px solid var(--red)}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
+@media(max-width:400px){.stats-row{grid-template-columns:1fr}}
+.stat-box{background:var(--bg-soft);border-radius:var(--r-sm);padding:1rem;text-align:center}
+.stat-num{font-size:clamp(20px,4vw,28px);font-weight:800;color:var(--teal-dark)}
+.stat-lab{font-size:12px;color:var(--text-muted);margin-top:3px}
+.recovery{background:var(--bg-soft);border-radius:var(--r-sm);padding:1.25rem;margin-bottom:1rem}
+.recovery h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.rec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px}
+.rec-row:last-child{border-bottom:none}
+.rec-val{font-weight:700;color:var(--teal-dark)}
+.tip-box{border-left:3px solid var(--teal);padding:12px 16px;background:var(--teal-light);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:14px;color:var(--teal-dark);line-height:1.7;margin:1rem 0}
+.section{margin-bottom:2.5rem}
+.section h2{font-size:clamp(18px,3.5vw,24px);font-weight:700;letter-spacing:-0.3px;margin-bottom:0.75rem}
+.section p{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem}
+.effects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.eff-card{background:var(--bg-soft);border-radius:var(--r-sm);padding:1rem;border-left:3px solid var(--red)}
+.eff-card h3{font-size:13px;font-weight:700;margin-bottom:4px}
+.eff-card p{font-size:12px;color:var(--text-muted);line-height:1.5}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:13px;color:var(--text-hint)}
+footer a{color:var(--text-muted);text-decoration:none}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">🌙 GoodSleep</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/nap-calculator">Nap</a></li>
+    <li><a href="/sleep-by-age">By Age</a></li>
+    <li><a href="/sleep-debt-calculator" class="active">Sleep Debt</a></li>
+    <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
+    <li><a href="/sleep-schedule">Schedule</a></li>
+    <li><a href="/chronotype">Chronotype</a></li>
+    <li><a href="/insomnia">Insomnia</a></li>
+  </ul>
+</nav>
+<div class="page">
+  <div class="hero">
+    <h1>💤 Sleep Debt Calculator</h1>
+    <p>Find out how much sleep you've missed — and how to pay it back</p>
+  </div>
+
+  <div class="nav-pages">
+    <a href="/" class="nav-page-link">🌙 Sleep Calculator</a>
+    <a href="/nap-calculator" class="nav-page-link">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age" class="nav-page-link">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator" class="active" class="nav-page-link active">💤 Sleep Debt</a>
+  </div>
+
+  <div class="card">
+    <div class="need-row">
+      <label>I need <strong id="need-label">8</strong> hours of sleep per night</label>
+      <select class="need-select" id="need-select" onchange="document.getElementById('need-label').textContent=this.value;calcDebt()">
+        <option>6</option><option>7</option><option selected>8</option><option>9</option>
+      </select>
+    </div>
+
+    <p style="font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Hours slept each night this week</p>
+    <div class="days-grid" id="days-grid"></div>
+
+    <button class="btn" onclick="calcDebt()">Calculate my sleep debt →</button>
+
+    <div class="result" id="result">
+      <div class="debt-big" id="debt-box">
+        <div class="debt-num" id="debt-num" style="color:var(--teal-dark)">0<span class="debt-unit">h</span></div>
+        <div class="debt-label" id="debt-label">sleep debt this week</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num" id="avg-sleep">0h</div><div class="stat-lab">Avg per night</div></div>
+        <div class="stat-box"><div class="stat-num" id="total-sleep">0h</div><div class="stat-lab">Total this week</div></div>
+        <div class="stat-box"><div class="stat-num" id="recovery-days">0</div><div class="stat-lab">Days to recover</div></div>
+      </div>
+      <div class="recovery" id="recovery-plan"></div>
+      <div class="tip-box" id="debt-tip"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What is sleep debt?</h2>
+    <p>Sleep debt is the cumulative difference between the sleep you need and the sleep you actually get. If you need 8 hours and sleep 6, you accumulate 2 hours of sleep debt per night — 10 hours after a 5-day work week.</p>
+    <p>The bad news: <strong>sleep debt is real and it compounds.</strong> The good news: it can be recovered, but it takes longer than one weekend.</p>
+    <div class="tip-box">💡 <strong>Can you "catch up" on sleep?</strong> Yes — but only partially. Research shows it takes 4 days to fully recover from 1 hour of sleep debt. A full week of sleep deprivation can take 3 weeks to recover. Weekend catch-up sleep helps, but doesn't fully undo the weekday damage.</div>
+  </div>
+
+  <div class="section">
+    <h2>What sleep debt does to your body</h2>
+    <div class="effects-grid">
+      <div class="eff-card"><h3>🧠 Brain fog</h3><p>After 17 hours awake, cognitive performance equals 0.05% blood alcohol — legally drunk.</p></div>
+      <div class="eff-card"><h3>😤 Mood</h3><p>Even one bad night doubles emotional reactivity. Chronic debt causes anxiety and depression.</p></div>
+      <div class="eff-card"><h3>⚖️ Weight gain</h3><p>Sleep debt increases ghrelin (hunger hormone) and decreases leptin (fullness hormone) — you eat ~300 more calories per day.</p></div>
+      <div class="eff-card"><h3>🦠 Immunity</h3><p>Getting 6 hours instead of 8 makes you 4x more likely to catch a cold when exposed to a virus.</p></div>
+      <div class="eff-card"><h3>❤️ Heart</h3><p>Sleeping less than 6 hours regularly increases heart disease risk by 48% and stroke risk by 15%.</p></div>
+      <div class="eff-card"><h3>🩸 Diabetes</h3><p>One week of poor sleep can induce pre-diabetic blood sugar levels in healthy adults.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">🌙 Sleep Calc</a>
+    <a href="/nap-calculator">☀️ Nap</a>
+    <a href="/sleep-by-age">👶 By Age</a>
+    <a href="/sleep-debt-calculator" class="active">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+  </div>
+  <p>© 2025 GoodSleep.rest · Free forever · Not medical advice</p>
+</footer>
+
+<script>
+const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const defaults=[6,6,7,6,5,8,8];
+const grid=document.getElementById('days-grid');
+days.forEach((d,i)=>{
+  const wrap=document.createElement('div');
+  wrap.className='day-input';
+  const lbl=document.createElement('div');
+  lbl.className='day-label';lbl.textContent=d;
+  const sel=document.createElement('select');
+  sel.className='day-select';sel.id='day-'+i;
+  for(let h=3;h<=12;h+=0.5){
+    const o=document.createElement('option');
+    o.value=h;o.textContent=h+'h';
+    sel.appendChild(o);
+  }
+  sel.value=defaults[i];
+  updateSelect(sel,defaults[i],8);
+  sel.onchange=()=>{updateSelect(sel,parseFloat(sel.value),parseFloat(document.getElementById('need-select').value));calcDebt()};
+  wrap.appendChild(lbl);wrap.appendChild(sel);
+  grid.appendChild(wrap);
+});
+
+function updateSelect(sel,val,need){
+  sel.className='day-select '+(val<need-1?'low':val>=need?'ok':'');
+}
+
+function calcDebt(){
+  const need=parseFloat(document.getElementById('need-select').value);
+  let total=0;
+  for(let i=0;i<7;i++){
+    const v=parseFloat(document.getElementById('day-'+i).value);
+    updateSelect(document.getElementById('day-'+i),v,need);
+    total+=v;
+  }
+  const needed=need*7;
+  const debt=Math.max(0,needed-total);
+  const avg=(total/7).toFixed(1);
+  const recoveryDays=Math.ceil(debt/1.5);
+
+  document.getElementById('avg-sleep').textContent=avg+'h';
+  document.getElementById('total-sleep').textContent=total+'h';
+  document.getElementById('recovery-days').textContent=recoveryDays;
+  document.getElementById('debt-num').innerHTML=debt.toFixed(1)+'<span class="debt-unit">h</span>';
+  document.getElementById('debt-label').textContent='sleep debt this week';
+
+  const box=document.getElementById('debt-box');
+  if(debt===0){box.className='debt-big debt-0';document.getElementById('debt-num').style.color='var(--teal-dark)'}
+  else if(debt<=5){box.className='debt-big debt-low';document.getElementById('debt-num').style.color='#8a5a00'}
+  else{box.className='debt-big debt-high';document.getElementById('debt-num').style.color='var(--red)'}
+
+  const plan=document.getElementById('recovery-plan');
+  plan.innerHTML=`<h3>Recovery plan</h3>
+    <div class="rec-row"><span>Sleep debt</span><span class="rec-val">${debt.toFixed(1)} hours</span></div>
+    <div class="rec-row"><span>Extra sleep per night needed</span><span class="rec-val">+1.5h for ${recoveryDays} nights</span></div>
+    <div class="rec-row"><span>Fully recovered by</span><span class="rec-val">${getRecoveryDate(recoveryDays)}</span></div>
+    <div class="rec-row"><span>Recommended tonight's bedtime</span><span class="rec-val">${getEarlierBedtime(1.5)}</span></div>`;
+
+  const tip=document.getElementById('debt-tip');
+  if(debt===0) tip.textContent='✅ Great job! You\'re not in sleep debt this week. Keep your schedule consistent to stay this way.';
+  else if(debt<=5) tip.textContent='⚠️ Moderate sleep debt. Add 1.5 hours of sleep per night for the next '+recoveryDays+' nights. Avoid all-nighters — they make it worse, not better.';
+  else tip.textContent='🚨 Significant sleep debt. This level impairs your cognitive ability similar to being legally drunk. Prioritise sleep this weekend and next week. Add 1.5h/night gradually — don\'t try to sleep 12 hours at once.';
+
+  document.getElementById('result').classList.add('show');
+}
+
+function getRecoveryDate(days){
+  const d=new Date();d.setDate(d.getDate()+days);
+  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+}
+function getEarlierBedtime(extraH){
+  const now=new Date();
+  const bed=new Date();bed.setHours(23,0,0,0);
+  bed.setTime(bed.getTime()-extraH*3600000);
+  let h=bed.getHours(),m=bed.getMinutes(),ap=h>=12?'PM':'AM';
+  h=h%12||12;return`${h}:${m<10?'0'+m:m} ${ap}`;
+}
+calcDebt();
+</script>
+</body>
+</html>

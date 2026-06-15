@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Much Sleep Do You Need by Age? | GoodSleep</title>
+<meta name="description" content="How much sleep does a newborn, toddler, teenager, or adult need? Complete sleep hours guide by age backed by science. Free calculator included.">
+<link rel="canonical" href="https://goodsleep.rest/sleep-by-age">
+<meta property="og:title" content="Sleep Hours by Age Guide — GoodSleep.rest">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPjxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+PC9zdmc+">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#1D9E75;--teal-light:#E1F5EE;--teal-dark:#0F6E56;--text:#111827;--text-muted:#6b7280;--text-hint:#9ca3af;--bg:#fff;--bg-soft:#f3f4f6;--bg-card:#fff;--border:#e5e7eb;--r:14px;--r-sm:8px;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+@media(prefers-color-scheme:dark){:root{--text:#f9fafb;--text-muted:#9ca3af;--text-hint:#6b7280;--bg:#0d1117;--bg-soft:#161b22;--bg-card:#1c2128;--border:#30363d;--teal-light:#042C1E}}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+nav{border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;background:var(--bg);z-index:100}
+.logo{font-size:16px;font-weight:700;color:var(--teal-dark);text-decoration:none;display:flex;align-items:center;gap:8px}
+nav ul{list-style:none;display:flex;gap:1.25rem}
+nav ul a{font-size:14px;color:var(--text-muted);text-decoration:none}
+nav ul a:hover,nav ul a.active{color:var(--teal)}
+@media(max-width:520px){nav ul{display:none}}
+.page{max-width:720px;margin:0 auto;padding:0 clamp(1rem,4vw,1.5rem) 5rem}
+.hero{text-align:center;padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,3vw,2rem)}
+.hero h1{font-size:clamp(24px,5vw,40px);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.75rem;background:linear-gradient(135deg,var(--teal-dark),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(14px,2vw,16px);color:var(--text-muted)}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.25rem,4vw,2rem);margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.nav-pages{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2rem}
+.nav-page-link{padding:8px 16px;border-radius:50px;border:1.5px solid var(--border);font-size:13px;color:var(--text-muted);text-decoration:none;transition:all .2s;background:var(--bg-card)}
+.nav-page-link:hover,.nav-page-link.active{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}
+/* Age picker */
+.age-picker-wrap{margin-bottom:1.5rem}
+.age-label-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
+.age-big{font-size:clamp(32px,7vw,52px);font-weight:800;color:var(--teal-dark);line-height:1}
+.age-unit{font-size:15px;color:var(--text-muted);font-weight:400}
+input[type=range]{width:100%;-webkit-appearance:none;height:8px;border-radius:50px;outline:none;cursor:pointer;background:linear-gradient(to right,var(--teal) 0%,var(--teal) var(--pct,0%),var(--border) var(--pct,0%),var(--border) 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--teal);border:3px solid var(--bg-card);box-shadow:0 1px 6px rgba(0,0,0,0.2);cursor:pointer}
+.age-result{background:var(--teal-light);border:2px solid var(--teal);border-radius:var(--r);padding:1.5rem;text-align:center;transition:all .3s}
+.age-group{font-size:13px;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.age-hours{font-size:clamp(36px,8vw,60px);font-weight:800;color:var(--teal-dark);line-height:1}
+.age-hours-unit{font-size:18px;font-weight:400;color:var(--teal)}
+.age-range{font-size:14px;color:var(--teal-dark);margin-top:4px}
+.age-desc{font-size:14px;color:var(--text-muted);margin-top:12px;line-height:1.7;max-width:440px;margin-left:auto;margin-right:auto}
+.bedtime-row{display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(29,158,117,0.2);justify-content:center;flex-wrap:wrap}
+.bt-chip{background:rgba(29,158,117,0.12);border-radius:50px;padding:6px 16px;font-size:13px;color:var(--teal-dark);font-weight:500}
+/* Age table */
+.age-table{width:100%;border-collapse:collapse;font-size:14px}
+.age-table th{text-align:left;padding:10px 12px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border)}
+.age-table td{padding:12px;border-bottom:1px solid var(--border)}
+.age-table tr:last-child td{border-bottom:none}
+.age-table tr:hover td{background:var(--bg-soft)}
+.age-emoji{font-size:20px}
+.hours-pill{display:inline-block;background:var(--teal-light);color:var(--teal-dark);border-radius:50px;padding:3px 12px;font-weight:700;font-size:13px}
+.section{margin-bottom:2.5rem}
+.section h2{font-size:clamp(18px,3.5vw,24px);font-weight:700;letter-spacing:-0.3px;margin-bottom:0.75rem}
+.tip-box{border-left:3px solid var(--teal);padding:12px 16px;background:var(--teal-light);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:14px;color:var(--teal-dark);line-height:1.7;margin:1.25rem 0}
+.signs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.sign-card{background:var(--bg-soft);border-radius:var(--r-sm);padding:1rem}
+.sign-card h3{font-size:14px;font-weight:700;margin-bottom:6px}
+.sign-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:13px;color:var(--text-hint)}
+footer a{color:var(--text-muted);text-decoration:none}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">🌙 GoodSleep</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/nap-calculator">Nap</a></li>
+    <li><a href="/sleep-by-age" class="active">By Age</a></li>
+    <li><a href="/sleep-debt-calculator">Sleep Debt</a></li>
+    <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
+    <li><a href="/sleep-schedule">Schedule</a></li>
+    <li><a href="/chronotype">Chronotype</a></li>
+    <li><a href="/insomnia">Insomnia</a></li>
+  </ul>
+</nav>
+<div class="page">
+  <div class="hero">
+    <h1>👶 Sleep by Age</h1>
+    <p>How many hours of sleep does each age group actually need?</p>
+  </div>
+
+  <div class="nav-pages">
+    <a href="/" class="nav-page-link">🌙 Sleep Calculator</a>
+    <a href="/nap-calculator" class="nav-page-link">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age" class="active" class="nav-page-link active">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator" class="nav-page-link">💤 Sleep Debt</a>
+  </div>
+
+  <div class="card">
+    <div class="age-picker-wrap">
+      <div class="age-label-row">
+        <div><span class="age-big" id="age-val">25</span><span class="age-unit"> years old</span></div>
+        <span style="font-size:13px;color:var(--text-hint)" id="age-group-label">Adult</span>
+      </div>
+      <input type="range" min="0" max="80" step="1" value="25" id="age-slider" oninput="updateAge(this.value)">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-hint);margin-top:6px"><span>Newborn</span><span>Teen</span><span>Adult</span><span>Senior</span></div>
+    </div>
+    <div class="age-result" id="age-result">
+      <div class="age-group" id="ag-group">Adult</div>
+      <div><span class="age-hours" id="ag-hours">7–9</span><span class="age-hours-unit">h</span></div>
+      <div class="age-range" id="ag-range">7 to 9 hours per night recommended</div>
+      <div class="age-desc" id="ag-desc">Adults need 7–9 hours (5–6 sleep cycles) for optimal health. Consistently getting under 7 hours increases risk of obesity, diabetes, heart disease, and weakened immunity.</div>
+      <div class="bedtime-row" id="ag-bedtimes"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Complete sleep guide by age</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="age-table">
+        <thead><tr><th>Age group</th><th>Hours needed</th><th>Cycles</th></tr></thead>
+        <tbody>
+          <tr><td><span class="age-emoji">👶</span> Newborn (0–3 months)</td><td><span class="hours-pill">14–17h</span></td><td>9–11 cycles</td></tr>
+          <tr><td><span class="age-emoji">🍼</span> Infant (4–11 months)</td><td><span class="hours-pill">12–15h</span></td><td>8–10 cycles</td></tr>
+          <tr><td><span class="age-emoji">🧒</span> Toddler (1–2 years)</td><td><span class="hours-pill">11–14h</span></td><td>7–9 cycles</td></tr>
+          <tr><td><span class="age-emoji">🎒</span> Preschool (3–5 years)</td><td><span class="hours-pill">10–13h</span></td><td>7–9 cycles</td></tr>
+          <tr><td><span class="age-emoji">📚</span> School age (6–12 years)</td><td><span class="hours-pill">9–12h</span></td><td>6–8 cycles</td></tr>
+          <tr><td><span class="age-emoji">🎧</span> Teenager (13–17 years)</td><td><span class="hours-pill">8–10h</span></td><td>5–7 cycles</td></tr>
+          <tr><td><span class="age-emoji">🎓</span> Young adult (18–25 years)</td><td><span class="hours-pill">7–9h</span></td><td>5–6 cycles</td></tr>
+          <tr><td><span class="age-emoji">💼</span> Adult (26–64 years)</td><td><span class="hours-pill">7–9h</span></td><td>5–6 cycles</td></tr>
+          <tr><td><span class="age-emoji">👴</span> Senior (65+ years)</td><td><span class="hours-pill">7–8h</span></td><td>5–6 cycles</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--text-hint);margin-top:8px">Source: American Academy of Sleep Medicine & National Sleep Foundation recommendations</p>
+  </div>
+
+  <div class="section">
+    <h2>Signs your child isn't getting enough sleep</h2>
+    <div class="signs-grid">
+      <div class="sign-card"><h3>😤 Behavioural issues</h3><p>Tantrums, aggression, and poor impulse control are often caused by sleep deprivation, not personality.</p></div>
+      <div class="sign-card"><h3>😴 Hard to wake up</h3><p>A well-rested child wakes naturally near the right time. Dragging them out of bed daily means they need earlier bedtime.</p></div>
+      <div class="sign-card"><h3>📉 Poor focus</h3><p>ADHD-like symptoms in kids are often sleep deprivation. Deep sleep is when the brain consolidates learning.</p></div>
+      <div class="sign-card"><h3>😮 Hyperactivity</h3><p>Unlike adults who get sluggish when tired, children often become hyperactive — a counter-intuitive sign of exhaustion.</p></div>
+    </div>
+    <div class="tip-box">💡 <strong>Teenager tip:</strong> Teens have a biological phase delay — their melatonin releases later, making early bedtimes hard. Early school start times directly conflict with teenage biology. Where possible, let teens sleep until 8–9 AM on weekends.</div>
+  </div>
+</div>
+<footer>
+  <div class="footer-links">
+    <a href="/">🌙 Sleep Calc</a>
+    <a href="/nap-calculator">☀️ Nap</a>
+    <a href="/sleep-by-age" class="active">👶 By Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+  </div>
+  <p>© 2025 GoodSleep.rest · Free forever · Not medical advice</p>
+</footer>
+<script>
+const ageGroups=[
+  {min:0,max:0,group:'Newborn',hours:'14–17',min_h:14,desc:'Newborns sleep in 2–4 hour chunks around the clock. They have no circadian rhythm yet — it develops around 3–4 months. Sleep is critical for rapid brain development.',bedtimes:[]},
+  {min:1,max:0.9,group:'Newborn',hours:'14–17',min_h:14,desc:'Newborns need 14–17 hours across multiple sleep periods. This is normal — their brains are growing at an extraordinary rate.',bedtimes:[]},
+  {min:0,max:11/12,group:'Infant',hours:'12–15',min_h:12,desc:'Infants gradually develop a day-night pattern. Most start sleeping 5–6 hour stretches by 6 months. Total sleep includes naps.',bedtimes:[]},
+  {min:1,max:2,group:'Toddler',hours:'11–14',min_h:11,desc:'Toddlers need 11–14 hours including one daytime nap. Consistent bedtime routines are critical at this stage for healthy sleep architecture.',bedtimes:['6:30 PM','7:00 PM','7:30 PM']},
+  {min:3,max:5,group:'Preschool',hours:'10–13',min_h:10,desc:'Preschoolers still benefit from a midday nap. Brain development, emotional regulation, and immune function all depend heavily on deep sleep at this age.',bedtimes:['7:00 PM','7:30 PM','8:00 PM']},
+  {min:6,max:12,group:'School age',hours:'9–12',min_h:9,desc:'School-age children are chronically sleep-deprived due to early school times. 9–12 hours is the recommendation. Poor sleep directly impacts grades, mood, and weight.',bedtimes:['7:30 PM','8:00 PM','8:30 PM']},
+  {min:13,max:17,group:'Teenager',hours:'8–10',min_h:8,desc:'Teenagers have a biological phase delay — melatonin releases ~2 hours later than adults. This makes early bedtimes feel impossible. Early school start times are a public health issue.',bedtimes:['9:00 PM','9:30 PM','10:00 PM']},
+  {min:18,max:25,group:'Young adult',hours:'7–9',min_h:7,desc:'Young adults often sacrifice sleep for social life and study. Chronic sleep debt in this group increases anxiety, impairs memory formation, and disrupts metabolism.',bedtimes:['10:00 PM','10:30 PM','11:00 PM']},
+  {min:26,max:64,group:'Adult',hours:'7–9',min_h:7,desc:'Adults need 7–9 hours (5–6 sleep cycles) for optimal health. Consistently getting under 7 hours increases risk of obesity, diabetes, heart disease, and weakened immunity.',bedtimes:['10:00 PM','10:30 PM','11:00 PM']},
+  {min:65,max:100,group:'Senior',hours:'7–8',min_h:7,desc:'Older adults often have lighter, more fragmented sleep and wake earlier naturally. This is a normal change in sleep architecture, not insomnia. Quality matters more than total hours.',bedtimes:['9:00 PM','9:30 PM','10:00 PM']},
+];
+function getAgeGroup(age){
+  if(age<=0) return ageGroups[0];
+  return ageGroups.slice().reverse().find(g=>age>=g.min)||ageGroups[ageGroups.length-1];
+}
+function updateAge(v){
+  v=parseInt(v);
+  document.getElementById('age-val').textContent=v;
+  const g=getAgeGroup(v);
+  document.getElementById('ag-group').textContent=g.group;
+  document.getElementById('ag-hours').textContent=g.hours;
+  document.getElementById('ag-range').textContent=g.hours+' hours per night recommended';
+  document.getElementById('ag-desc').textContent=g.desc;
+  document.getElementById('age-group-label').textContent=g.group;
+  const bt=document.getElementById('ag-bedtimes');
+  if(g.bedtimes.length){
+    bt.innerHTML='<span style="font-size:13px;color:var(--teal-dark)">Ideal bedtime for 7am wake:</span>'+g.bedtimes.map(t=>`<span class="bt-chip">${t}</span>`).join('');
+  } else {bt.innerHTML=''}
+  const pct=((v)/80)*100;
+  document.getElementById('age-slider').style.setProperty('--pct',pct+'%');
+}
+updateAge(25);
+</script>
+</body>
+</html>
