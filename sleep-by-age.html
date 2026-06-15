@@ -42,18 +42,37 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
 </head>
 <body>
 <nav>
-  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
-  <ul class="nav-mobile-hide">
-    <li><a href="/nap-calculator">Nap</a></li>
-    <li><a href="/sleep-by-age" class="active">By Age</a></li>
-    <li><a href="/sleep-debt-calculator">Sleep Debt</a></li>
-    <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
-    <li><a href="/sleep-schedule">Schedule</a></li>
-    <li><a href="/chronotype">Chronotype</a></li>
-  </ul>
-  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">??</button>
+  <a href="/" class="logo"><span class="logo-moon">??</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/nap-calculator">Nap</a></li>
+      <li><a href="/sleep-by-age">By Age</a></li>
+      <li><a href="/sleep-debt-calculator">Sleep Debt</a></li>
+      <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
+      <li><a href="/sleep-schedule">Schedule</a></li>
+      <li><a href="/chronotype">Chronotype</a></li>
+    </ul>
+    <button class="explore-btn" id="explore-btn" onclick="toggleExplore()" aria-label="Explore all tools">Explore <span class="arrow">?</span></button>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">??</button>
+  </div>
 </nav>
-
+<div class="explore-drop" id="explore-drop">
+  <div class="drop-grid">
+    <a href="/" class="drop-link"><span class="dl-emoji">?</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
+    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
+    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
+    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
+    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
+    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
+    <a href="/chronotype" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
+    <a href="/insomnia" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes & CBT-I treatment</span></span></a>
+    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
+    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects & recovery</span></span></a>
+    <div class="drop-divider"></div>
+    <a href="/about" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">About<span class="dl-sub">Our mission & sources</span></span></a>
+    <a href="/contact" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
+  </div>
+</div>
 <div class="hero">
   <h1>👶 Sleep by Age</h1>
   <p class="hero-sub">How many hours of sleep does each age group actually need?</p>
@@ -131,17 +150,22 @@ input[type=range]::-webkit-slider-thumb{width:26px;height:26px;border:3px solid 
 
 <footer>
   <div class="footer-links">
-    <a href="/nap-calculator">☀️ Nap Calculator</a>
-    <a href="/sleep-by-age" class="active">👶 Sleep by Age</a>
-    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
-    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
-    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
-    <a href="/how-much-sleep">💡 How Much Sleep</a>
-    <a href="/sleep-schedule">📅 Sleep Schedule</a>
-    <a href="/chronotype">🦁 Chronotype</a>
-    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/nap-calculator">?? Nap Calculator</a>
+    <a href="/sleep-by-age">?? Sleep by Age</a>
+    <a href="/sleep-debt-calculator">?? Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">?? Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">?? Sleep Deprivation</a>
+    <a href="/how-much-sleep">?? How Much Sleep</a>
+    <a href="/sleep-schedule">?? Sleep Schedule</a>
+    <a href="/chronotype">?? Chronotype</a>
+    <a href="/insomnia">?? Insomnia</a>
   </div>
-  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>� 2026 GoodSleep.rest � Free forever � No sign-up required</p>
   <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
 </footer>
 

@@ -10,6 +10,9 @@
     { "source": "/how-much-sleep", "destination": "/how-much-sleep.html" },
     { "source": "/sleep-schedule", "destination": "/sleep-schedule.html" },
     { "source": "/chronotype", "destination": "/chronotype.html" },
-    { "source": "/insomnia", "destination": "/insomnia.html" }
+    { "source": "/insomnia", "destination": "/insomnia.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/contact", "destination": "/contact.html" }
   ]
 }
