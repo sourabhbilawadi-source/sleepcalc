@@ -16,26 +16,38 @@
   --r:14px;--r-sm:8px;
   --font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
+/* Dark mode: system preference OR manual toggle */
 @media(prefers-color-scheme:dark){
-  :root{
+  :root:not([data-theme="light"]){
     --text:#f9fafb;--text-muted:#9ca3af;--text-hint:#6b7280;
     --bg:#0d1117;--bg-soft:#161b22;--bg-card:#1c2128;
     --border:#30363d;--shadow:0 2px 16px rgba(0,0,0,0.4);
     --teal-light:#042C1E;--purple-light:#1e1a3f;--amber-light:#2d1f00;
   }
 }
+:root[data-theme="dark"]{
+  --text:#f9fafb;--text-muted:#9ca3af;--text-hint:#6b7280;
+  --bg:#0d1117;--bg-soft:#161b22;--bg-card:#1c2128;
+  --border:#30363d;--shadow:0 2px 16px rgba(0,0,0,0.4);
+  --teal-light:#042C1E;--purple-light:#1e1a3f;--amber-light:#2d1f00;
+}
 html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
 
 /* ── NAV ── */
-nav{border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;background:var(--bg);z-index:100;backdrop-filter:blur(8px)}
+nav{border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;background:var(--bg);z-index:100;backdrop-filter:blur(8px);transition:background .3s,border-color .3s}
 .logo{font-size:16px;font-weight:700;color:var(--teal-dark);text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:-0.3px}
 .logo-moon{font-size:20px}
+.nav-right{display:flex;align-items:center;gap:clamp(0.75rem,2vw,1.5rem)}
 nav ul{list-style:none;display:flex;gap:clamp(0.75rem,2vw,1.5rem)}
 nav ul a{font-size:14px;color:var(--text-muted);text-decoration:none;transition:color .15s}
 nav ul a:hover,nav ul a.active{color:var(--teal)}
 .nav-mobile-hide{display:flex}
 @media(max-width:600px){.nav-mobile-hide{display:none}}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{background:none;border:1.5px solid var(--border);border-radius:50px;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .3s;color:var(--text-muted);flex-shrink:0}
+.theme-toggle:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-light);transform:rotate(30deg)}
 
 /* ── HERO ── */
 .hero{text-align:center;padding:clamp(2rem,6vw,4rem) clamp(1rem,4vw,2rem) clamp(1.5rem,4vw,2.5rem);position:relative;overflow:hidden}
