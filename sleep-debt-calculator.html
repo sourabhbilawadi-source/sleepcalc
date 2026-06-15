@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sleep Debt Calculator — How Much Sleep Do You Owe? | GoodSleep</title>
+<title>Sleep Debt Calculator â How Much Sleep Do You Owe? | GoodSleep</title>
 <meta name="description" content="Calculate your sleep debt. Find out how many hours of sleep you've missed this week and how long it'll take to recover. Free sleep debt calculator.">
 <link rel="canonical" href="https://goodsleep.rest/sleep-debt-calculator">
-<meta property="og:title" content="Sleep Debt Calculator — GoodSleep.rest">
+<meta property="og:title" content="Sleep Debt Calculator â GoodSleep.rest">
 <meta name="theme-color" content="#0F6E56">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="stylesheet" href="/styles.css">
@@ -54,67 +54,34 @@
 </head>
 <body>
 <nav>
-  <a href="/" class="logo"><span class="logo-moon">??</span> GoodSleep</a>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
   <div class="nav-right">
     <ul class="nav-mobile-hide">
-      <li><a href="/nap-calculator">Nap</a></li>
-      <li><a href="/sleep-by-age">By Age</a></li>
-      <li><a href="/sleep-debt-calculator">Sleep Debt</a></li>
-      <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
-      <li><a href="/sleep-schedule">Schedule</a></li>
-      <li><a href="/chronotype">Chronotype</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
     </ul>
-    <button class="explore-btn" id="explore-btn" onclick="toggleExplore()" aria-label="Explore all tools">Explore <span class="arrow">?</span></button>
-    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">??</button>
+    <button class="explore-btn" id="explore-btn" onclick="toggleExplore()" aria-label="Explore all tools">Explore <span class="arrow">▼</span></button>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
   </div>
 </nav>
 <div class="explore-drop" id="explore-drop">
   <div class="drop-grid">
-    <a href="/" class="drop-link"><span class="dl-emoji">?</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
-    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
-    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
-    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
-    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
-    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
-    <a href="/chronotype" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
-    <a href="/insomnia" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes & CBT-I treatment</span></span></a>
-    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
-    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects & recovery</span></span></a>
+    <a href="/" class="drop-link"><span class="dl-emoji">⏰</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
+    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">☀️</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
+    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">👶</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
+    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">💤</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
+    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">😴</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
+    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">📅</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
+    <a href="/chronotype" class="drop-link"><span class="dl-emoji">🦁</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
+    <a href="/insomnia" class="drop-link"><span class="dl-emoji">🌙</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes &amp; CBT-I treatment</span></span></a>
+    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">💡</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
+    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">⚠️</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects &amp; recovery</span></span></a>
     <div class="drop-divider"></div>
-    <a href="/about" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">About<span class="dl-sub">Our mission & sources</span></span></a>
-    <a href="/contact" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
+    <a href="/about" class="drop-link"><span class="dl-emoji">ℹ️</span><span class="dl-label">About<span class="dl-sub">Our mission &amp; sources</span></span></a>
+    <a href="/contact" class="drop-link"><span class="dl-emoji">✉️</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
   </div>
 </div>
-<div class="hero">
-  <h1>💤 Sleep Debt Calculator</h1>
-  <p class="hero-sub">Find out how much sleep you've missed — and how to pay it back</p>
-</div>
-
-<div class="page">
-
-  <div class="card">
-    <div class="need-row">
-      <label>I need <strong id="need-label">8</strong> hours of sleep per night</label>
-      <select class="need-select" id="need-select" onchange="document.getElementById('need-label').textContent=this.value;calcDebt()">
-        <option>6</option><option>7</option><option selected>8</option><option>9</option>
-      </select>
-    </div>
-
-    <p style="font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Hours slept each night this week</p>
-    <div class="days-grid" id="days-grid"></div>
-
-    <button class="btn" onclick="calcDebt()">Calculate my sleep debt →</button>
-
-    <div class="result" id="result">
-      <div class="debt-big" id="debt-box">
-        <div class="debt-num" id="debt-num" style="color:var(--teal-dark)">0<span class="debt-unit">h</span></div>
-        <div class="debt-label" id="debt-label">sleep debt this week</div>
-      </div>
-      <div class="stats-row">
-        <div class="stat-box"><div class="stat-num" id="avg-sleep">0h</div><div class="stat-lab">Avg per night</div></div>
-        <div class="stat-box"><div class="stat-num" id="total-sleep">0h</div><div class="stat-lab">Total this week</div></div>
-        <div class="stat-box"><div class="stat-num" id="recovery-days">0</div><div class="stat-lab">Days to recover</div></div>
-      </div>
       <div class="recovery" id="recovery-plan"></div>
       <div class="tip-box" id="debt-tip"></div>
     </div>
@@ -122,20 +89,20 @@
 
   <div class="section">
     <h2>What is sleep debt?</h2>
-    <p>Sleep debt is the cumulative difference between the sleep you need and the sleep you actually get. If you need 8 hours and sleep 6, you accumulate 2 hours of sleep debt per night — 10 hours after a 5-day work week.</p>
+    <p>Sleep debt is the cumulative difference between the sleep you need and the sleep you actually get. If you need 8 hours and sleep 6, you accumulate 2 hours of sleep debt per night â 10 hours after a 5-day work week.</p>
     <p>The bad news: <strong>sleep debt is real and it compounds.</strong> The good news: it can be recovered, but it takes longer than one weekend.</p>
-    <div class="tip-box">💡 <strong>Can you "catch up" on sleep?</strong> Yes — but only partially. Research shows it takes 4 days to fully recover from 1 hour of sleep debt. A full week of sleep deprivation can take 3 weeks to recover. Weekend catch-up sleep helps, but doesn't fully undo the weekday damage.</div>
+    <div class="tip-box">ð¡ <strong>Can you "catch up" on sleep?</strong> Yes â but only partially. Research shows it takes 4 days to fully recover from 1 hour of sleep debt. A full week of sleep deprivation can take 3 weeks to recover. Weekend catch-up sleep helps, but doesn't fully undo the weekday damage.</div>
   </div>
 
   <div class="section">
     <h2>What sleep debt does to your body</h2>
     <div class="effects-grid">
-      <div class="eff-card"><h3>🧠 Brain fog</h3><p>After 17 hours awake, cognitive performance equals 0.05% blood alcohol — legally drunk.</p></div>
-      <div class="eff-card"><h3>😤 Mood</h3><p>Even one bad night doubles emotional reactivity. Chronic debt causes anxiety and depression.</p></div>
-      <div class="eff-card"><h3>⚖️ Weight gain</h3><p>Sleep debt increases ghrelin (hunger hormone) and decreases leptin (fullness hormone) — you eat ~300 more calories per day.</p></div>
-      <div class="eff-card"><h3>🦠 Immunity</h3><p>Getting 6 hours instead of 8 makes you 4x more likely to catch a cold when exposed to a virus.</p></div>
-      <div class="eff-card"><h3>❤️ Heart</h3><p>Sleeping less than 6 hours regularly increases heart disease risk by 48% and stroke risk by 15%.</p></div>
-      <div class="eff-card"><h3>🩸 Diabetes</h3><p>One week of poor sleep can induce pre-diabetic blood sugar levels in healthy adults.</p></div>
+      <div class="eff-card"><h3>ð§  Brain fog</h3><p>After 17 hours awake, cognitive performance equals 0.05% blood alcohol â legally drunk.</p></div>
+      <div class="eff-card"><h3>ð¤ Mood</h3><p>Even one bad night doubles emotional reactivity. Chronic debt causes anxiety and depression.</p></div>
+      <div class="eff-card"><h3>âï¸ Weight gain</h3><p>Sleep debt increases ghrelin (hunger hormone) and decreases leptin (fullness hormone) â you eat ~300 more calories per day.</p></div>
+      <div class="eff-card"><h3>ð¦  Immunity</h3><p>Getting 6 hours instead of 8 makes you 4x more likely to catch a cold when exposed to a virus.</p></div>
+      <div class="eff-card"><h3>â¤ï¸ Heart</h3><p>Sleeping less than 6 hours regularly increases heart disease risk by 48% and stroke risk by 15%.</p></div>
+      <div class="eff-card"><h3>ð©¸ Diabetes</h3><p>One week of poor sleep can induce pre-diabetic blood sugar levels in healthy adults.</p></div>
     </div>
   </div>
 
@@ -144,41 +111,41 @@
     <h2 class="explore-title">Explore More Tools</h2>
     <p class="explore-sub">Discover all the sleep tools GoodSleep has to offer</p>
     <div class="explore-grid">
-      <a href="/" class="explore-card"><div class="e-emoji">⏰</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
-      <a href="/nap-calculator" class="explore-card"><div class="e-emoji">☀️</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
-      <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">👶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
-      <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">😴</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
-      <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">⚠️</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
-      <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">💡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
-      <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">📅</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
-      <a href="/chronotype" class="explore-card"><div class="e-emoji">🦁</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
-      <a href="/insomnia" class="explore-card"><div class="e-emoji">🌙</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
+      <a href="/" class="explore-card"><div class="e-emoji">â°</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
+      <a href="/nap-calculator" class="explore-card"><div class="e-emoji">âï¸</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
+      <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">ð¶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
+      <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">ð´</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
+      <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">â ï¸</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
+      <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">ð¡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
+      <a href="/sleep-schedule" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Sleep Schedule</div><div class="e-desc">Build a personalized 7-day sleep routine</div></a>
+      <a href="/chronotype" class="explore-card"><div class="e-emoji">ð¦</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
+      <a href="/insomnia" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
     </div>
   </div>
 </div>
 
 <footer>
   <div class="footer-links">
-    <a href="/nap-calculator">?? Nap Calculator</a>
-    <a href="/sleep-by-age">?? Sleep by Age</a>
-    <a href="/sleep-debt-calculator">?? Sleep Debt</a>
-    <a href="/how-to-fall-asleep-fast">?? Fall Asleep Fast</a>
-    <a href="/sleep-deprivation">?? Sleep Deprivation</a>
-    <a href="/how-much-sleep">?? How Much Sleep</a>
-    <a href="/sleep-schedule">?? Sleep Schedule</a>
-    <a href="/chronotype">?? Chronotype</a>
-    <a href="/insomnia">?? Insomnia</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
   </div>
   <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
     <a href="/about">About</a>
     <a href="/privacy">Privacy Policy</a>
     <a href="/contact">Contact</a>
   </div>
-  <p>� 2026 GoodSleep.rest � Free forever � No sign-up required</p>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
   <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
 </footer>
 
-<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">â</button>
 
 <script>
 const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
@@ -239,9 +206,9 @@ function calcDebt(){
     <div class="rec-row"><span>Recommended tonight's bedtime</span><span class="rec-val">${getEarlierBedtime(1.5)}</span></div>`;
 
   const tip=document.getElementById('debt-tip');
-  if(debt===0) tip.textContent='✅ Great job! You\'re not in sleep debt this week. Keep your schedule consistent to stay this way.';
-  else if(debt<=5) tip.textContent='⚠️ Moderate sleep debt. Add 1.5 hours of sleep per night for the next '+recoveryDays+' nights. Avoid all-nighters — they make it worse, not better.';
-  else tip.textContent='🚨 Significant sleep debt. This level impairs your cognitive ability similar to being legally drunk. Prioritise sleep this weekend and next week. Add 1.5h/night gradually — don\'t try to sleep 12 hours at once.';
+  if(debt===0) tip.textContent='â Great job! You\'re not in sleep debt this week. Keep your schedule consistent to stay this way.';
+  else if(debt<=5) tip.textContent='â ï¸ Moderate sleep debt. Add 1.5 hours of sleep per night for the next '+recoveryDays+' nights. Avoid all-nighters â they make it worse, not better.';
+  else tip.textContent='ð¨ Significant sleep debt. This level impairs your cognitive ability similar to being legally drunk. Prioritise sleep this weekend and next week. Add 1.5h/night gradually â don\'t try to sleep 12 hours at once.';
 
   document.getElementById('result').classList.add('show');
 }

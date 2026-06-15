@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sleep Schedule Builder — Fix Your Sleep in 7 Days | GoodSleep</title>
-<meta name="description" content="Build a personalized sleep schedule based on your wake time, lifestyle, and sleep goals. Get a printable 7-day plan to fix your sleep — free, no sign-up.">
-<meta property="og:title" content="Sleep Schedule Builder — Fix Your Sleep in 7 Days | GoodSleep">
+<title>Sleep Schedule Builder â Fix Your Sleep in 7 Days | GoodSleep</title>
+<meta name="description" content="Build a personalized sleep schedule based on your wake time, lifestyle, and sleep goals. Get a printable 7-day plan to fix your sleep â free, no sign-up.">
+<meta property="og:title" content="Sleep Schedule Builder â Fix Your Sleep in 7 Days | GoodSleep">
 <meta property="og:description" content="Build your personalized 7-day sleep schedule. Based on sleep science. Free and instant.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0F6E56">
@@ -69,129 +69,39 @@
 <body>
 
 <nav>
-  <a href="/" class="logo"><span class="logo-moon">??</span> GoodSleep</a>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
   <div class="nav-right">
     <ul class="nav-mobile-hide">
-      <li><a href="/nap-calculator">Nap</a></li>
-      <li><a href="/sleep-by-age">By Age</a></li>
-      <li><a href="/sleep-debt-calculator">Sleep Debt</a></li>
-      <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
-      <li><a href="/sleep-schedule">Schedule</a></li>
-      <li><a href="/chronotype">Chronotype</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
     </ul>
-    <button class="explore-btn" id="explore-btn" onclick="toggleExplore()" aria-label="Explore all tools">Explore <span class="arrow">?</span></button>
-    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">??</button>
+    <button class="explore-btn" id="explore-btn" onclick="toggleExplore()" aria-label="Explore all tools">Explore <span class="arrow">▼</span></button>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
   </div>
 </nav>
 <div class="explore-drop" id="explore-drop">
   <div class="drop-grid">
-    <a href="/" class="drop-link"><span class="dl-emoji">?</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
-    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
-    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
-    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
-    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
-    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
-    <a href="/chronotype" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
-    <a href="/insomnia" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes & CBT-I treatment</span></span></a>
-    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
-    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects & recovery</span></span></a>
+    <a href="/" class="drop-link"><span class="dl-emoji">⏰</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
+    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">☀️</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
+    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">👶</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
+    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">💤</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
+    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">😴</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
+    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">📅</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
+    <a href="/chronotype" class="drop-link"><span class="dl-emoji">🦁</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
+    <a href="/insomnia" class="drop-link"><span class="dl-emoji">🌙</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes &amp; CBT-I treatment</span></span></a>
+    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">💡</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
+    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">⚠️</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects &amp; recovery</span></span></a>
     <div class="drop-divider"></div>
-    <a href="/about" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">About<span class="dl-sub">Our mission & sources</span></span></a>
-    <a href="/contact" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
+    <a href="/about" class="drop-link"><span class="dl-emoji">ℹ️</span><span class="dl-label">About<span class="dl-sub">Our mission &amp; sources</span></span></a>
+    <a href="/contact" class="drop-link"><span class="dl-emoji">✉️</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
   </div>
 </div>
-<div class="hero">
-  <p class="breadcrumb"><a href="/">GoodSleep</a> › Sleep schedule builder</p>
-  <h1>Build Your Perfect<br>Sleep Schedule</h1>
-  <p class="hero-sub">A personalized 7-day plan based on your wake time, lifestyle, and sleep goals — with a science-backed evening routine included</p>
-  <span class="hero-badge">📅 Personalized &nbsp;·&nbsp; Instant &nbsp;·&nbsp; Free</span>
-</div>
-
-<div class="page">
-
-<!-- BUILDER -->
-<div class="card">
-  <h2 class="section-title">Your sleep profile</h2>
-  <p class="section-sub">Answer 4 quick questions to get your personalized schedule</p>
-
-  <div class="form-row">
-    <div class="field">
-      <label>Wake-up time (weekdays)</label>
-      <input type="time" id="wake-time" value="07:00">
-    </div>
-    <div class="field">
-      <label>How much sleep do you need?</label>
-      <select id="sleep-need">
-        <option value="7">7 hours (minimum)</option>
-        <option value="7.5" selected>7.5 hours (5 cycles)</option>
-        <option value="8">8 hours (average)</option>
-        <option value="9">9 hours (6 cycles)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="field">
-      <label>Your lifestyle</label>
-      <select id="lifestyle">
-        <option value="early">Early bird (up before 6 AM)</option>
-        <option value="normal" selected>Regular (6–8 AM)</option>
-        <option value="late">Late riser (8–10 AM)</option>
-        <option value="shift">Shift worker / irregular</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Biggest sleep problem</label>
-      <select id="problem">
-        <option value="fallasleep">Taking too long to fall asleep</option>
-        <option value="stayasleep">Waking up during the night</option>
-        <option value="earlyawake">Waking too early</option>
-        <option value="groggy" selected>Waking up groggy</option>
-        <option value="none">No major problems</option>
-      </select>
-    </div>
-  </div>
-
-  <div style="margin-bottom:1.25rem">
-    <div style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Sleep goals (select all that apply)</div>
-    <div class="goal-chips">
-      <button class="chip selected" data-goal="consistency">📅 Consistent schedule</button>
-      <button class="chip" data-goal="fallasleep">💤 Fall asleep faster</button>
-      <button class="chip selected" data-goal="energy">⚡ More daytime energy</button>
-      <button class="chip" data-goal="nap">😴 Optimize naps</button>
-      <button class="chip" data-goal="weekend">🎉 Fix weekend sleep</button>
-      <button class="chip" data-goal="screens">📵 Beat screen addiction</button>
-    </div>
-  </div>
-
-  <button class="btn" onclick="buildSchedule()">Generate my sleep schedule →</button>
-</div>
-
-<!-- SCHEDULE OUTPUT -->
-<div class="schedule-output" id="schedule-output">
-
-  <div class="schedule-header">
-    <h3 id="schedule-title">Your 7-Day Sleep Schedule</h3>
-    <p id="schedule-summary"></p>
-  </div>
-
-  <div class="week-grid" id="week-grid"></div>
-
-  <div class="tip-box" id="schedule-tip"></div>
-
-  <!-- EVENING ROUTINE -->
-  <div class="section">
-    <h2 class="section-title">Your personalized evening routine</h2>
-    <p class="section-sub">Start this <span id="routine-start-label">90 minutes</span> before your target bedtime</p>
-    <div class="card">
-      <div class="routine-timeline" id="routine-timeline"></div>
-    </div>
-  </div>
 
   <!-- MORNING ROUTINE -->
   <div class="section">
     <h2 class="section-title">Morning anchoring routine</h2>
-    <p class="section-sub">Consistency at wake-up time is the #1 driver of better sleep — even more than bedtime</p>
+    <p class="section-sub">Consistency at wake-up time is the #1 driver of better sleep â even more than bedtime</p>
     <div class="card">
       <div class="routine-timeline" id="morning-timeline"></div>
     </div>
@@ -204,8 +114,8 @@
   <h2 class="section-title">Why sleep consistency works</h2>
   <div class="card">
     <p style="margin-bottom:1rem"><strong>Your circadian rhythm is set primarily by wake time, not bedtime.</strong> This surprises most people. Your body uses morning light and your wake-up time to anchor your entire 24-hour hormonal cycle.</p>
-    <p style="margin-bottom:1rem"><strong>Social jet lag</strong> — sleeping 2+ hours later on weekends — is equivalent to flying across two time zones every Friday and back every Monday. Research links it to increased obesity, depression, and heart disease risk.</p>
-    <p><strong>The two-week rule:</strong> It takes 10–14 days of consistent sleep timing before your body fully adapts and sleep quality dramatically improves. The first few days feel hard — this is normal.</p>
+    <p style="margin-bottom:1rem"><strong>Social jet lag</strong> â sleeping 2+ hours later on weekends â is equivalent to flying across two time zones every Friday and back every Monday. Research links it to increased obesity, depression, and heart disease risk.</p>
+    <p><strong>The two-week rule:</strong> It takes 10â14 days of consistent sleep timing before your body fully adapts and sleep quality dramatically improves. The first few days feel hard â this is normal.</p>
   </div>
 </div>
 
@@ -214,34 +124,34 @@
   <h2 class="section-title">Science-backed sleep hygiene</h2>
   <div class="hygiene-grid">
     <div class="hygiene-card">
-      <div class="h-emoji">🌡️</div>
+      <div class="h-emoji">ð¡ï¸</div>
       <strong>Cool your bedroom</strong>
-      <p>65–68°F (18–20°C) is optimal. Core body temperature must drop 2–3°F to initiate sleep.</p>
+      <p>65â68Â°F (18â20Â°C) is optimal. Core body temperature must drop 2â3Â°F to initiate sleep.</p>
     </div>
     <div class="hygiene-card">
-      <div class="h-emoji">☀️</div>
+      <div class="h-emoji">âï¸</div>
       <strong>Morning sunlight</strong>
       <p>10 min of outdoor light within 1 hour of waking sets your circadian clock and improves sleep quality that night.</p>
     </div>
     <div class="hygiene-card">
-      <div class="h-emoji">🍷</div>
+      <div class="h-emoji">ð·</div>
       <strong>Alcohol myth</strong>
-      <p>Alcohol helps you fall asleep but destroys REM sleep. Even 1–2 drinks reduce sleep quality by 24%.</p>
+      <p>Alcohol helps you fall asleep but destroys REM sleep. Even 1â2 drinks reduce sleep quality by 24%.</p>
     </div>
     <div class="hygiene-card">
-      <div class="h-emoji">☕</div>
+      <div class="h-emoji">â</div>
       <strong>Caffeine half-life</strong>
-      <p>Caffeine's half-life is 5–7 hours. A 3 PM coffee means 25% of caffeine is still in your blood at midnight.</p>
+      <p>Caffeine's half-life is 5â7 hours. A 3 PM coffee means 25% of caffeine is still in your blood at midnight.</p>
     </div>
     <div class="hygiene-card">
-      <div class="h-emoji">📵</div>
+      <div class="h-emoji">ðµ</div>
       <strong>Screen effect</strong>
-      <p>Blue light from screens suppresses melatonin for 90 minutes. It's not just brightness — it's the wavelength.</p>
+      <p>Blue light from screens suppresses melatonin for 90 minutes. It's not just brightness â it's the wavelength.</p>
     </div>
     <div class="hygiene-card">
-      <div class="h-emoji">🏋️</div>
+      <div class="h-emoji">ðï¸</div>
       <strong>Exercise timing</strong>
-      <p>Exercise improves sleep — but intense workouts within 2 hours of bedtime can delay sleep onset in sensitive people.</p>
+      <p>Exercise improves sleep â but intense workouts within 2 hours of bedtime can delay sleep onset in sensitive people.</p>
     </div>
   </div>
 </div>
@@ -251,19 +161,19 @@
   <h2 class="section-title" style="margin-bottom:1.25rem">Common questions</h2>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">How long does it take to fix a sleep schedule?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Most people see significant improvement in 1–2 weeks of consistent wake times. The critical factor is not changing your wake time — even on weekends. Full circadian adaptation typically takes 2–4 weeks depending on how disrupted your previous schedule was.</div>
+    <div class="faq-a">Most people see significant improvement in 1â2 weeks of consistent wake times. The critical factor is not changing your wake time â even on weekends. Full circadian adaptation typically takes 2â4 weeks depending on how disrupted your previous schedule was.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">Can I sleep in on weekends?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Up to 1 hour is generally fine. More than 1–2 hours disrupts your circadian rhythm, creating "social jet lag." The trade-off: occasional extra sleep vs. worse sleep quality all week. If you're chronically tired, the real fix is an earlier weekday bedtime, not weekend catch-up.</div>
+    <div class="faq-a">Up to 1 hour is generally fine. More than 1â2 hours disrupts your circadian rhythm, creating "social jet lag." The trade-off: occasional extra sleep vs. worse sleep quality all week. If you're chronically tired, the real fix is an earlier weekday bedtime, not weekend catch-up.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">What if I can't fall asleep at my scheduled bedtime?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Only go to bed when sleepy — not just tired. If you're not asleep in 20 minutes, get up and do something calm in dim light until you feel sleepy. This is a core CBT-I (Cognitive Behavioral Therapy for Insomnia) technique. Never lie in bed awake for long periods — it trains your brain to associate bed with wakefulness.</div>
+    <div class="faq-a">Only go to bed when sleepy â not just tired. If you're not asleep in 20 minutes, get up and do something calm in dim light until you feel sleepy. This is a core CBT-I (Cognitive Behavioral Therapy for Insomnia) technique. Never lie in bed awake for long periods â it trains your brain to associate bed with wakefulness.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">Is it okay to nap with a new sleep schedule?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Short naps (10–20 min) before 3 PM are fine and can improve performance. Longer or later naps reduce "sleep pressure" — the adenosine buildup that makes you feel sleepy at bedtime — and can make it harder to fall asleep at your scheduled time.</div>
+    <div class="faq-a">Short naps (10â20 min) before 3 PM are fine and can improve performance. Longer or later naps reduce "sleep pressure" â the adenosine buildup that makes you feel sleepy at bedtime â and can make it harder to fall asleep at your scheduled time.</div>
   </div>
 </div>
 
@@ -272,15 +182,15 @@
   <h2 class="explore-title">Explore More Tools</h2>
   <p class="explore-sub">Discover all the sleep tools GoodSleep has to offer</p>
   <div class="explore-grid">
-    <a href="/" class="explore-card"><div class="e-emoji">⏰</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
-    <a href="/nap-calculator" class="explore-card"><div class="e-emoji">☀️</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
-    <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">👶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
-    <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">💤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
-    <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">😴</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
-    <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">⚠️</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
-    <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">💡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
-    <a href="/chronotype" class="explore-card"><div class="e-emoji">🦁</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
-    <a href="/insomnia" class="explore-card"><div class="e-emoji">🌙</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
+    <a href="/" class="explore-card"><div class="e-emoji">â°</div><div class="e-title">Sleep Cycle Calculator</div><div class="e-desc">Find the perfect bedtime based on 90-min cycles</div></a>
+    <a href="/nap-calculator" class="explore-card"><div class="e-emoji">âï¸</div><div class="e-title">Nap Calculator</div><div class="e-desc">Find the ideal nap length without grogginess</div></a>
+    <a href="/sleep-by-age" class="explore-card"><div class="e-emoji">ð¶</div><div class="e-title">Sleep by Age</div><div class="e-desc">How much sleep you need at every age</div></a>
+    <a href="/sleep-debt-calculator" class="explore-card"><div class="e-emoji">ð¤</div><div class="e-title">Sleep Debt Calculator</div><div class="e-desc">Track and recover your weekly sleep deficit</div></a>
+    <a href="/how-to-fall-asleep-fast" class="explore-card"><div class="e-emoji">ð´</div><div class="e-title">Fall Asleep Fast</div><div class="e-desc">12 science-backed methods to sleep faster</div></a>
+    <a href="/sleep-deprivation" class="explore-card"><div class="e-emoji">â ï¸</div><div class="e-title">Sleep Deprivation</div><div class="e-desc">What happens when you don't sleep enough</div></a>
+    <a href="/how-much-sleep" class="explore-card"><div class="e-emoji">ð¡</div><div class="e-title">How Much Sleep</div><div class="e-desc">Personalized sleep need recommendations</div></a>
+    <a href="/chronotype" class="explore-card"><div class="e-emoji">ð¦</div><div class="e-title">Chronotype Quiz</div><div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div></a>
+    <a href="/insomnia" class="explore-card"><div class="e-emoji">ð</div><div class="e-title">Insomnia Guide</div><div class="e-desc">Understand and overcome sleeplessness</div></a>
   </div>
 </div>
 
@@ -288,26 +198,26 @@
 
 <footer>
   <div class="footer-links">
-    <a href="/nap-calculator">?? Nap Calculator</a>
-    <a href="/sleep-by-age">?? Sleep by Age</a>
-    <a href="/sleep-debt-calculator">?? Sleep Debt</a>
-    <a href="/how-to-fall-asleep-fast">?? Fall Asleep Fast</a>
-    <a href="/sleep-deprivation">?? Sleep Deprivation</a>
-    <a href="/how-much-sleep">?? How Much Sleep</a>
-    <a href="/sleep-schedule">?? Sleep Schedule</a>
-    <a href="/chronotype">?? Chronotype</a>
-    <a href="/insomnia">?? Insomnia</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
   </div>
   <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
     <a href="/about">About</a>
     <a href="/privacy">Privacy Policy</a>
     <a href="/contact">Contact</a>
   </div>
-  <p>� 2026 GoodSleep.rest � Free forever � No sign-up required</p>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
   <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
 </footer>
 
-<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">â</button>
 
 <script>
 document.querySelectorAll('.chip').forEach(c=>{
@@ -362,7 +272,7 @@ function buildSchedule(){
   }).join('');
 
   document.getElementById('schedule-title').textContent=`Your 7-Day Sleep Schedule`;
-  document.getElementById('schedule-summary').textContent=`Bedtime: ${fmt12(bed.h,bed.m)} · Wake: ${fmt12(wh,wm)} · ${sleepHours}h per night`;
+  document.getElementById('schedule-summary').textContent=`Bedtime: ${fmt12(bed.h,bed.m)} Â· Wake: ${fmt12(wh,wm)} Â· ${sleepHours}h per night`;
 
   // Evening routine (90 min before bed)
   const routines=buildRoutine(bed,problem,goals);
@@ -377,11 +287,11 @@ function buildSchedule(){
 
   // Tip based on problem
   const tips={
-    fallasleep:'<strong>For falling asleep faster:</strong> The key is "stimulus control" — only use your bed for sleep. No phones, no TV, no working in bed. Your brain learns to associate the bed with sleep, making you drowsy as soon as you lie down.',
+    fallasleep:'<strong>For falling asleep faster:</strong> The key is "stimulus control" â only use your bed for sleep. No phones, no TV, no working in bed. Your brain learns to associate the bed with sleep, making you drowsy as soon as you lie down.',
     stayasleep:'<strong>For staying asleep:</strong> Waking at night is often caused by blood sugar drops or alcohol. Avoid alcohol within 3 hours of bed. A small protein snack (e.g. a handful of nuts) can prevent blood sugar crashes at 3 AM.',
-    earlyawake:'<strong>For waking too early:</strong> This is often a sign of depression or cortisol dysfunction. Keep your room dark (blackout curtains). If it persists, speak to your doctor — it\'s a clinically recognized symptom.',
+    earlyawake:'<strong>For waking too early:</strong> This is often a sign of depression or cortisol dysfunction. Keep your room dark (blackout curtains). If it persists, speak to your doctor â it\'s a clinically recognized symptom.',
     groggy:'<strong>For waking less groggy:</strong> You\'re waking mid-cycle. Use the sleep cycle calculator to set an alarm at cycle end. Even 7.5h ending at cycle end feels better than 8h ending in deep sleep.',
-    none:'<strong>Maintain what\'s working:</strong> Consistency is your biggest asset. Keep your wake time within 30 minutes every day — this single habit delivers the biggest long-term sleep quality gains.'
+    none:'<strong>Maintain what\'s working:</strong> Consistency is your biggest asset. Keep your wake time within 30 minutes every day â this single habit delivers the biggest long-term sleep quality gains.'
   };
   document.getElementById('schedule-tip').innerHTML=tips[problem]||tips.none;
 
@@ -395,11 +305,11 @@ function buildRoutine(bed,problem,goals){
   const r30=addMinutes(bed.h,bed.m,-30);
   const r15=addMinutes(bed.h,bed.m,-15);
   const items=[
-    {t:r90,action:'Dim the lights',why:'Bright light suppresses melatonin. Start dimming 90 min before bed — your brain reads light level as a signal of time-of-day.'},
+    {t:r90,action:'Dim the lights',why:'Bright light suppresses melatonin. Start dimming 90 min before bed â your brain reads light level as a signal of time-of-day.'},
     {t:r60,action:'Stop screens (phone, TV, laptop)',why:'Blue light delays melatonin release by 90 min. Use Night Shift or blue-light glasses if you must use screens.'},
     {t:r60,action:'Write tomorrow\'s to-do list',why:'Offloading unfinished tasks onto paper reduces bedtime anxiety and helps quiet the "mental chatter" that delays sleep.'},
-    {t:r30,action:'Warm shower or bath',why:'The drop in body temperature after a warm shower signals sleep onset. Core temp must fall 2–3°F to fall asleep.'},
-    {t:r15,action:'Bedroom prep: cool, dark, quiet',why:'65–68°F optimal. Block all light including phone LEDs. Even small light exposure disrupts melatonin.'},
+    {t:r30,action:'Warm shower or bath',why:'The drop in body temperature after a warm shower signals sleep onset. Core temp must fall 2â3Â°F to fall asleep.'},
+    {t:r15,action:'Bedroom prep: cool, dark, quiet',why:'65â68Â°F optimal. Block all light including phone LEDs. Even small light exposure disrupts melatonin.'},
     {t:bed,action:'Lights out',why:'Don\'t lie in bed scrolling. If not asleep in 20 min, get up until sleepy. Consistency is more important than perfection.'},
   ];
   return items.map(i=>`
@@ -416,10 +326,10 @@ function buildMorningRoutine(wh,wm){
   const t10=addMinutes(wh,wm,10);
   const t30=addMinutes(wh,wm,30);
   const items=[
-    {t:t0,action:'No snooze — get up immediately',why:'Snoozing fragments sleep and worsens sleep inertia. The "last 9 minutes" are not restful — they\'re just more disrupted sleep.'},
-    {t:t5,action:'Drink a full glass of water',why:'You\'re mildly dehydrated after 7–9 hours without fluids. Hydration improves alertness faster than caffeine.'},
+    {t:t0,action:'No snooze â get up immediately',why:'Snoozing fragments sleep and worsens sleep inertia. The "last 9 minutes" are not restful â they\'re just more disrupted sleep.'},
+    {t:t5,action:'Drink a full glass of water',why:'You\'re mildly dehydrated after 7â9 hours without fluids. Hydration improves alertness faster than caffeine.'},
     {t:t10,action:'Get outside for 10 min of sunlight',why:'Morning light anchors your circadian clock, reduces evening melatonin delay, and improves mood and alertness. Even cloudy light works.'},
-    {t:t30,action:'First coffee/tea (not before this)',why:'Adenosine (the sleepiness chemical) clears naturally in the first 30–90 minutes after waking. Delaying caffeine makes it more effective.'},
+    {t:t30,action:'First coffee/tea (not before this)',why:'Adenosine (the sleepiness chemical) clears naturally in the first 30â90 minutes after waking. Delaying caffeine makes it more effective.'},
   ];
   return items.map(i=>`
     <div class="routine-item">
@@ -434,7 +344,7 @@ function toggleFaq(btn){
   const open=ans.classList.contains('open');
   document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
   document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
+  if(!open){ans.classList.add('open');icon.textContent='Ã';}
 }
 
 window.addEventListener('scroll',()=>{

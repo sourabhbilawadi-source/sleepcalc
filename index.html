@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GoodSleep — Sleep Cycle Calculator | Wake Up Refreshed</title>
+<title>GoodSleep â Sleep Cycle Calculator | Wake Up Refreshed</title>
 <meta name="description" content="Free sleep cycle calculator at GoodSleep.rest. Find the best bedtime or wake-up time based on 90-minute sleep cycles. Wake up refreshed, never groggy.">
-<meta property="og:title" content="GoodSleep — Sleep Cycle Calculator | Wake Up Refreshed">
+<meta property="og:title" content="GoodSleep â Sleep Cycle Calculator | Wake Up Refreshed">
 <meta property="og:description" content="Find the perfect bedtime or alarm time based on 90-minute sleep cycles. Free, instant, no sign-up. Powered by GoodSleep.rest">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0F6E56">
@@ -23,12 +23,12 @@
 </script>
 <link rel="stylesheet" href="/styles.css">
 <style>
-/* ── PAGE-SPECIFIC: TABS ── */
+/* ââ PAGE-SPECIFIC: TABS ââ */
 .tabs{display:flex;background:var(--bg-soft);border-radius:var(--r-sm);padding:4px;margin-bottom:1.75rem;gap:4px}
 .tab{flex:1;padding:10px 8px;border:none;border-radius:6px;background:transparent;cursor:pointer;font-size:clamp(12px,2.5vw,14px);color:var(--text-muted);font-family:var(--font);transition:all .2s;font-weight:500}
 .tab.active{background:var(--bg-card);color:var(--teal-dark);box-shadow:0 1px 4px rgba(0,0,0,0.1)}
 
-/* ── PAGE-SPECIFIC: DRUM PICKER ── */
+/* ââ PAGE-SPECIFIC: DRUM PICKER ââ */
 .time-label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
 .drum-row{display:flex;align-items:center;gap:clamp(6px,2vw,10px);margin-bottom:1.25rem}
 .drum{flex:1;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;position:relative}
@@ -43,16 +43,16 @@
 .ampm-drum .drum-item{font-size:clamp(14px,3vw,18px)}
 .drum-track{position:absolute;top:50%;left:0;right:0;height:40px;transform:translateY(-50%);border-top:2px solid var(--teal);border-bottom:2px solid var(--teal);pointer-events:none;z-index:1;border-radius:4px}
 
-/* ── PAGE-SPECIFIC: SLEEP NOW ── */
+/* ââ PAGE-SPECIFIC: SLEEP NOW ââ */
 .sleep-now-box{background:var(--teal-light);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:1.25rem;font-size:14px;color:var(--teal-dark);line-height:1.6}
 .live-dot{display:inline-block;width:8px;height:8px;background:var(--teal);border-radius:50%;margin-right:6px;animation:pulse 2s ease-in-out infinite}
 
-/* ── PAGE-SPECIFIC: RESULTS ── */
+/* ââ PAGE-SPECIFIC: RESULTS ââ */
 .results{display:none;animation:slideUp .4s ease}
 .results.show{display:block}
 .results-label{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
 
-/* ── PAGE-SPECIFIC: CYCLE CARDS ── */
+/* ââ PAGE-SPECIFIC: CYCLE CARDS ââ */
 .cycles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
 @media(max-width:480px){.cycles-grid{grid-template-columns:repeat(2,1fr)}}
 .cycle-card{border:1.5px solid var(--border);border-radius:var(--r);padding:clamp(0.75rem,3vw,1rem) 0.5rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
@@ -65,7 +65,7 @@
 .c-hours{font-size:11px;color:var(--text-hint)}
 .best-badge{display:inline-block;font-size:10px;font-weight:700;background:var(--teal);color:#fff;border-radius:50px;padding:2px 8px;margin-top:6px;text-transform:uppercase;letter-spacing:.05em}
 
-/* ── PAGE-SPECIFIC: SLEEP GRAPH ── */
+/* ââ PAGE-SPECIFIC: SLEEP GRAPH ââ */
 .graph-wrap{margin:1.5rem 0;background:var(--bg-soft);border-radius:var(--r);padding:1.25rem}
 .graph-title{font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:.06em}
 .graph-svg-wrap{width:100%;overflow:hidden;border-radius:var(--r-sm)}
@@ -73,7 +73,7 @@
 .legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-muted)}
 .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
-/* ── PAGE-SPECIFIC: STAGE PILLS ── */
+/* ââ PAGE-SPECIFIC: STAGE PILLS ââ */
 .stages-interactive{display:grid;gap:8px}
 .stage-pill{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--r-sm);border:1.5px solid var(--border);cursor:pointer;transition:all .2s;background:var(--bg-card)}
 .stage-pill:hover{border-color:var(--teal-mid);background:var(--teal-light)}
@@ -85,7 +85,7 @@
 .stage-detail.open{display:block}
 .stage-arrow{margin-left:auto;color:var(--text-hint);font-size:18px;transition:transform .2s}
 
-/* ── PAGE-SPECIFIC: NAP CALCULATOR ── */
+/* ââ PAGE-SPECIFIC: NAP CALCULATOR ââ */
 .nap-slider-wrap{margin-bottom:1.5rem}
 .nap-slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .nap-slider-label span{font-size:14px;color:var(--text-muted)}
@@ -102,7 +102,7 @@
 .nap-wake-time strong{font-size:16px;color:var(--text);font-weight:700}
 .nap-range-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text-hint);margin-top:4px}
 
-/* ── PAGE-SPECIFIC: QUIZ ── */
+/* ââ PAGE-SPECIFIC: QUIZ ââ */
 .quiz-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem}
 .quiz-q{font-size:15px;font-weight:600;margin-bottom:12px}
 .quiz-options{display:grid;gap:8px}
@@ -119,72 +119,43 @@
 .quiz-step{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
 .quiz-emoji{font-size:28px;margin:8px 0}
 
-/* ── PAGE-SPECIFIC: CYCLE INFO ── */
+/* ââ PAGE-SPECIFIC: CYCLE INFO ââ */
 .cycle-info{margin-top:1.25rem;padding:1.25rem;background:var(--bg-soft);border-radius:var(--r);font-size:14px;color:var(--text-muted);line-height:1.8}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="/" class="logo"><span class="logo-moon">??</span> GoodSleep</a>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
   <div class="nav-right">
     <ul class="nav-mobile-hide">
-      <li><a href="/nap-calculator">Nap</a></li>
-      <li><a href="/sleep-by-age">By Age</a></li>
-      <li><a href="/sleep-debt-calculator">Sleep Debt</a></li>
-      <li><a href="/how-to-fall-asleep-fast">Fall Asleep</a></li>
-      <li><a href="/sleep-schedule">Schedule</a></li>
-      <li><a href="/chronotype">Chronotype</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
     </ul>
-    <button class="explore-btn" id="explore-btn" onclick="toggleExplore()" aria-label="Explore all tools">Explore <span class="arrow">?</span></button>
-    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">??</button>
+    <button class="explore-btn" id="explore-btn" onclick="toggleExplore()" aria-label="Explore all tools">Explore <span class="arrow">▼</span></button>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
   </div>
 </nav>
 <div class="explore-drop" id="explore-drop">
   <div class="drop-grid">
-    <a href="/" class="drop-link"><span class="dl-emoji">?</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
-    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
-    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
-    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
-    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
-    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
-    <a href="/chronotype" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
-    <a href="/insomnia" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes & CBT-I treatment</span></span></a>
-    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
-    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects & recovery</span></span></a>
+    <a href="/" class="drop-link"><span class="dl-emoji">⏰</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
+    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">☀️</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
+    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">👶</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
+    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">💤</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
+    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">😴</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
+    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">📅</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
+    <a href="/chronotype" class="drop-link"><span class="dl-emoji">🦁</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
+    <a href="/insomnia" class="drop-link"><span class="dl-emoji">🌙</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes &amp; CBT-I treatment</span></span></a>
+    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">💡</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
+    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">⚠️</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects &amp; recovery</span></span></a>
     <div class="drop-divider"></div>
-    <a href="/about" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">About<span class="dl-sub">Our mission & sources</span></span></a>
-    <a href="/contact" class="drop-link"><span class="dl-emoji">??</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
+    <a href="/about" class="drop-link"><span class="dl-emoji">ℹ️</span><span class="dl-label">About<span class="dl-sub">Our mission &amp; sources</span></span></a>
+    <a href="/contact" class="drop-link"><span class="dl-emoji">✉️</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
   </div>
 </div>
-<!-- HERO -->
-<div class="hero">
-  <div class="stars" id="stars"></div>
-  <h1>Sleep Cycle Calculator</h1>
-  <p class="hero-sub">Wake up refreshed, not groggy — time your sleep to 90-minute cycles and feel the difference</p>
-  <span class="hero-badge">⚡ Instant results &nbsp;·&nbsp; Free forever &nbsp;·&nbsp; No sign-up</span>
-</div>
-
-<div class="page">
-
-<!-- CALCULATOR -->
-<div class="card" id="calculator">
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('wakeup')">⏰ Wake up at...</button>
-    <button class="tab" onclick="switchTab('sleep')">😴 Going to sleep now</button>
-  </div>
-
-  <!-- WAKE UP PANEL -->
-  <div id="wakeup-panel">
-    <p class="time-label">I want to wake up at</p>
-    <div class="drum-row">
-      <div class="drum" id="d-hour"><div class="drum-track"></div><div class="drum-inner" id="di-hour"></div></div>
-      <span class="drum-sep">:</span>
-      <div class="drum" id="d-min"><div class="drum-track"></div><div class="drum-inner" id="di-min"></div></div>
-      <div class="drum ampm-drum" id="d-ampm"><div class="drum-track"></div><div class="drum-inner" id="di-ampm"></div></div>
-    </div>
     <button class="btn" onclick="calcWakeup()">
-      Calculate bedtimes <span class="btn-icon">→</span>
+      Calculate bedtimes <span class="btn-icon">â</span>
     </button>
   </div>
 
@@ -192,10 +163,10 @@
   <div id="sleep-panel" style="display:none">
     <div class="sleep-now-box">
       <span class="live-dot"></span>
-      Going to sleep at <strong id="sleep-now-time"></strong> &nbsp;·&nbsp; 14 minutes to fall asleep already included
+      Going to sleep at <strong id="sleep-now-time"></strong> &nbsp;Â·&nbsp; 14 minutes to fall asleep already included
     </div>
     <button class="btn" onclick="calcSleepNow()">
-      Show my wake-up times <span class="btn-icon">→</span>
+      Show my wake-up times <span class="btn-icon">â</span>
     </button>
   </div>
 
@@ -225,43 +196,43 @@
   <p class="section-sub">Tap any stage to learn what happens in your brain and body</p>
   <div class="stages-interactive">
     <div class="stage-pill" onclick="toggleStage(this,'s1')">
-      <span class="s-icon">😴</span>
-      <div><div class="s-name">Stage 1 — Light sleep</div><div class="s-short">1–7 min · Easy to wake</div></div>
-      <span class="stage-arrow">›</span>
+      <span class="s-icon">ð´</span>
+      <div><div class="s-name">Stage 1 â Light sleep</div><div class="s-short">1â7 min Â· Easy to wake</div></div>
+      <span class="stage-arrow">âº</span>
     </div>
-    <div class="stage-detail" id="s1">You drift between wakefulness and sleep. Eyes move slowly, muscles twitch occasionally. This is when you might feel like you're falling. Your brain produces alpha and theta waves. It's easy to wake someone from this stage — they may not even believe they were asleep.</div>
+    <div class="stage-detail" id="s1">You drift between wakefulness and sleep. Eyes move slowly, muscles twitch occasionally. This is when you might feel like you're falling. Your brain produces alpha and theta waves. It's easy to wake someone from this stage â they may not even believe they were asleep.</div>
 
     <div class="stage-pill" onclick="toggleStage(this,'s2')">
-      <span class="s-icon">🧠</span>
-      <div><div class="s-name">Stage 2 — Light sleep</div><div class="s-short">10–25 min · Memory consolidation</div></div>
-      <span class="stage-arrow">›</span>
+      <span class="s-icon">ð§ </span>
+      <div><div class="s-name">Stage 2 â Light sleep</div><div class="s-short">10â25 min Â· Memory consolidation</div></div>
+      <span class="stage-arrow">âº</span>
     </div>
-    <div class="stage-detail" id="s2">Eye movements stop. Your heart rate slows and body temperature drops. The brain produces bursts of activity called "sleep spindles" — these are thought to consolidate memories and protect sleep from external noise. You spend about 50% of your total sleep here.</div>
+    <div class="stage-detail" id="s2">Eye movements stop. Your heart rate slows and body temperature drops. The brain produces bursts of activity called "sleep spindles" â these are thought to consolidate memories and protect sleep from external noise. You spend about 50% of your total sleep here.</div>
 
     <div class="stage-pill" onclick="toggleStage(this,'s3')">
-      <span class="s-icon">💪</span>
-      <div><div class="s-name">Stage 3 — Deep sleep</div><div class="s-short">20–40 min · Body repairs itself</div></div>
-      <span class="stage-arrow">›</span>
+      <span class="s-icon">ðª</span>
+      <div><div class="s-name">Stage 3 â Deep sleep</div><div class="s-short">20â40 min Â· Body repairs itself</div></div>
+      <span class="stage-arrow">âº</span>
     </div>
-    <div class="stage-detail" id="s3">The hardest stage to wake from. If woken here, you'll feel groggy for 30–60 minutes — this is called "sleep inertia." Your body is hard at work: releasing growth hormone, repairing tissue, building muscle, strengthening bone, and supercharging your immune system. Deep sleep is most abundant in the first half of the night.</div>
+    <div class="stage-detail" id="s3">The hardest stage to wake from. If woken here, you'll feel groggy for 30â60 minutes â this is called "sleep inertia." Your body is hard at work: releasing growth hormone, repairing tissue, building muscle, strengthening bone, and supercharging your immune system. Deep sleep is most abundant in the first half of the night.</div>
 
     <div class="stage-pill" onclick="toggleStage(this,'s4')">
-      <span class="s-icon">✨</span>
-      <div><div class="s-name">REM sleep</div><div class="s-short">10–60 min · Dreaming & creativity</div></div>
-      <span class="stage-arrow">›</span>
+      <span class="s-icon">â¨</span>
+      <div><div class="s-name">REM sleep</div><div class="s-short">10â60 min Â· Dreaming & creativity</div></div>
+      <span class="stage-arrow">âº</span>
     </div>
-    <div class="stage-detail" id="s4">Your brain is as active as when you're awake — this is when vivid dreaming happens. REM stands for Rapid Eye Movement. Your body is temporarily paralysed. REM sleep processes emotions, consolidates creative memories, and is critical for learning new skills. REM periods get longer in the second half of the night — which is why cutting sleep short destroys creativity and emotional regulation.</div>
+    <div class="stage-detail" id="s4">Your brain is as active as when you're awake â this is when vivid dreaming happens. REM stands for Rapid Eye Movement. Your body is temporarily paralysed. REM sleep processes emotions, consolidates creative memories, and is critical for learning new skills. REM periods get longer in the second half of the night â which is why cutting sleep short destroys creativity and emotional regulation.</div>
   </div>
 
   <div class="cycle-info">
-    <strong style="color:var(--text)">One full cycle = ~90 minutes.</strong> You need 4–6 per night. Waking mid-cycle causes <em>sleep inertia</em> — the heavy, foggy feeling. Waking at cycle end feels refreshing even with fewer hours.
+    <strong style="color:var(--text)">One full cycle = ~90 minutes.</strong> You need 4â6 per night. Waking mid-cycle causes <em>sleep inertia</em> â the heavy, foggy feeling. Waking at cycle end feels refreshing even with fewer hours.
   </div>
 </div>
 
 <!-- NAP CALCULATOR -->
 <div class="section" id="nap">
   <h2 class="section-title">Nap calculator</h2>
-  <p class="section-sub">Slide to your nap length — find out if it'll help or hurt</p>
+  <p class="section-sub">Slide to your nap length â find out if it'll help or hurt</p>
   <div class="card">
     <div class="nap-slider-wrap">
       <div class="nap-slider-label">
@@ -272,7 +243,7 @@
       <div class="nap-range-labels"><span>5 min</span><span>120 min</span></div>
     </div>
     <div class="nap-result good" id="nap-result">
-      <div class="nap-result-emoji" id="nap-emoji">⚡</div>
+      <div class="nap-result-emoji" id="nap-emoji">â¡</div>
       <div class="nap-result-name" id="nap-name">Power nap</div>
       <div class="nap-result-desc" id="nap-desc">Boosts alertness without grogginess. You won't enter deep sleep, so you wake up sharp.</div>
       <div class="nap-wake-time" id="nap-wake">Wake at: <strong id="nap-wake-time"></strong></div>
@@ -288,7 +259,7 @@
   <div class="quiz-score" id="quiz-score">
     <div class="score-num" id="score-num">0</div>
     <div class="score-label" id="score-label">/ 10 sleep score</div>
-    <div class="quiz-emoji" id="score-emoji">😴</div>
+    <div class="quiz-emoji" id="score-emoji">ð´</div>
     <div class="score-tips" id="score-tips"></div>
     <button class="btn btn-sm" onclick="restartQuiz()" style="margin-top:1rem;width:auto;padding:10px 24px">Retake quiz</button>
   </div>
@@ -300,23 +271,23 @@
 
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">How many hours do I actually need?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Most adults need 7–9 hours (5–6 full cycles). Teenagers need 8–10 hours. What matters most is waking at cycle end — 7.5 hours (5 cycles) often feels better than 8 hours interrupted mid-cycle.</div>
+    <div class="faq-a">Most adults need 7â9 hours (5â6 full cycles). Teenagers need 8â10 hours. What matters most is waking at cycle end â 7.5 hours (5 cycles) often feels better than 8 hours interrupted mid-cycle.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">Why do I feel worse after more sleep?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Sleep inertia — you woke in the middle of deep sleep (Stage 3). Your brain struggles to switch gears and produces adenosine, a sleepiness chemical. This can last 30–60 minutes. Timing your alarm to end of cycle prevents this entirely.</div>
+    <div class="faq-a">Sleep inertia â you woke in the middle of deep sleep (Stage 3). Your brain struggles to switch gears and produces adenosine, a sleepiness chemical. This can last 30â60 minutes. Timing your alarm to end of cycle prevents this entirely.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">Is 90 minutes exactly right for everyone?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Cycles range from 80–110 minutes. 90 is a well-researched average. Try experimenting ±15 minutes from this calculator's times to find your personal sweet spot.</div>
+    <div class="faq-a">Cycles range from 80â110 minutes. 90 is a well-researched average. Try experimenting Â±15 minutes from this calculator's times to find your personal sweet spot.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">Does the time I sleep matter, not just how long?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Yes. Sleep before midnight contains more deep (restorative) sleep. After midnight, REM sleep increases. Consistency — sleeping and waking at the same time daily, even weekends — is the single most powerful thing you can do for sleep quality.</div>
+    <div class="faq-a">Yes. Sleep before midnight contains more deep (restorative) sleep. After midnight, REM sleep increases. Consistency â sleeping and waking at the same time daily, even weekends â is the single most powerful thing you can do for sleep quality.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q" onclick="toggleFaq(this)">How long does it really take to fall asleep?<span class="faq-icon">+</span></button>
-    <div class="faq-a">Average is 10–20 minutes; this calculator uses 14. Falling asleep in under 5 minutes is a sign of sleep deprivation. Taking 30+ minutes regularly may indicate insomnia — worth discussing with a doctor.</div>
+    <div class="faq-a">Average is 10â20 minutes; this calculator uses 14. Falling asleep in under 5 minutes is a sign of sleep deprivation. Taking 30+ minutes regularly may indicate insomnia â worth discussing with a doctor.</div>
   </div>
 </div>
 
@@ -326,47 +297,47 @@
   <p class="explore-sub">Discover all the sleep tools GoodSleep has to offer</p>
   <div class="explore-grid">
     <a href="/nap-calculator" class="explore-card">
-      <div class="e-emoji">☀️</div>
+      <div class="e-emoji">âï¸</div>
       <div class="e-title">Nap Calculator</div>
       <div class="e-desc">Find the ideal nap length without grogginess</div>
     </a>
     <a href="/sleep-by-age" class="explore-card">
-      <div class="e-emoji">👶</div>
+      <div class="e-emoji">ð¶</div>
       <div class="e-title">Sleep by Age</div>
       <div class="e-desc">How much sleep you need at every age</div>
     </a>
     <a href="/sleep-debt-calculator" class="explore-card">
-      <div class="e-emoji">💤</div>
+      <div class="e-emoji">ð¤</div>
       <div class="e-title">Sleep Debt Calculator</div>
       <div class="e-desc">Track and recover your weekly sleep deficit</div>
     </a>
     <a href="/how-to-fall-asleep-fast" class="explore-card">
-      <div class="e-emoji">😴</div>
+      <div class="e-emoji">ð´</div>
       <div class="e-title">Fall Asleep Fast</div>
       <div class="e-desc">12 science-backed methods to sleep faster</div>
     </a>
     <a href="/sleep-deprivation" class="explore-card">
-      <div class="e-emoji">⚠️</div>
+      <div class="e-emoji">â ï¸</div>
       <div class="e-title">Sleep Deprivation</div>
       <div class="e-desc">What happens when you don't sleep enough</div>
     </a>
     <a href="/how-much-sleep" class="explore-card">
-      <div class="e-emoji">💡</div>
+      <div class="e-emoji">ð¡</div>
       <div class="e-title">How Much Sleep</div>
       <div class="e-desc">Personalized sleep need recommendations</div>
     </a>
     <a href="/sleep-schedule" class="explore-card">
-      <div class="e-emoji">📅</div>
+      <div class="e-emoji">ð</div>
       <div class="e-title">Sleep Schedule</div>
       <div class="e-desc">Build a personalized 7-day sleep routine</div>
     </a>
     <a href="/chronotype" class="explore-card">
-      <div class="e-emoji">🦁</div>
+      <div class="e-emoji">ð¦</div>
       <div class="e-title">Chronotype Quiz</div>
       <div class="e-desc">Discover if you're a lion, bear, wolf, or dolphin</div>
     </a>
     <a href="/insomnia" class="explore-card">
-      <div class="e-emoji">🌙</div>
+      <div class="e-emoji">ð</div>
       <div class="e-title">Insomnia Guide</div>
       <div class="e-desc">Understand and overcome sleeplessness</div>
     </a>
@@ -377,29 +348,29 @@
 
 <footer>
   <div class="footer-links">
-    <a href="/nap-calculator">?? Nap Calculator</a>
-    <a href="/sleep-by-age">?? Sleep by Age</a>
-    <a href="/sleep-debt-calculator">?? Sleep Debt</a>
-    <a href="/how-to-fall-asleep-fast">?? Fall Asleep Fast</a>
-    <a href="/sleep-deprivation">?? Sleep Deprivation</a>
-    <a href="/how-much-sleep">?? How Much Sleep</a>
-    <a href="/sleep-schedule">?? Sleep Schedule</a>
-    <a href="/chronotype">?? Chronotype</a>
-    <a href="/insomnia">?? Insomnia</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
   </div>
   <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
     <a href="/about">About</a>
     <a href="/privacy">Privacy Policy</a>
     <a href="/contact">Contact</a>
   </div>
-  <p>� 2026 GoodSleep.rest � Free forever � No sign-up required</p>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
   <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
 </footer>
 
-<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">â</button>
 
 <script>
-// ── STARS ──
+// ââ STARS ââ
 const starsEl = document.getElementById('stars');
 for(let i=0;i<30;i++){
   const s=document.createElement('div');
@@ -408,7 +379,7 @@ for(let i=0;i<30;i++){
   starsEl.appendChild(s);
 }
 
-// ── DRUM PICKER ──
+// ââ DRUM PICKER ââ
 const hours=[],mins=[],ampms=['AM','PM'];
 for(let i=1;i<=12;i++) hours.push(i<10?'0'+i:String(i));
 for(let i=0;i<60;i+=15) mins.push(i<10?'0'+i:String(i));
@@ -451,7 +422,7 @@ buildDrum('di-hour',hours,6);
 buildDrum('di-min',mins,0);
 buildDrum('di-ampm',ampms,0);
 
-// ── LIVE CLOCK ──
+// ââ LIVE CLOCK ââ
 function updateSleepNowTime(){
   const now=new Date();
   let h=now.getHours(),m=now.getMinutes();
@@ -463,7 +434,7 @@ function updateSleepNowTime(){
 updateSleepNowTime();
 setInterval(updateSleepNowTime,30000);
 
-// ── TAB SWITCH ──
+// ââ TAB SWITCH ââ
 function switchTab(tab){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&tab==='wakeup')||(i===1&&tab==='sleep')));
   document.getElementById('wakeup-panel').style.display=tab==='wakeup'?'':'none';
@@ -472,7 +443,7 @@ function switchTab(tab){
   updateSleepNowTime();
 }
 
-// ── FORMAT ──
+// ââ FORMAT ââ
 function fmt(d){
   let h=d.getHours(),m=d.getMinutes();
   const ap=h>=12?'PM':'AM';
@@ -480,7 +451,7 @@ function fmt(d){
   return `${h}:${m<10?'0'+m:m} ${ap}`;
 }
 
-// ── SLEEP GRAPH ──
+// ââ SLEEP GRAPH ââ
 function drawGraph(bedMs, cycles){
   const svg=document.getElementById('sleep-graph');
   const W=700,H=140,pad=30;
@@ -528,12 +499,12 @@ function drawGraph(bedMs, cycles){
   const startT=new Date(bedMs);
   const endT=new Date(bedMs+cycles*90*60*1000);
   markers+=`<text x="${pad}" y="${H-2}" text-anchor="middle" font-size="10" fill="#9ca3af">${fmt(startT)}</text>`;
-  markers+=`<text x="${W-pad}" y="${H-2}" text-anchor="end" font-size="10" fill="#1D9E75" font-weight="600">${fmt(endT)} ✓</text>`;
+  markers+=`<text x="${W-pad}" y="${H-2}" text-anchor="end" font-size="10" fill="#1D9E75" font-weight="600">${fmt(endT)} â</text>`;
 
   svg.innerHTML=`${fills}${markers}<path d="${pathStr}" fill="none" stroke="#1D9E75" stroke-width="2.5" stroke-linejoin="round"/>`;
 }
 
-// ── RESULTS ──
+// ââ RESULTS ââ
 function showResults(targetMs, mode){
   const grid=document.getElementById('cycles-grid');
   const label=document.getElementById('results-label');
@@ -591,7 +562,7 @@ function calcSleepNow(){
   showResults(now.getTime()+14*60*1000,'sleep');
 }
 
-// ── STAGE TOGGLE ──
+// ââ STAGE TOGGLE ââ
 function toggleStage(pill,id){
   const detail=document.getElementById(id);
   const isOpen=detail.classList.contains('open');
@@ -605,13 +576,13 @@ function toggleStage(pill,id){
   }
 }
 
-// ── NAP CALCULATOR ──
+// ââ NAP CALCULATOR ââ
 const napData=[
-  {min:5,max:25,cls:'good',emoji:'⚡',name:'Power nap',desc:'Boosts alertness without grogginess. No deep sleep means you wake up sharp and energized.'},
-  {min:26,max:45,cls:'warn',emoji:'⚠️',name:'Risky zone',desc:'You may enter light deep sleep. Risk of feeling groggy for 15–30 minutes after waking.'},
-  {min:46,max:75,cls:'bad',emoji:'😵',name:'Danger zone',desc:'Deep sleep territory. You\'ll likely wake mid-cycle and feel worse than before the nap.'},
-  {min:76,max:95,cls:'good',emoji:'🌟',name:'Full cycle nap',desc:'One complete 90-minute cycle. Includes REM — great for memory, creativity, and mood boost.'},
-  {min:96,max:120,cls:'warn',emoji:'💤',name:'Extended nap',desc:'May make it harder to fall asleep at bedtime. Only use on weekends or if very sleep-deprived.'},
+  {min:5,max:25,cls:'good',emoji:'â¡',name:'Power nap',desc:'Boosts alertness without grogginess. No deep sleep means you wake up sharp and energized.'},
+  {min:26,max:45,cls:'warn',emoji:'â ï¸',name:'Risky zone',desc:'You may enter light deep sleep. Risk of feeling groggy for 15â30 minutes after waking.'},
+  {min:46,max:75,cls:'bad',emoji:'ðµ',name:'Danger zone',desc:'Deep sleep territory. You\'ll likely wake mid-cycle and feel worse than before the nap.'},
+  {min:76,max:95,cls:'good',emoji:'ð',name:'Full cycle nap',desc:'One complete 90-minute cycle. Includes REM â great for memory, creativity, and mood boost.'},
+  {min:96,max:120,cls:'warn',emoji:'ð¤',name:'Extended nap',desc:'May make it harder to fall asleep at bedtime. Only use on weekends or if very sleep-deprived.'},
 ];
 function updateNap(v){
   document.getElementById('nap-val').textContent=v;
@@ -626,21 +597,21 @@ function updateNap(v){
 }
 updateNap(20);
 
-// ── QUIZ ──
+// ââ QUIZ ââ
 const questions=[
-  {q:'How many hours of sleep do you usually get?',opts:['Less than 5h','5–6h','6–7h','7–9h'],scores:[0,1,2,3]},
+  {q:'How many hours of sleep do you usually get?',opts:['Less than 5h','5â6h','6â7h','7â9h'],scores:[0,1,2,3]},
   {q:'How do you feel when you wake up in the morning?',opts:['Exhausted, can\'t get up','Groggy for a while','Okay after coffee','Refreshed and alert'],scores:[0,1,2,3]},
-  {q:'Do you fall asleep within 30 minutes of going to bed?',opts:['Rarely — takes over an hour','Sometimes — 30–60 min','Usually — 15–30 min','Always — under 15 min'],scores:[0,1,2,3]},
+  {q:'Do you fall asleep within 30 minutes of going to bed?',opts:['Rarely â takes over an hour','Sometimes â 30â60 min','Usually â 15â30 min','Always â under 15 min'],scores:[0,1,2,3]},
   {q:'How often do you wake up during the night?',opts:['Multiple times, can\'t sleep back','Once or twice','Rarely','Almost never'],scores:[0,1,2,3]},
   {q:'Do you keep consistent sleep and wake times?',opts:['No, very irregular','Weekdays only','Mostly consistent','Very consistent every day'],scores:[0,1,2,3]},
 ];
 let qIdx=0,answers=[];
 
 const scoreTips=[
-  {max:4,emoji:'😰',label:'Poor sleep',tips:'Your sleep needs urgent attention. Prioritize a consistent bedtime, avoid screens 1h before bed, and consider speaking to a doctor.'},
-  {max:7,emoji:'😐',label:'Fair sleep',tips:'You\'re getting some rest but missing key cycles. Try setting a consistent wake time (even weekends) and aim for 5–6 full 90-min cycles.'},
-  {max:10,emoji:'😊',label:'Good sleep',tips:'You\'re sleeping well! Fine-tune with this calculator for perfect cycle timing. Maintain your consistency — it\'s your biggest asset.'},
-  {max:12,emoji:'🌟',label:'Excellent sleep',tips:'You\'re a sleep champion! Your habits are solid. Share this calculator with friends who aren\'t as lucky.'},
+  {max:4,emoji:'ð°',label:'Poor sleep',tips:'Your sleep needs urgent attention. Prioritize a consistent bedtime, avoid screens 1h before bed, and consider speaking to a doctor.'},
+  {max:7,emoji:'ð',label:'Fair sleep',tips:'You\'re getting some rest but missing key cycles. Try setting a consistent wake time (even weekends) and aim for 5â6 full 90-min cycles.'},
+  {max:10,emoji:'ð',label:'Good sleep',tips:'You\'re sleeping well! Fine-tune with this calculator for perfect cycle timing. Maintain your consistency â it\'s your biggest asset.'},
+  {max:12,emoji:'ð',label:'Excellent sleep',tips:'You\'re a sleep champion! Your habits are solid. Share this calculator with friends who aren\'t as lucky.'},
 ];
 
 function renderQuiz(){
@@ -687,16 +658,16 @@ function restartQuiz(){
 }
 renderQuiz();
 
-// ── FAQ ──
+// ââ FAQ ââ
 function toggleFaq(btn){
   const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
   const open=ans.classList.contains('open');
   document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
   document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
+  if(!open){ans.classList.add('open');icon.textContent='Ã';}
 }
 
-// ── BACK TO TOP ──
+// ââ BACK TO TOP ââ
 window.addEventListener('scroll',()=>{
   document.getElementById('back-top').classList.toggle('show',window.scrollY>400);
 },{passive:true});
