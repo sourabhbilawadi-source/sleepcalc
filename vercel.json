@@ -1,4 +1,15 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/nap-calculator", "destination": "/nap-calculator.html" },
+    { "source": "/sleep-by-age", "destination": "/sleep-by-age.html" },
+    { "source": "/sleep-debt-calculator", "destination": "/sleep-debt-calculator.html" },
+    { "source": "/how-to-fall-asleep-fast", "destination": "/how-to-fall-asleep-fast.html" },
+    { "source": "/sleep-deprivation", "destination": "/sleep-deprivation.html" },
+    { "source": "/how-much-sleep", "destination": "/how-much-sleep.html" },
+    { "source": "/sleep-schedule", "destination": "/sleep-schedule.html" },
+    { "source": "/chronotype", "destination": "/chronotype.html" },
+    { "source": "/insomnia", "destination": "/insomnia.html" }
+  ]
 }
