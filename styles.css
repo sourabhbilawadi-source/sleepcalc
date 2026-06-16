@@ -3048,6 +3048,12 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   padding: 1.75rem;
   box-shadow: var(--shadow);
 }
+@media (min-width: 901px) {
+  .pp-panel {
+    position: sticky;
+    top: 80px;
+  }
+}
 .pp-title-row {
   display: flex;
   align-items: center;
