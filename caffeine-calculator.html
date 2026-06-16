@@ -249,6 +249,11 @@
       <div style="text-align: center; margin-top: 1rem; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
         <button class="share-btn" onclick="downloadCaffeineCard()">📥 Download Shareable Card</button>
         <button class="share-btn btn-widget" style="background:var(--bg-soft); border-color:var(--border); color:var(--text); margin:0;" onclick="openWidgetModal('caffeine-calculator', 'Caffeine Sleep Calculator')">🔌 Embed Tool</button>
+        <div class="social-share-row" style="width: 100%; margin-top: 5px;">
+          <button class="social-share-btn share-x" onclick="GoodSleepShare.shareX('caffeine-calculator')">🐦 Share on X</button>
+          <button class="social-share-btn share-reddit" onclick="GoodSleepShare.shareReddit('caffeine-calculator')">👽 Reddit</button>
+          <button class="social-share-btn share-wa" onclick="GoodSleepShare.shareWA('caffeine-calculator')">💬 WhatsApp</button>
+        </div>
       </div>
     </div>
   </div>

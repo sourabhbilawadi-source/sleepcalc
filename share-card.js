@@ -545,6 +545,129 @@ const GoodSleepShare = {
 
     // Trigger Download
     this.triggerDownload(canvas, filename);
+  },
+
+  /**
+   * Compiles customized sharing text based on quiz results or planner settings.
+   */
+  getShareData(pageSlug) {
+    const url = window.location.origin + window.location.pathname;
+    let text = "";
+    
+    if (pageSlug === 'sleep-audit') {
+      const score = localStorage.getItem('gs-sleep-audit-score');
+      const disrupter = localStorage.getItem('gs-sleep-audit-disrupter');
+      if (score) {
+        text = `I just completed my Sleep Quality Audit on GoodSleep! My sleep score is ${score}/100${disrupter ? ` (Main disrupter: ${disrupter})` : ''}. Diagnose your sleep habits here: ${url}`;
+      } else {
+        text = `How good is your sleep? Take the GoodSleep Sleep Quality Audit to diagnose sleep disrupters and get your sleep score: ${url}`;
+      }
+    } else if (pageSlug === 'caffeine-calculator') {
+      const data = window.activeCaffeineData;
+      if (data) {
+        let clearanceTime = "Safe at Bedtime";
+        if (data.bedtimeCaffeine >= 20) {
+          let m = data.bedtimeQueryMin;
+          const endLimit = data.bedtimeQueryMin + 24 * 60;
+          let clearedMin = -1;
+          while (m < endLimit) {
+            if (data.getCaffeineAtMinute(m % (24 * 60)) < 20) {
+              clearedMin = m % (24 * 60);
+              break;
+            }
+            m += 15;
+          }
+          if (clearedMin !== -1) {
+            const hrs = Math.floor(clearedMin / 60);
+            const mins = clearedMin % 60;
+            const ampm = hrs >= 12 ? 'PM' : 'AM';
+            const dispHrs = hrs % 12 === 0 ? 12 : hrs % 12;
+            const dispMins = mins < 10 ? '0' + mins : mins;
+            clearanceTime = `${dispHrs}:${dispMins} ${ampm}`;
+          } else {
+            clearanceTime = "Next Day";
+          }
+        }
+        text = `Tracked my bedtime caffeine clearance with GoodSleep. My bedtime level is ${Math.round(data.bedtimeCaffeine)}mg, and sleep-safe clearance is ${clearanceTime}. Check yours: ${url}`;
+      } else {
+        text = `Optimize your deep sleep by tracking your caffeine clearance curve! Find your sleep-safe hour with the GoodSleep caffeine calculator: ${url}`;
+      }
+    } else if (pageSlug === 'chronotype') {
+      const type = localStorage.getItem('gs-chronotype');
+      if (type) {
+        const chronotypeMap = {
+          bear: { name: 'Bear', emoji: '🐻', peak: '10 AM - 2 PM' },
+          lion: { name: 'Lion', emoji: '🦁', peak: '6 AM - 10 AM' },
+          wolf: { name: 'Wolf', emoji: '🐺', peak: '5 PM - 10 PM' },
+          dolphin: { name: 'Dolphin', emoji: '🐬', peak: '10 AM - 12 PM' }
+        };
+        const mapped = chronotypeMap[type.toLowerCase()] || { name: type, emoji: '🧬', peak: 'daytime' };
+        text = `My biological chronotype is the ${mapped.emoji} ${mapped.name}! Peak energy: ${mapped.peak}. Take the quiz to find your sleep animal: ${url}`;
+      } else {
+        text = `Optimize your sleep by aligning with your biological clock! Discover your chronotype (Lion, Bear, Wolf, Dolphin) and peak energy hours: ${url}`;
+      }
+    } else if (pageSlug === 'polyphasic-sleep-planner') {
+      const routineKey = localStorage.getItem('gs-polyphasic-routine');
+      const hours = localStorage.getItem('gs-polyphasic-sleep-hours');
+      if (routineKey) {
+        const polyphasicMap = {
+          'biphasic-siesta': 'Biphasic Siesta',
+          'biphasic-segmented': 'Biphasic Segmented',
+          'everyman-e2': 'Everyman E2',
+          'everyman-e3': 'Everyman E3',
+          'uberman': 'Uberman',
+          'dymaxion': 'Dymaxion'
+        };
+        const routineName = polyphasicMap[routineKey] || routineKey;
+        text = `I'm planning a ${routineName} polyphasic sleep schedule (${hours ? `${hours}h` : 'custom'} total sleep/day) using the GoodSleep sleep clock! Design your schedule: ${url}`;
+      } else {
+        text = `Optimize your sleep schedules with our interactive 24-hour circular polyphasic clock planner! Customize Biphasic, Everyman, or Uberman schedules: ${url}`;
+      }
+    } else if (pageSlug === 'jet-lag-planner') {
+      const dep = localStorage.getItem('gs-jet-lag-dep');
+      const dest = localStorage.getItem('gs-jet-lag-dest');
+      const diff = localStorage.getItem('gs-jet-lag-diff');
+      const days = localStorage.getItem('gs-jet-lag-days');
+      if (dep && dest) {
+        const diffVal = parseFloat(diff);
+        const shiftText = diffVal > 0 ? `+${diffVal}h` : `${diffVal}h`;
+        text = `Planning a jet lag adaptation plan on GoodSleep for a ${shiftText} shift from ${dep} to ${dest}. Total transition: ${days} days. Get your custom plan: ${url}`;
+      } else {
+        text = `Travelling across timezones? Beat jet lag with the GoodSleep circadian timezone transition planner. Calculate your melatonin, light, and sleep offset times: ${url}`;
+      }
+    } else {
+      text = `Optimize your circadian rhythms and improve sleep quality with interactive tools on GoodSleep: ${url}`;
+    }
+    
+    return text;
+  },
+
+  /**
+   * Opens the share dialog on X (Twitter).
+   */
+  shareX(pageSlug) {
+    const text = this.getShareData(pageSlug);
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+    window.open(shareUrl, '_blank', 'width=600,height=400,resizable=yes');
+  },
+  
+  /**
+   * Opens the share dialog on Reddit.
+   */
+  shareReddit(pageSlug) {
+    const text = this.getShareData(pageSlug);
+    const url = window.location.origin + window.location.pathname;
+    const shareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`;
+    window.open(shareUrl, '_blank', 'width=600,height=600,resizable=yes');
+  },
+  
+  /**
+   * Opens the share dialog on WhatsApp.
+   */
+  shareWA(pageSlug) {
+    const text = this.getShareData(pageSlug);
+    const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    window.open(shareUrl, '_blank', 'width=600,height=500,resizable=yes');
   }
 };
 

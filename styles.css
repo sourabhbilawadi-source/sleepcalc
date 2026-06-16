@@ -3625,6 +3625,49 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   padding: 0 !important;
 }
 
+/* ══════════════════════════════════════════════
+   SOCIAL SHARE ROW STYLES
+   ══════════════════════════════════════════════ */
+.social-share-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+.social-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--r-sm, 8px);
+  border: none;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+.social-share-btn:hover {
+  transform: translateY(-1.5px);
+  opacity: 0.95;
+}
+.social-share-btn.share-x {
+  background: #1a1a1a;
+  border: 1px solid #333;
+}
+.social-share-btn.share-reddit {
+  background: #ff4500;
+}
+.social-share-btn.share-wa {
+  background: #25d366;
+}
+.is-embed .social-share-row {
+  display: none !important;
+}
+
 
 
 
