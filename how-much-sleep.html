@@ -47,6 +47,16 @@
 </style>
 </head>
 <body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
 <nav>
   <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
   <div class="nav-right">
@@ -219,6 +229,16 @@ window.addEventListener('scroll',()=>{
 document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'\u2600\ufe0f':'\ud83c\udf19'});
 // BACK TO TOP
 window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+</script>
+
+<script>
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
 </script>
 </body>
 </html>

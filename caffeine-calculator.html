@@ -30,6 +30,16 @@
 </style>
 </head>
 <body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
 
 <nav>
   <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
@@ -583,6 +593,16 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
     }
   }
 
+})();
+</script>
+
+<script>
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
 })();
 </script>
 </body>
