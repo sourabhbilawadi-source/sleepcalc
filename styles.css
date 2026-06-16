@@ -3167,7 +3167,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .pp-stats-grid {
     grid-template-columns: 1fr;
   }
@@ -3682,8 +3682,8 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   margin-bottom: 0;
 }
 
-/* ── MOBILE OVERRIDES FOR VIEWPORTS <= 480PX ── */
-@media (max-width: 480px) {
+/* ── MOBILE OVERRIDES FOR VIEWPORTS <= 600PX ── */
+@media (max-width: 600px) {
   .pp-panel, .mq-panel, .mela-panel, .audit-panel {
     padding: 1.25rem 1rem !important;
   }
