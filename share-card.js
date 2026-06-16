@@ -2,6 +2,11 @@
  * GoodSleep Shareable Result Cards Generator
  * Compiles and downloads high-resolution (1200 x 630 px) PNG cards client-side.
  */
+(function() {
+  if (new URLSearchParams(window.location.search).has('embed')) {
+    document.documentElement.classList.add('is-embed');
+  }
+})();
 
 const GoodSleepShare = {
   // CSS design tokens mapping to concrete hexadecimal colors
@@ -545,3 +550,120 @@ const GoodSleepShare = {
 
 // Expose globally
 window.GoodSleepShare = GoodSleepShare;
+
+// 🔌 WIDGET EMBED MODAL FUNCTIONS
+window.openWidgetModal = function(pageSlug, pageTitle) {
+  let modal = document.getElementById('widget-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'widget-modal';
+    modal.className = 'widget-modal';
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    `;
+    document.body.appendChild(modal);
+  }
+  
+  const embedCode = `<iframe src="https://goodsleep.rest/${pageSlug}?embed=true" width="100%" height="600" style="border: 1px solid var(--border, #1f2d29); border-radius: 12px; background: #0B1512;" title="${pageTitle}"></iframe>\n<p style="font-size: 12px; text-align: center; color: #9ca3af;">Interactive Calculator by <a href="https://goodsleep.rest" target="_blank" style="color: #5dcaa5; text-decoration: none; font-weight: 600;">GoodSleep</a></p>`;
+
+  modal.innerHTML = `
+    <div class="widget-modal-content" style="
+      background: var(--bg-card, #111827);
+      border: 1.5px solid var(--border, #374151);
+      border-radius: var(--r, 16px);
+      padding: 2rem;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: var(--shadow);
+      position: relative;
+    ">
+      <button class="widget-close" onclick="closeWidgetModal()" style="
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        color: var(--text-muted, #9ca3af);
+        font-size: 24px;
+        cursor: pointer;
+        line-height: 1;
+      ">&times;</button>
+      <h3 style="margin-top: 0; font-size: 18px; font-weight: 700; color: var(--text, #ffffff);">🔌 Embed This Calculator</h3>
+      <p style="font-size: 13.5px; color: var(--text-muted, #9ca3af); line-height: 1.5; margin-bottom: 1rem;">
+        Add this interactive sleep tool to your own website or blog. Copy the code snippet below:
+      </p>
+      <textarea id="widget-code-text" readonly style="
+        width: 100%;
+        height: 120px;
+        background: var(--bg-soft, #1f2937);
+        border: 1px solid var(--border, #374151);
+        border-radius: var(--r-sm, 8px);
+        padding: 10px;
+        color: var(--text, #ffffff);
+        font-family: monospace;
+        font-size: 12px;
+        resize: none;
+        margin-bottom: 1.25rem;
+        box-sizing: border-box;
+      ">${embedCode}</textarea>
+      <div style="display: flex; gap: 10px;">
+        <button id="widget-copy-btn" onclick="copyWidgetCode()" style="
+          flex: 1;
+          background: var(--teal, #1d9e75);
+          color: white;
+          border: none;
+          padding: 10px 16px;
+          border-radius: var(--r-sm, 8px);
+          font-weight: 700;
+          cursor: pointer;
+          transition: background 0.2s;
+        ">📋 Copy Embed Code</button>
+        <button onclick="closeWidgetModal()" style="
+          background: var(--bg-soft, #1f2937);
+          border: 1.5px solid var(--border, #374151);
+          color: var(--text, #ffffff);
+          padding: 10px 16px;
+          border-radius: var(--r-sm, 8px);
+          font-weight: 600;
+          cursor: pointer;
+        ">Cancel</button>
+      </div>
+    </div>
+  `;
+  
+  setTimeout(() => { modal.style.opacity = '1'; }, 10);
+};
+
+window.closeWidgetModal = function() {
+  const modal = document.getElementById('widget-modal');
+  if (modal) {
+    modal.style.opacity = '0';
+    setTimeout(() => { modal.remove(); }, 300);
+  }
+};
+
+window.copyWidgetCode = function() {
+  const textarea = document.getElementById('widget-code-text');
+  const btn = document.getElementById('widget-copy-btn');
+  textarea.select();
+  document.execCommand('copy');
+  
+  const originalText = btn.textContent;
+  btn.textContent = '✅ Copied!';
+  btn.style.background = '#1D9E75';
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.style.background = 'var(--teal, #1d9e75)';
+  }, 2000);
+};

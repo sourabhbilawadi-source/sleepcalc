@@ -3592,6 +3592,39 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   margin-left: auto;
 }
 
+/* ══════════════════════════════════════════════
+   EMBED MODE STYLES
+   ══════════════════════════════════════════════ */
+.is-embed nav,
+.is-embed footer,
+.is-embed .hero,
+.is-embed .breadcrumb,
+.is-embed .back-top,
+.is-embed .loading-overlay,
+.is-embed .how-section,
+.is-embed .testimonials-section,
+.is-embed .home-cta,
+.is-embed .section.faq,
+.is-embed .theme-toggle,
+.is-embed .btn-widget {
+  display: none !important;
+}
+.is-embed body {
+  background: transparent !important;
+}
+.is-embed .page {
+  margin: 0 !important;
+  padding: 10px !important;
+  max-width: 100% !important;
+}
+.is-embed .calculator-container,
+.is-embed .caffeine-container {
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
 
 
 

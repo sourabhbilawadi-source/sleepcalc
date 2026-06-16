@@ -246,8 +246,9 @@
         <text x="406" y="192" class="caffeine-chart-axis-label" text-anchor="middle">2 AM</text>
         <text x="480" y="192" class="caffeine-chart-axis-label" text-anchor="middle">6 AM</text>
       </svg>
-      <div style="text-align: center; margin-top: 1rem;">
+      <div style="text-align: center; margin-top: 1rem; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
         <button class="share-btn" onclick="downloadCaffeineCard()">📥 Download Shareable Card</button>
+        <button class="share-btn btn-widget" style="background:var(--bg-soft); border-color:var(--border); color:var(--text); margin:0;" onclick="openWidgetModal('caffeine-calculator', 'Caffeine Sleep Calculator')">🔌 Embed Tool</button>
       </div>
     </div>
   </div>

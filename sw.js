@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goodsleep-v1';
+const CACHE_NAME = 'goodsleep-v2';
 const ASSETS = [
   '/',
   '/index.html',
