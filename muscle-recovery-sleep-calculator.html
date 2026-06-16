@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Bodybuilding & Muscle Recovery Sleep Calculator",
+  "url": "https://goodsleep.rest/muscle-recovery-sleep-calculator",
+  "description": "Calculate custom sleep requirements for muscle recovery and bodybuilding based on training volume, intensity, and muscle group size.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5/JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bodybuilding &amp; Muscle Recovery Sleep Calculator — GoodSleep</title>
+<meta name="description" content="Calculate the exact sleep duration needed for muscle protein synthesis and optimal growth hormone release based on your training splits and intensity.">
+<meta property="og:title" content="Bodybuilding &amp; Muscle Recovery Sleep Calculator — GoodSleep">
+<meta property="og:description" content="Optimize your athletic recovery. Calculates extra sleep time needed based on lifting volume, leg/back splits, and metabolic cardio load.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/muscle-recovery-sleep-calculator">
+<meta property="og:url" content="https://goodsleep.rest/muscle-recovery-sleep-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<meta property="og:image" content="https://goodsleep.rest/og-image.png">
+<link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
+<style>
+/* Page Specific styling helper for layout */
+.mr-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .mr-container {
+    grid-template-columns: 1fr;
+  }
+}
+.mr-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 901px) {
+  .mr-panel {
+    position: sticky;
+    top: 80px;
+  }
+  .page {
+    max-width: 1100px !important;
+  }
+}
+
+/* Timeline specific styles */
+.mr-svg-wrap {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-top: 1.5rem;
+}
+.mr-chart-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.mr-timeline-axis {
+  font-size: 10px;
+  fill: var(--text-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+}
+.mr-timeline-bar-label {
+  font-size: 10px;
+  fill: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+}
+.mr-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.mr-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Muscle recovery calculator</div>
+  <h1>Muscle Recovery Sleep Calculator</h1>
+  <p class="hero-sub">Lifting weights tumbles your muscle tissue and taxes your central nervous system. Calculate how much extra sleep your body requires to repair and grow.</p>
+</div>
+
+<div class="page">
+  <div class="mr-container">
+    <!-- INPUTS PANEL -->
+    <div class="mr-panel">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:1.5rem;">
+        <div style="background:var(--teal-light); color:var(--teal); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">💪</div>
+        <h3 style="margin:0; font-size:16px;">Training Inputs</h3>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="mr-baseline" style="display:flex; justify-content:space-between;">
+          <span>Baseline Sleep Need</span>
+          <span id="mr-baseline-val" style="font-weight:700; color:var(--teal);">8.0 hours</span>
+        </label>
+        <input type="range" id="mr-baseline" min="7.0" max="9.0" step="0.25" value="8.0" oninput="updateBaselineVal(); calculateRecoverySleep();" style="width:100%;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="mr-intensity">Lifting Intensity &amp; Volume</label>
+        <select id="mr-intensity" class="select" onchange="calculateRecoverySleep();" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="rest">Rest Day / Active Recovery (+0 min)</option>
+          <option value="moderate">Moderate Session (Hypertrophy / Pump) (+30 min)</option>
+          <option value="intense" selected>Intense / Heavy Lifting (Powerlifting / leg day) (+45 min)</option>
+          <option value="double">Double Session / Elite Training Volume (+75 min)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="mr-muscle">Muscle Group Split</label>
+        <select id="mr-muscle" class="select" onchange="calculateRecoverySleep();" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="large" selected>Large Muscle Groups (Legs / Back / Squats / Deadlifts) (+30 min)</option>
+          <option value="small">Small Muscle Groups (Arms / Shoulders / Chest only) (+0 min)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="mr-cardio">Cardiovascular / Conditioning Volume</label>
+        <select id="mr-cardio" class="select" onchange="calculateRecoverySleep();" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="none">None / Low Intensity LISS (+0 min)</option>
+          <option value="moderate" selected>Moderate Cardio (Jogging / Swimming) (+15 min)</option>
+          <option value="hiit">High Intensity Interval Training (HIIT) (+30 min)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <!-- STATS GRID -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px;">
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Optimal Sleep Time</span>
+          <span id="stat-total" style="font-size:20px; font-weight:800; color:var(--teal);">9.5 Hours</span>
+        </div>
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Deep Sleep (GH Peak)</span>
+          <span id="stat-deep" style="font-size:20px; font-weight:800; color:var(--amber);">2.1 Hours</span>
+        </div>
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">CNS Fatigue Margin</span>
+          <span id="stat-margin" style="font-size:20px; font-weight:800; color:var(--red);">+90 min Needed</span>
+        </div>
+      </div>
+
+      <!-- VISUAL SLEEP CYCLES CARD -->
+      <div class="mr-svg-wrap">
+        <div class="mr-chart-title">Estimated Sleep Cycle Recovery Architecture</div>
+        <svg viewBox="0 0 500 160" width="100%" id="mr-timeline" style="display:block;">
+          <!-- Timeline X-Axis Grid and Labels -->
+          <line x1="40" y1="130" x2="480" y2="130" stroke="var(--border)" stroke-width="2"></line>
+          
+          <text x="40" y="148" class="mr-timeline-axis" text-anchor="middle">Start</text>
+          <text x="150" y="148" class="mr-timeline-axis" text-anchor="middle">Cycle 1 (90m)</text>
+          <text x="260" y="148" class="mr-timeline-axis" text-anchor="middle">Cycle 3 (4.5h)</text>
+          <text x="370" y="148" class="mr-timeline-axis" text-anchor="middle">Cycle 5 (7.5h)</text>
+          <text x="480" y="148" class="mr-timeline-axis" text-anchor="middle" id="mr-end-label">End (9.5h)</text>
+
+          <!-- Dynamic Bars will be drawn here -->
+          <g id="cycles-dynamic-group"></g>
+        </svg>
+
+        <div style="display:flex; justify-content:center; gap:16px; margin-top:1.25rem; flex-wrap:wrap;">
+          <div class="mr-legend-item"><div class="mr-legend-color" style="background:#1d9e75;"></div><span>Deep Sleep (GH Release)</span></div>
+          <div class="mr-legend-item"><div class="sw-legend-color" style="background:#8b5cf6;"></div><span>REM Sleep (CNS Recovery)</span></div>
+          <div class="mr-legend-item"><div class="sw-legend-color" style="background:#1f2937; border:1px solid #374151;"></div><span>Light Sleep</span></div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE GUIDELINES CARD -->
+      <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r); padding:1.75rem; box-shadow:var(--shadow);">
+        <h3 style="margin-top:0; font-size:16px; color:var(--text);">💡 Muscle Anabolic Sleep Protocols</h3>
+        <div id="mr-guidelines" style="display:flex; flex-direction:column; gap:12px; font-size:13.5px; line-height:1.5; color:var(--text-muted);">
+          <!-- Injected dynamically -->
+        </div>
+        
+        <div style="margin-top:1.5rem; text-align:center; display:flex; flex-direction:column; align-items:center;">
+          <button class="share-btn" onclick="downloadMuscleCard()" style="width:100%;">📥 Download Shareable Card</button>
+          <div class="social-share-row" style="width:100%; margin-top:10px;">
+            <button class="social-share-btn share-x" onclick="GoodSleepShare.shareX('muscle-recovery-sleep-calculator')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share on X
+            </button>
+            <button class="social-share-btn share-reddit" onclick="GoodSleepShare.shareReddit('muscle-recovery-sleep-calculator')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.23-1.72l1.36-4.3 4.41.97c.04.99.87 1.8 1.88 1.8 1.03 0 1.87-.84 1.87-1.87s-.84-1.87-1.87-1.87c-.79 0-1.47.49-1.76 1.2l-4.92-1.08c-.2-.04-.4.07-.46.27l-1.55 4.9C6.54 6.77 4.27 7.42 2.62 8.42c-.56-.73-1.43-1.18-2.4-1.18-1.65 0-3 1.35-3 3 0 1.1.6 2.06 1.48 2.58-.08.38-.12.77-.12 1.17 0 3.72 4.3 6.75 9.6 6.75s9.6-3.03 9.6-6.75c0-.4-.04-.79-.12-1.17.89-.52 1.49-1.48 1.49-2.58zM5.38 12.5c0-.97.79-1.75 1.75-1.75s1.75.79 1.75 1.75-.79 1.75-1.75 1.75-1.75-.79-1.75-1.75zm10.74 3.75c-1.39 1.39-4.04 1.5-4.87 1.5-.83 0-3.48-.11-4.87-1.5-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 1.15 1.15 3.39 1.25 4.33 1.25.94 0 3.18-.1 4.33-1.25.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.88-2c-.97 0-1.75-.79-1.75-1.75s.79-1.75 1.75-1.75 1.75.79 1.75 1.75-.79 1.75-1.75 1.75z"/></svg>
+              Reddit
+            </button>
+            <button class="social-share-btn share-wa" onclick="GoodSleepShare.shareWA('muscle-recovery-sleep-calculator')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.488 1.449 5.412 1.451 5.428 0 9.85-4.417 9.854-9.848.002-2.63-1.023-5.101-2.885-6.963C17.166 1.83 14.693.801 12.06.799c-5.432 0-9.855 4.417-9.86 9.848-.001 1.996.521 3.946 1.512 5.669l-.993 3.621 3.71-.973zm11.254-4.87c-.3-.15-1.774-.875-2.046-.975-.273-.1-.472-.15-.67.15-.198.3-.77.975-.943 1.175-.173.2-.347.225-.647.075-.3-.15-1.266-.467-2.41-1.487-.89-.794-1.492-1.775-1.666-2.075-.174-.3-.018-.462.13-.61.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525C9.444 8.25 8.85 6.79 8.6 6.19c-.243-.585-.49-.506-.67-.515-.174-.008-.373-.01-.573-.01-.2 0-.523.075-.797.375-.273.3-1.042 1.02-1.042 2.485s1.068 2.875 1.218 3.075c.149.2 2.102 3.21 5.092 4.5.712.307 1.267.49 1.7.63.716.227 1.368.195 1.884.118.575-.085 1.774-.725 2.022-1.425.247-.7 2.47-1.47 2.22-1.57z"/></svg>
+              WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Science/SEO section -->
+  <div class="section">
+    <h2>The Science of Sleep and Muscle Recovery</h2>
+    <p>While nutrition and physical stimulus are key, muscle growth doesn't actually happen in the gym. Weight lifting creates microscopic tears in muscle fibers. Sleep is the primary anabolic state where actual muscle protein synthesis (MPS) and tissue recovery occur.</p>
+    
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:2rem 0; text-align:left;" class="sw-mobile-stack">
+      <div style="background:var(--bg-soft); border:1px solid var(--border); padding:1.5rem; border-radius:12px;">
+        <h4 style="margin-top:0; color:var(--teal); font-size:16px;">🧪 Human Growth Hormone (HGH)</h4>
+        <p style="font-size:13.5px; margin-bottom:0; line-height:1.5; color:var(--text-muted);">Up to 95% of your daily **Human Growth Hormone (HGH)** secretion occurs in slow-wave deep sleep. Deep sleep dominates the first half of your sleep cycle. Disrupting or cutting your sleep short halts this secretion, directly restricting muscle hypertrophy and skeletal repair cycles.</p>
+      </div>
+      <div style="background:var(--bg-soft); border:1px solid var(--border); padding:1.5rem; border-radius:12px;">
+        <h4 style="margin-top:0; color:var(--red); font-size:16px;">⚡ Central Nervous System (CNS) Fatigue</h4>
+        <p style="font-size:13.5px; margin-bottom:0; line-height:1.5; color:var(--text-muted);">Heavy compound lifts like squats and deadlifts strain the motor neurons and neurotransmitter stores of your **Central Nervous System**. CNS recovery requires long REM sleep phases (which dominate the second half of the night). Short sleeping blocks lead to accumulated neurological fatigue, causing strength plateaus.</p>
+      </div>
+    </div>
+
+    <h3>Optimal Athletic Sleep Protocols</h3>
+    <ul>
+      <li><strong>Consistent Wake Times</strong>: Keep your wake-up time stable to optimize sleep efficiency. This ensures you drop into deep sleep faster.</li>
+      <li><strong>Magnesium Glycinate Stack</strong>: Taking magnesium before bed relaxes skeletal muscles and calms the nervous system, helping you transition smoothly into slow-wave sleep.</li>
+      <li><strong>Pre-Sleep Casein Protein</strong>: Consuming slow-digesting protein (like casein or cottage cheese) before sleeping ensures a steady supply of amino acids throughout your sleep blocks.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
+    <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
+    <a href="/sleep-audit">📊 Sleep Quality Audit</a>
+    <a href="/shift-work-sleep-calculator">🚨 Shift Work Scheduler</a>
+    <a href="/muscle-recovery-sleep-calculator">💪 Muscle Recovery Calculator</a>
+    <a href="/new-parent-sleep-sync">👶 New Parent Sleep Sync</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<script>
+// Handle Loading Page
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.style.display = 'none', 400);
+  }
+  calculateRecoverySleep();
+});
+
+// Theme Toggle Code
+(function() {
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+                   (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const r = document.documentElement;
+  const current = r.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const next = current === 'dark' ? 'light' : 'dark';
+  r.setAttribute('data-theme', next);
+  localStorage.setItem('gs-theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+// UI Logic
+function updateBaselineVal() {
+  const val = parseFloat(document.getElementById('mr-baseline').value);
+  document.getElementById('mr-baseline-val').textContent = `${val.toFixed(2)} hours`;
+}
+
+function calculateRecoverySleep() {
+  const baseline = parseFloat(document.getElementById('mr-baseline').value);
+  const intensity = document.getElementById('mr-intensity').value;
+  const muscle = document.getElementById('mr-muscle').value;
+  const cardio = document.getElementById('mr-cardio').value;
+
+  let intensityMins = 0;
+  if (intensity === 'moderate') intensityMins = 30;
+  else if (intensity === 'intense') intensityMins = 45;
+  else if (intensity === 'double') intensityMins = 75;
+
+  let muscleMins = (muscle === 'large') ? 30 : 0;
+
+  let cardioMins = 0;
+  if (cardio === 'moderate') cardioMins = 15;
+  else if (cardio === 'hiit') cardioMins = 30;
+
+  const totalExtraMins = intensityMins + muscleMins + cardioMins;
+  const optimalSleep = baseline + (totalExtraMins / 60);
+
+  // Format outputs
+  document.getElementById('stat-total').textContent = `${optimalSleep.toFixed(2)} Hours`;
+  document.getElementById('stat-margin').textContent = `+${totalExtraMins} min Needed`;
+
+  // Deep sleep estimation (roughly 22% of sleep block)
+  const deepSleep = optimalSleep * 0.22;
+  document.getElementById('stat-deep').textContent = `${deepSleep.toFixed(1)} Hours`;
+
+  // Update SVG label
+  document.getElementById('mr-end-label').textContent = `End (${optimalSleep.toFixed(1)}h)`;
+
+  // Guidelines builder
+  const guidelines = document.getElementById('mr-guidelines');
+  guidelines.innerHTML = '';
+
+  const rules = [
+    `💤 Your training split requires an optimal sleep target of <strong>${optimalSleep.toFixed(2)} hours</strong> tonight to cover both muscle and neural recovery.`,
+    `🧪 Sleeping for this block yields an estimated <strong>${deepSleep.toFixed(1)} hours of Deep Sleep</strong>, maximizing natural growth hormone secretion.`,
+    intensity === 'double' || muscle === 'large' ? `🏋️‍♂️ Heavy compound lift day: Your <strong>CNS Fatigue Margin is high (+${totalExtraMins}m)</strong>. Target earlier wind-down to accommodate the extra sleep block.` : `🏋️‍♂️ Light volume day: Maintain your baseline circadian timing while allowing a standard wind-down buffer.`,
+    `🥛 Anabolic protocol: Consume 30–40g of slow-digesting protein (such as Casein) within 60 minutes before bedtime to support protein synthesis.`
+  ];
+
+  rules.forEach(rule => {
+    const li = document.createElement('div');
+    li.style.display = 'flex';
+    li.style.gap = '8px';
+    li.innerHTML = `<span>•</span><span>${rule}</span>`;
+    guidelines.appendChild(li);
+  });
+
+  // Redraw SVG Cycles
+  drawCycles(optimalSleep);
+}
+
+function drawCycles(optimalSleep) {
+  const svgGroup = document.getElementById('cycles-dynamic-group');
+  svgGroup.innerHTML = '';
+
+  // Max width of svg timeline: 440px (from x=40 to x=480)
+  // Let's assume max sleep duration shown is 10 hours.
+  const mapToX = (hours) => {
+    return 40 + (hours / 10) * 440;
+  };
+
+  const drawSegment = (startHrs, endHrs, y, height, color, labelText) => {
+    const x = mapToX(startHrs);
+    const w = mapToX(endHrs) - x;
+
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', x);
+    rect.setAttribute('y', y);
+    rect.setAttribute('width', w);
+    rect.setAttribute('height', height);
+    rect.setAttribute('fill', color);
+    rect.setAttribute('rx', '4');
+    svgGroup.appendChild(rect);
+
+    if (labelText && w > 30) {
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', x + w / 2);
+      text.setAttribute('y', y + height / 2 + 3);
+      text.setAttribute('class', 'mr-timeline-bar-label');
+      text.setAttribute('text-anchor', 'middle');
+      text.textContent = labelText;
+      svgGroup.appendChild(text);
+    }
+  };
+
+  // Generate standard 90-minute sleep cycles up to optimalSleep
+  // A 90 min sleep cycle typically consists of:
+  // - Light sleep (first 25 mins = 0.42 hrs)
+  // - Deep sleep (next 35 mins = 0.58 hrs, shifts shorter in later cycles)
+  // - REM sleep (last 30 mins = 0.50 hrs, shifts longer in later cycles)
+  let currentHrs = 0;
+  let cycleNum = 1;
+
+  while (currentHrs < optimalSleep) {
+    const remainingHrs = optimalSleep - currentHrs;
+    const cycleDuration = Math.min(1.5, remainingHrs); // 1.5 hours cycle
+
+    if (cycleDuration < 0.25) {
+      // Light sleep tail
+      drawSegment(currentHrs, optimalSleep, 50, 40, '#1f2937', '');
+      break;
+    }
+
+    // Dynamic stage ratios based on cycle index
+    // Deep sleep shrinks, REM grows
+    let deepPct = 0.4;
+    let remPct = 0.2;
+    if (cycleNum === 3 || cycleNum === 4) {
+      deepPct = 0.25;
+      remPct = 0.35;
+    } else if (cycleNum > 4) {
+      deepPct = 0.1;
+      remPct = 0.5;
+    }
+    const lightPct = 1.0 - deepPct - remPct;
+
+    const lightDuration = cycleDuration * lightPct;
+    const deepDuration = cycleDuration * deepPct;
+    const remDuration = cycleDuration * remPct;
+
+    const lEnd = currentHrs + lightDuration;
+    const dEnd = lEnd + deepDuration;
+    const rEnd = dEnd + remDuration;
+
+    drawSegment(currentHrs, lEnd, 50, 40, '#1f2937', '');
+    drawSegment(lEnd, dEnd, 50, 40, '#1d9e75', cycleNum <= 3 ? 'DEEP' : '');
+    drawSegment(dEnd, rEnd, 50, 40, '#8b5cf6', cycleNum >= 4 ? 'REM' : '');
+
+    // Add separator vertical line
+    const sep = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    sep.setAttribute('x1', mapToX(rEnd));
+    sep.setAttribute('y1', 40);
+    sep.setAttribute('x2', mapToX(rEnd));
+    sep.setAttribute('y2', 100);
+    sep.setAttribute('stroke', 'var(--border)');
+    sep.setAttribute('stroke-dasharray', '2 2');
+    svgGroup.appendChild(sep);
+
+    currentHrs = rEnd;
+    cycleNum++;
+  }
+}
+
+// Share function
+function downloadMuscleCard() {
+  const totalVal = document.getElementById('stat-total').textContent;
+  const deep = document.getElementById('stat-deep').textContent;
+  const margin = document.getElementById('stat-margin').textContent;
+  const focus = document.getElementById('mr-intensity').options[document.getElementById('mr-intensity').selectedIndex].text;
+
+  const stats = [
+    { label: 'Workout Focus Level:', value: focus },
+    { label: 'CNS Fatigue Sleep Margin:', value: margin },
+    { label: 'Optimal Sleep Goal:', value: totalVal },
+    { label: 'Estimated Deep Recovery:', value: deep }
+  ];
+
+  const tagline = "Weightlifting tears muscle tissue and stresses the central nervous system. Recovery sleep maximizes growth hormone release.";
+  const svgEl = document.getElementById('mr-timeline');
+
+  GoodSleepShare.generateSvgResultCard(
+    'ATHLETE MUSCLE RECOVERY SCHEDULE',
+    `Optimal Sleep: ${totalVal}`,
+    tagline,
+    stats,
+    svgEl,
+    'goodsleep-muscle-recovery.png'
+  );
+}
+</script>
+</body>
+</html>

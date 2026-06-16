@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "New Parent Sleep Sync Calculator",
+  "url": "https://goodsleep.rest/new-parent-sleep-sync",
+  "description": "Coordinate nighttime shifts between parents to guarantee critical consolidated sleep windows during infant feeding cycles.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5/JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Parent Sleep Sync Calculator &amp; Shift Planner — GoodSleep</title>
+<meta name="description" content="Coordinate night shifts and baby feeding windows. Our new parent sleep calculator guarantees at least one 4-hour consolidated deep sleep block for both parents.">
+<meta property="og:title" content="New Parent Sleep Sync Calculator &amp; Shift Planner — GoodSleep">
+<meta property="og:description" content="Split night feeding duties. Calculates structured sleep shifts to protect parental mental health and prevent severe sleep debt.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/new-parent-sleep-sync">
+<meta property="og:url" content="https://goodsleep.rest/new-parent-sleep-sync">
+<meta property="og:site_name" content="GoodSleep">
+<meta property="og:image" content="https://goodsleep.rest/og-image.png">
+<link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
+<style>
+/* Page Specific styling helper for layout */
+.np-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .np-container {
+    grid-template-columns: 1fr;
+  }
+}
+.np-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 901px) {
+  .np-panel {
+    position: sticky;
+    top: 80px;
+  }
+  .page {
+    max-width: 1100px !important;
+  }
+}
+
+/* Timeline specific styles */
+.np-svg-wrap {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-top: 1.5rem;
+}
+.np-chart-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.np-timeline-axis {
+  font-size: 10px;
+  fill: var(--text-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+}
+.np-timeline-bar-label {
+  font-size: 10px;
+  fill: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+}
+.np-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.np-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Parent sleep sync</div>
+  <h1>New Parent Sleep Sync Calculator</h1>
+  <p class="hero-sub">Infants feed around the clock. Coordinate night duty shifts between parents to guarantee at least one 4-hour consolidated deep sleep window for both.</p>
+</div>
+
+<div class="page">
+  <div class="np-container">
+    <!-- INPUTS PANEL -->
+    <div class="np-panel">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:1.5rem;">
+        <div style="background:var(--teal-light); color:var(--teal); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">👶</div>
+        <h3 style="margin:0; font-size:16px;">Family Inputs</h3>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="np-age">Baby's Age</label>
+        <select id="np-age" class="select" onchange="calculateParentSync();" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="0-2" selected>Newborn (0–2 Months) (Feed every 2–3 hours)</option>
+          <option value="2-4">Infant (2–4 Months) (Feed every 3–4 hours)</option>
+          <option value="4-6">Baby (4–6 Months) (Feed every 4–5 hours)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="np-feeding">Feeding Method</label>
+        <select id="np-feeding" class="select" onchange="calculateParentSync();" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="formula" selected>Formula / Bottle Feeding (Either parent can feed)</option>
+          <option value="mixed">Mixed (Pumped Milk or Breast + Bottle)</option>
+          <option value="breast">Exclusive Breastfeeding (Mother must wake/assist)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="np-prefs">Chronotype Preferences</label>
+        <select id="np-prefs" class="select" onchange="calculateParentSync();" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="owl-lark" selected>Parent A (Night Owl) / Parent B (Early Bird)</option>
+          <option value="lark-owl">Parent A (Early Bird) / Parent B (Night Owl)</option>
+          <option value="balanced">Balanced / Split Evenly (Midnight shift handoff)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <!-- STATS GRID -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px;">
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Uninterrupted Sleep</span>
+          <span id="stat-guarantee" style="font-size:20px; font-weight:800; color:var(--teal);">5.0 Hours</span>
+        </div>
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Parent A Shift</span>
+          <span id="stat-shifta" style="font-size:20px; font-weight:800; color:var(--amber);">9 PM - 2 AM</span>
+        </div>
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Parent B Shift</span>
+          <span id="stat-shiftb" style="font-size:20px; font-weight:800; color:var(--red);">2 AM - 7 AM</span>
+        </div>
+      </div>
+
+      <!-- VISUAL SCHEDULE DIAL CARD -->
+      <div class="np-svg-wrap">
+        <div class="np-chart-title">Night Shift &amp; Feed Duty Coordination</div>
+        <svg viewBox="0 0 500 180" width="100%" id="np-timeline" style="display:block;">
+          <!-- Timeline X-Axis Grid and Labels -->
+          <line x1="40" y1="140" x2="480" y2="140" stroke="var(--border)" stroke-width="2"></line>
+          
+          <text x="40" y="158" class="np-timeline-axis" text-anchor="middle">9 PM</text>
+          <text x="113" y="158" class="np-timeline-axis" text-anchor="middle">11 PM</text>
+          <text x="186" y="158" class="np-timeline-axis" text-anchor="middle">1 AM</text>
+          <text x="260" y="158" class="np-timeline-axis" text-anchor="middle">3 AM</text>
+          <text x="333" y="158" class="np-timeline-axis" text-anchor="middle">5 AM</text>
+          <text x="406" y="158" class="np-timeline-axis" text-anchor="middle">7 AM</text>
+          <text x="480" y="158" class="np-timeline-axis" text-anchor="middle">9 AM</text>
+
+          <!-- Parent labels -->
+          <text x="32" y="65" class="np-timeline-axis" text-anchor="end" style="font-weight:700;">PARENT A</text>
+          <text x="32" y="105" class="np-timeline-axis" text-anchor="end" style="font-weight:700;">PARENT B</text>
+
+          <!-- Rows borders -->
+          <line x1="40" y1="60" x2="480" y2="60" stroke="var(--border)" stroke-dasharray="2 2"></line>
+          <line x1="40" y1="100" x2="480" y2="100" stroke="var(--border)" stroke-dasharray="2 2"></line>
+
+          <!-- Dynamic Bars will be drawn here -->
+          <g id="parent-dynamic-group"></g>
+        </svg>
+
+        <div style="display:flex; justify-content:center; gap:16px; margin-top:1.25rem; flex-wrap:wrap;">
+          <div class="np-legend-item"><div class="np-legend-color" style="background:#1d9e75;"></div><span>Core Sleep (Uninterrupted)</span></div>
+          <div class="np-legend-item"><div class="np-legend-color" style="background:#4b5563;"></div><span>On Duty (Feeding / Soothing)</span></div>
+          <div class="np-legend-item"><div class="np-legend-color" style="background:#e24b4a; border-radius:50%; width:8px; height:8px;"></div><span>Estimated Feed Cycle</span></div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE GUIDELINES CARD -->
+      <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r); padding:1.75rem; box-shadow:var(--shadow);">
+        <h3 style="margin-top:0; font-size:16px; color:var(--text);">🍼 Parent Recovery Protocols</h3>
+        <div id="np-guidelines" style="display:flex; flex-direction:column; gap:12px; font-size:13.5px; line-height:1.5; color:var(--text-muted);">
+          <!-- Injected dynamically -->
+        </div>
+        
+        <div style="margin-top:1.5rem; text-align:center; display:flex; flex-direction:column; align-items:center;">
+          <button class="share-btn" onclick="downloadParentCard()" style="width:100%;">📥 Download Shareable Card</button>
+          <div class="social-share-row" style="width:100%; margin-top:10px;">
+            <button class="social-share-btn share-x" onclick="GoodSleepShare.shareX('new-parent-sleep-sync')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share on X
+            </button>
+            <button class="social-share-btn share-reddit" onclick="GoodSleepShare.shareReddit('new-parent-sleep-sync')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.23-1.72l1.36-4.3 4.41.97c.04.99.87 1.8 1.88 1.8 1.03 0 1.87-.84 1.87-1.87s-.84-1.87-1.87-1.87c-.79 0-1.47.49-1.76 1.2l-4.92-1.08c-.2-.04-.4.07-.46.27l-1.55 4.9C6.54 6.77 4.27 7.42 2.62 8.42c-.56-.73-1.43-1.18-2.4-1.18-1.65 0-3 1.35-3 3 0 1.1.6 2.06 1.48 2.58-.08.38-.12.77-.12 1.17 0 3.72 4.3 6.75 9.6 6.75s9.6-3.03 9.6-6.75c0-.4-.04-.79-.12-1.17.89-.52 1.49-1.48 1.49-2.58zM5.38 12.5c0-.97.79-1.75 1.75-1.75s1.75.79 1.75 1.75-.79 1.75-1.75 1.75-1.75-.79-1.75-1.75zm10.74 3.75c-1.39 1.39-4.04 1.5-4.87 1.5-.83 0-3.48-.11-4.87-1.5-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 1.15 1.15 3.39 1.25 4.33 1.25.94 0 3.18-.1 4.33-1.25.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.88-2c-.97 0-1.75-.79-1.75-1.75s.79-1.75 1.75-1.75 1.75.79 1.75 1.75-.79 1.75-1.75 1.75z"/></svg>
+              Reddit
+            </button>
+            <button class="social-share-btn share-wa" onclick="GoodSleepShare.shareWA('new-parent-sleep-sync')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.488 1.449 5.412 1.451 5.428 0 9.85-4.417 9.854-9.848.002-2.63-1.023-5.101-2.885-6.963C17.166 1.83 14.693.801 12.06.799c-5.432 0-9.855 4.417-9.86 9.848-.001 1.996.521 3.946 1.512 5.669l-.993 3.621 3.71-.973zm11.254-4.87c-.3-.15-1.774-.875-2.046-.975-.273-.1-.472-.15-.67.15-.198.3-.77.975-.943 1.175-.173.2-.347.225-.647.075-.3-.15-1.266-.467-2.41-1.487-.89-.794-1.492-1.775-1.666-2.075-.174-.3-.018-.462.13-.61.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525C9.444 8.25 8.85 6.79 8.6 6.19c-.243-.585-.49-.506-.67-.515-.174-.008-.373-.01-.573-.01-.2 0-.523.075-.797.375-.273.3-1.042 1.02-1.042 2.485s1.068 2.875 1.218 3.075c.149.2 2.102 3.21 5.092 4.5.712.307 1.267.49 1.7.63.716.227 1.368.195 1.884.118.575-.085 1.774-.725 2.022-1.425.247-.7 2.47-1.47 2.22-1.57z"/></svg>
+              WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Science/SEO section -->
+  <div class="section">
+    <h2>The Science of Consolidated Sleep for Parents</h2>
+    <p>Human sleep is composed of 90-minute sleep cycles. Waking up every 2 hours to feed an infant severely fragments sleep, leading to a total loss of Stage 3 Slow-Wave Sleep (Deep Sleep) and REM sleep. Chronic fragmentation causes severe cognitive impairment, increases postpartum depression risk, and slows physical recovery.</p>
+    
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:2rem 0; text-align:left;" class="sw-mobile-stack">
+      <div style="background:var(--bg-soft); border:1px solid var(--border); padding:1.5rem; border-radius:12px;">
+        <h4 style="margin-top:0; color:var(--teal); font-size:16px;">⏱️ The 4-Hour Rule</h4>
+        <p style="font-size:13.5px; margin-bottom:0; line-height:1.5; color:var(--text-muted);">Circadian research indicates that obtaining at least **one 4-hour block of uninterrupted sleep** allows the brain to complete two full sleep cycles. This is the minimum window required to access deep, restorative slow-wave sleep and clear adenosine (sleep debt), keeping brain functions healthy.</p>
+      </div>
+      <div style="background:var(--bg-soft); border:1px solid var(--border); padding:1.5rem; border-radius:12px;">
+        <h4 style="margin-top:0; color:var(--amber); font-size:16px;">🚨 Dim Red Lights for Feedings</h4>
+        <p style="font-size:13.5px; margin-bottom:0; line-height:1.5; color:var(--text-muted);">Bright overhead lights or checking smartphones during midnight feeds instantly suppresses melatonin secretion. It resets the master circadian clock, making it incredibly difficult for the parent to fall back asleep. Using dim red night lights (<10 lux) protects melatonin and allows quick returns to sleep.</p>
+      </div>
+    </div>
+
+    <h3>Parent Shift Cooperation Guide</h3>
+    <ul>
+      <li><strong>Respect Chronotypes</strong>: Align shifts to match natural biological clocks. The "Night Owl" parent handles the early evening shift (9 PM - 2 AM), while the "Early Bird" parent handles the morning shift (2 AM - 7 AM).</li>
+      <li><strong>Mixed Feeding Strategies</strong>: If exclusively breastfeeding, Parent B can still handle diaper changes, soothing, and bringing the baby to Mother, allowing the mother to remain in a semi-somnolent state.</li>
+      <li><strong>Avoid Shift Creep</strong>: Keep shift handoffs strict. The parent on sleep duty must sleep in a separate room with earplugs or white noise to prevent waking during feeds.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
+    <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
+    <a href="/sleep-audit">📊 Sleep Quality Audit</a>
+    <a href="/shift-work-sleep-calculator">🚨 Shift Work Scheduler</a>
+    <a href="/muscle-recovery-sleep-calculator">💪 Muscle Recovery Calculator</a>
+    <a href="/new-parent-sleep-sync">👶 New Parent Sleep Sync</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<script>
+// Handle Loading Page
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.style.display = 'none', 400);
+  }
+  calculateParentSync();
+});
+
+// Theme Toggle Code
+(function() {
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+                   (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const r = document.documentElement;
+  const current = r.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const next = current === 'dark' ? 'light' : 'dark';
+  r.setAttribute('data-theme', next);
+  localStorage.setItem('gs-theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+// Sync Logic
+function calculateParentSync() {
+  const age = document.getElementById('np-age').value;
+  const feeding = document.getElementById('np-feeding').value;
+  const prefs = document.getElementById('np-prefs').value;
+
+  let shiftA = "";
+  let shiftB = "";
+  let guarantee = 5.0;
+
+  if (prefs === 'owl-lark') {
+    shiftA = "9:00 PM - 2:00 AM";
+    shiftB = "2:00 AM - 7:00 AM";
+    guarantee = 5.0;
+  } else if (prefs === 'lark-owl') {
+    shiftA = "2:00 AM - 7:00 AM";
+    shiftB = "9:00 PM - 2:00 AM";
+    guarantee = 5.0;
+  } else {
+    // balanced
+    shiftA = "10:00 PM - 2:00 AM";
+    shiftB = "2:00 AM - 6:00 AM";
+    guarantee = 4.0;
+  }
+
+  // Format outputs
+  document.getElementById('stat-guarantee').textContent = `${guarantee.toFixed(1)} Hours`;
+  document.getElementById('stat-shifta').textContent = shiftA;
+  document.getElementById('stat-shiftb').textContent = shiftB;
+
+  // Guidelines builder
+  const guidelines = document.getElementById('np-guidelines');
+  guidelines.innerHTML = '';
+
+  const rules = [
+    `💤 Shift Arrangement: <strong>Parent A covers ${shiftA}</strong>, and <strong>Parent B covers ${shiftB}</strong>.`,
+    `⚓ This structure guarantees at least <strong>${guarantee.toFixed(1)} hours of uninterrupted consolidated sleep</strong> for both parents.`,
+    feeding === 'breast' ? `🤱 Exclusive Breastfeeding: Mother must wake to feed, but the on-duty partner should handle diaper changes and soothing to minimize maternal awake time.` : `🍼 Bottle / Formula feeding: The off-duty parent should sleep in a separate room with earplugs to ensure deep recovery sleep.`,
+    `🚨 Night feeds: Strictly use dim red night lights and avoid checking smartphones to prevent resetting your circadian rhythm.`
+  ];
+
+  rules.forEach(rule => {
+    const li = document.createElement('div');
+    li.style.display = 'flex';
+    li.style.gap = '8px';
+    li.innerHTML = `<span>•</span><span>${rule}</span>`;
+    guidelines.appendChild(li);
+  });
+
+  // Redraw SVG Timeline
+  drawParentTimeline(prefs, age);
+}
+
+function drawParentTimeline(prefs, age) {
+  const svgGroup = document.getElementById('parent-dynamic-group');
+  svgGroup.innerHTML = '';
+
+  // Max width of svg timeline: 440px (from x=40 to x=480)
+  // Maps 12 hours: 9 PM to 9 AM
+  const mapToX = (hourFrom9PM) => {
+    return 40 + (hourFrom9PM / 12) * 440;
+  };
+
+  const drawTimelineBar = (startHr, endHr, y, height, color, labelText) => {
+    const x = mapToX(startHr);
+    const w = mapToX(endHr) - x;
+
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', x);
+    rect.setAttribute('y', y);
+    rect.setAttribute('width', w);
+    rect.setAttribute('height', height);
+    rect.setAttribute('fill', color);
+    rect.setAttribute('rx', '4');
+    svgGroup.appendChild(rect);
+
+    if (labelText && w > 40) {
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', x + w / 2);
+      text.setAttribute('y', y + height / 2 + 3);
+      text.setAttribute('class', 'np-timeline-bar-label');
+      text.setAttribute('text-anchor', 'middle');
+      text.textContent = labelText;
+      svgGroup.appendChild(text);
+    }
+  };
+
+  // Draw timeline for Parent A & B based on shift preferences
+  if (prefs === 'owl-lark') {
+    // Parent A: Owl (On Duty 9 PM - 2 AM, Sleeps 2 AM - 7 AM, Wakes 7 AM)
+    drawTimelineBar(0, 5, 45, 25, '#4b5563', 'DUTY');
+    drawTimelineBar(5, 10, 45, 25, '#1d9e75', 'SLEEP');
+    drawTimelineBar(10, 12, 45, 25, '#374151', 'AWAKE');
+
+    // Parent B: Lark (Sleeps 9 PM - 2 AM, On Duty 2 AM - 7 AM, Awake 7 AM)
+    drawTimelineBar(0, 5, 85, 25, '#1d9e75', 'SLEEP');
+    drawTimelineBar(5, 10, 85, 25, '#4b5563', 'DUTY');
+    drawTimelineBar(10, 12, 85, 25, '#374151', 'AWAKE');
+  } else if (prefs === 'lark-owl') {
+    // Parent A: Sleeps 9 PM - 2 AM, On Duty 2 AM - 7 AM
+    drawTimelineBar(0, 5, 45, 25, '#1d9e75', 'SLEEP');
+    drawTimelineBar(5, 10, 45, 25, '#4b5563', 'DUTY');
+    drawTimelineBar(10, 12, 45, 25, '#374151', 'AWAKE');
+
+    // Parent B: On Duty 9 PM - 2 AM, Sleeps 2 AM - 7 AM
+    drawTimelineBar(0, 5, 85, 25, '#4b5563', 'DUTY');
+    drawTimelineBar(5, 10, 85, 25, '#1d9e75', 'SLEEP');
+    drawTimelineBar(10, 12, 85, 25, '#374151', 'AWAKE');
+  } else {
+    // Balanced: Midnight handoff
+    // Parent A: Sleeps 9 PM - 1 AM (4h), On Duty 1 AM - 5 AM (4h), Awake 5 AM
+    drawTimelineBar(0, 4, 45, 25, '#1d9e75', 'SLEEP');
+    drawTimelineBar(4, 8, 45, 25, '#4b5563', 'DUTY');
+    drawTimelineBar(8, 12, 45, 25, '#374151', 'AWAKE');
+
+    // Parent B: On Duty 9 PM - 1 AM (4h), Sleeps 1 AM - 5 AM (4h), Awake 5 AM
+    drawTimelineBar(0, 4, 85, 25, '#4b5563', 'DUTY');
+    drawTimelineBar(4, 8, 85, 25, '#1d9e75', 'SLEEP');
+    drawTimelineBar(8, 12, 85, 25, '#374151', 'AWAKE');
+  }
+
+  // Draw estimated baby feeding cycles (Red dots on timeline)
+  // newborn: feed every 2 hours. Infant: feed every 3 hours. Baby: feed every 4 hours.
+  let interval = 2;
+  if (age === '2-4') interval = 3;
+  else if (age === '4-6') interval = 4;
+
+  for (let hr = 1; hr < 11; hr += interval) {
+    const cx = mapToX(hr);
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', 35);
+    circle.setAttribute('r', '5');
+    circle.setAttribute('fill', '#e24b4a');
+    svgGroup.appendChild(circle);
+
+    // Dotted line through rows
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', cx);
+    line.setAttribute('y1', 35);
+    line.setAttribute('x2', cx);
+    line.setAttribute('y2', 125);
+    line.setAttribute('stroke', '#e24b4a');
+    line.setAttribute('stroke-dasharray', '2 2');
+    line.setAttribute('opacity', '0.6');
+    svgGroup.appendChild(line);
+  }
+}
+
+// Share function
+function downloadParentCard() {
+  const guarantee = document.getElementById('stat-guarantee').textContent;
+  const shifta = document.getElementById('stat-shifta').textContent;
+  const shiftb = document.getElementById('stat-shiftb').textContent;
+  const feeding = document.getElementById('np-feeding').options[document.getElementById('np-feeding').selectedIndex].text;
+
+  const stats = [
+    { label: 'Baby Feeding Strategy:', value: feeding },
+    { label: 'Parent A Shift Duty:', value: shifta },
+    { label: 'Parent B Shift Duty:', value: shiftb },
+    { label: 'Uninterrupted Sleep Goal:', value: guarantee }
+  ];
+
+  const tagline = "Waking up every 2 hours fragments sleep and triggers severe fatigue. Cooperating in structured shifts protects parental health.";
+  const svgEl = document.getElementById('np-timeline');
+
+  GoodSleepShare.generateSvgResultCard(
+    'NEW PARENT SLEEP SHIFT SCHEDULE',
+    `Uninterrupted sleep: ${guarantee}`,
+    tagline,
+    stats,
+    svgEl,
+    'goodsleep-parent-sync.png'
+  );
+}
+</script>
+</body>
+</html>

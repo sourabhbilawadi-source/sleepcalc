@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Shift Work Sleep Calculator",
+  "url": "https://goodsleep.rest/shift-work-sleep-calculator",
+  "description": "Calculate optimal sleep blocks, anchor sleep, and light/dark exposure windows for night and rotating shifts.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5/JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shift Work Sleep Scheduler &amp; Circadian Planner — GoodSleep</title>
+<meta name="description" content="Use our shift work sleep calculator to plan optimal sleep windows, identify your critical anchor sleep block, and schedule light/dark exposure for night shifts.">
+<meta property="og:title" content="Shift Work Sleep Scheduler &amp; Circadian Planner — GoodSleep">
+<meta property="og:description" content="Calculate optimal sleep blocks, anchor sleep windows, and light exposure timelines for night, evening, and rotating shifts.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/shift-work-sleep-calculator">
+<meta property="og:url" content="https://goodsleep.rest/shift-work-sleep-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<meta property="og:image" content="https://goodsleep.rest/og-image.png">
+<link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
+<style>
+/* Page Specific styling helper for layout */
+.sw-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .sw-container {
+    grid-template-columns: 1fr;
+  }
+}
+.sw-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 901px) {
+  .sw-panel {
+    position: sticky;
+    top: 80px;
+  }
+  .page {
+    max-width: 1100px !important;
+  }
+}
+
+/* Timeline specific styles */
+.sw-svg-wrap {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-top: 1.5rem;
+}
+.sw-chart-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.sw-timeline-axis {
+  font-size: 10px;
+  fill: var(--text-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+}
+.sw-timeline-bar-label {
+  font-size: 10px;
+  fill: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+}
+.sw-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.sw-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Shift work scheduler</div>
+  <h1>Shift Work Sleep Scheduler</h1>
+  <p class="hero-sub">Rotating or night shifts disrupt your circadian master clock. Calculate optimal sleep blocks, protect anchor sleep, and manage light cycles.</p>
+</div>
+
+<div class="page">
+  <div class="sw-container">
+    <!-- INPUTS PANEL -->
+    <div class="sw-panel">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:1.5rem;">
+        <div style="background:var(--teal-light); color:var(--teal); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">🚨</div>
+        <h3 style="margin:0; font-size:16px;">Scheduler Inputs</h3>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="sw-shift-type">Select Your Shift Type</label>
+        <select id="sw-shift-type" class="select" onchange="toggleCustomShift(); calculateShiftSchedule();" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="night" selected>Night Shift (11 PM - 7 AM)</option>
+          <option value="evening">Evening Shift (2 PM - 10 PM)</option>
+          <option value="morning">Early Morning Shift (4 AM - 12 PM)</option>
+          <option value="custom">Custom Shift Hours</option>
+        </select>
+      </div>
+
+      <div id="sw-custom-hours" style="display:none; margin-bottom:1.25rem;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label for="sw-custom-start">Shift Start</label>
+            <input type="time" id="sw-custom-start" class="input" value="19:00" onchange="calculateShiftSchedule()" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          </div>
+          <div class="form-group">
+            <label for="sw-custom-end">Shift End</label>
+            <input type="time" id="sw-custom-end" class="input" value="07:00" onchange="calculateShiftSchedule()" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="sw-commute">Commute + Wind-down Time</label>
+        <select id="sw-commute" class="select" onchange="calculateShiftSchedule()" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="30">30 minutes</option>
+          <option value="60" selected>1 hour (Recommended)</option>
+          <option value="90">1.5 hours</option>
+          <option value="120">2 hours</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem;">
+        <label for="sw-strategy">Sleep Strategy</label>
+        <select id="sw-strategy" class="select" onchange="calculateShiftSchedule()" style="width:100%; box-sizing:border-box; background:var(--bg-soft); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:8px;">
+          <option value="consolidated" selected>Consolidated Sleep (Single 7-8h Block)</option>
+          <option value="split">Split Sleep (Core Block + Nap before shift)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <!-- STATS GRID -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px;">
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Anchor Sleep</span>
+          <span id="stat-anchor" style="font-size:18px; font-weight:800; color:var(--teal);">08:00 AM - 12:00 PM</span>
+        </div>
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Caffeine Curfew</span>
+          <span id="stat-caffeine" style="font-size:18px; font-weight:800; color:var(--amber);">12:30 AM</span>
+        </div>
+        <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:1rem; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:12px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Commute Wear</span>
+          <span id="stat-wear" style="font-size:18px; font-weight:800; color:var(--red);">Blue Blockers</span>
+        </div>
+      </div>
+
+      <!-- VISUAL TIMELINE CARD -->
+      <div class="sw-svg-wrap">
+        <div class="sw-chart-title">24-Hour Circadian &amp; Shift Schedule Timeline</div>
+        <svg viewBox="0 0 500 240" width="100%" id="sw-timeline" style="display:block;">
+          <!-- Timeline X-Axis Grid and Labels -->
+          <line x1="40" y1="210" x2="480" y2="210" stroke="var(--border)" stroke-width="2"></line>
+          
+          <text x="40" y="228" class="sw-timeline-axis" text-anchor="middle">12 PM</text>
+          <text x="113" y="228" class="sw-timeline-axis" text-anchor="middle">4 PM</text>
+          <text x="186" y="228" class="sw-timeline-axis" text-anchor="middle">8 PM</text>
+          <text x="260" y="228" class="sw-timeline-axis" text-anchor="middle">12 AM</text>
+          <text x="333" y="228" class="sw-timeline-axis" text-anchor="middle">4 AM</text>
+          <text x="406" y="228" class="sw-timeline-axis" text-anchor="middle">8 AM</text>
+          <text x="480" y="228" class="sw-timeline-axis" text-anchor="middle">12 PM</text>
+
+          <!-- Day/Night ambient bar -->
+          <rect x="40" y="20" width="220" height="20" fill="#f59e0b" opacity="0.15" rx="3"></rect>
+          <rect x="260" y="20" width="146" height="20" fill="#1e1b4b" opacity="0.4" rx="3"></rect>
+          <rect x="406" y="20" width="74" height="20" fill="#f59e0b" opacity="0.15" rx="3"></rect>
+          <text x="150" y="33" class="sw-timeline-axis" text-anchor="middle" fill="#f59e0b" style="font-size:9px;">DAYLIGHT</text>
+          <text x="333" y="33" class="sw-timeline-axis" text-anchor="middle" fill="#a5b4fc" style="font-size:9px;">NIGHT TIME</text>
+
+          <!-- Rows base lines -->
+          <line x1="40" y1="75" x2="480" y2="75" stroke="var(--border)" stroke-dasharray="2 2"></line>
+          <line x1="40" y1="125" x2="480" y2="125" stroke="var(--border)" stroke-dasharray="2 2"></line>
+          <line x1="40" y1="175" x2="480" y2="175" stroke="var(--border)" stroke-dasharray="2 2"></line>
+
+          <text x="32" y="79" class="sw-timeline-axis" text-anchor="end">WORK</text>
+          <text x="32" y="129" class="sw-timeline-axis" text-anchor="end">SLEEP</text>
+          <text x="32" y="179" class="sw-timeline-axis" text-anchor="end">LIGHT</text>
+
+          <!-- Dynamic Bars will be drawn here -->
+          <g id="timeline-dynamic-group"></g>
+        </svg>
+
+        <div style="display:flex; justify-content:center; gap:16px; margin-top:1.25rem; flex-wrap:wrap;">
+          <div class="sw-legend-item"><div class="sw-legend-color" style="background:#e24b4a;"></div><span>Work Shift</span></div>
+          <div class="sw-legend-item"><div class="sw-legend-color" style="background:#1d9e75;"></div><span>Sleep Blocks</span></div>
+          <div class="sw-legend-item"><div class="sw-legend-color" style="background:#8b5cf6;"></div><span>Anchor Sleep</span></div>
+          <div class="sw-legend-item"><div class="sw-legend-color" style="background:#f59e0b;"></div><span>Light Seeking</span></div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE GUIDELINES CARD -->
+      <div style="background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--r); padding:1.75rem; box-shadow:var(--shadow);">
+        <h3 style="margin-top:0; font-size:16px; color:var(--text);">💡 Your Circadian Shift Strategy</h3>
+        <div id="sw-guidelines" style="display:flex; flex-direction:column; gap:12px; font-size:13.5px; line-height:1.5; color:var(--text-muted);">
+          <!-- Injected dynamically -->
+        </div>
+        
+        <div style="margin-top:1.5rem; text-align:center; display:flex; flex-direction:column; align-items:center;">
+          <button class="share-btn" onclick="downloadShiftWorkCard()" style="width:100%;">📥 Download Shareable Card</button>
+          <div class="social-share-row" style="width:100%; margin-top:10px;">
+            <button class="social-share-btn share-x" onclick="GoodSleepShare.shareX('shift-work-sleep-calculator')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share on X
+            </button>
+            <button class="social-share-btn share-reddit" onclick="GoodSleepShare.shareReddit('shift-work-sleep-calculator')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.23-1.72l1.36-4.3 4.41.97c.04.99.87 1.8 1.88 1.8 1.03 0 1.87-.84 1.87-1.87s-.84-1.87-1.87-1.87c-.79 0-1.47.49-1.76 1.2l-4.92-1.08c-.2-.04-.4.07-.46.27l-1.55 4.9C6.54 6.77 4.27 7.42 2.62 8.42c-.56-.73-1.43-1.18-2.4-1.18-1.65 0-3 1.35-3 3 0 1.1.6 2.06 1.48 2.58-.08.38-.12.77-.12 1.17 0 3.72 4.3 6.75 9.6 6.75s9.6-3.03 9.6-6.75c0-.4-.04-.79-.12-1.17.89-.52 1.49-1.48 1.49-2.58zM5.38 12.5c0-.97.79-1.75 1.75-1.75s1.75.79 1.75 1.75-.79 1.75-1.75 1.75-1.75-.79-1.75-1.75zm10.74 3.75c-1.39 1.39-4.04 1.5-4.87 1.5-.83 0-3.48-.11-4.87-1.5-.15-.15-.15-.39 0-.54.15-.15.39-.15.54 0 1.15 1.15 3.39 1.25 4.33 1.25.94 0 3.18-.1 4.33-1.25.15-.15.39-.15.54 0 .15.15.15.39 0 .54zm-.88-2c-.97 0-1.75-.79-1.75-1.75s.79-1.75 1.75-1.75 1.75.79 1.75 1.75-.79 1.75-1.75 1.75z"/></svg>
+              Reddit
+            </button>
+            <button class="social-share-btn share-wa" onclick="GoodSleepShare.shareWA('shift-work-sleep-calculator')">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.488 1.449 5.412 1.451 5.428 0 9.85-4.417 9.854-9.848.002-2.63-1.023-5.101-2.885-6.963C17.166 1.83 14.693.801 12.06.799c-5.432 0-9.855 4.417-9.86 9.848-.001 1.996.521 3.946 1.512 5.669l-.993 3.621 3.71-.973zm11.254-4.87c-.3-.15-1.774-.875-2.046-.975-.273-.1-.472-.15-.67.15-.198.3-.77.975-.943 1.175-.173.2-.347.225-.647.075-.3-.15-1.266-.467-2.41-1.487-.89-.794-1.492-1.775-1.666-2.075-.174-.3-.018-.462.13-.61.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525C9.444 8.25 8.85 6.79 8.6 6.19c-.243-.585-.49-.506-.67-.515-.174-.008-.373-.01-.573-.01-.2 0-.523.075-.797.375-.273.3-1.042 1.02-1.042 2.485s1.068 2.875 1.218 3.075c.149.2 2.102 3.21 5.092 4.5.712.307 1.267.49 1.7.63.716.227 1.368.195 1.884.118.575-.085 1.774-.725 2.022-1.425.247-.7 2.47-1.47 2.22-1.57z"/></svg>
+              WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Science/SEO section -->
+  <div class="section">
+    <h2>The Circadian Science of Shift Work</h2>
+    <p>Human physiology is naturally governed by a 24-hour light-dark cycle, controlled by the master pacemaker in the brain—the **Suprachiasmatic Nucleus (SCN)**. Shift work forces you to sleep during daylight hours, conflicting directly with melatonin production and body temperature rhythms. This misalignment triggers insomnia, metabolic fatigue, and cognitive deficits.</p>
+    
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:2rem 0; text-align:left;" class="sw-mobile-stack">
+      <div style="background:var(--bg-soft); border:1px solid var(--border); padding:1.5rem; border-radius:12px;">
+        <h4 style="margin-top:0; color:var(--teal); font-size:16px;">⚓ The Anchor Sleep Concept</h4>
+        <p style="font-size:13.5px; margin-bottom:0; line-height:1.5; color:var(--text-muted);">Anchor sleep refers to maintaining a fixed 4-hour core sleep window (e.g. 8 AM - 12 PM) that remains constant on both work days and off days. Keeping this window stable prevents your circadian rhythm from free-running and drifting, making adaptation to night shifts significantly easier.</p>
+      </div>
+      <div style="background:var(--bg-soft); border:1px solid var(--border); padding:1.5rem; border-radius:12px;">
+        <h4 style="margin-top:0; color:var(--amber); font-size:16px;">🕶️ Morning Light Control</h4>
+        <p style="font-size:13.5px; margin-bottom:0; line-height:1.5; color:var(--text-muted);">The morning drive home after a night shift is a major disruptor. Exposure to bright morning sunlight signals the SCN to halt melatonin and release cortisol, signaling wakefulness. Wearing blue-light blocking glasses or dark sunglasses during the morning commute prevents this circadian reset, protecting your sleep drive.</p>
+      </div>
+    </div>
+
+    <h3>Adapting to Night Shifts: Split vs Consolidated Sleep</h3>
+    <p>There are two primary strategies shift workers use to ensure adequate sleep. Neither is universally superior—select the one that matches your domestic schedule and personal physiology:</p>
+    <ul>
+      <li><strong>Consolidated Sleep (Single Block)</strong>: Sleeping for a single 7-to-8 hour block immediately upon returning home. Ideal for individuals with quiet, dark environments during the day and no daytime family obligations.</li>
+      <li><strong>Split Sleep (Two Blocks)</strong>: Sleeping for 4 hours in the morning (protecting your Anchor Sleep), waking up to participate in family or social life, and taking a 3-hour core nap immediately before starting your next shift. This leverages homeostatic sleep drive and provides a pre-work energy boost.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
+    <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
+    <a href="/sleep-audit">📊 Sleep Quality Audit</a>
+    <a href="/shift-work-sleep-calculator">🚨 Shift Work Scheduler</a>
+    <a href="/muscle-recovery-sleep-calculator">💪 Muscle Recovery Calculator</a>
+    <a href="/new-parent-sleep-sync">👶 New Parent Sleep Sync</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<script>
+// Handle Loading Page
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.style.display = 'none', 400);
+  }
+  calculateShiftSchedule();
+});
+
+// Theme Toggle Code
+(function() {
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+                   (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const r = document.documentElement;
+  const current = r.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const next = current === 'dark' ? 'light' : 'dark';
+  r.setAttribute('data-theme', next);
+  localStorage.setItem('gs-theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+// Calculator Logic
+function toggleCustomShift() {
+  const val = document.getElementById('sw-shift-type').value;
+  document.getElementById('sw-custom-hours').style.display = val === 'custom' ? 'block' : 'none';
+}
+
+function calculateShiftSchedule() {
+  const shiftType = document.getElementById('sw-shift-type').value;
+  const commuteMins = parseInt(document.getElementById('sw-commute').value);
+  const strategy = document.getElementById('sw-strategy').value;
+
+  let shiftStart = 0; // minutes from 12 PM (noon)
+  let shiftEnd = 0;
+
+  if (shiftType === 'night') {
+    // 11:00 PM (11 hours after noon = 660 mins) to 7:00 AM (19 hours after noon = 1140 mins)
+    shiftStart = 660; 
+    shiftEnd = 1140;
+  } else if (shiftType === 'evening') {
+    // 2:00 PM (120 mins) to 10:00 PM (600 mins)
+    shiftStart = 120;
+    shiftEnd = 600;
+  } else if (shiftType === 'morning') {
+    // 4:00 AM (960 mins) to 12:00 PM (0 mins/1440 mins)
+    shiftStart = 960;
+    shiftEnd = 1440;
+  } else {
+    // custom hours parsed to minutes from noon
+    const startVal = document.getElementById('sw-custom-start').value;
+    const endVal = document.getElementById('sw-custom-end').value;
+    shiftStart = parseTimeToMinFromNoon(startVal);
+    shiftEnd = parseTimeToMinFromNoon(endVal);
+  }
+
+  // Calculate Anchor sleep
+  // Anchor sleep starts after commute and covers 4 hours
+  const sleepStart = (shiftEnd + commuteMins) % 1440;
+  const anchorEnd = (sleepStart + 240) % 1440;
+
+  // Format labels
+  const anchorText = `${formatMinToTime(sleepStart)} - ${formatMinToTime(anchorEnd)}`;
+  document.getElementById('stat-anchor').textContent = anchorText;
+
+  // Caffeine curfew: 8 hours before sleep start
+  const caffeineCurfew = (sleepStart - 480 + 1440) % 1440;
+  document.getElementById('stat-caffeine').textContent = formatMinToTime(caffeineCurfew);
+
+  // Commute wear instructions
+  const isDayCommute = (shiftEnd >= 360 && shiftEnd <= 1080); // between 6 AM and 6 PM
+  document.getElementById('stat-wear').textContent = isDayCommute ? 'Blue Blockers' : 'Clear / Normal';
+
+  // Guidelines builder
+  const guidelines = document.getElementById('sw-guidelines');
+  guidelines.innerHTML = '';
+  
+  const rules = [
+    `⚓ Keep your <strong>Anchor Sleep window (${anchorText})</strong> identical on both work days and off days to prevent severe circadian drift.`,
+    isDayCommute ? `🕶️ Wear <strong>blue-light blocking glasses</strong> during your commute home (${formatMinToTime(shiftEnd)} - ${formatMinToTime(sleepStart)}) to prevent morning light from resetting your clock.` : `🚶 Seek natural daylight on your commute home to assist morning alertness.`,
+    `☕ Cease all caffeine consumption after <strong>${formatMinToTime(caffeineCurfew)}</strong> (8 hours prior to sleep) to protect deep slow-wave sleep stages.`,
+    strategy === 'split' ? `🛌 Sleep in two blocks today: 4 hours from ${formatMinToTime(sleepStart)} to ${formatMinToTime(anchorEnd)}, and a 3-hour core nap before starting your shift.` : `🛌 Sleep in a single consolidated block of 7-8 hours starting at ${formatMinToTime(sleepStart)}.`
+  ];
+
+  rules.forEach(rule => {
+    const li = document.createElement('div');
+    li.style.display = 'flex';
+    li.style.gap = '8px';
+    li.innerHTML = `<span>•</span><span>${rule}</span>`;
+    guidelines.appendChild(li);
+  });
+
+  // Redraw SVG Timeline
+  drawTimeline(shiftStart, shiftEnd, sleepStart, anchorEnd, strategy, isDayCommute);
+}
+
+function parseTimeToMinFromNoon(timeStr) {
+  const parts = timeStr.split(':');
+  const hrs = parseInt(parts[0]);
+  const mins = parseInt(parts[1]);
+  // 12:00 is 0 min from noon, 24-hr format
+  const totalMin = hrs * 60 + mins;
+  const noonMin = 12 * 60;
+  return (totalMin - noonMin + 1440) % 1440;
+}
+
+function formatMinToTime(mins) {
+  const totalMin = (mins + 720) % 1440; // shift back to normal day starting at midnight
+  let hrs = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  const ampm = hrs >= 12 ? 'PM' : 'AM';
+  hrs = hrs % 12 === 0 ? 12 : hrs % 12;
+  const dispMins = m < 10 ? '0' + m : m;
+  return `${hrs}:${dispMins} ${ampm}`;
+}
+
+function drawTimeline(shiftStart, shiftEnd, sleepStart, anchorEnd, strategy, isDayCommute) {
+  const svgGroup = document.getElementById('timeline-dynamic-group');
+  svgGroup.innerHTML = '';
+
+  // Conversion: 440px width maps to 1440 minutes (24h)
+  const mapToX = (min) => {
+    return 40 + (min / 1440) * 440;
+  };
+
+  // Helper to draw horizontal bars that wrap around midnight (1440)
+  const drawSegmentBar = (start, end, y, height, color, labelText) => {
+    const bars = [];
+    if (start < end) {
+      bars.push({ x: mapToX(start), w: mapToX(end) - mapToX(start) });
+    } else {
+      // wraps around
+      bars.push({ x: mapToX(start), w: mapToX(1440) - mapToX(start) });
+      bars.push({ x: mapToX(0), w: mapToX(end) - mapToX(0) });
+    }
+
+    bars.forEach(b => {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', b.x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', b.w);
+      rect.setAttribute('height', height);
+      rect.setAttribute('fill', color);
+      rect.setAttribute('rx', '4');
+      svgGroup.appendChild(rect);
+      
+      if (labelText && b.w > 40) {
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', b.x + b.w / 2);
+        text.setAttribute('y', y + height / 2 + 3);
+        text.setAttribute('class', 'sw-timeline-bar-label');
+        text.setAttribute('text-anchor', 'middle');
+        text.textContent = labelText;
+        svgGroup.appendChild(text);
+      }
+    });
+  };
+
+  // Draw Work Shift bar
+  drawSegmentBar(shiftStart, shiftEnd, 60, 30, '#e24b4a', 'WORK');
+
+  // Draw Sleep blocks
+  if (strategy === 'consolidated') {
+    // 8 hours
+    const sleepEnd = (sleepStart + 480) % 1440;
+    drawSegmentBar(sleepStart, sleepEnd, 110, 30, '#1d9e75', 'SLEEP');
+  } else {
+    // split sleep: core block 4 hours
+    drawSegmentBar(sleepStart, anchorEnd, 110, 30, '#1d9e75', 'CORE');
+    // split sleep: 3 hours nap immediately before shift
+    const napStart = (shiftStart - 180 + 1440) % 1440;
+    drawSegmentBar(napStart, shiftStart, 110, 30, '#1d9e75', 'NAP');
+  }
+
+  // Highlight Anchor Sleep inside Sleep row (styled with border/purple glow)
+  drawSegmentBar(sleepStart, anchorEnd, 110, 8, '#8b5cf6', 'ANCHOR');
+
+  // Draw Light Protocols
+  if (isDayCommute) {
+    // Seek bright light pre-shift
+    const lightSeekStart = (shiftStart - 120 + 1440) % 1440;
+    drawSegmentBar(lightSeekStart, shiftStart, 160, 30, '#f59e0b', 'LIGHT SEEKING');
+    
+    // Commute home: avoid light / blue blockers
+    const commuteStart = shiftEnd;
+    const commuteEnd = sleepStart;
+    drawSegmentBar(commuteStart, commuteEnd, 160, 30, '#4b5563', 'BLUE BLOCKERS');
+  } else {
+    // Morning shift or evening shift: standard daylight exposure
+    drawSegmentBar(0, 360, 160, 30, '#f59e0b', 'LIGHT');
+  }
+}
+
+// Share function
+function downloadShiftWorkCard() {
+  const anchorVal = document.getElementById('stat-anchor').textContent;
+  const caffeineCurfew = document.getElementById('stat-caffeine').textContent;
+  const wear = document.getElementById('stat-wear').textContent;
+  const strategy = document.getElementById('sw-strategy').options[document.getElementById('sw-strategy').selectedIndex].text;
+
+  const stats = [
+    { label: 'Circadian Anchor Sleep:', value: anchorVal },
+    { label: 'Sleep Block Strategy:', value: strategy },
+    { label: 'Caffeine Curfew Hour:', value: caffeineCurfew },
+    { label: 'Commute Eye Protection:', value: wear === 'Blue Blockers' ? 'Blue-Light Blockers Needed' : 'Normal / Daylight' }
+  ];
+
+  const tagline = "Maintaining a fixed anchor sleep block prevents severe circadian misalignment. Shift workers must strictly manage light exposure.";
+  const svgEl = document.getElementById('sw-timeline');
+
+  GoodSleepShare.generateSvgResultCard(
+    'SHIFT WORK CIRCADIAN PLAN',
+    `Anchor Sleep: ${anchorVal}`,
+    tagline,
+    stats,
+    svgEl,
+    'goodsleep-shiftwork-plan.png'
+  );
+}
+</script>
+</body>
+</html>

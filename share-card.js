@@ -635,6 +635,27 @@ const GoodSleepShare = {
       } else {
         text = `Travelling across timezones? Beat jet lag with the GoodSleep circadian timezone transition planner. Calculate your melatonin, light, and sleep offset times: ${url}`;
       }
+    } else if (pageSlug === 'shift-work-sleep-calculator') {
+      const anchor = document.getElementById('stat-anchor')?.textContent;
+      if (anchor) {
+        text = `Planning my night-shift circadian blocks with the GoodSleep Shift Work Sleep Scheduler. Anchor sleep: ${anchor}. Calculate your circadian plan: ${url}`;
+      } else {
+        text = `Rotating or night shifts disrupt your circadian master clock. Calculate optimal sleep blocks, protect anchor sleep, and manage light cycles: ${url}`;
+      }
+    } else if (pageSlug === 'muscle-recovery-sleep-calculator') {
+      const total = document.getElementById('stat-total')?.textContent;
+      if (total) {
+        text = `Calculated my bodybuilding sleep needs with the GoodSleep Muscle Recovery sleep calculator. Optimal recovery sleep: ${total}. Optimize your growth hormone and deep sleep: ${url}`;
+      } else {
+        text = `Calculate the exact sleep duration needed for muscle protein synthesis and optimal growth hormone release based on your training splits: ${url}`;
+      }
+    } else if (pageSlug === 'new-parent-sleep-sync') {
+      const guarantee = document.getElementById('stat-guarantee')?.textContent;
+      if (guarantee) {
+        text = `Coordinated baby feeding duties and night shifts with the GoodSleep Parent Sleep Sync calculator. Uninterrupted sleep: ${guarantee} guaranteed. Sync your shifts: ${url}`;
+      } else {
+        text = `Coordinate nighttime shifts between parents to guarantee critical consolidated sleep windows during infant feeding cycles: ${url}`;
+      }
     } else {
       text = `Optimize your circadian rhythms and improve sleep quality with interactive tools on GoodSleep: ${url}`;
     }

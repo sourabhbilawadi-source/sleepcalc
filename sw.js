@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goodsleep-v4';
+const CACHE_NAME = 'goodsleep-v5';
 const ASSETS = [
   '/',
   '/about',
@@ -18,9 +18,12 @@ const ASSETS = [
   '/magnesium-type-quiz',
   '/melatonin-calculator',
   '/mouth-taping-guide',
+  '/muscle-recovery-sleep-calculator',
   '/nap-calculator',
+  '/new-parent-sleep-sync',
   '/polyphasic-sleep-planner',
   '/privacy',
+  '/shift-work-sleep-calculator',
   '/sleep-apnea-quiz',
   '/sleep-audit',
   '/sleep-by-age',

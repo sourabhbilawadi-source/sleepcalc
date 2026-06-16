@@ -2,6 +2,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/shift-work-sleep-calculator", "destination": "/shift-work-sleep-calculator.html" },
+    { "source": "/muscle-recovery-sleep-calculator", "destination": "/muscle-recovery-sleep-calculator.html" },
+    { "source": "/new-parent-sleep-sync", "destination": "/new-parent-sleep-sync.html" },
     { "source": "/sleep-calculator", "destination": "/sleep-calculator.html" },
     { "source": "/melatonin-calculator", "destination": "/melatonin-calculator.html" },
     { "source": "/weighted-blanket-calculator", "destination": "/weighted-blanket-calculator.html" },
