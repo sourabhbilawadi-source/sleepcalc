@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Many Sleep Cycles Do You Really Need? — GoodSleep</title>
+<meta name="description" content="Explore the science of sleep cycle structure. Learn how the 90-minute cycle works, how to choose between 4, 5, or 6 cycles, and how to optimize your sleep math.">
+<meta property="og:title" content="How Many Sleep Cycles Do You Really Need? — GoodSleep">
+<meta property="og:description" content="Discover how to calculate your ideal sleep duration by counting 90-minute sleep cycles.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://goodsleep.rest/blog/how-many-sleep-cycles-do-you-need">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .article-header {
+    margin-bottom: 2rem;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .article-category {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .article-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .article-content p {
+    margin-bottom: 1.5rem;
+  }
+  .article-content h2 {
+    font-size: 22px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .article-content h3 {
+    font-size: 18px;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  .article-content ul, .article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .article-content li {
+    margin-bottom: 0.5rem;
+  }
+  /* Premium CTA Card */
+  .blog-cta-card {
+    background: linear-gradient(135deg, rgba(29, 158, 117, 0.06), rgba(83, 74, 183, 0.06));
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.75rem;
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: var(--shadow);
+  }
+  .blog-cta-info {
+    flex: 1;
+  }
+  .blog-cta-info h3 {
+    margin: 0 0 6px 0 !important;
+    font-size: 18px !important;
+    color: var(--text);
+  }
+  .blog-cta-info p {
+    margin: 0 !important;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .blog-cta-btn {
+    background: var(--teal);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .blog-cta-btn:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(29,158,117,0.2);
+  }
+  @media (max-width: 600px) {
+    .blog-cta-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 1.25rem;
+    }
+    .blog-cta-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb" style="font-size: 13px; opacity: 0.8; margin-bottom: 0.5rem;"><a href="/blog" style="color: inherit; text-decoration: none;">Blog</a> › Sleep Science</div>
+  <h1 style="font-size: clamp(28px, 5vw, 40px); line-height: 1.2;">How Many Sleep Cycles Do You Really Need?</h1>
+  <p class="hero-sub">Crack the code of the 90-minute sleep cycle and find your personal sweet spot to optimize daily vitality.</p>
+</div>
+
+<div class="page">
+  <article class="article-content">
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="article-category">Sleep Science</span>
+        <span>June 16, 2026</span>
+        <span>⏱️ 5 min read</span>
+      </div>
+    </div>
+
+    <p>For decades, we have been told that we need exactly 8 hours of sleep per night. Yet, many people wake up after 8 hours feeling sluggish, while others feel perfectly energetic after just 6 hours. </p>
+    
+    <p>The explanation lies in the biology of the **sleep cycle**. Rather than focusing entirely on cumulative hours, sleep scientists recommend looking at sleep as a sequence of distinct 90-minute cycles. By counting your cycles instead of your hours, you can wake up feeling refreshed and ready to tackle your day.</p>
+
+    <h2>The Anatomy of a 90-Minute Sleep Cycle</h2>
+    <p>Your brain doesn't just shut off when you fall asleep; it cycles through four distinct stages. On average, completing all four stages takes approximately **90 minutes**:</p>
+    
+    <ul>
+      <li><strong>Stage N1 (Light Sleep):</strong> The transition from wakefulness to sleep. Lasts only a few minutes. You are easily awakened.</li>
+      <li><strong>Stage N2 (Light Sleep):</strong> Your heart rate slows, core temperature drops, and brain waves slow. This stage makes up about 50% of your total sleep.</li>
+      <li><strong>Stage N3 (Deep Sleep):</strong> Also known as slow-wave sleep. This is when your body restores tissues, builds muscle, and releases growth hormones. Waking up during N3 causes extreme grogginess.</li>
+      <li><strong>REM (Dreaming) Sleep:</strong> Brain activity spikes to near-waking levels, respiration increases, and your eyes move rapidly. REM is critical for emotional regulation and memory consolidation.</li>
+    </ul>
+
+    <p>During the first half of the night, your cycles contain more deep sleep (N3). As the night progresses toward morning, REM sleep dominates. If you wake up naturally at the end of a REM stage or in light sleep (N1/N2), you will feel alert. If your alarm cuts off a deep sleep stage, you will feel exhausted.</p>
+
+    <!-- CTA Card 1: Sleep Calculator -->
+    <div class="blog-cta-card">
+      <div class="blog-cta-info">
+        <h3>Time Your Sleep Perfectly</h3>
+        <p>Use our Sleep Cycle Calculator to calculate your optimal bedtime or wake-up alarm settings based on 90-minute cycles.</p>
+      </div>
+      <a href="/sleep-calculator" class="blog-cta-btn">Go to Sleep Calculator</a>
+    </div>
+
+    <h2>How Many Cycles Do You Need? (4 vs. 5 vs. 6)</h2>
+    <p>A healthy night of sleep for most adults is composed of **4 to 6 cycles** (6 to 9 hours of sleep). Let's look at the breakdown:</p>
+
+    <h3>1. The 4-Cycle Schedule (6 Hours)</h3>
+    <p>While 6 hours is below the recommended average, it can be sustainable for some individuals with highly efficient sleep architectures. If you must sleep 6 hours, it is far better to sleep a clean 4 cycles (6 hours) and wake up at a cycle boundary than to sleep 6.5 hours and wake up mid-cycle.</p>
+
+    <h3>2. The 5-Cycle Schedule (7.5 Hours)</h3>
+    <p>This is the "sweet spot" for the majority of healthy adults. A 7.5-hour sleep duration provides ample deep sleep in the beginning of the night and enough REM sleep near morning, allowing you to wake up naturally alert.</p>
+
+    <h3>3. The 6-Cycle Schedule (9 Hours)</h3>
+    <p>Active individuals, teenagers, or those recovering from illness or physical strain often need 6 full cycles. Waking up after 9 hours feels incredibly restorative, provided you don't oversleep and slide into a 7th cycle.</p>
+
+    <h2>Finding Your Personal Sleep Math</h2>
+    <p>Because the 90-minute length is an average, your individual sleep cycles might be slightly shorter (e.g., 85 minutes) or longer (e.g., 100 minutes). To find your personal math:</p>
+    <ol>
+      <li>Pick a target bedtime and wake-up time that allow for 5 cycles (7.5 hours of sleep, meaning 7 hours and 44 minutes in bed).</li>
+      <li>Stick to this schedule for 7 consecutive days. </li>
+      <li>If you begin waking up naturally 5 to 10 minutes before your alarm, you have hit your exact cycle length. If you wake up groggy, try shifting your bedtime 15 minutes earlier or later.</li>
+    </ol>
+
+    <!-- CTA Card 2: Bedtime Calculator -->
+    <div class="blog-cta-card">
+      <div class="blog-cta-info">
+        <h3>Need to Wake Up at a Specific Time?</h3>
+        <p>Input your target wake-up time and calculate exactly when you should head to bed to get 4, 5, or 6 complete sleep cycles.</p>
+      </div>
+      <a href="/bedtime-calculator" class="blog-cta-btn">Calculate Bedtime</a>
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>Forget the generic 8-hour rule. Focus on sleep quality and cycle boundaries. Aim for 5 complete cycles (7.5 hours) as your default, and use cycle math to coordinate your bedtime and alarm. Your morning self will thank you.</p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME MANAGEMENT
+(function(){
+  var t = document.getElementById('theme-toggle');
+  if(!t) return;
+  function updateBtn(theme){
+    t.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+  }
+  var current = localStorage.getItem('gs-theme');
+  if(!current) {
+    current = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  }
+  updateBtn(current);
+  t.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('gs-theme', next);
+    updateBtn(next);
+  });
+})();
+
+// BACK TO TOP
+(function(){
+  var b = document.getElementById('back-top');
+  if(!b) return;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 400) b.classList.add('visible');
+    else b.classList.remove('visible');
+  });
+  b.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

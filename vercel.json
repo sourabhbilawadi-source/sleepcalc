@@ -36,6 +36,11 @@
     { "source": "/insomnia", "destination": "/insomnia.html" },
     { "source": "/about", "destination": "/about.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/contact", "destination": "/contact.html" }
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/blog/what-is-sleep-inertia-and-how-to-avoid-it", "destination": "/blog/what-is-sleep-inertia-and-how-to-avoid-it.html" },
+    { "source": "/blog/how-many-sleep-cycles-do-you-need", "destination": "/blog/how-many-sleep-cycles-do-you-need.html" },
+    { "source": "/blog/best-nap-length-for-productivity", "destination": "/blog/best-nap-length-for-productivity.html" },
+    { "source": "/blog/lion-vs-wolf-chronotype-difference", "destination": "/blog/lion-vs-wolf-chronotype-difference.html" }
   ]
 }

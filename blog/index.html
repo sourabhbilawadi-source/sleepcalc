@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoodSleep Blog — Science-Backed Sleep Guides & Insights</title>
+<meta name="description" content="Read our science-backed sleep blog articles. Learn how to beat sleep inertia, calculate sleep cycles, find your chronotype schedule, and optimize your naps for productivity.">
+<meta property="og:title" content="GoodSleep Blog — Science-Backed Sleep Guides & Insights">
+<meta property="og:description" content="Discover actionable, science-based articles on circadian rhythms, chronotypes, sleep debt, and peak daily productivity.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/blog">
+<meta property="og:url" content="https://goodsleep.rest/blog">
+<meta property="og:site_name" content="GoodSleep">
+<meta property="og:image" content="https://goodsleep.rest/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  /* Blog Custom Styling */
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .blog-read-time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .blog-tag {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .explore-card .e-title {
+    font-size: 16px !important;
+    line-height: 1.3;
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
+  .explore-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog" class="active">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <h1>Circadian Science &amp; Sleep Blog</h1>
+  <p class="hero-sub">Science-backed articles, guides, and tips to optimize your circadian rhythm and wake up feeling refreshed.</p>
+</div>
+
+<div class="page">
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" class="search-input" placeholder="Search blog articles..." aria-label="Search articles">
+  </div>
+
+  <div class="explore-tabs">
+    <button class="explore-tab-btn active" data-tab="all">All Articles</button>
+    <button class="explore-tab-btn" data-tab="science">Sleep Science</button>
+    <button class="explore-tab-btn" data-tab="circadian">Circadian Rhythm</button>
+    <button class="explore-tab-btn" data-tab="productivity">Productivity</button>
+  </div>
+
+  <div class="explore-grid" id="blog-grid">
+    <!-- Article 1: Sleep Inertia -->
+    <div class="explore-card-wrapper" data-category="circadian" data-title="What is sleep inertia and how to avoid it" data-desc="Waking up groggy can ruin your morning. Learn the biology of sleep inertia and science-backed protocols to wake up alert.">
+      <a href="/blog/what-is-sleep-inertia-and-how-to-avoid-it" class="explore-card">
+        <div class="blog-meta">
+          <span class="blog-tag">Circadian Rhythm</span>
+          <span class="blog-read-time">⏱️ 4 min read</span>
+        </div>
+        <div class="e-emoji">🥱</div>
+        <div class="e-title">What is Sleep Inertia and How to Avoid It</div>
+        <div class="e-desc">Waking up groggy and disoriented can ruin your morning. Learn the neurological triggers behind sleep inertia and action steps to wake up alert.</div>
+      </a>
+    </div>
+
+    <!-- Article 2: Sleep Cycles -->
+    <div class="explore-card-wrapper" data-category="science" data-title="How many sleep cycles do you need" data-desc="Explore the 90-minute sleep cycle structure, the debate between 4 vs 5 vs 6 cycles, and how to find your personal sweet spot.">
+      <a href="/blog/how-many-sleep-cycles-do-you-need" class="explore-card">
+        <div class="blog-meta">
+          <span class="blog-tag">Sleep Science</span>
+          <span class="blog-read-time">⏱️ 5 min read</span>
+        </div>
+        <div class="e-emoji">⏰</div>
+        <div class="e-title">How Many Sleep Cycles Do You Really Need?</div>
+        <div class="e-desc">Learn how the 90-minute sleep cycle operates, the science behind 4, 5, or 6 cycles, and how to optimize your wake times using cycle calculations.</div>
+      </a>
+    </div>
+
+    <!-- Article 3: Nap Length -->
+    <div class="explore-card-wrapper" data-category="productivity" data-title="Best nap length for productivity" data-desc="Napping is a superpower when timed correctly. Discover the difference between a 20-minute power nap and a full 90-minute cycle.">
+      <a href="/blog/best-nap-length-for-productivity" class="explore-card">
+        <div class="blog-meta">
+          <span class="blog-tag">Productivity</span>
+          <span class="blog-read-time">⏱️ 4 min read</span>
+        </div>
+        <div class="e-emoji">☀️</div>
+        <div class="e-title">The Best Nap Length for Peak Productivity</div>
+        <div class="e-desc">Discover how different nap durations affect your cognitive alertness, memory consolidation, and how to implement a successful "Coffee Nap."</div>
+      </a>
+    </div>
+
+    <!-- Article 4: Chronotypes -->
+    <div class="explore-card-wrapper" data-category="circadian" data-title="Lion vs Wolf chronotype what's the difference" data-desc="Morning larks and night owls have different circadian biology. Compare schedules, energy peaks, and tips for each chronotype.">
+      <a href="/blog/lion-vs-wolf-chronotype-difference" class="explore-card">
+        <div class="blog-meta">
+          <span class="blog-tag">Circadian Rhythm</span>
+          <span class="blog-read-time">⏱️ 5 min read</span>
+        </div>
+        <div class="e-emoji">🦁</div>
+        <div class="e-title">Lion vs. Wolf Chronotype: What's the Difference?</div>
+        <div class="e-desc">Morning larks (Lions) and night owls (Wolves) function on very different biological schedules. Compare their daily energy peaks and sleep tips.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME MANAGEMENT
+(function(){
+  var t = document.getElementById('theme-toggle');
+  if(!t) return;
+  function updateBtn(theme){
+    t.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+    t.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  var current = localStorage.getItem('gs-theme');
+  if(!current) {
+    current = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  }
+  updateBtn(current);
+  t.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('gs-theme', next);
+    updateBtn(next);
+  });
+})();
+
+// BACK TO TOP
+(function(){
+  var b = document.getElementById('back-top');
+  if(!b) return;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 400) b.classList.add('visible');
+    else b.classList.remove('visible');
+  });
+  b.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+
+// SEARCH & FILTER FUNCTIONALITY
+(function(){
+  const searchInput = document.getElementById('search-input');
+  const tabButtons = document.querySelectorAll('.explore-tab-btn');
+  const cards = document.querySelectorAll('.explore-card-wrapper');
+
+  let searchQuery = '';
+  let currentTab = 'all';
+
+  function filterCards() {
+    cards.forEach(card => {
+      const category = card.getAttribute('data-category');
+      const title = card.getAttribute('data-title').toLowerCase();
+      const desc = card.getAttribute('data-desc').toLowerCase();
+
+      const matchesSearch = title.includes(searchQuery) || desc.includes(searchQuery);
+      const matchesTab = currentTab === 'all' || category === currentTab;
+
+      if (matchesSearch && matchesTab) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      filterCards();
+    });
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentTab = btn.getAttribute('data-tab');
+      filterCards();
+    });
+  });
+})();
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+</script>
+
+<script>
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
+</script>
+</body>
+</html>
