@@ -67,27 +67,10 @@
       <li><a href="/contact">Contact</a></li>
       <li><a href="/privacy">Privacy</a></li>
     </ul>
-    <button class="explore-btn" id="explore-btn"  aria-label="Explore all tools">Explore <span class="arrow">▼</span></button>
+    <a href="/explore" class="explore-btn" id="explore-btn"  aria-label="Explore all tools">Explore</a>
     <button class="theme-toggle" id="theme-toggle"  aria-label="Toggle dark mode">🌙</button>
   </div>
 </nav>
-<div class="explore-drop" id="explore-drop">
-  <div class="drop-grid">
-    <a href="/" class="drop-link"><span class="dl-emoji">⏰</span><span class="dl-label">Sleep Calculator<span class="dl-sub">Find your ideal bedtime</span></span></a>
-    <a href="/nap-calculator" class="drop-link"><span class="dl-emoji">☀️</span><span class="dl-label">Nap Calculator<span class="dl-sub">Optimal nap durations</span></span></a>
-    <a href="/sleep-by-age" class="drop-link"><span class="dl-emoji">👶</span><span class="dl-label">Sleep by Age<span class="dl-sub">Recommendations by age</span></span></a>
-    <a href="/sleep-debt-calculator" class="drop-link"><span class="dl-emoji">💤</span><span class="dl-label">Sleep Debt<span class="dl-sub">Track your sleep deficit</span></span></a>
-    <a href="/how-to-fall-asleep-fast" class="drop-link"><span class="dl-emoji">😴</span><span class="dl-label">Fall Asleep Fast<span class="dl-sub">12 proven methods</span></span></a>
-    <a href="/sleep-schedule" class="drop-link"><span class="dl-emoji">📅</span><span class="dl-label">Sleep Schedule<span class="dl-sub">7-day personalized plan</span></span></a>
-    <a href="/chronotype" class="drop-link"><span class="dl-emoji">🦁</span><span class="dl-label">Chronotype Quiz<span class="dl-sub">Find your sleep animal</span></span></a>
-    <a href="/insomnia" class="drop-link"><span class="dl-emoji">🌙</span><span class="dl-label">Insomnia Guide<span class="dl-sub">Causes &amp; CBT-I treatment</span></span></a>
-    <a href="/how-much-sleep" class="drop-link"><span class="dl-emoji">💡</span><span class="dl-label">How Much Sleep<span class="dl-sub">Your personal number</span></span></a>
-    <a href="/sleep-deprivation" class="drop-link"><span class="dl-emoji">⚠️</span><span class="dl-label">Sleep Deprivation<span class="dl-sub">Effects &amp; recovery</span></span></a>
-    <div class="drop-divider"></div>
-    <a href="/about" class="drop-link"><span class="dl-emoji">ℹ️</span><span class="dl-label">About<span class="dl-sub">Our mission &amp; sources</span></span></a>
-    <a href="/contact" class="drop-link"><span class="dl-emoji">✉️</span><span class="dl-label">Contact<span class="dl-sub">Get in touch</span></span></a>
-  </div>
-</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -314,9 +297,6 @@ window.addEventListener('scroll',()=>{
 // THEME
 (function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'\u2600\ufe0f':'\ud83c\udf19'}})();
 document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'\u2600\ufe0f':'\ud83c\udf19'});
-// EXPLORE
-document.getElementById('explore-btn').addEventListener('click',function(e){e.stopPropagation();document.getElementById('explore-drop').classList.toggle('open');this.classList.toggle('open')});
-document.addEventListener('click',function(e){if(!e.target.closest('.explore-drop')){var d=document.getElementById('explore-drop');var b=document.getElementById('explore-btn');if(d)d.classList.remove('open');if(b)b.classList.remove('open')}});
 // BACK TO TOP
 window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
 </script>
