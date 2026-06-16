@@ -2818,6 +2818,215 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   text-decoration: underline;
 }
 
+/* ══════════════════════════════════════════════
+   STEROID SLEEP CALCULATOR STYLES
+   ══════════════════════════════════════════════ */
+.st-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .st-container {
+    grid-template-columns: 1fr;
+  }
+}
+.st-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.st-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.st-title-row h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.st-icon-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.st-form-group {
+  margin-bottom: 1.25rem;
+}
+.st-form-group label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.st-select, .st-input-time {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14.5px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.st-select:focus, .st-input-time:focus {
+  border-color: var(--teal);
+}
+.st-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.st-main-card {
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  color: #ffffff;
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.st-result-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+.st-time-display {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.5px;
+}
+.st-dose-display {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+}
+.st-desc-display {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+.st-graph-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.st-graph-svg {
+  width: 100%;
+  height: 220px;
+  display: block;
+  overflow: visible;
+}
+.st-line {
+  stroke: var(--teal);
+  stroke-width: 3.5px;
+  fill: none;
+}
+.st-line-area {
+  fill: var(--teal-light);
+  opacity: 0.15;
+}
+.st-grid {
+  stroke: var(--border);
+  stroke-width: 1px;
+  stroke-dasharray: 2;
+}
+.st-bed-line {
+  stroke: var(--red);
+  stroke-width: 2px;
+  stroke-dasharray: 4;
+}
+.st-axis-text {
+  font-size: 10px;
+  fill: var(--text-muted);
+  font-weight: 600;
+}
+.st-alert-box {
+  background: var(--red);
+  color: #ffffff;
+  border-radius: var(--r-sm);
+  padding: 1rem;
+  font-size: 13.5px;
+  line-height: 1.5;
+  display: none;
+}
+.st-alert-box.show {
+  display: block;
+}
+.st-alert-box.warning {
+  background: var(--amber);
+}
+.st-science {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: var(--shadow);
+}
+.st-science h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.4px;
+}
+.st-science h3 {
+  font-size: 16px;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.st-science p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+.st-citations {
+  margin-top: 2rem;
+  font-size: 12.5px;
+  color: var(--text-hint);
+  line-height: 1.6;
+  border-top: 1.5px dashed var(--border);
+  padding-top: 1.5rem;
+}
+.st-citations ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0 0;
+}
+.st-citations li {
+  margin-bottom: 6px;
+}
+.st-citations a {
+  color: var(--teal);
+  text-decoration: none;
+}
+.st-citations a:hover {
+  text-decoration: underline;
+}
+
+
 
 
 

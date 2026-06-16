@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prednisone &amp; Steroid Sleep Calculator — GoodSleep</title>
+<meta name="description" content="Calculate the optimal intake timing for Prednisone, Dexamethasone, and other corticosteroids to clear them from your blood before bed and prevent steroid insomnia.">
+<meta property="og:title" content="Prednisone &amp; Steroid Sleep Calculator — GoodSleep">
+<meta property="og:description" content="Find the perfect morning dose timing to prevent corticosteroid-induced insomnia. Renders interactive SVG pharmacokinetic drug clearance curves.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/steroid-sleep-calculator">
+<meta property="og:url" content="https://goodsleep.rest/steroid-sleep-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-specific inline styling */
+.st-disclaimer {
+  background: var(--amber-light);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--r-sm);
+  padding: 1rem;
+  margin-top: 1rem;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.st-input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 480px) {
+  .st-input-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Steroid Calculator</div>
+  <h1>Prednisone &amp; Steroid<br>Sleep Calculator</h1>
+  <p class="hero-sub">Time your corticosteroid doses scientifically. Shift your schedule to clear drug blood levels before bedtime and prevent steroid insomnia.</p>
+</div>
+
+<div class="page">
+  <div class="st-container">
+    <!-- INPUTS PANEL -->
+    <div class="st-panel">
+      <div class="st-title-row">
+        <div class="ash-icon-circle">⚕️</div>
+        <h3>Calculator Inputs</h3>
+      </div>
+
+      <div class="st-form-group">
+        <label for="st-drug">Select Corticosteroid</label>
+        <select id="st-drug" class="st-select" onchange="calculateSteroidSleep()">
+          <option value="prednisone" selected>Prednisone / Prednisolone (Intermediate half-life)</option>
+          <option value="dexamethasone">Dexamethasone (Decadron® - Extremely long half-life)</option>
+          <option value="hydrocortisone">Hydrocortisone (Cortef® - Short half-life)</option>
+          <option value="methylprednisolone">Methylprednisolone (Medrol® - Intermediate half-life)</option>
+        </select>
+      </div>
+
+      <div class="st-input-row">
+        <div class="st-form-group">
+          <label for="st-dose">Dose Size (mg)</label>
+          <input type="number" id="st-dose" class="st-select" value="10" min="0.5" max="100" step="0.5" oninput="calculateSteroidSleep()">
+        </div>
+
+        <div class="st-form-group">
+          <label for="st-dose-time">Current Intake Time</label>
+          <input type="time" id="st-dose-time" class="st-input-time" value="08:00" onchange="calculateSteroidSleep()">
+        </div>
+      </div>
+
+      <div class="st-form-group">
+        <label for="st-bed-time">Desired Bedtime</label>
+        <input type="time" id="st-bed-time" class="st-input-time" value="22:30" onchange="calculateSteroidSleep()">
+      </div>
+
+      <div class="st-disclaimer">
+        <strong>⚠️ Medical Disclaimer:</strong> Corticosteroids are powerful anti-inflammatories. Never adjust your dosage strength, skip doses, or shift administration times without consulting your prescribing doctor first.
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="st-results">
+      <!-- MAIN TIMING CARD -->
+      <div class="st-main-card">
+        <div class="st-result-label">Recommended Intake Time</div>
+        <div class="st-time-display" id="st-time-output">Take before 8:30 AM</div>
+        <div class="st-dose-display" id="st-dose-output">Ideal Gap: 14 hours before bed</div>
+        <div class="st-desc-display" id="st-desc-output">
+          Prednisone requires at least 14 hours to clear active blood concentrations enough to minimize nighttime hyperarousal. Shift your dose time earlier if you intend to sleep by your target bedtime.
+        </div>
+      </div>
+
+      <!-- INSOMNIA WARNING BANNER -->
+      <div class="st-alert-box" id="st-alert-box">
+        <strong>⚠️ Warning: High Insomnia Risk</strong><br>
+        Your current dose timing leaves high steroid levels active in your bloodstream at bedtime. This suppresses melatonin, raises body temperature, and will disrupt sleep onset.
+      </div>
+
+      <!-- SVG PHARMACOKINETICS GRAPH -->
+      <div class="st-graph-card">
+        <div class="st-result-label" style="margin-bottom:1rem;">24-Hour Steroid Blood Concentration Curve</div>
+        <svg class="st-graph-svg" viewBox="0 0 500 220" id="st-graph-svg">
+          <!-- Horizontal grid lines -->
+          <line x1="40" y1="20" x2="480" y2="20" class="st-grid" />
+          <line x1="40" y1="70" x2="480" y2="70" class="st-grid" />
+          <line x1="40" y1="120" x2="480" y2="120" class="st-grid" />
+          <line x1="40" y1="170" x2="480" y2="170" class="st-grid" />
+
+          <!-- Y-Axis labels (Concentration) -->
+          <text x="32" y="24" text-anchor="end" class="st-axis-text">100%</text>
+          <text x="32" y="74" text-anchor="end" class="st-axis-text">70%</text>
+          <text x="32" y="124" text-anchor="end" class="st-axis-text">40%</text>
+          <text x="32" y="174" text-anchor="end" class="st-axis-text">10%</text>
+
+          <!-- X-Axis label -->
+          <text x="40" y="195" text-anchor="middle" class="st-axis-text">0h</text>
+          <text x="150" y="195" text-anchor="middle" class="st-axis-text">6h</text>
+          <text x="260" y="195" text-anchor="middle" class="st-axis-text">12h</text>
+          <text x="370" y="195" text-anchor="middle" class="st-axis-text">18h</text>
+          <text x="480" y="195" text-anchor="middle" class="st-axis-text">24h</text>
+
+          <!-- SVG Curves will be injected dynamically -->
+          <path d="" class="st-line" id="curve-path" />
+          <path d="" class="st-line-area" id="curve-area-path" />
+
+          <!-- Bedtime Line marker -->
+          <line x1="260" y1="10" x2="260" y2="180" class="st-bed-line" id="bedtime-marker" />
+          <text x="260" y="208" text-anchor="middle" class="st-axis-text" style="fill:var(--red);" id="bedtime-text">Bedtime</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE GUIDE -->
+  <div class="st-science">
+    <h2>The Science of Corticosteroid-Induced Insomnia</h2>
+    
+    <p>
+      Corticosteroids (such as prednisone, prednisolone, and dexamethasone) are synthetic drugs designed to mimic **cortisol**—your body's primary endogenous stress and wakefulness hormone. In healthy circadian biology, cortisol peaks around 8:00 AM to trigger arousal and alert state, and drops to its lowest level around midnight to facilitate melatonin secretion and deep sleep.
+    </p>
+
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>How Steroids Disrupt Sleep Architecture</h3>
+        <p>
+          Swallowing a corticosteroid pill floods the bloodstream with cortisol-like molecules. This triggers several direct neural and metabolic disruptions:
+        </p>
+        <ul class="mt-bullet-list">
+          <li><strong>Melatonin Suppression:</strong> High systemic cortisol signals the pineal gland to stop manufacturing melatonin, delaying sleep onset.</li>
+          <li><strong>Central Hyperarousal:</strong> Steroids stimulate the sympathetic nervous system, raising resting heart rate, blood pressure, and cognitive vigilance.</li>
+          <li><strong>Thermogenic Spike:</strong> Cortisol increases body heat. For quality slow-wave sleep, your core body temperature must drop by 1–2°F. Steroids block this natural cooldown.</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h3>Half-Life vs. Biological Activity</h3>
+        <p>
+          A common mistake is assuming that a drug is out of your system once its plasma half-life has passed. However, corticosteroids exert genomic effects inside cell nuclei that last far longer than the drug stays in the blood:
+        </p>
+        <ul class="mt-bullet-list">
+          <li><strong>Prednisone:</strong> Plasma half-life is 3–4 hours, but its biological duration of action stretches to **18–36 hours**.</li>
+          <li><strong>Dexamethasone:</strong> Plasma half-life is 36–54 hours. Its biological activity persists up to **72 hours**. This means dexamethasone accumulates in your body and will cause sleep issues regardless of morning timing.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Prednisone Sleep Protocol: Actionable Buffers</h3>
+    <p>
+      If you cannot change your steroid prescription, use these circadian buffering mechanisms:
+    </p>
+    <ol style="padding-left: 1.25rem; line-height: 1.8; margin-top: 0.75rem;">
+      <li><strong>Avoid Afternoon Splitting:</strong> If your doctor prescribed split dosing (e.g. 10mg morning, 10mg afternoon), ask if you can take the entire 20mg dose at once in the morning to keep your afternoon and evening steroid levels as low as possible.</li>
+      <li><strong>Take Microdose Melatonin:</strong> Take a small dose of melatonin (0.3 mg to 1.0 mg) 90 minutes before bedtime. This helps bypass the cortisol block and signals the brain that it is night.</li>
+      <li><strong>Supplement Magnesium Glycinate:</strong> Take 200–400 mg of elemental magnesium glycinate with dinner. Magnesium slows heart rate and relaxes muscle groups overstimulated by corticosteroids.</li>
+      <li><strong>Aggressive Thermoregulation:</strong> Keep your bedroom extra cold (60–65°F / 15–18°C) and avoid heavy blankets. Use cotton sheets to vent body heat.</li>
+    </ol>
+
+    <div class="st-citations">
+      <strong>Scientific References & Authority Citations:</strong>
+      <ol>
+        <li><strong>Rheumatic Disease Clinics:</strong> <em>"Glucocorticoid therapy and sleep disturbance: A clinical review of mechanisms and management."</em></li>
+        <li><strong>Journal of Clinical Endocrinology &amp; Metabolism:</strong> <em>"Effects of high-dose corticosteroids on circadian rhythm, body temperature, and sleep staging."</em></li>
+        <li><strong>Sleep Medicine Reviews:</strong> Meta-analysis on drug-induced insomnia and behavioral countermeasures.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">🛏️ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">🧒 Kids Sleep</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/melatonin-calculator">💤 Melatonin Calculator</a>
+    <a href="/sleep-apnea-quiz">🫁 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍒 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
+    <a href="/about">ℹ️ About Us</a>
+    <a href="/privacy">🔒 Privacy Policy</a>
+    <a href="/contact">✉️ Contact Us</a>
+  </div>
+  <p>© 2026 GoodSleep. All rights reserved. Our content is for informational purposes and does not constitute medical advice.</p>
+</footer>
+
+<script>
+function calculateSteroidSleep() {
+  const drug = document.getElementById('st-drug').value;
+  const dose = parseFloat(document.getElementById('st-dose').value);
+  const doseTime = document.getElementById('st-dose-time').value;
+  const bedTime = document.getElementById('st-bed-time').value;
+
+  // Parse times into hours (float)
+  const parseTime = (timeStr) => {
+    const parts = timeStr.split(':');
+    return parseInt(parts[0]) + parseInt(parts[1]) / 60;
+  };
+
+  const tDose = parseTime(doseTime);
+  const tBed = parseTime(bedTime);
+
+  // Calculate hours gap
+  let gap = tBed - tDose;
+  if (gap < 0) gap += 24; // handles post-midnight bedtimes
+
+  let halfLife = 3.5; // Prednisone default
+  let requiredGap = 14;
+  let descText = "";
+
+  switch (drug) {
+    case 'prednisone':
+      halfLife = 3.5;
+      requiredGap = 14;
+      descText = "Prednisone has a biological duration of action between 18–36 hours. A gap of at least 14 hours helps lower circulating levels before bed. Consider taking your dose at 07:00 AM or earlier.";
+      break;
+    case 'dexamethasone':
+      halfLife = 40; // Extremely long half-life
+      requiredGap = 16;
+      descText = "Dexamethasone has a biological duration of action up to 72 hours. Because of its massive half-life, it will persist in your body and cause insomnia regardless of daily timing. Take it strictly in the morning.";
+      break;
+    case 'hydrocortisone':
+      halfLife = 1.8;
+      requiredGap = 10;
+      descText = "Hydrocortisone is short-acting, lasting 8–12 hours. A gap of 10 hours is usually sufficient for sleep. Taking it in the morning or early afternoon prevents nighttime disruption.";
+      break;
+    case 'methylprednisolone':
+      halfLife = 2.5;
+      requiredGap = 12;
+      descText = "Methylprednisolone is intermediate-acting (lasts 12–36 hours). Ensure at least a 12-hour gap between your morning administration and desired bedtime.";
+      break;
+  }
+
+  // Determine optimal intake time
+  let optimalTime = tBed - requiredGap;
+  if (optimalTime < 0) optimalTime += 24;
+
+  const formatHour = (hourFloat) => {
+    const h = Math.floor(hourFloat);
+    const m = Math.round((hourFloat - h) * 60);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const dispH = h % 12 === 0 ? 12 : h % 12;
+    const dispM = m < 10 ? '0' + m : m;
+    return `${dispH}:${dispM} ${ampm}`;
+  };
+
+  const optimalLabel = formatHour(optimalTime);
+  document.getElementById('st-time-output').innerText = `Take before ${optimalLabel}`;
+  document.getElementById('st-dose-output').innerText = `Recommended Gap: ${requiredGap} hours before bedtime (Current: ${gap.toFixed(1)}h)`;
+  document.getElementById('st-desc-output').innerText = descText;
+
+  // Insomnia warning banner evaluation
+  const alertBox = document.getElementById('st-alert-box');
+  let isDanger = gap < requiredGap;
+  let isDexamethasone = drug === 'dexamethasone';
+
+  if (isDexamethasone) {
+    alertBox.className = "st-alert-box show warning";
+    alertBox.innerHTML = `<strong>⚠️ Warning: Extreme Insomnia Risk (Dexamethasone)</strong><br>Dexamethasone is active in cell nuclei for up to 72 hours. It accumulates over daily doses, causing severe circadian suppression. Follow strict sleep cooling protocols and take it strictly in the morning.`;
+  } else if (isDanger) {
+    alertBox.className = "st-alert-box show";
+    alertBox.innerHTML = `<strong>⚠️ Warning: High Insomnia Risk</strong><br>Your current gap (${gap.toFixed(1)}h) is less than the recommended ${requiredGap}h clearance window. Shifting your dose to ${optimalLabel} will significantly improve sleep onset.`;
+  } else {
+    alertBox.className = "st-alert-box"; // hide
+  }
+
+  // Draw SVG Drug Concentration Curve
+  // X axis: 0 to 24 hours, maps to SVG width 40 to 480
+  // Y axis: 0 to 100% concentration, maps to SVG height 170 (10%) to 20 (100%)
+  const svgWidth = 440;
+  const svgHeight = 150; // Y-range from 20 to 170
+
+  const mapX = (h) => 40 + (h / 24) * svgWidth;
+  const mapY = (c) => 170 - (c / 100) * svgHeight;
+
+  // Generate curve path points (concentration decay)
+  // peak at 1.5h (concentration 100%)
+  // before peak: linear increase from 0 to 100
+  // after peak: exponential decay based on half-life: C = 100 * (0.5 ^ (t / halfLife))
+  let points = [];
+  for (let h = 0; h <= 24; h += 0.5) {
+    let conc = 0;
+    if (h < 1.5) {
+      conc = (h / 1.5) * 100;
+    } else {
+      const decayTime = h - 1.5;
+      conc = 100 * Math.pow(0.5, decayTime / halfLife);
+    }
+    points.push({x: mapX(h), y: mapY(conc)});
+  }
+
+  // Build SVG path
+  let dPath = `M ${points[0].x} ${points[0].y} ` + points.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
+  document.getElementById('curve-path').setAttribute('d', dPath);
+
+  // Area path
+  let dAreaPath = `${dPath} L ${mapX(24)} ${mapY(0)} L ${mapX(0)} ${mapY(0)} Z`;
+  document.getElementById('curve-area-path').setAttribute('d', dAreaPath);
+
+  // Position bedtime vertical line marker
+  // The bedtime represents "gap" hours after intake
+  let bedMarkerX = mapX(gap);
+  if (gap > 24) bedMarkerX = mapX(24);
+  
+  const bedtimeLine = document.getElementById('bedtime-marker');
+  const bedtimeText = document.getElementById('bedtime-text');
+
+  bedtimeLine.setAttribute('x1', bedMarkerX);
+  bedtimeLine.setAttribute('x2', bedMarkerX);
+  bedtimeText.setAttribute('x', bedMarkerX);
+
+  if (isDanger || isDexamethasone) {
+    bedtimeLine.style.stroke = "var(--red)";
+    bedtimeText.style.fill = "var(--red)";
+    bedtimeText.textContent = `Bedtime (High Risk)`;
+  } else {
+    bedtimeLine.style.stroke = "var(--teal)";
+    bedtimeText.style.fill = "var(--teal)";
+    bedtimeText.textContent = `Bedtime (Safe)`;
+  }
+}
+
+// Initial calculation
+calculateSteroidSleep();
+</script>
+
+<script>
+// Theme Switcher Logic
+const themeToggle = document.getElementById('theme-toggle');
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+};
+themeToggle.addEventListener('click', toggleTheme);
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.style.display = 'none', 400);
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>
