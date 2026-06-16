@@ -597,3 +597,257 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
 .particle-teal{background:var(--teal-mid);opacity:0.5;animation:particleFloat var(--dur,6s) ease-in-out infinite var(--delay,0s)}
 .particle-purple{background:var(--purple);opacity:0.3;animation:particleFloat var(--dur,8s) ease-in-out infinite var(--delay,1s)}
 @keyframes particleFloat{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-15px) rotate(90deg)}50%{transform:translateY(-5px) rotate(180deg)}75%{transform:translateY(-20px) rotate(270deg)}}
+
+/* ══════════════════════════════════════════════
+   MELATONIN CALCULATOR STYLES
+   ══════════════════════════════════════════════ */
+.mela-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .mela-container {
+    grid-template-columns: 1fr;
+  }
+}
+.mela-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.mela-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.mela-title-row h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+.mela-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(139,92,246,0.1);
+  color: rgb(139,92,246);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+[data-theme="dark"] .mela-icon-circle {
+  background: rgba(139,92,246,0.2);
+  color: rgb(167,139,250);
+}
+.mela-form-group {
+  margin-bottom: 1.5rem;
+}
+.mela-form-group label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.mela-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.mela-tab-btn {
+  background: var(--bg-soft);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  font-family: var(--font);
+}
+.mela-tab-btn:hover {
+  border-color: var(--teal-mid);
+  color: var(--text);
+}
+.mela-tab-btn.active {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: var(--teal-dark);
+}
+.mela-select, .mela-input-time {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--font);
+  transition: border-color 0.2s;
+}
+.mela-select:focus, .mela-input-time:focus {
+  border-color: var(--teal);
+  outline: none;
+}
+.mela-input-time {
+  box-sizing: border-box;
+}
+
+/* Results panel */
+.mela-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mela-main-card {
+  background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(29,158,117,0.08));
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.mela-main-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, rgb(139,92,246), var(--teal));
+}
+.mela-result-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.mela-time-display {
+  font-size: clamp(32px, 5vw, 42px);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+.mela-dose-display {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--teal-dark);
+  margin-bottom: 8px;
+}
+.mela-desc-display {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Timeline */
+.mela-timeline-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+}
+.mela-timeline-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+.mela-timeline-svg {
+  width: 100%;
+  min-width: 450px;
+  height: auto;
+  display: block;
+}
+
+/* Warnings and guidelines */
+.mela-tip-box {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 1rem 1.25rem;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.mela-tip-box strong {
+  color: var(--text);
+}
+.mela-warning-box {
+  background: rgba(226,75,74,0.06);
+  border-left: 3px solid var(--red);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 1rem 1.25rem;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.mela-warning-box strong {
+  color: var(--text);
+}
+
+/* Citations and science section */
+.mela-science {
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+.mela-science h2 {
+  font-size: clamp(20px, 3.5vw, 26px);
+  margin-bottom: 1.5rem;
+}
+.mela-science h3 {
+  font-size: 16px;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.mela-science p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+.mela-citations {
+  margin-top: 2rem;
+  font-size: 12.5px;
+  color: var(--text-hint);
+  line-height: 1.6;
+  border-top: 1.5px dashed var(--border);
+  padding-top: 1.5rem;
+}
+.mela-citations ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0 0;
+}
+.mela-citations li {
+  margin-bottom: 6px;
+}
+.mela-citations a {
+  color: var(--teal);
+  text-decoration: none;
+}
+.mela-citations a:hover {
+  text-decoration: underline;
+}
+
+/* Jet Lag details */
+.mela-jetlag-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 0.75rem;
+}
+

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melatonin Dosage & Timing Calculator — GoodSleep</title>
+<meta name="description" content="Calculate exactly when and how much melatonin to take based on your goals: sleep onset, circadian clock shift, jet lag recovery, or shift work adjustment.">
+<meta property="og:title" content="Melatonin Dosage & Timing Calculator — GoodSleep">
+<meta property="og:description" content="Find the perfect timing and optimal dosage for melatonin based on sleep science and circadian rhythm phase shifting.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/melatonin-calculator">
+<meta property="og:url" content="https://goodsleep.rest/melatonin-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page specific styling fixes if any */
+.mela-form-group.hidden {
+  display: none !important;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Melatonin Calculator</div>
+  <h1>Melatonin Dosage &<br>Timing Calculator</h1>
+  <p class="hero-sub">Time your melatonin intake correctly to align with your body's circadian clock, recover from jet lag, or adjust to shift work.</p>
+</div>
+
+<div class="page">
+  <div class="mela-container">
+    <!-- INPUT PANEL -->
+    <div class="mela-panel">
+      <div class="mela-title-row">
+        <div class="mela-icon-circle">💊</div>
+        <h3>Calculator Inputs</h3>
+      </div>
+
+      <div class="mela-form-group">
+        <label>1. Select Your Goal</label>
+        <div class="mela-tabs">
+          <button type="button" class="mela-tab-btn active" onclick="setGoal('aid')">General Aid</button>
+          <button type="button" class="mela-tab-btn" onclick="setGoal('circadian')">Phase Shift</button>
+          <button type="button" class="mela-tab-btn" onclick="setGoal('jetlag')">Jet Lag</button>
+          <button type="button" class="mela-tab-btn" onclick="setGoal('shift')">Shift Work</button>
+        </div>
+      </div>
+
+      <div class="mela-form-group" id="group-bedtime">
+        <label id="label-bedtime">Desired Bedtime</label>
+        <input type="time" id="mela-bedtime" class="mela-input-time" value="22:30">
+      </div>
+
+      <div class="mela-form-group" id="group-formulation">
+        <label>Formulation Type</label>
+        <select id="mela-formulation" class="mela-select" onchange="calculateMelatonin()">
+          <option value="standard">Standard Release (Pills/Gummies)</option>
+          <option value="fast">Fast Acting (Sublingual/Liquid)</option>
+          <option value="extended">Extended Release (Timed tablets)</option>
+        </select>
+      </div>
+
+      <!-- Jet lag options -->
+      <div class="mela-form-group hidden" id="group-jetlag">
+        <label>Jet Lag Details</label>
+        <div class="mela-jetlag-row">
+          <div>
+            <label style="font-size:12px; margin-bottom:4px;">Timezones Crossed</label>
+            <select id="mela-tz" class="mela-select" onchange="calculateMelatonin()">
+              <option value="1">1 Timezone</option>
+              <option value="2">2 Timezones</option>
+              <option value="3" selected>3 Timezones</option>
+              <option value="4">4 Timezones</option>
+              <option value="5">5 Timezones</option>
+              <option value="6">6 Timezones</option>
+              <option value="7">7 Timezones</option>
+              <option value="8">8 Timezones</option>
+              <option value="9">9+ Timezones</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px; margin-bottom:4px;">Direction of Travel</label>
+            <select id="mela-dir" class="mela-select" onchange="calculateMelatonin()">
+              <option value="east">Eastbound (Phase Delay)</option>
+              <option value="west">Westbound (Phase Advance)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="mela-results">
+      <div class="mela-main-card">
+        <div class="mela-result-label">Recommended Intake Time</div>
+        <div class="mela-time-display" id="mela-time-output">9:30 PM</div>
+        <div class="mela-dose-display" id="mela-dose-output">1.0 mg - 3.0 mg</div>
+        <div class="mela-desc-display" id="mela-desc-output">
+          For general sleep onset assistance, taking melatonin 60 minutes before bed signals your body that it is time to wind down. Avoid screens immediately after taking your dose.
+        </div>
+      </div>
+
+      <!-- Timeline visual -->
+      <div class="mela-timeline-card">
+        <div class="mela-result-label" style="margin-bottom: 0.5rem;">Evening Timeline Visualization</div>
+        <div class="mela-timeline-container">
+          <svg class="mela-timeline-svg" viewBox="0 0 500 130" id="mela-timeline-svg">
+            <!-- Background track -->
+            <rect x="20" y="55" width="460" height="8" rx="4" fill="var(--border)" />
+            <!-- Markers & labels will be inserted dynamically by JS -->
+          </svg>
+        </div>
+      </div>
+
+      <div class="mela-tip-box" id="mela-tip-box">
+        <strong>Circadian Tip:</strong> Bright light (especially blue light from screens) suppresses natural melatonin. Dim your home lights 2 hours before bed to maximize the effectiveness of melatonin.
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE & EDUCATION SECTION -->
+  <div class="mela-science">
+    <h2>The Science of Melatonin Timing</h2>
+    
+    <p>Unlike traditional sleeping pills which work as sedatives to force sleep, melatonin acts as a <strong>chronobiotic</strong>—a biological timing signal. It tells your brain's master clock (the suprachiasmatic nucleus) when it is night. Because melatonin works as a clock shifter, <em>when</em> you take it is far more important than how much you take.</p>
+    
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>How Melatonin Shifts Your Circadian Rhythm</h3>
+        <p>Your internal biological clock produces natural melatonin in response to darkness, peaking in the middle of the night. This onset is called <strong>DLMO (Dim Light Melatonin Onset)</strong>. Taking exogenous melatonin shifts this cycle:</p>
+        <ul>
+          <li><strong>Phase Advance (Shift Earlier):</strong> Taking melatonin in the late afternoon or early evening (4–6 hours before bedtime) tricks the clock into thinking the night has started early, prompting you to sleep and wake earlier.</li>
+          <li><strong>Phase Delay (Shift Later):</strong> Taking melatonin in the morning shifts your clock later, making you sleep and wake later (rarely recommended for standard sleep concerns but useful for some shift schedules).</li>
+        </ul>
+      </div>
+      
+      <div class="about-card">
+        <h3>Why Less is More (The Dosage Paradox)</h3>
+        <p>Many over-the-counter melatonin supplements contain 5 mg to 10 mg per serving. According to clinical sleep specialists, this is a massive overdose that can desensitize your brain receptors, cause vivid nightmares, morning grogginess, and disrupt core body temperature regulation.</p>
+        <p>Studies show that a microdose of <strong>0.3 mg to 1.5 mg</strong> is actually <em>more</em> effective at shifting circadian rhythms and mimics the natural concentrations produced by the pineal gland.</p>
+      </div>
+    </div>
+
+    <h3>Jet Lag Protocol</h3>
+    <p>When traveling across time zones, your body clock remains synced to your departure city. Re-aligning relies on directional timing:</p>
+    <p><strong>Eastward Travel:</strong> Your day is shortened. To adjust, you need to phase-advance (shift your clock earlier). Take a moderate dose of melatonin at your destination's target bedtime starting on the night of travel.</p>
+    <p><strong>Westward Travel:</strong> Your day is lengthened. Melatonin is rarely needed for Westward travel because it is easier for the human clock to adapt to a longer day. However, if you experience early morning awakenings, taking a tiny dose (0.5 mg) can help you sleep through the morning.</p>
+
+    <div class="mela-citations">
+      <strong>Scientific References & Authority Citations:</strong>
+      <ol>
+        <li><strong>Journal of Clinical Endocrinology & Metabolism:</strong> <em>"Dim Light Melatonin Onset (DLMO) is the most reliable marker of circadian phase in humans."</em> (Pandharipande et al.)</li>
+        <li><strong>Circadian Phase Response Curves to Melatonin:</strong> A clinical study establishing that melatonin taken 4–6 hours before sleep onset produces the largest advance in sleep timing. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3995133/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
+        <li><strong>American Academy of Sleep Medicine (AASM):</strong> Clinical practice guidelines recommending low-dose melatonin for Delayed Sleep-Wake Phase Disorder and jet lag. <a href="https://aasm.org/" target="_blank" rel="noopener">AASM Website</a></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// ── THEME & STARS ──
+(function(){
+  var s=localStorage.getItem('gs-theme');
+  if(s)document.documentElement.setAttribute('data-theme',s);
+  var b=document.getElementById('theme-toggle');
+  if(b){
+    var th=document.documentElement.getAttribute('data-theme');
+    var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent=dk?'☀️':'🌙';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var r=document.documentElement;
+  var c=r.getAttribute('data-theme');
+  var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  var n=dk?'light':'dark';
+  r.setAttribute('data-theme',n);
+  localStorage.setItem('gs-theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+
+// STARS background
+const starsEl = document.getElementById('stars');
+if(starsEl){
+  for(let i=0;i<25;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s`;
+    starsEl.appendChild(s);
+  }
+}
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('back-top');
+  if(b)b.classList.toggle('show',window.scrollY>400);
+},{passive:true});
+document.getElementById('back-top').addEventListener('click',function(){
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ── CALCULATION LOGIC ──
+let activeGoal = 'aid';
+
+function setGoal(goal) {
+  activeGoal = goal;
+  
+  // Update tabs active class
+  const buttons = document.querySelectorAll('.mela-tab-btn');
+  buttons.forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(goal === 'aid' ? 'general' : goal === 'circadian' ? 'phase' : goal === 'jetlag' ? 'jet' : 'shift'));
+  });
+  
+  // Toggle form group visibility
+  const grpBedtime = document.getElementById('group-bedtime');
+  const grpFormulation = document.getElementById('group-formulation');
+  const grpJetlag = document.getElementById('group-jetlag');
+  const lblBedtime = document.getElementById('label-bedtime');
+  
+  grpBedtime.classList.remove('hidden');
+  grpFormulation.classList.remove('hidden');
+  grpJetlag.classList.add('hidden');
+  
+  if (goal === 'aid') {
+    lblBedtime.textContent = "Desired Bedtime";
+  } else if (goal === 'circadian') {
+    lblBedtime.textContent = "Desired Bedtime (Shift Target)";
+  } else if (goal === 'jetlag') {
+    lblBedtime.textContent = "Desired Bedtime (Destination)";
+    grpJetlag.classList.remove('hidden');
+  } else if (goal === 'shift') {
+    lblBedtime.textContent = "Planned Sleep Time (Daytime/Night)";
+  }
+  
+  calculateMelatonin();
+}
+
+function calculateMelatonin() {
+  const timeVal = document.getElementById('mela-bedtime').value;
+  const formVal = document.getElementById('mela-formulation').value;
+  
+  let [h, m] = timeVal.split(':').map(Number);
+  let bedtimeMinutes = h * 60 + m;
+  
+  let intakeMinutes = 0;
+  let recommendedDose = "";
+  let descText = "";
+  let tipText = "Bright light suppresses natural melatonin. Dim your lights 2 hours before bedtime.";
+  let isWarning = false;
+  
+  if (activeGoal === 'aid') {
+    recommendedDose = "1.0 mg - 3.0 mg";
+    let offset = 60; // Standard release
+    if (formVal === 'fast') {
+      offset = 30;
+    } else if (formVal === 'extended') {
+      offset = 120;
+    }
+    intakeMinutes = (bedtimeMinutes - offset + 1440) % 1440;
+    descText = `For general sleep onset assistance, taking melatonin ${offset} minutes before bed signals your body that it is time to wind down. Avoid screens immediately after taking your dose.`;
+  } else if (activeGoal === 'circadian') {
+    recommendedDose = "0.3 mg - 1.0 mg (Microdose)";
+    // Chronobiotic phase advance: take 5 hours before desired bedtime
+    intakeMinutes = (bedtimeMinutes - 300 + 1440) % 1440;
+    descText = `To shift your sleep schedule earlier (phase advance), take a microdose (0.3mg to 1mg) 5 hours before your target bedtime. Taking high doses or taking it too close to bedtime can be ineffective or cause grogginess.`;
+    tipText = "When shifting your clock, pair evening melatonin with morning bright light exposure (within 30 mins of waking) for best results.";
+  } else if (activeGoal === 'jetlag') {
+    const tz = parseInt(document.getElementById('mela-tz').value);
+    const dir = document.getElementById('mela-dir').value;
+    recommendedDose = "0.5 mg - 2.0 mg";
+    
+    if (dir === 'east') {
+      // Eastbound: day is shortened, need phase advance. Take at destination bedtime.
+      intakeMinutes = bedtimeMinutes;
+      descText = `Traveling Eastwards across ${tz} timezones. Take melatonin at your destination bedtime (${formatTimeStr(bedtimeMinutes)}) starting on your travel day and for 3-4 days after arrival to pull your body clock earlier.`;
+    } else {
+      // Westbound: day is lengthened, need phase delay. Melatonin is usually not needed unless early morning waking.
+      intakeMinutes = (bedtimeMinutes - 60 + 1440) % 1440; // recommend standard bedtime but add explanation
+      descText = `Traveling Westwards across ${tz} timezones. Melatonin is generally not required since adapting to a longer day is easier. If you wake up too early in the morning at your destination, you may take a microdose (0.5mg) in the early morning.`;
+    }
+  } else if (activeGoal === 'shift') {
+    recommendedDose = "1.0 mg - 3.0 mg";
+    let offset = 45;
+    if (formVal === 'fast') offset = 20;
+    if (formVal === 'extended') offset = 90;
+    
+    intakeMinutes = (bedtimeMinutes - offset + 1440) % 1440;
+    descText = `For shift work schedule adjustment, take melatonin ${offset} minutes before your planned daytime sleep. Blackout curtains and a silent room are absolutely mandatory to keep daylight from blocking melatonin's effect.`;
+    isWarning = true;
+    tipText = "Warning: Taking melatonin during the day can cause grogginess if you do not get a full 7-8 hours of sleep after your dose.";
+  }
+  
+  // Display outputs
+  document.getElementById('mela-time-output').textContent = formatTimeStr(intakeMinutes);
+  document.getElementById('mela-dose-output').textContent = recommendedDose;
+  document.getElementById('mela-desc-output').textContent = descText;
+  
+  // Update tip box styling
+  const tipBox = document.getElementById('mela-tip-box');
+  tipBox.className = isWarning ? 'mela-warning-box' : 'mela-tip-box';
+  tipBox.innerHTML = isWarning ? `<strong>Shift Note:</strong> ${tipText}` : `<strong>Circadian Tip:</strong> ${tipText}`;
+  
+  // Render timeline SVG
+  renderTimeline(intakeMinutes, bedtimeMinutes);
+}
+
+function formatTimeStr(minutes) {
+  let h = Math.floor(minutes / 60);
+  let m = minutes % 60;
+  let ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return `${h}:${m < 10 ? '0' + m : m} ${ampm}`;
+}
+
+function renderTimeline(intakeMins, bedtimeMins) {
+  const svg = document.getElementById('mela-timeline-svg');
+  if(!svg) return;
+  
+  // Clear dynamic elements (anything except the track background)
+  const rects = svg.querySelectorAll('rect');
+  const tracks = Array.from(rects).filter(r => r.getAttribute('fill') === 'var(--border)');
+  svg.innerHTML = '';
+  if (tracks.length > 0) {
+    svg.appendChild(tracks[0]);
+  } else {
+    // Rebuild track if missing
+    const track = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    track.setAttribute('x', '20');
+    track.setAttribute('y', '55');
+    track.setAttribute('width', '460');
+    track.setAttribute('height', '8');
+    track.setAttribute('rx', '4');
+    track.setAttribute('fill', 'var(--border)');
+    svg.appendChild(track);
+  }
+  
+  // We want to display a 12-hour scale
+  // The scale starts at intakeMins - 2 hours (or earlier) and ends at bedtimeMins + 2 hours
+  // Let's dynamically set the start and end of the timeline
+  let startVal = (intakeMins - 120 + 1440) % 1440;
+  let spanVal = (bedtimeMins - startVal + 1440) % 1440 + 180; // 3 hours past bedtime
+  if (spanVal < 480) spanVal = 480; // minimum 8 hours range
+  if (spanVal > 960) spanVal = 960; // maximum 16 hours range
+  
+  const mapX = (m) => {
+    let diff = (m - startVal + 1440) % 1440;
+    if (diff > spanVal) diff = spanVal; // clamp
+    return 20 + (diff / spanVal) * 460;
+  };
+  
+  // 1. Draw points of interest
+  const pts = [];
+  
+  // Intake point
+  pts.push({
+    min: intakeMins,
+    color: '#8B5CF6',
+    label: 'Take Melatonin',
+    time: formatTimeStr(intakeMins),
+    icon: '💊'
+  });
+  
+  // Dim light cutoff (always 120 mins before bedtime)
+  let dimMins = (bedtimeMins - 120 + 1440) % 1440;
+  // Only add if it doesn't overlap too closely with intake (e.g. within 15 min)
+  if (Math.abs((dimMins - intakeMins + 1440) % 1440) > 15) {
+    pts.push({
+      min: dimMins,
+      color: '#3B82F6',
+      label: 'Dim Lights',
+      time: formatTimeStr(dimMins),
+      icon: '💡'
+    });
+  }
+  
+  // Bedtime point
+  pts.push({
+    min: bedtimeMins,
+    color: '#10B981',
+    label: 'Bedtime',
+    time: formatTimeStr(bedtimeMins),
+    icon: '🛏️'
+  });
+  
+  // Wakeup time (approx 7.5 hours / 5 sleep cycles later)
+  let wakeMins = (bedtimeMins + 450) % 1440;
+  pts.push({
+    min: wakeMins,
+    color: '#F59E0B',
+    label: 'Wake Up',
+    time: formatTimeStr(wakeMins),
+    icon: '☀️'
+  });
+  
+  // Render points on the timeline
+  pts.forEach(pt => {
+    const x = mapX(pt.min);
+    
+    // Draw vertical dotted guide line
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x);
+    line.setAttribute('y1', '25');
+    line.setAttribute('x2', x);
+    line.setAttribute('y2', '85');
+    line.setAttribute('stroke', pt.color);
+    line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('stroke-dasharray', '3,3');
+    svg.appendChild(line);
+    
+    // Draw dot on the track
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', '59');
+    circle.setAttribute('r', '7');
+    circle.setAttribute('fill', pt.color);
+    circle.setAttribute('stroke', 'var(--bg-card)');
+    circle.setAttribute('stroke-width', '2');
+    svg.appendChild(circle);
+    
+    // Draw icon label on top
+    const iconText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    iconText.setAttribute('x', x);
+    iconText.setAttribute('y', '20');
+    iconText.setAttribute('text-anchor', 'middle');
+    iconText.setAttribute('font-size', '14');
+    iconText.textContent = pt.icon;
+    svg.appendChild(iconText);
+    
+    // Draw text label on bottom
+    const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    labelText.setAttribute('x', x);
+    labelText.setAttribute('y', '102');
+    labelText.setAttribute('text-anchor', 'middle');
+    labelText.setAttribute('font-size', '10');
+    labelText.setAttribute('font-weight', '700');
+    labelText.setAttribute('fill', 'var(--text)');
+    labelText.textContent = pt.label;
+    svg.appendChild(labelText);
+    
+    // Draw time label further bottom
+    const timeText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    timeText.setAttribute('x', x);
+    timeText.setAttribute('y', '115');
+    timeText.setAttribute('text-anchor', 'middle');
+    timeText.setAttribute('font-size', '9');
+    timeText.setAttribute('fill', 'var(--text-muted)');
+    timeText.textContent = pt.time;
+    svg.appendChild(timeText);
+  });
+}
+
+// Initial calculation on load
+window.addEventListener('load', () => {
+  calculateMelatonin();
+  // Listen for changes in bedtime time input
+  document.getElementById('mela-bedtime').addEventListener('input', calculateMelatonin);
+});
+</script>
+
+</body>
+</html>
