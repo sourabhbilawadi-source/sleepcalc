@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashwagandha Dosage &amp; Cycling Calculator — GoodSleep</title>
+<meta name="description" content="Calculate your optimal Ashwagandha dosage based on standardized extract types (KSM-66, Shoden, Sensoril) and generate an interactive cycling schedule to prevent receptor tolerance and anhedonia.">
+<meta property="og:title" content="Ashwagandha Dosage &amp; Cycling Calculator — GoodSleep">
+<meta property="og:description" content="Find your perfect Ashwagandha dosage and cycle schedule. Standardize cortisol management without emotional blunting.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/ashwagandha-calculator">
+<meta property="og:url" content="https://goodsleep.rest/ashwagandha-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-specific inline styling */
+.ash-warning-box {
+  background: var(--amber-light);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--r-sm);
+  padding: 1rem;
+  margin-top: 1rem;
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.ash-input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 480px) {
+  .ash-input-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Ashwagandha Calculator</div>
+  <h1>Ashwagandha Dosage &amp;<br>Cycling Calculator</h1>
+  <p class="hero-sub">Standardize your adaptogen intake, optimize stress resilience, and cycle correctly to avoid emotional blunting.</p>
+</div>
+
+<div class="page">
+  <div class="ash-container">
+    <!-- INPUTS PANEL -->
+    <div class="ash-panel">
+      <div class="ash-title-row">
+        <div class="ash-icon-circle">🌿</div>
+        <h3>Calculator Inputs</h3>
+      </div>
+
+      <div class="ash-form-group">
+        <label for="ash-extract">Extract Type</label>
+        <select id="ash-extract" class="ash-select" onchange="calculateAshwagandha()">
+          <option value="ksm66" selected>KSM-66® (Standardized Root Extract - 5% Withanolides)</option>
+          <option value="shoden">Shoden® (Highly Concentrated Root/Leaf - 35% Withanolides)</option>
+          <option value="sensoril">Sensoril® (Standardized Root/Leaf - 10% Withanolides)</option>
+          <option value="raw">Raw Root Powder / Generic Extract</option>
+        </select>
+      </div>
+
+      <div class="ash-form-group">
+        <label for="ash-goal">Primary Goal</label>
+        <select id="ash-goal" class="ash-select" onchange="calculateAshwagandha()">
+          <option value="sleep" selected>Insomnia &amp; Sleep Quality Improvement</option>
+          <option value="stress">General Stress &amp; Cortisol Management</option>
+          <option value="anxiety">Daytime Anxiety &amp; Mood Support</option>
+        </select>
+      </div>
+
+      <div class="ash-input-row">
+        <div class="ash-form-group">
+          <label for="ash-strategy">Cycling Strategy</label>
+          <select id="ash-strategy" class="ash-select" onchange="calculateAshwagandha()">
+            <option value="standard" selected>Standard (6 Weeks On, 2 Weeks Off)</option>
+            <option value="long">Long (8 Weeks On, 4 Weeks Off)</option>
+            <option value="short">Short (5 Days On, 2 Days Off)</option>
+          </select>
+        </div>
+
+        <div class="ash-form-group">
+          <label for="ash-start-date">Cycle Start Date</label>
+          <input type="date" id="ash-start-date" class="ash-input-date" onchange="calculateAshwagandha()">
+        </div>
+      </div>
+
+      <div class="ash-form-group">
+        <label for="ash-current-dosage">Your Supplement Capsule Strength (Optional, mg)</label>
+        <input type="number" id="ash-current-dosage" class="ash-select" placeholder="e.g. 600" min="0" max="5000" oninput="calculateAshwagandha()">
+      </div>
+
+      <div class="ash-warning-box">
+        <strong>⚠️ Safety Check:</strong> Ashwagandha can stimulate thyroid hormone production and immune activity. Avoid if pregnant, breastfeeding, diagnosed with hyperthyroidism, or taking immunosuppressive drugs.
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="ash-results">
+      <!-- MAIN RECOMMENDATION CARD -->
+      <div class="ash-main-card">
+        <div class="ash-result-label">Recommended Daily Dose</div>
+        <div class="ash-dose-display" id="ash-dose-output">600 mg</div>
+        <div class="ash-time-display" id="ash-timing-output">Take dinner/bedtime (Single Dose)</div>
+        <div class="ash-desc-display" id="ash-desc-output">
+          KSM-66® is clinically shown to improve sleep latency and sleep efficiency at 600 mg daily. For insomnia, a single evening dose aligns cortisol suppression with bedtime.
+        </div>
+      </div>
+
+      <!-- ACTIVE STATUS CARD -->
+      <div class="ash-status-card">
+        <div class="ash-status-info">
+          <div class="ash-status-title">Current Cycle Status</div>
+          <div class="ash-status-value" id="ash-status-text">ON Cycle (Active Day)</div>
+          <div class="ash-progress-container">
+            <div id="ash-progress-bar" class="ash-progress-bar"></div>
+          </div>
+        </div>
+        <span class="ash-badge ash-badge-on" id="ash-status-badge">● Active</span>
+      </div>
+
+      <!-- CALENDAR MATRIX CARD -->
+      <div class="ash-calendar-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+          <div class="ash-result-label" style="margin-bottom:0;">Cycle Calendar Visualization</div>
+          <span class="ash-status-title" style="font-size:11px;" id="ash-days-counter">24 days remaining in phase</span>
+        </div>
+        <div class="ash-calendar-weeks" id="ash-calendar-weeks">
+          <!-- Dynamically populated week boxes -->
+        </div>
+      </div>
+
+      <!-- ANHEDONIA QUESTIONNAIRE CARD -->
+      <div class="ash-q-card">
+        <h4>Apathy &amp; Side Effect Check</h4>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5;">
+          Chronically high doses of Ashwagandha can suppress cortisol too much, causing emotional flattening (anhedonia) or stomach issues. Check any symptoms below that you are currently experiencing:
+        </p>
+        <div class="ash-checkbox-list">
+          <label class="ash-checkbox-item">
+            <input type="checkbox" class="ash-q-check" onchange="checkAnhedonia()">
+            <span>Emotional blunting (feeling "flat," inability to feel joy or excitement)</span>
+          </label>
+          <label class="ash-checkbox-item">
+            <input type="checkbox" class="ash-q-check" onchange="checkAnhedonia()">
+            <span>Severe lack of motivation, apathy, or sluggishness</span>
+          </label>
+          <label class="ash-checkbox-item">
+            <input type="checkbox" class="ash-q-check" onchange="checkAnhedonia()">
+            <span>Hyperthyroid symptoms (unusual heat sensitivity, unexplained racing heart)</span>
+          </label>
+          <label class="ash-checkbox-item">
+            <input type="checkbox" class="ash-q-check" onchange="checkAnhedonia()">
+            <span>Persistent stomach discomfort, nausea, or diarrhea</span>
+          </label>
+        </div>
+        <div class="ash-alert" id="ash-anhedonia-alert">
+          <strong>⚠️ Action Recommended: Immediate Washout Cycle</strong><br>
+          You are reporting key symptoms of excessive adaptogen tolerance or HPA-axis over-suppression. We strongly recommend immediately pausing your Ashwagandha intake and beginning a **2-week complete washout cycle**. This allows your cortisol receptors and neurotransmitters to reset.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="ash-science">
+    <h2>The Science of Ashwagandha &amp; Cycle Scheduling</h2>
+    
+    <p>
+      Ashwagandha (<em>Withania somnifera</em>) is a prominent adaptogenic herb clinically documented to help the body adapt to stress. Unlike sedatives, it works by modulating the <strong>Hypothalamic-Pituitary-Adrenal (HPA) Axis</strong>—the body's primary endocrine response system.
+    </p>
+
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>How it Improves Sleep</h3>
+        <p>
+          Ashwagandha contains active compounds called **withanolides** that mimic the inhibitory neurotransmitter GABA. Tissues inside the brain contain GABA_A receptors that promote muscle relaxation and shut off racing thoughts. By binding to these sites, Ashwagandha reduces sleep onset latency and helps you fall into deep, restorative slow-wave sleep.
+        </p>
+        <p>
+          Additionally, Ashwagandha reduces circulating cortisol levels. High nocturnal cortisol is the primary culprit behind stress-related insomnia and midnight awakenings.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>The Risk of Receptor Downregulation</h3>
+        <p>
+          Constant stimulation of adaptogenic pathways leads to **tolerance**. Over time, your brain compensates by downregulating receptors. If cortisol remains suppressed indefinitely, you may experience:
+        </p>
+        <ul>
+          <li><strong>Emotional Blunting:</strong> A lack of intense emotions (both positive and negative) due to severe dopaminergic and cortisol flattening.</li>
+          <li><strong>Thyroid Stimulation:</strong> Ashwagandha naturally stimulates T4 and T3 hormones, which can trigger hyperthyroidism over long uninterrupted cycles.</li>
+        </ul>
+        <p>
+          Cycling forces a "washout phase" that allows these receptors to return to baseline sensitivity.
+        </p>
+      </div>
+    </div>
+
+    <h3>Standardization Guide (KSM-66 vs. Shoden vs. Sensoril)</h3>
+    <p>
+      Supplement labels can be confusing due to different extraction ratios. Raw root powder contains very low concentrations of active withanolides, whereas standardized extracts are highly concentrated:
+    </p>
+    <ul>
+      <li><strong>KSM-66® (5% Withanolides):</strong> A root-only extract. Represents the exact ratio found in nature. Highly researched for sleep latency, muscle recovery, and stress resilience. Standard dose: 300–600 mg.</li>
+      <li><strong>Sensoril® (10% Withanolides):</strong> A root-and-leaf extract. Focuses on higher bio-activity. Stronger sedative and cortisol-reducing effects. Standard dose: 125–250 mg.</li>
+      <li><strong>Shoden® (35% Withanolides):</strong> An ultra-concentrated root-and-leaf extract. Has the highest bioavailability, meaning microdosing is highly effective. Standard dose: 120–240 mg.</li>
+    </ul>
+
+    <div class="ash-citations">
+      <strong>Scientific References & Authority Citations:</strong>
+      <ol>
+        <li><strong>Cureus Journal of Medical Science (2019):</strong> <em>"A randomized, double-blind, placebo-controlled study of the efficacy and safety of Ashwagandha root extract in improving sleep."</em> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6827862/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
+        <li><strong>Journal of Ethnopharmacology (2021):</strong> <em>"Effect of Ashwagandha on sleep: A systematic review and meta-analysis of randomized controlled trials."</em> <a href="https://pubmed.ncbi.nlm.nih.gov/34555406/" target="_blank" rel="noopener">Read Abstract (PubMed)</a></li>
+        <li><strong>Indian Journal of Psychological Medicine (2012):</strong> <em>"A prospective, randomized double-blind, placebo-controlled study of safety and efficacy of KSM-66 Ashwagandha extract in reducing stress and anxiety."</em> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3573577/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">🛏️ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">🧒 Kids Sleep</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/melatonin-calculator">💤 Melatonin Calculator</a>
+    <a href="/sleep-apnea-quiz">🫁 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍒 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
+    <a href="/about">ℹ️ About Us</a>
+    <a href="/privacy">🔒 Privacy Policy</a>
+    <a href="/contact">✉️ Contact Us</a>
+  </div>
+  <p>© 2026 GoodSleep. All rights reserved. Our content is for informational purposes and does not constitute medical advice.</p>
+</footer>
+
+<script>
+// Default Cycle Start Date to today
+document.getElementById('ash-start-date').valueAsDate = new Date();
+
+function calculateAshwagandha() {
+  const extract = document.getElementById('ash-extract').value;
+  const goal = document.getElementById('ash-goal').value;
+  const strategy = document.getElementById('ash-strategy').value;
+  const startDateVal = document.getElementById('ash-start-date').value;
+  const currentDosageInput = document.getElementById('ash-current-dosage').value;
+
+  let recommendedDose = 600;
+  let doseRangeText = "";
+  let timingText = "";
+  let descText = "";
+
+  // 1. Calculate Recommended Dosage & Timing
+  switch (extract) {
+    case 'ksm66':
+      recommendedDose = 600;
+      doseRangeText = "300 mg - 600 mg";
+      if (goal === 'sleep') {
+        timingText = "Take 600 mg once with dinner/bedtime";
+        descText = "KSM-66® standardized extract mimics natural adaptogenic proportions. For sleep, a single large evening dose suppresses nocturnal cortisol spike and stimulates GABA pathways.";
+      } else if (goal === 'stress') {
+        timingText = "Take 300 mg twice daily (morning & night)";
+        descText = "Splitting your KSM-66® dose helps buffer morning cortisol spikes and provides sustained adrenal support throughout the stressful workday.";
+      } else {
+        timingText = "Take 300 mg in the morning & 300 mg mid-afternoon";
+        descText = "Taking KSM-66® during the day helps regulate daytime anxiety and prevents stress buildup. Avoid late-night doses if they make you feel overly alert.";
+      }
+      break;
+    case 'shoden':
+      recommendedDose = 120;
+      doseRangeText = "120 mg - 240 mg";
+      if (goal === 'sleep') {
+        timingText = "Take 120 mg to 240 mg 1 hour before bedtime";
+        descText = "Shoden® is an ultra-potent root/leaf extract. It requires much lower dosages due to its massive 35% withanolide content, acting as a powerful sleep aid.";
+      } else if (goal === 'stress') {
+        timingText = "Take 120 mg once daily with breakfast";
+        descText = "A single low dose of Shoden® in the morning regulates your HPA-axis response to daily stress. Keep doses low to prevent mid-day lethargy.";
+      } else {
+        timingText = "Take 120 mg twice daily (morning & mid-day)";
+        descText = "Shoden's high bioavailability provides immediate support. Split doses help regulate severe general anxiety without requiring massive pill sizes.";
+      }
+      break;
+    case 'sensoril':
+      recommendedDose = 250;
+      doseRangeText = "125 mg - 250 mg";
+      if (goal === 'sleep') {
+        timingText = "Take 250 mg 1-2 hours before bed";
+        descText = "Sensoril® is highly calming and standardized to 10% withanolides. It acts as an excellent sleep promoter by lowering night-time body temperature.";
+      } else if (goal === 'stress') {
+        timingText = "Take 125 mg in the morning & 125 mg at night";
+        descText = "Splitting Sensoril® helps keep cortisol levels stable. Take your first dose with breakfast and the second with dinner.";
+      } else {
+        timingText = "Take 125 mg twice daily (morning & afternoon)";
+        descText = "Sensoril®'s calming properties make it ideal for daytime generalized anxiety. Avoid taking large doses on an empty stomach.";
+      }
+      break;
+    case 'raw':
+      recommendedDose = 2000;
+      doseRangeText = "1000 mg - 3000 mg";
+      if (goal === 'sleep') {
+        timingText = "Take 2000 mg - 3000 mg 2 hours before bed";
+        descText = "Raw root powder contains very low concentrations of active withanolides (usually < 1%). Thus, large dosages are required to achieve therapeutic sleep benefits.";
+      } else if (goal === 'stress') {
+        timingText = "Take 1000 mg in the morning & 1000 mg at night";
+        descText = "Take raw root powder with fats (like milk or meals) as the active compounds are lipophilic, improving gastrointestinal absorption.";
+      } else {
+        timingText = "Take 1000 mg three times daily with meals";
+        descText = "Raw root powder must be taken regularly throughout the day to build up active levels in the blood. Expect 2-3 weeks for full benefits to kick in.";
+      }
+      break;
+  }
+
+  // If user entered capsule strength, compare it
+  if (currentDosageInput > 0) {
+    const userDose = parseFloat(currentDosageInput);
+    let comparisonText = "";
+    if (extract === 'ksm66') {
+      if (userDose > 1000) comparisonText = ` (Your ${userDose}mg dose is high. Standard daily limit is 600mg to prevent receptor desensitization).`;
+      else if (userDose < 300) comparisonText = ` (Your ${userDose}mg dose is a microdose. Consider upgrading to 300mg-600mg for clinical efficacy).`;
+      else comparisonText = ` (Your ${userDose}mg capsule aligns with standard recommendations).`;
+    } else if (extract === 'shoden') {
+      if (userDose > 240) comparisonText = ` (Your ${userDose}mg dose is extremely strong for Shoden®. Consider splitting or halving it to prevent drowsiness).`;
+      else comparisonText = ` (Your ${userDose}mg capsule aligns with Shoden's microdosing range).`;
+    } else if (extract === 'sensoril') {
+      if (userDose > 500) comparisonText = ` (Your ${userDose}mg dose is high. Sensoril® is very sedative; higher doses can cause severe morning grogginess).`;
+      else comparisonText = ` (Your ${userDose}mg capsule is within the standard therapeutic range).`;
+    } else {
+      if (userDose > 4000) comparisonText = ` (Your ${userDose}mg dose is large and may trigger mild stomach upset or diarrhea).`;
+    }
+    doseRangeText += comparisonText;
+  }
+
+  document.getElementById('ash-dose-output').innerText = recommendedDose + " mg";
+  document.getElementById('ash-timing-output').innerText = timingText;
+  document.getElementById('ash-desc-output').innerText = descText + " Range: " + doseRangeText;
+
+  // 2. Cycle Calculations
+  const startDate = startDateVal ? new Date(startDateVal + "T00:00:00") : new Date();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  startDate.setHours(0,0,0,0);
+
+  const diffTime = today - startDate;
+  const diffDays = Math.max(0, Math.floor(diffTime / (1000 * 60 * 60 * 24)));
+
+  let cycleLength = 56; // Standard 8 weeks
+  let activeDays = 42;  // 6 weeks
+  let isOn = true;
+  let daysRemaining = 0;
+  let progressPercent = 0;
+  let totalWeeks = 8;
+
+  if (strategy === 'standard') {
+    cycleLength = 56;
+    activeDays = 42;
+    totalWeeks = 8;
+    const currentDayOfCycle = diffDays % cycleLength;
+    if (currentDayOfCycle < activeDays) {
+      isOn = true;
+      daysRemaining = activeDays - currentDayOfCycle;
+      progressPercent = (currentDayOfCycle / activeDays) * 100;
+    } else {
+      isOn = false;
+      daysRemaining = cycleLength - currentDayOfCycle;
+      progressPercent = ((currentDayOfCycle - activeDays) / (cycleLength - activeDays)) * 100;
+    }
+  } else if (strategy === 'long') {
+    cycleLength = 84; // 12 weeks
+    activeDays = 56;  // 8 weeks
+    totalWeeks = 12;
+    const currentDayOfCycle = diffDays % cycleLength;
+    if (currentDayOfCycle < activeDays) {
+      isOn = true;
+      daysRemaining = activeDays - currentDayOfCycle;
+      progressPercent = (currentDayOfCycle / activeDays) * 100;
+    } else {
+      isOn = false;
+      daysRemaining = cycleLength - currentDayOfCycle;
+      progressPercent = ((currentDayOfCycle - activeDays) / (cycleLength - activeDays)) * 100;
+    }
+  } else if (strategy === 'short') {
+    cycleLength = 7;
+    activeDays = 5; // 5 days on, 2 days off
+    totalWeeks = 8; // visualize 8 weeks
+    const currentDayOfCycle = diffDays % cycleLength;
+    if (currentDayOfCycle < activeDays) {
+      isOn = true;
+      daysRemaining = activeDays - currentDayOfCycle;
+      progressPercent = (currentDayOfCycle / activeDays) * 100;
+    } else {
+      isOn = false;
+      daysRemaining = cycleLength - currentDayOfCycle;
+      progressPercent = ((currentDayOfCycle - activeDays) / (cycleLength - activeDays)) * 100;
+    }
+  }
+
+  // Update Status Text and Badges
+  const statusText = document.getElementById('ash-status-text');
+  const statusBadge = document.getElementById('ash-status-badge');
+  const progressBar = document.getElementById('ash-progress-bar');
+  const daysCounter = document.getElementById('ash-days-counter');
+
+  if (isOn) {
+    statusText.innerText = "ON Cycle (Active Phase)";
+    statusBadge.innerText = "● Active";
+    statusBadge.className = "ash-badge ash-badge-on";
+    progressBar.className = "ash-progress-bar";
+    progressBar.style.width = progressPercent + "%";
+    daysCounter.innerText = `${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} left in active phase`;
+  } else {
+    statusText.innerText = "OFF Cycle (Washout Reset Phase)";
+    statusBadge.innerText = "● Washout";
+    statusBadge.className = "ash-badge ash-badge-off";
+    progressBar.className = "ash-progress-bar washout";
+    progressBar.style.width = progressPercent + "%";
+    daysCounter.innerText = `${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} left in washout phase`;
+  }
+
+  // Generate Calendar Matrix
+  const calendarContainer = document.getElementById('ash-calendar-weeks');
+  calendarContainer.innerHTML = '';
+
+  const currentWeekIndex = Math.floor(diffDays / 7);
+
+  for (let w = 0; w < totalWeeks; w++) {
+    const weekBox = document.createElement('div');
+    weekBox.className = 'ash-week-box';
+
+    // Calculate actual week based on start date
+    const weekStartDay = w * 7;
+    let isWeekOn = true;
+
+    if (strategy === 'standard') {
+      const cycleWeek = w % 8;
+      isWeekOn = cycleWeek < 6;
+    } else if (strategy === 'long') {
+      const cycleWeek = w % 12;
+      isWeekOn = cycleWeek < 8;
+    } else if (strategy === 'short') {
+      isWeekOn = true; // Every week has both active and washout days
+    }
+
+    if (isWeekOn) {
+      weekBox.classList.add('active-week');
+      if (strategy === 'short') {
+        weekBox.innerHTML = `
+          <span class="ash-week-num">Week ${w + 1}</span>
+          <span class="ash-week-status">5 On / 2 Off</span>
+        `;
+      } else {
+        weekBox.innerHTML = `
+          <span class="ash-week-num">Week ${w + 1}</span>
+          <span class="ash-week-status">ACTIVE</span>
+        `;
+      }
+    } else {
+      weekBox.classList.add('washout-week');
+      weekBox.classList.add('off-phase');
+      weekBox.innerHTML = `
+        <span class="ash-week-num">Week ${w + 1}</span>
+        <span class="ash-week-status">RESET</span>
+      `;
+    }
+
+    // Highlight current week
+    // Since cycle repeats, let's find the current week index modulo totalWeeks
+    const activeWeekModulo = currentWeekIndex % totalWeeks;
+    if (w === activeWeekModulo) {
+      weekBox.classList.add('current-week');
+      weekBox.querySelector('.ash-week-num').innerText += " (Current)";
+    }
+
+    calendarContainer.appendChild(weekBox);
+  }
+}
+
+function checkAnhedonia() {
+  const checkboxes = document.querySelectorAll('.ash-q-check');
+  const alertBox = document.getElementById('ash-anhedonia-alert');
+  let checkedCount = 0;
+  checkboxes.forEach(cb => {
+    if (cb.checked) checkedCount++;
+  });
+
+  if (checkedCount > 0) {
+    alertBox.classList.add('show');
+  } else {
+    alertBox.classList.remove('show');
+  }
+}
+
+// Initial calculation
+calculateAshwagandha();
+</script>
+
+<script>
+// Mobile Navigation Toggle
+const exploreBtn = document.getElementById('explore-btn');
+const themeToggle = document.getElementById('theme-toggle');
+
+// Theme Switcher Logic
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+};
+themeToggle.addEventListener('click', toggleTheme);
+// Initialize theme toggle button icon
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.style.display = 'none', 400);
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>

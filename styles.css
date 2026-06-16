@@ -1772,6 +1772,323 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   text-decoration: underline;
 }
 
+/* ══════════════════════════════════════════════
+   ASHWAGANDHA STYLES
+   ══════════════════════════════════════════════ */
+.ash-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .ash-container {
+    grid-template-columns: 1fr;
+  }
+}
+.ash-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.ash-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.ash-title-row h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.ash-icon-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.ash-form-group {
+  margin-bottom: 1.25rem;
+}
+.ash-form-group label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.ash-select, .ash-input-date {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14.5px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.ash-select:focus, .ash-input-date:focus {
+  border-color: var(--teal);
+}
+.ash-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ash-main-card {
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  color: #ffffff;
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.ash-result-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+.ash-dose-display {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.5px;
+}
+.ash-time-display {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+}
+.ash-desc-display {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+.ash-status-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+@media (max-width: 480px) {
+  .ash-status-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.ash-status-info {
+  flex: 1;
+}
+.ash-status-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.ash-status-value {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.ash-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ash-badge-on {
+  background: var(--teal-light);
+  color: var(--teal);
+}
+.ash-badge-off {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+.ash-calendar-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.ash-calendar-weeks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  gap: 8px;
+  margin-top: 1rem;
+}
+.ash-week-box {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s;
+}
+.ash-week-box.active-week {
+  background: var(--teal-light);
+  border-color: var(--teal-mid);
+  color: var(--teal-dark);
+}
+.ash-week-box.washout-week {
+  background: var(--bg-soft);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+.ash-week-box.washout-week.off-phase {
+  background: var(--amber-light);
+  border-color: var(--amber);
+  color: var(--amber);
+}
+.ash-week-box.current-week {
+  outline: 2px solid var(--purple);
+  outline-offset: 1px;
+}
+.ash-week-num {
+  font-size: 11px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ash-week-status {
+  font-size: 12px;
+  font-weight: 700;
+}
+.ash-q-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.ash-q-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.ash-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ash-checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.ash-checkbox-item input {
+  margin-top: 3px;
+}
+.ash-alert {
+  background: var(--purple-light);
+  border-left: 4px solid var(--purple);
+  border-radius: var(--r-sm);
+  padding: 1rem;
+  margin-top: 1rem;
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.5;
+  display: none;
+}
+.ash-alert.show {
+  display: block;
+}
+.ash-science {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: var(--shadow);
+}
+.ash-science h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.4px;
+}
+.ash-science h3 {
+  font-size: 16px;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.ash-science p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+.ash-citations {
+  margin-top: 2rem;
+  font-size: 12.5px;
+  color: var(--text-hint);
+  line-height: 1.6;
+  border-top: 1.5px dashed var(--border);
+  padding-top: 1.5rem;
+}
+.ash-citations ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0 0;
+}
+.ash-citations li {
+  margin-bottom: 6px;
+}
+.ash-citations a {
+  color: var(--teal);
+  text-decoration: none;
+}
+.ash-citations a:hover {
+  text-decoration: underline;
+}
+.ash-progress-container {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.ash-progress-bar {
+  height: 100%;
+  background: var(--teal);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+.ash-progress-bar.washout {
+  background: var(--amber);
+}
+
+
 
 
 
