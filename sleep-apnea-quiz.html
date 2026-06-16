@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Apnea Screening Quiz (STOP-BANG) — GoodSleep</title>
+<meta name="description" content="Evaluate your risk for Obstructive Sleep Apnea (OSA) using the clinically validated STOP-BANG screening tool. Calculate your risk level in seconds.">
+<meta property="og:title" content="Sleep Apnea Screening Quiz (STOP-BANG) — GoodSleep">
+<meta property="og:description" content="Calculate your obstructive sleep apnea risk using the evidence-based STOP-BANG assessment. Screen for snoring, fatigue, and other indicators.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/sleep-apnea-quiz">
+<meta property="og:url" content="https://goodsleep.rest/sleep-apnea-quiz">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Sleep Apnea Quiz</div>
+  <h1>Sleep Apnea Risk<br>Screening Quiz</h1>
+  <p class="hero-sub">Evaluate your risk of Obstructive Sleep Apnea (OSA) using the clinically validated STOP-BANG questionnaire questionnaire.</p>
+</div>
+
+<div class="page">
+  <div class="sa-container">
+    <!-- INPUT FORM PANEL -->
+    <div class="sa-panel">
+      <div class="sa-title-row">
+        <div class="sa-icon-circle">📋</div>
+        <h3>Symptom Questionnaire (STOP)</h3>
+      </div>
+      
+      <div class="sa-q-list">
+        <!-- Q1: Snoring -->
+        <div class="sa-q-card">
+          <div class="sa-q-text">1. Do you Snore loudly?</div>
+          <div class="sa-q-help">Loud enough to be heard through closed doors, or louder than talking?</div>
+          <div class="sa-btn-row">
+            <button type="button" class="sa-choice-btn" id="q-snore-yes" onclick="setAnswer('snore', true)">Yes</button>
+            <button type="button" class="sa-choice-btn" id="q-snore-no" onclick="setAnswer('snore', false)">No</button>
+          </div>
+        </div>
+
+        <!-- Q2: Tired -->
+        <div class="sa-q-card">
+          <div class="sa-q-text">2. Do you often feel Tired, fatigued, or sleepy during the day?</div>
+          <div class="sa-q-help">Feeling sleepy even after a full night's rest, or waking up exhausted?</div>
+          <div class="sa-btn-row">
+            <button type="button" class="sa-choice-btn" id="q-tired-yes" onclick="setAnswer('tired', true)">Yes</button>
+            <button type="button" class="sa-choice-btn" id="q-tired-no" onclick="setAnswer('tired', false)">No</button>
+          </div>
+        </div>
+
+        <!-- Q3: Observed -->
+        <div class="sa-q-card">
+          <div class="sa-q-text">3. Has anyone Observed you stop breathing during sleep?</div>
+          <div class="sa-q-help">Choking, gasping, or pausing in breathing witnessed by a partner?</div>
+          <div class="sa-btn-row">
+            <button type="button" class="sa-choice-btn" id="q-observed-yes" onclick="setAnswer('observed', true)">Yes</button>
+            <button type="button" class="sa-choice-btn" id="q-observed-no" onclick="setAnswer('observed', false)">No</button>
+          </div>
+        </div>
+
+        <!-- Q4: Pressure -->
+        <div class="sa-q-card">
+          <div class="sa-q-text">4. Do you have High Blood Pressure?</div>
+          <div class="sa-q-help">Are you currently being treated for hypertension, or has a doctor diagnosed it?</div>
+          <div class="sa-btn-row">
+            <button type="button" class="sa-choice-btn" id="q-pressure-yes" onclick="setAnswer('pressure', true)">Yes</button>
+            <button type="button" class="sa-choice-btn" id="q-pressure-no" onclick="setAnswer('pressure', false)">No</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Physical Stats (BANG) -->
+      <div class="sa-stats-grid">
+        <div class="sa-input-group">
+          <label>Biological Gender</label>
+          <select id="sa-gender" class="sa-select" onchange="updateQuiz()">
+            <option value="female">Female</option>
+            <option value="male" selected>Male</option>
+          </select>
+        </div>
+
+        <div class="sa-input-group">
+          <label>Age (Years)</label>
+          <input type="number" id="sa-age" class="sa-input" min="18" max="110" value="45" oninput="updateQuiz()">
+        </div>
+
+        <div class="sa-input-group">
+          <label>Neck Circumference</label>
+          <select id="sa-neck" class="sa-select" onchange="updateQuiz()">
+            <option value="normal" selected>Normal Size</option>
+            <option value="large">Large (> 16 in / 40 cm)</option>
+          </select>
+        </div>
+
+        <div class="sa-input-group">
+          <label>Body Units</label>
+          <select id="sa-units" class="sa-select" onchange="setUnits(this.value)">
+            <option value="lbs">Imperial (lbs / in)</option>
+            <option value="kg">Metric (kg / cm)</option>
+          </select>
+        </div>
+
+        <div class="sa-input-group">
+          <label id="lbl-weight">Weight (lbs)</label>
+          <input type="number" id="sa-weight" class="sa-input" value="180" oninput="updateQuiz()">
+        </div>
+
+        <div class="sa-input-group">
+          <label id="lbl-height">Height (inches)</label>
+          <input type="number" id="sa-height" class="sa-input" value="70" oninput="updateQuiz()">
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="sa-results">
+      <div class="sa-main-card">
+        <div class="sa-result-label">Apnea Risk Assessment</div>
+        <div class="sa-risk-badge badge-low" id="sa-risk-badge">Low Risk</div>
+        <div class="sa-score-text" id="sa-score-text">0 / 8</div>
+        <div class="sa-desc-display" id="sa-desc-output">
+          Complete the checklist on the left to see your sleep apnea screening score.
+        </div>
+      </div>
+
+      <!-- Dial gauge card -->
+      <div class="sa-gauge-card">
+        <div class="sa-result-label" style="margin-bottom:0.5rem;">Clinical Risk Gauge</div>
+        <div class="sa-gauge-container">
+          <svg class="sa-gauge-svg" viewBox="0 0 200 110">
+            <!-- Arc definitions -->
+            <!-- Total arc from -90 deg to +90 deg (radius 80) -->
+            <!-- Low Risk Zone (Green): -90 to -30 deg -->
+            <path d="M 20 90 A 80 80 0 0 1 60 20.7" fill="none" stroke="#10B981" stroke-width="14" />
+            <!-- Intermediate Zone (Yellow): -30 to +30 deg -->
+            <path d="M 60 20.7 A 80 80 0 0 1 140 20.7" fill="none" stroke="#F59E0B" stroke-width="14" />
+            <!-- High Risk Zone (Red): +30 to +90 deg -->
+            <path d="M 140 20.7 A 80 80 0 0 1 180 90" fill="none" stroke="#EF4444" stroke-width="14" />
+            
+            <!-- Labels -->
+            <text x="35" y="105" text-anchor="middle" font-size="8" font-weight="700" fill="var(--text-muted)">LOW</text>
+            <text x="100" y="15" text-anchor="middle" font-size="8" font-weight="700" fill="var(--text-muted)">MODERATE</text>
+            <text x="165" y="105" text-anchor="middle" font-size="8" font-weight="700" fill="var(--text-muted)">HIGH</text>
+            
+            <!-- Needle pointer -->
+            <g class="sa-gauge-needle" id="gauge-needle" transform="rotate(-90)">
+              <polygon points="100,90 97,90 99,20 100,20 103,90" fill="var(--text)" />
+              <circle cx="100" cy="90" r="5" fill="var(--text)" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="sa-info-box" id="sa-recommendation-box">
+        <strong>What is STOP-BANG?</strong>
+        The STOP-BANG questionnaire is a highly reliable clinical screening tool developed to identify patients at high risk of obstructive sleep apnea before surgeries. It is used worldwide by sleep medicine experts and anesthesiologists.
+      </div>
+
+      <div class="sa-disclaimer-box">
+        <strong>Medical Disclaimer:</strong> This quiz is a screening questionnaire, not a diagnostic test. A high score indicates a high probability of sleep apnea but does not constitute a formal diagnosis. Obstructive Sleep Apnea can only be diagnosed through an overnight Sleep Study (Polysomnography) overseen by a qualified medical specialist.
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATIONAL DETAILS SECTION -->
+  <div class="sa-science">
+    <h2>Understanding Obstructive Sleep Apnea (OSA)</h2>
+    <p>Obstructive Sleep Apnea (OSA) is a common but serious sleep disorder. It occurs when the muscles in the back of your throat relax excessively during sleep, causing the airway to narrow or collapse. This blocks breathing for periods lasting from 10 seconds to over a minute, forcing your brain to partially wake you up to gasps for air—interrupting your sleep cycles without you realizing it.</p>
+    
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>Common Symptoms of Sleep Apnea</h3>
+        <p>Many individuals with sleep apnea have no memory of waking up gasping for air. However, key symptoms during sleep or daytime include:</p>
+        <ul>
+          <li><strong>Chronic daytime fatigue:</strong> Feeling exhausted despite sleeping 8+ hours.</li>
+          <li><strong>Loud, persistent snoring:</strong> Often interrupted by choking or silent pauses.</li>
+          <li><strong>Waking up with a dry mouth:</strong> Or a morning sore throat/headache.</li>
+          <li><strong>Frequent nighttime urination:</strong> Caused by pressure changes in the chest.</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h3>Long-Term Health Risks</h3>
+        <p>Left untreated, chronic sleep apnea deprives your vital organs of oxygen and creates acute cardiovascular stress. It is strongly linked to:</p>
+        <ul>
+          <li><strong>Hypertension:</strong> Hard-to-control high blood pressure.</li>
+          <li><strong>Heart Disease:</strong> Increased risk of heart attacks, atrial fibrillation, and stroke.</li>
+          <li><strong>Type 2 Diabetes:</strong> Sleep fragmentation worsens insulin resistance.</li>
+          <li><strong>Mood Disorders:</strong> Highly correlated with severe depression and anxiety.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>How Sleep Apnea is Treated</h3>
+    <p>If you score as high risk, a doctor will typically order a **Sleep Study** (either a home sleep apnea test or an in-lab polysomnography) to measure your AHI (Apnea-Hypopnea Index). Proven treatments include:</p>
+    <ul>
+      <li><strong>CPAP Therapy:</strong> Continuous Positive Airway Pressure delivers air through a mask, keeping the throat open.</li>
+      <li><strong>Oral Appliances:</strong> Mandibular advancement splints worn like mouthguards to hold the lower jaw forward.</li>
+      <li><strong>Lifestyle Adjustments:</strong> Weight loss, avoiding alcohol before bed, and sleeping on your side (positional therapy).</li>
+    </ul>
+
+    <div class="mela-citations">
+      <strong>Clinical Studies & References:</strong>
+      <ol>
+        <li><strong>American Academy of Sleep Medicine (AASM):</strong> <em>"Obstructive Sleep Apnea: Clinical practice guidelines for diagnostic testing."</em> <a href="https://aasm.org/" target="_blank" rel="noopener">AASM Guidelines</a></li>
+        <li><strong>STOP-BANG Development Study (British Journal of Anaesthesia):</strong> Validation of the STOP-BANG questionnaire as a highly sensitive screening tool for OSA. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3995133/" target="_blank" rel="noopener">Validation Paper (NIH)</a></li>
+        <li><strong>Mayo Clinic Proceedings:</strong> <em>"Screening and diagnosis of Obstructive Sleep Apnea in adults."</em></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// ── THEME & STARS ──
+(function(){
+  var s=localStorage.getItem('gs-theme');
+  if(s)document.documentElement.setAttribute('data-theme',s);
+  var b=document.getElementById('theme-toggle');
+  if(b){
+    var th=document.documentElement.getAttribute('data-theme');
+    var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent=dk?'☀️':'🌙';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var r=document.documentElement;
+  var c=r.getAttribute('data-theme');
+  var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  var n=dk?'light':'dark';
+  r.setAttribute('data-theme',n);
+  localStorage.setItem('gs-theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+
+// STARS background
+const starsEl = document.getElementById('stars');
+if(starsEl){
+  for(let i=0;i<25;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s`;
+    starsEl.appendChild(s);
+  }
+}
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('back-top');
+  if(b)b.classList.toggle('show',window.scrollY>400);
+},{passive:true});
+document.getElementById('back-top').addEventListener('click',function(){
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ── HIDE LOADING OVERLAY ──
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
+
+// ── QUIZ LOGIC ──
+const answers = {
+  snore: null,
+  tired: null,
+  observed: null,
+  pressure: null
+};
+
+function setAnswer(q, val) {
+  answers[q] = val;
+  
+  const yesBtn = document.getElementById(`q-${q}-yes`);
+  const noBtn = document.getElementById(`q-${q}-no`);
+  
+  if (val) {
+    yesBtn.classList.add('active-yes');
+    noBtn.classList.remove('active-no');
+  } else {
+    yesBtn.classList.remove('active-yes');
+    noBtn.classList.add('active-no');
+  }
+  
+  updateQuiz();
+}
+
+function setUnits(unit) {
+  const lblW = document.getElementById('lbl-weight');
+  const lblH = document.getElementById('lbl-height');
+  const weightInput = document.getElementById('sa-weight');
+  const heightInput = document.getElementById('sa-height');
+  
+  if (unit === 'kg') {
+    lblW.textContent = "Weight (kg)";
+    lblH.textContent = "Height (cm)";
+    
+    // Approximate conversion
+    let w = parseFloat(weightInput.value);
+    let h = parseFloat(heightInput.value);
+    weightInput.value = Math.round(w * 0.453592);
+    heightInput.value = Math.round(h * 2.54);
+  } else {
+    lblW.textContent = "Weight (lbs)";
+    lblH.textContent = "Height (inches)";
+    
+    let w = parseFloat(weightInput.value);
+    let h = parseFloat(heightInput.value);
+    weightInput.value = Math.round(w / 0.453592);
+    heightInput.value = Math.round(h / 2.54);
+  }
+  updateQuiz();
+}
+
+function updateQuiz() {
+  const gender = document.getElementById('sa-gender').value;
+  const age = parseInt(document.getElementById('sa-age').value) || 0;
+  const neck = document.getElementById('sa-neck').value;
+  const unit = document.getElementById('sa-units').value;
+  const weight = parseFloat(document.getElementById('sa-weight').value) || 0;
+  const height = parseFloat(document.getElementById('sa-height').value) || 0;
+  
+  // BMI calculation
+  let bmi = 0;
+  if (weight > 0 && height > 0) {
+    if (unit === 'lbs') {
+      bmi = (weight * 703) / (height * height);
+    } else {
+      let hMeters = height / 100;
+      bmi = weight / (hMeters * hMeters);
+    }
+  }
+  
+  // STOP-BANG criteria calculation
+  // STOP criteria
+  let stopScore = 0;
+  if (answers.snore === true) stopScore++;
+  if (answers.tired === true) stopScore++;
+  if (answers.observed === true) stopScore++;
+  if (answers.pressure === true) stopScore++;
+  
+  // BANG criteria
+  let bangScore = 0;
+  if (bmi > 35) bangScore++;
+  if (age > 50) bangScore++;
+  if (neck === 'large') bangScore++;
+  if (gender === 'male') bangScore++;
+  
+  // Total score
+  const totalScore = stopScore + bangScore;
+  
+  // Classify Risk Levels (AASM Guidelines)
+  let riskLevel = 'Low Risk';
+  let badgeClass = 'badge-low';
+  let descText = "";
+  let recText = "";
+  
+  // Determine risk
+  // Low Risk: 0-2
+  // Intermediate Risk: 3-4
+  // High Risk: 5-8 OR:
+  // - Yes to 2 or more of the STOP questions + Male gender
+  // - Yes to 2 or more of the STOP questions + BMI > 35
+  // - Yes to 2 or more of the STOP questions + Neck circumference > 16in/40cm
+  
+  const hasHighRiskProfile = (stopScore >= 2) && (gender === 'male' || bmi > 35 || neck === 'large');
+  
+  if (totalScore >= 5 || hasHighRiskProfile) {
+    riskLevel = 'High Risk';
+    badgeClass = 'badge-high';
+    descText = "Your answers indicate a high probability of Obstructive Sleep Apnea. It is strongly recommended that you consult a doctor or sleep specialist.";
+    recText = "<strong>Recommendation:</strong> Schedule an appointment with your primary care physician or a sleep specialist. Tell them about your screening results. They will likely recommend a sleep study (polysomnography or home sleep apnea test) to confirm a diagnosis and discuss CPAP or oral appliance treatments.";
+  } else if (totalScore >= 3) {
+    riskLevel = 'Moderate Risk';
+    badgeClass = 'badge-intermediate';
+    descText = "You have an intermediate risk of sleep apnea. Pay close attention to daytime sleepiness or concentration problems.";
+    recText = "<strong>Recommendation:</strong> Discuss these symptoms at your next routine medical checkup. Mention if your snoring is chronic or if you wake up feeling tired despite getting enough hours. Lifestyle changes (such as side sleeping or weight management) can help.";
+  } else {
+    riskLevel = 'Low Risk';
+    badgeClass = 'badge-low';
+    descText = "You have a low clinical risk of Obstructive Sleep Apnea based on the STOP-BANG criteria.";
+    recText = "<strong>Recommendation:</strong> Maintain healthy sleep hygiene habits. If you begin to develop symptoms like gasping in your sleep, high blood pressure, or severe daytime tiredness, re-take this quiz and speak to your doctor.";
+  }
+  
+  // Update text results
+  document.getElementById('sa-score-text').textContent = `${totalScore} / 8`;
+  
+  const badge = document.getElementById('sa-risk-badge');
+  badge.textContent = riskLevel;
+  badge.className = `sa-risk-badge ${badgeClass}`;
+  
+  document.getElementById('sa-desc-output').innerHTML = `${descText}<br><span style="display:block;margin-top:8px;font-size:12px;color:var(--text-hint);">STOP symptoms score: ${stopScore}/4 | BANG physical score: ${bangScore}/4 (BMI: ${bmi > 0 ? bmi.toFixed(1) : '0'})</span>`;
+  
+  document.getElementById('sa-recommendation-box').innerHTML = recText;
+  
+  // Rotate Gauge Needle (-90 deg for 0 score, to +90 deg for 8 score)
+  // Formula: Angle = -90 + (Score * 22.5)
+  const angle = -90 + (totalScore * 22.5);
+  const needle = document.getElementById('gauge-needle');
+  if (needle) {
+    needle.setAttribute('transform', `rotate(${angle})`);
+  }
+}
+</script>
+
+</body>
+</html>

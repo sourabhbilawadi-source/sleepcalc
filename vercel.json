@@ -5,6 +5,7 @@
     { "source": "/sleep-calculator", "destination": "/sleep-calculator.html" },
     { "source": "/melatonin-calculator", "destination": "/melatonin-calculator.html" },
     { "source": "/weighted-blanket-calculator", "destination": "/weighted-blanket-calculator.html" },
+    { "source": "/sleep-apnea-quiz", "destination": "/sleep-apnea-quiz.html" },
     { "source": "/explore", "destination": "/explore.html" },
     { "source": "/caffeine-calculator", "destination": "/caffeine-calculator.html" },
     { "source": "/bedtime-calculator", "destination": "/bedtime-calculator.html" },
