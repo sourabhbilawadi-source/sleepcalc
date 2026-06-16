@@ -1,39 +1,38 @@
-const CACHE_NAME = 'goodsleep-v3';
+const CACHE_NAME = 'goodsleep-v4';
 const ASSETS = [
   '/',
-  '/index.html',
-  '/about.html',
-  '/ashwagandha-calculator.html',
-  '/bedtime-calculator.html',
-  '/caffeine-calculator.html',
-  '/chronotype.html',
-  '/contact.html',
-  '/dashboard.html',
-  '/explore.html',
-  '/how-much-sleep.html',
-  '/how-to-fall-asleep-fast.html',
-  '/insomnia.html',
-  '/jet-lag-planner.html',
-  '/kids-sleep-calculator.html',
-  '/magnesium-glycinate.html',
-  '/magnesium-type-quiz.html',
-  '/melatonin-calculator.html',
-  '/mouth-taping-guide.html',
-  '/nap-calculator.html',
-  '/polyphasic-sleep-planner.html',
-  '/privacy.html',
-  '/sleep-apnea-quiz.html',
-  '/sleep-audit.html',
-  '/sleep-by-age.html',
-  '/sleep-calculator.html',
-  '/sleep-debt-calculator.html',
-  '/sleep-deprivation.html',
-  '/sleep-divorce-quiz.html',
-  '/sleep-hygiene.html',
-  '/sleep-schedule.html',
-  '/sleepy-girl-mocktail.html',
-  '/steroid-sleep-calculator.html',
-  '/weighted-blanket-calculator.html',
+  '/about',
+  '/ashwagandha-calculator',
+  '/bedtime-calculator',
+  '/caffeine-calculator',
+  '/chronotype',
+  '/contact',
+  '/dashboard',
+  '/explore',
+  '/how-much-sleep',
+  '/how-to-fall-asleep-fast',
+  '/insomnia',
+  '/jet-lag-planner',
+  '/kids-sleep-calculator',
+  '/magnesium-glycinate',
+  '/magnesium-type-quiz',
+  '/melatonin-calculator',
+  '/mouth-taping-guide',
+  '/nap-calculator',
+  '/polyphasic-sleep-planner',
+  '/privacy',
+  '/sleep-apnea-quiz',
+  '/sleep-audit',
+  '/sleep-by-age',
+  '/sleep-calculator',
+  '/sleep-debt-calculator',
+  '/sleep-deprivation',
+  '/sleep-divorce-quiz',
+  '/sleep-hygiene',
+  '/sleep-schedule',
+  '/sleepy-girl-mocktail',
+  '/steroid-sleep-calculator',
+  '/weighted-blanket-calculator',
   '/styles.css',
   '/share-card.js',
   '/favicon.svg',
@@ -45,7 +44,14 @@ const ASSETS = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(ASSETS);
+      // Precache each asset individually so that a single failure doesn't halt the installation
+      return Promise.all(
+        ASSETS.map(url => {
+          return cache.add(url).catch(err => {
+            console.warn(`Failed to precache asset during install: ${url}`, err);
+          });
+        })
+      );
     }).then(() => self.skipWaiting())
   );
 });
@@ -65,31 +71,21 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Only intercept same-origin GET requests
+  // Only handle same-origin GET requests
   if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
-  const url = new URL(event.request.url);
-  let cacheKey = url.pathname;
-
-  // Clean URL logic: Map directories/root to index.html and extension-less paths to .html
-  if (cacheKey === '/') {
-    cacheKey = '/index.html';
-  } else if (!cacheKey.includes('.')) {
-    cacheKey += '.html';
-  }
-
-  const absoluteCacheUrl = new URL(cacheKey, self.location.origin).toString();
-
   event.respondWith(
-    caches.match(absoluteCacheUrl).then(cachedResponse => {
+    caches.match(event.request, { ignoreSearch: true }).then(cachedResponse => {
       if (cachedResponse) {
         // Fetch a fresh version in the background (stale-while-revalidate)
         fetch(event.request).then(networkResponse => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then(cache => {
-              cache.put(absoluteCacheUrl, networkResponse.clone());
+              const cleanUrl = new URL(event.request.url);
+              cleanUrl.search = '';
+              cache.put(cleanUrl.pathname, networkResponse.clone());
             });
           }
         }).catch(err => {
@@ -104,7 +100,9 @@ self.addEventListener('fetch', event => {
         if (networkResponse && networkResponse.status === 200) {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then(cache => {
-            cache.put(absoluteCacheUrl, responseToCache);
+            const cleanUrl = new URL(event.request.url);
+            cleanUrl.search = '';
+            cache.put(cleanUrl.pathname, responseToCache);
           });
         }
         return networkResponse;
