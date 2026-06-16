@@ -44,7 +44,7 @@
 .quiz-result.show{display:block}
 .result-hours{font-size:clamp(32px,7vw,48px);font-weight:800;color:var(--teal-dark);line-height:1;margin:6px 0}
 .result-text{font-size:14px;color:var(--teal-dark);line-height:1.7;margin-top:8px}
-.age-table{width:100%;border-collapse:collapse;font-size:14px}
+.age-table{width:100%;min-width:480px;border-collapse:collapse;font-size:14px}
 .age-table th{text-align:left;padding:10px 12px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border)}
 .age-table td{padding:12px;border-bottom:1px solid var(--border)}
 .age-table tr:last-child td{border-bottom:none}
@@ -120,7 +120,7 @@
 
   <div class="section">
     <h2>Official recommendations by age</h2>
-    <div class="card" style="padding:0;overflow:hidden">
+    <div class="card" style="padding:0;overflow-x:auto;-webkit-overflow-scrolling:touch">
       <table class="age-table">
         <thead><tr><th>Age group</th><th>Recommended hours</th><th>Cycles</th><th>Source</th></tr></thead>
         <tbody>

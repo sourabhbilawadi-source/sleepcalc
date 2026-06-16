@@ -3668,15 +3668,36 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   display: none !important;
 }
 
+/* ── RESPONSIVE TABLE WRAPPER ── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
+}
+.table-responsive .data-table {
+  min-width: 500px;
+  margin-bottom: 0;
+}
 
+/* ── MOBILE OVERRIDES FOR VIEWPORTS <= 480PX ── */
+@media (max-width: 480px) {
+  .pp-panel, .mq-panel, .mela-panel, .audit-panel {
+    padding: 1.25rem 1rem !important;
+  }
+  .mela-tabs {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
 
-
-
-
-
-
-
-
-
-
-
+/* ── MOBILE OVERRIDES FOR VIEWPORTS <= 400PX ── */
+@media (max-width: 400px) {
+  .pp-time-block {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+  .pp-time-range {
+    padding-left: 44px !important;
+  }
+}
