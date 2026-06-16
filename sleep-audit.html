@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Quality Audit Quiz — GoodSleep</title>
+<meta name="description" content="Discover silent sleep disrupters, evaluate sleep health (0-100), and find the exact tools you need for circadian optimization in 2 minutes.">
+<meta property="og:title" content="Sleep Quality Audit Quiz — GoodSleep">
+<meta property="og:description" content="Take our 2-minute diagnostic audit, evaluate your sleep quality score, identify disrupters, and get smart router tool recommendations.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/sleep-audit">
+<meta property="og:url" content="https://goodsleep.rest/sleep-audit">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
+<style>
+@media (min-width: 901px) {
+  .page {
+    max-width: 1100px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Sleep Audit</div>
+  <h1>Sleep Quality<br>Audit Quiz</h1>
+  <p class="hero-sub">Diagnose your sleep health, identify hidden sleep-killers, and get a custom circadian recovery blueprint in 2 minutes.</p>
+</div>
+
+<div class="page">
+  <!-- QUIZ QUESTIONS FLOW -->
+  <div class="audit-quiz-card" id="quiz-area">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+      <div class="quiz-progress-container" style="flex:1; margin-right:20px; background:var(--border); height:6px; border-radius:3px; overflow:hidden;">
+        <div id="progress-fill" style="height:100%; width:0%; background:var(--teal); transition:width 0.3s ease;"></div>
+      </div>
+      <div class="quiz-counter" id="quiz-counter" style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Question 1 of 8</div>
+    </div>
+    <div class="quiz-q" id="quiz-q" style="font-size:18px; font-weight:700; color:var(--text); line-height:1.45; margin-bottom:1.5rem;"></div>
+    <div class="quiz-opts" id="quiz-opts" style="display:flex; flex-direction:column; gap:10px;"></div>
+  </div>
+
+  <!-- RESULTS WRAPPER (HIDDEN BY DEFAULT) -->
+  <div class="result-wrap" id="result-wrap" style="display: none; animation: slideUp .4s ease;">
+    <div class="audit-container">
+      
+      <!-- LEFT COLUMN: SCORE GAUGE -->
+      <div class="audit-panel">
+        <div class="audit-gauge-card">
+          <div class="audit-badge" id="score-badge">Good Sleep Quality</div>
+          <div class="audit-gauge-container">
+            <svg class="audit-gauge-svg" viewBox="0 0 200 120" id="audit-gauge-svg">
+              <defs>
+                <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#E24B4A" />
+                  <stop offset="50%" stop-color="#F59E0B" />
+                  <stop offset="100%" stop-color="#1D9E75" />
+                </linearGradient>
+              </defs>
+              <!-- Arc Path -->
+              <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="var(--border)" stroke-width="14" stroke-linecap="round" />
+              <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gauge-grad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="0" />
+              <!-- Gauge Needle -->
+              <line x1="100" y1="90" x2="100" y2="25" stroke="var(--text)" stroke-width="4.5" stroke-linecap="round" id="gauge-needle" class="audit-gauge-needle" style="transform: rotate(-90deg);" />
+              <circle cx="100" cy="90" r="8" fill="var(--text)" />
+              <circle cx="100" cy="90" r="4" fill="var(--bg-card)" />
+            </svg>
+          </div>
+          <div class="audit-score-text" id="score-val">0</div>
+          <p style="font-size:13px; color:var(--text-muted); line-height:1.5; margin:0 0 1rem;" id="score-desc"></p>
+          <button class="share-btn" onclick="downloadAuditCard()" style="width:100%;">📥 Download Shareable Card</button>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: DIAGNOSIS & SMART CALCULATOR LINKS -->
+      <div class="audit-results">
+        
+        <!-- Primary Disrupter Callout -->
+        <div class="audit-disrupter-card" id="disrupter-card">
+          <div class="audit-disrupter-title" id="disrupter-title">Primary Sleep Disrupter</div>
+          <div class="audit-disrupter-desc" id="disrupter-desc">Evaluating disrupters...</div>
+        </div>
+
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:0.25rem;">Recommended Recovery Actions</h3>
+        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:1rem; line-height:1.5;">We found alignment issues with your sleep habits. Select a calculator below to start your optimization plan:</p>
+
+        <!-- Smart Calculator Action Cards Deck -->
+        <div class="audit-rec-deck" id="rec-deck"></div>
+
+        <div style="margin-top: 1.5rem; display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="share-btn" style="background:var(--bg-soft); border-color:var(--border); color:var(--text); margin:0;" onclick="restartQuiz()">↩ Retake Audit</button>
+          <a class="share-btn" style="background:var(--teal-light); border-color:var(--teal-mid); color:var(--teal-dark); text-decoration:none; margin:0;" href="/dashboard">📊 Go to Dashboard</a>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
+    <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
+    <a href="/sleep-audit">📊 Sleep Quality Audit</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<script>
+// QUESTIONNAIRE DATA
+const questions = [
+  {
+    q: "1. How long does it typically take you to fall asleep at night?",
+    opts: [
+      "Under 15 minutes (Fast)",
+      "15 to 30 minutes (Healthy transition)",
+      "30 to 60 minutes (Mild tossing & turning)",
+      "More than 60 minutes (Restless mind/insomnia)"
+    ],
+    scores: [12.5, 12.5, 6.25, 0],
+    disrupterKey: "latency"
+  },
+  {
+    q: "2. How often do you wake up during the middle of the night?",
+    opts: [
+      "Rarely or never",
+      "Once, but I fall back asleep immediately",
+      "2 to 3 times, or struggle to fall back asleep",
+      "4+ times, or I remain awake for hours"
+    ],
+    scores: [12.5, 12.5, 6.25, 0],
+    disrupterKey: "awakenings"
+  },
+  {
+    q: "3. Do you experience daytime sleepiness, fatigue, or brain fog?",
+    opts: [
+      "Rarely, I feel refreshed and energized",
+      "Occasional afternoon dip, but alert",
+      "Frequent fatigue; rely on caffeine or naps to function",
+      "Constant exhaustion; could fall asleep anytime"
+    ],
+    scores: [12.5, 12.5, 6.25, 0],
+    disrupterKey: "fatigue"
+  },
+  {
+    q: "4. On average, how many hours of sleep do you get per night?",
+    opts: [
+      "7 to 9 hours (Optimal)",
+      "6 to 7 hours (Borderline)",
+      "Less than 6 hours (Chronic deprivation)",
+      "9+ hours, and I still feel exhausted"
+    ],
+    scores: [12.5, 9.375, 3.125, 3.125],
+    disrupterKey: "duration"
+  },
+  {
+    q: "5. What is your typical caffeine timeline during the day?",
+    opts: [
+      "Morning only / Do not consume caffeine",
+      "Early afternoon (before 2:00 PM)",
+      "Late afternoon (between 2:00 PM and 6:00 PM)",
+      "Evening or night (after 6:00 PM)"
+    ],
+    scores: [12.5, 9.375, 6.25, 0],
+    disrupterKey: "caffeine"
+  },
+  {
+    q: "6. Has a partner noticed you snore loudly, gasp, or choke during sleep?",
+    opts: [
+      "No snoring, breathing is quiet",
+      "Mild or occasional soft snoring",
+      "Loud, frequent snoring",
+      "Yes, gasping, choking, or breathing pauses"
+    ],
+    scores: [12.5, 9.375, 6.25, 0],
+    disrupterKey: "apnea"
+  },
+  {
+    q: "7. If you share a bed, does your partner disrupt your sleep?",
+    opts: [
+      "I sleep alone / Partner never disrupts my sleep",
+      "Minor occasional movements or soft snoring",
+      "Frequent awakenings from their snoring/tossing",
+      "Severe disruptions; often forced to sleep elsewhere"
+    ],
+    scores: [12.5, 12.5, 6.25, 0],
+    disrupterKey: "partner"
+  },
+  {
+    q: "8. Do you experience muscle tension, leg cramps, or racing thoughts at bedtime?",
+    opts: [
+      "No, I feel relaxed and calm at bedtime",
+      "Occasional racing thoughts or mild stress",
+      "Frequent leg cramps or physical restlessness",
+      "Severe muscle tension and racing mind"
+    ],
+    scores: [12.5, 9.375, 6.25, 0],
+    disrupterKey: "tension"
+  }
+];
+
+let qIdx = 0;
+let answers = [];
+
+// RENDER QUESTION FLOW
+function renderQuestion() {
+  const q = questions[qIdx];
+  const pct = ((qIdx / questions.length) * 100).toFixed(0);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('quiz-counter').textContent = `Question ${qIdx + 1} of ${questions.length}`;
+  document.getElementById('quiz-q').textContent = q.q;
+  
+  const letters = 'ABCDE';
+  document.getElementById('quiz-opts').innerHTML = q.opts.map((o, i) => `
+    <button class="quiz-opt" onclick="answer(${i})" style="width: 100%; text-align: left; background: var(--bg-soft); border: 1.5px solid var(--border); border-radius: var(--r-sm); padding: 12px 16px; color: var(--text); font-size: 14.5px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+      <span class="quiz-opt-letter" style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0;">${letters[i]}</span>${o}
+    </button>`).join('');
+}
+
+function answer(idx) {
+  answers.push(idx);
+  qIdx++;
+  if (qIdx >= questions.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+// SCORE CALCULATION & SMART ROUTING
+function showResults() {
+  // 1. Calculate Score
+  let score = 0;
+  answers.forEach((ansIdx, qNum) => {
+    score += questions[qNum].scores[ansIdx];
+  });
+  score = Math.round(score);
+
+  // 2. Determine disrupters & recommendations
+  const disrupters = [];
+  const recs = [];
+
+  // Q6: Apnea Check
+  if (answers[5] === 3) {
+    disrupters.push({
+      title: "Severe Airway Obstruction Risk",
+      desc: "Your gasping or breathing pauses suggest high Obstructive Sleep Apnea risk, a severe health factor.",
+      type: "apnea"
+    });
+    recs.push({
+      title: "Sleep Apnea Screening",
+      desc: "Complete the clinical STOP-BANG risk screening to evaluate your breathing obstruction risk.",
+      badge: "Breathing Quiz",
+      link: "/sleep-apnea-quiz",
+      icon: "🫁"
+    });
+  } else if (answers[5] === 2) {
+    disrupters.push({
+      title: "Frequent Snoring",
+      desc: "Loud snoring indicates restricted airflow, which destroys sleep quality.",
+      type: "apnea"
+    });
+    recs.push({
+      title: "Sleep Apnea Screening",
+      desc: "Screen for obstruction triggers using STOP-BANG parameters.",
+      badge: "Breathing Quiz",
+      link: "/sleep-apnea-quiz",
+      icon: "🫁"
+    });
+  }
+
+  // Q5: Late Caffeine Check
+  if (answers[4] === 3) {
+    disrupters.push({
+      title: "Nighttime Caffeine Toxicity",
+      desc: "Caffeinated drinks after 6:00 PM block sleep-promoting adenosine, causing severe sleep maintenance disruption.",
+      type: "caffeine"
+    });
+    recs.push({
+      title: "Caffeine Decay Calculator",
+      desc: "Chart your 24h caffeine clearance curve to identify your sleep-safe cut-off window.",
+      badge: "Caffeine Clearance",
+      link: "/caffeine-calculator",
+      icon: "☕"
+    });
+  } else if (answers[4] === 2) {
+    disrupters.push({
+      title: "Late Afternoon Caffeine",
+      desc: "Consuming caffeine between 2:00 PM and 6:00 PM means significant stimulant levels remain active at bedtime.",
+      type: "caffeine"
+    });
+    recs.push({
+      title: "Caffeine Decay Calculator",
+      desc: "Find your daily clearance schedule to optimize sleep onset.",
+      badge: "Caffeine Clearance",
+      link: "/caffeine-calculator",
+      icon: "☕"
+    });
+  }
+
+  // Q4: Sleep duration (Sleep Debt)
+  if (answers[3] === 2) {
+    disrupters.push({
+      title: "Chronic Sleep Deprivation",
+      desc: "Sleeping under 6 hours builds severe systemic sleep debt, hurting cognitive function and cardiac health.",
+      type: "debt"
+    });
+    recs.push({
+      title: "Sleep Debt Calculator",
+      desc: "Calculate your accumulated sleep deficit and outline a circadian recovery routine.",
+      badge: "Sleep Deficit",
+      link: "/sleep-debt-calculator",
+      icon: "⏳"
+    });
+  }
+
+  // Q7: Partner Awakenings
+  if (answers[6] === 3) {
+    disrupters.push({
+      title: "Severe Partner-Induced Sleep Fragmentation",
+      desc: "Tossing, turning, or snoring from your bed partner severely disrupts your sleep cycles.",
+      type: "partner"
+    });
+    recs.push({
+      title: "Sleep Divorce Quiz",
+      desc: "Assess compatibility and review arrangements like the Scandinavian Sleep Method.",
+      badge: "Co-sleeping Quiz",
+      link: "/sleep-divorce-quiz",
+      icon: "🛌"
+    });
+  } else if (answers[6] === 2) {
+    disrupters.push({
+      title: "Moderate Partner Awakenings",
+      desc: "Soft snoring or movement frequently jars you awake, fragmenting your deep sleep.",
+      type: "partner"
+    });
+    recs.push({
+      title: "Sleep Divorce Quiz",
+      desc: "Review arrangement methods to isolate sleep movements.",
+      badge: "Co-sleeping Quiz",
+      link: "/sleep-divorce-quiz",
+      icon: "🛌"
+    });
+  }
+
+  // Q8: Muscle cramps or tension
+  if (answers[7] === 2 || answers[7] === 3) {
+    disrupters.push({
+      title: "Mineral Deficiency / Racing Mind",
+      desc: "Cramps and bedtime tension suggest low magnesium or stress, preventing autonomic nervous system relaxation.",
+      type: "tension"
+    });
+    recs.push({
+      title: "Magnesium Form Selector",
+      desc: "Determine the ideal magnesium chelate form (Glycinate, L-Threonate, Malate) for cramps or anxiety.",
+      badge: "Magnesium Quiz",
+      link: "/magnesium-type-quiz",
+      icon: "💊"
+    });
+  }
+
+  // Latency & Awakenings (Insomnia / Latency)
+  if (answers[0] === 3) {
+    disrupters.push({
+      title: "Bedtime Sleep Latency",
+      desc: "Taking over an hour to fall asleep suggests delayed melatonin release or sympathetic dominance.",
+      type: "latency"
+    });
+    recs.push({
+      title: "Mouth Taping safety Guide",
+      desc: "Learn nasal breathing safety protocols to activate the parasympathetic nervous system at bedtime.",
+      badge: "Nasal Breathing",
+      link: "/mouth-taping-guide",
+      icon: "👃"
+    });
+  }
+
+  // Fallbacks if no disrupters
+  if (disrupters.length === 0) {
+    disrupters.push({
+      title: "Circadian Optimization",
+      desc: "No critical disrupters found! Your habits are highly optimized. Continue fine-tuning your schedules.",
+      type: "none"
+    });
+    recs.push({
+      title: "Jet Lag Circadian Planner",
+      desc: "Use bright light windows to shift timezone blocks for business travel or vacation planning.",
+      badge: "Circadian Travel",
+      link: "/jet-lag-planner",
+      icon: "✈️"
+    });
+  }
+
+  // Sort disrupters by severity
+  const severityOrder = { apnea: 0, caffeine: 1, debt: 2, partner: 3, tension: 4, latency: 5, none: 6 };
+  disrupters.sort((a, b) => severityOrder[a.type] - severityOrder[b.type]);
+  const primaryDisrupter = disrupters[0];
+
+  // Save to LocalStorage
+  localStorage.setItem('gs-sleep-audit-score', score);
+  localStorage.setItem('gs-sleep-audit-date', new Date().toISOString());
+  localStorage.setItem('gs-sleep-audit-disrupter', primaryDisrupter.title);
+
+  // Update UI Elements
+  document.getElementById('quiz-area').style.display = 'none';
+  const rw = document.getElementById('result-wrap');
+  rw.style.display = 'block';
+
+  // Score badge & class
+  const badge = document.getElementById('score-badge');
+  let badgeText = 'Excellent Sleep';
+  let badgeClass = 'audit-badge-excellent';
+  let scoreDesc = "Your sleep health is outstanding. You have solid latency, steady sleep architecture, and clean habits.";
+
+  if (score >= 90) {
+    badgeText = 'Excellent Sleep';
+    badgeClass = 'audit-badge-excellent';
+  } else if (score >= 75) {
+    badgeText = 'Good Sleep';
+    badgeClass = 'audit-badge-good';
+    scoreDesc = "Your sleep is solid but shows minor opportunities for improvement. Fine-tune your caffeine limits or bedtime routine.";
+  } else if (score >= 50) {
+    badgeText = 'Sub-optimal Sleep';
+    badgeClass = 'audit-badge-suboptimal';
+    scoreDesc = "Your sleep is fragmented. You have elevated disrupters that prevent consistent restorative deep/REM sleep cycles.";
+  } else {
+    badgeText = 'Poor Sleep Quality';
+    badgeClass = 'audit-badge-poor';
+    scoreDesc = "Critical sleep disrupters detected. High latency, chronic debt, or breathing restrictions are degrading your sleep quality.";
+  }
+
+  badge.textContent = badgeText;
+  badge.className = `audit-badge ${badgeClass}`;
+  document.getElementById('score-desc').textContent = scoreDesc;
+  document.getElementById('score-val').textContent = score;
+
+  // Animate Gauge Needle
+  // Gauge range is 180 degrees. 0 on gauge is -90deg, 100 on gauge is +90deg
+  const angle = -90 + (score / 100) * 180;
+  document.getElementById('gauge-needle').style.transform = `rotate(${angle}deg)`;
+
+  // Primary disrupter box
+  const disCard = document.getElementById('disrupter-card');
+  disCard.className = `audit-disrupter-card ${primaryDisrupter.type === 'none' ? 'none' : ''}`;
+  document.getElementById('disrupter-title').textContent = `Primary Disrupter: ${primaryDisrupter.title}`;
+  document.getElementById('disrupter-desc').textContent = primaryDisrupter.desc;
+
+  // Deck of calculator links
+  const recDeck = document.getElementById('rec-deck');
+  recDeck.innerHTML = recs.slice(0, 3).map(r => `
+    <a href="${r.link}" class="audit-rec-card">
+      <div class="audit-rec-icon">${r.icon}</div>
+      <div class="audit-rec-content">
+        <div class="audit-rec-title">
+          ${r.title} <span class="audit-rec-arrow">➔</span>
+          <span class="audit-rec-badge">${r.badge}</span>
+        </div>
+        <div class="audit-rec-desc">${r.desc}</div>
+      </div>
+    </a>
+  `).join('');
+
+  // Save data to window state for sharing card download
+  window.activeAuditData = {
+    score: score,
+    badgeText: badgeText,
+    disrupterTitle: primaryDisrupter.title,
+    disrupterDesc: primaryDisrupter.desc,
+    stats: [
+      { label: 'Sleep Quality Score:', value: `${score}/100` },
+      { label: 'Sleep Health Tier:', value: badgeText },
+      { label: 'Main Sleep-Killer:', value: primaryDisrupter.title.replace('Induced ', '') }
+    ]
+  };
+
+  setTimeout(() => rw.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+function restartQuiz() {
+  qIdx = 0;
+  answers = [];
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('result-wrap').style.display = 'none';
+  renderQuestion();
+}
+
+// EXPORT TO SHARE-CARD.JS
+function downloadAuditCard() {
+  const data = window.activeAuditData;
+  if (!data) return;
+
+  GoodSleepShare.generateAuditCard(
+    `${data.score}/100`,
+    data.badgeText,
+    `Primary disrupter: ${data.disrupterTitle.replace('Severe ', '').toLowerCase()}`,
+    data.stats,
+    'goodsleep-sleep-audit.png'
+  );
+}
+
+// INITIALIZATION
+renderQuestion();
+
+// Theme Switcher
+const themeToggle = document.getElementById('theme-toggle');
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+};
+themeToggle.addEventListener('click', toggleTheme);
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    loader.classList.add('fade-out');
+    setTimeout(() => loader.style.display = 'none', 400);
+  }
+});
+</script>
+</body>
+</html>

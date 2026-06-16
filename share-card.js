@@ -445,6 +445,101 @@ const GoodSleepShare = {
 
     // Trigger Download
     this.triggerDownload(canvas, filename);
+  },
+
+  /**
+   * Layout 4: Sleep Quality Audit Card
+   */
+  generateAuditCard(scoreText, ratingText, tagline, stats, filename = 'goodsleep-sleep-audit.png') {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1200;
+    canvas.height = 630;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    // Base template
+    this.drawBaseTemplate(ctx);
+
+    // Category
+    ctx.fillStyle = '#5dcaa5';
+    ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
+    ctx.fillText('SLEEP QUALITY AUDIT', 60, 180);
+
+    // Title
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 52px system-ui, -apple-system, sans-serif';
+    ctx.fillText(`Score: ${scoreText}`, 60, 245);
+
+    // Description text wrapping
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '19px system-ui, -apple-system, sans-serif';
+    const lines = this.getLines(ctx, tagline, 500);
+    let y = 295;
+    lines.slice(0, 2).forEach(line => {
+      ctx.fillText(line, 60, y);
+      y += 28;
+    });
+
+    // Draw Stats Rows
+    let startY = 370;
+    stats.forEach(stat => {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+      this.drawRoundedRect(ctx, 60, startY, 500, 52, 8, true, true);
+
+      // Label
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '14px system-ui, -apple-system, sans-serif';
+      ctx.fillText(stat.label, 80, startY + 30);
+
+      // Value
+      ctx.fillStyle = '#5dcaa5';
+      ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(stat.value, 540, startY + 30);
+
+      ctx.textAlign = 'left';
+      startY += 64;
+    });
+
+    // Right Side graphics: Glowing emoji ring
+    ctx.strokeStyle = 'rgba(29, 158, 117, 0.16)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(900, 315, 150, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(139, 92, 246, 0.1)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(900, 315, 175, 0, Math.PI * 2);
+    ctx.stroke();
+
+    const innerGlow = ctx.createRadialGradient(900, 315, 20, 900, 315, 120);
+    innerGlow.addColorStop(0, 'rgba(29, 158, 117, 0.18)');
+    innerGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = innerGlow;
+    ctx.beginPath();
+    ctx.arc(900, 315, 130, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw Emoji & Rating Text
+    ctx.font = '100px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('📊', 900, 270);
+    
+    ctx.fillStyle = '#5dcaa5';
+    ctx.font = 'bold 28px system-ui, -apple-system, sans-serif';
+    ctx.fillText(ratingText, 900, 370);
+    
+    // Reset baseline
+    ctx.textBaseline = 'alphabetic';
+
+    // Trigger Download
+    this.triggerDownload(canvas, filename);
   }
 };
 

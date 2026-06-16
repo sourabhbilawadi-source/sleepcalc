@@ -280,6 +280,9 @@
     <div class="db-col">
       <div class="db-col-header">👤 Circadian Profile</div>
       
+      <!-- Sleep Quality Audit widget -->
+      <div id="widget-sleep-audit"></div>
+      
       <!-- Chronotype animal widget -->
       <div id="widget-chronotype"></div>
 
@@ -341,6 +344,7 @@
     <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
     <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
     <a href="/dashboard">📊 Biohacking Dashboard</a>
+    <a href="/sleep-audit">📊 Sleep Quality Audit</a>
     <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
     <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
     <a href="/about">ℹ️ About Us</a>
@@ -359,6 +363,57 @@ function formatDate(isoStr) {
 }
 
 function loadDashboardWidgets() {
+  // 0. Sleep Quality Audit Widget
+  const auditScore = localStorage.getItem('gs-sleep-audit-score');
+  const auditDate = localStorage.getItem('gs-sleep-audit-date');
+  const auditDisrupter = localStorage.getItem('gs-sleep-audit-disrupter') || 'None Detected';
+  const widgetAudit = document.getElementById('widget-sleep-audit');
+
+  if (auditScore !== null) {
+    const scoreVal = parseInt(auditScore);
+    let badge = 'db-badge-teal';
+    let label = 'Excellent';
+    if (scoreVal < 50) {
+      badge = 'db-badge-red';
+      label = 'Poor';
+    } else if (scoreVal < 75) {
+      badge = 'db-badge-amber';
+      label = 'Sub-optimal';
+    } else if (scoreVal < 90) {
+      badge = 'db-badge-teal';
+      label = 'Good';
+    }
+
+    widgetAudit.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">📊</div>
+            <span class="db-card-name">Sleep Quality Audit</span>
+          </div>
+          <span class="db-card-badge ${badge}">${scoreVal}/100 (${label})</span>
+        </div>
+        <div class="db-card-body">
+          Primary disrupter: <strong>${auditDisrupter}</strong>.<br>
+          We recommend pursuing the circadian recovery steps outlined in your action plan.
+        </div>
+        <div class="db-card-actions">
+          <a href="/sleep-audit" class="db-action-link">Retake Audit</a>
+          <span class="db-date-tag">Audited ${formatDate(auditDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetAudit.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">📊</div>
+        <div class="db-ph-title">Sleep Quality Audit</div>
+        <div class="db-ph-desc">Take our 2-minute sleep health audit to find silent sleep-killers and get custom routing recommendations.</div>
+        <a href="/sleep-audit" class="db-btn">Audit Your Sleep</a>
+      </div>
+    `;
+  }
+
   // 1. Chronotype Animal Widget
   const chronotype = localStorage.getItem('gs-chronotype');
   const chronotypeDate = localStorage.getItem('gs-chronotype-date');
@@ -681,7 +736,8 @@ function resetAllData() {
       'gs-magnesium-form', 'gs-magnesium-form-date',
       'gs-ashwagandha-extract', 'gs-ashwagandha-dose', 'gs-ashwagandha-strategy', 'gs-ashwagandha-status', 'gs-ashwagandha-date',
       'gs-polyphasic-routine', 'gs-polyphasic-sleep-hours', 'gs-polyphasic-date',
-      'gs-jet-lag-dep', 'gs-jet-lag-dest', 'gs-jet-lag-diff', 'gs-jet-lag-days', 'gs-jet-lag-date'
+      'gs-jet-lag-dep', 'gs-jet-lag-dest', 'gs-jet-lag-diff', 'gs-jet-lag-days', 'gs-jet-lag-date',
+      'gs-sleep-audit-score', 'gs-sleep-audit-date', 'gs-sleep-audit-disrupter'
     ];
     keys.forEach(k => localStorage.removeItem(k));
     document.getElementById('db-user-title').innerText = `Welcome Back, Biohacker`;

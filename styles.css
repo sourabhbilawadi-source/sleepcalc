@@ -3393,6 +3393,206 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   transform: translateY(-2px);
 }
 
+/* ══════════════════════════════════════════════
+   SLEEP QUALITY AUDIT QUIZ STYLES
+   ══════════════════════════════════════════════ */
+.audit-quiz-card {
+  max-width: 620px;
+  margin: 1.5rem auto;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+.audit-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .audit-container {
+    grid-template-columns: 1fr;
+  }
+}
+.audit-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 901px) {
+  .audit-panel {
+    position: sticky;
+    top: 80px;
+  }
+}
+.audit-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.audit-gauge-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.audit-gauge-container {
+  width: 100%;
+  max-width: 240px;
+  margin-top: 0.5rem;
+}
+.audit-gauge-svg {
+  width: 100%;
+  height: auto;
+}
+.audit-gauge-needle {
+  transform-origin: 100px 90px;
+  transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.audit-score-text {
+  font-size: clamp(32px, 5vw, 42px);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  margin-top: -10px;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.audit-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+.audit-badge-excellent {
+  background: rgba(16,185,129,0.1);
+  color: var(--teal);
+  border: 1px solid rgba(16,185,129,0.2);
+}
+.audit-badge-good {
+  background: rgba(59,130,246,0.1);
+  color: #60a5fa;
+  border: 1px solid rgba(59,130,246,0.2);
+}
+.audit-badge-suboptimal {
+  background: rgba(245,158,11,0.1);
+  color: var(--amber);
+  border: 1px solid rgba(245,158,11,0.2);
+}
+.audit-badge-poor {
+  background: rgba(239,68,68,0.1);
+  color: var(--red);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+
+.audit-disrupter-card {
+  background: rgba(239,68,68,0.04);
+  border-left: 4px solid var(--red);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+.audit-disrupter-card.none {
+  background: rgba(16,185,129,0.04);
+  border-left-color: var(--teal);
+}
+.audit-disrupter-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.audit-disrupter-desc {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.audit-rec-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.audit-rec-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: start;
+  gap: 16px;
+  transition: transform 0.2s, border-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+.audit-rec-card:hover {
+  border-color: var(--teal-mid);
+  transform: translateY(-2px);
+}
+.audit-rec-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(29, 158, 117, 0.08);
+  color: var(--teal);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.audit-rec-content {
+  flex: 1;
+}
+.audit-rec-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.audit-rec-arrow {
+  color: var(--teal);
+  transition: transform 0.2s;
+}
+.audit-rec-card:hover .audit-rec-arrow {
+  transform: translateX(4px);
+}
+.audit-rec-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.audit-rec-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+
 
 
 
