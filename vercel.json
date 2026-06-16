@@ -4,6 +4,10 @@
   "rewrites": [
     { "source": "/explore", "destination": "/explore.html" },
     { "source": "/caffeine-calculator", "destination": "/caffeine-calculator.html" },
+    { "source": "/bedtime-calculator", "destination": "/bedtime-calculator.html" },
+    { "source": "/kids-sleep-calculator", "destination": "/kids-sleep-calculator.html" },
+    { "source": "/magnesium-glycinate", "destination": "/magnesium-glycinate.html" },
+    { "source": "/sleep-hygiene", "destination": "/sleep-hygiene.html" },
     { "source": "/nap-calculator", "destination": "/nap-calculator.html" },
     { "source": "/sleep-by-age", "destination": "/sleep-by-age.html" },
     { "source": "/sleep-debt-calculator", "destination": "/sleep-debt-calculator.html" },

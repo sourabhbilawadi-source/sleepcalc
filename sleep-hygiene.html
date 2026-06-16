@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Hygiene Checklist — Interactive Routine Score | GoodSleep</title>
+<meta name="description" content="Use our interactive sleep hygiene checklist to score your daily habits, identify sleep disruptors, and learn how to optimize your sleep quality.">
+<meta property="og:title" content="Sleep Hygiene Checklist — Interactive Routine Score | GoodSleep">
+<meta property="og:description" content="Evaluate your sleep hygiene. Take our interactive 10-point checklist to discover habits keeping you awake.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/sleep-hygiene">
+<meta property="og:url" content="https://goodsleep.rest/sleep-hygiene">
+<meta property="og:site_name" content="GoodSleep">
+<meta property="og:image" content="https://goodsleep.rest/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* ── SLEEP HYGIENE SPECIFIC ── */
+.hygiene-list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.hygiene-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+}
+.hygiene-item-row:hover {
+  border-color: var(--teal-mid);
+  background: var(--teal-light);
+}
+.hygiene-item-row.checked {
+  border-color: var(--teal);
+  background: var(--teal-light);
+}
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--text-hint);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #fff;
+  transition: all .15s;
+  margin-top: 2px;
+}
+.hygiene-item-row.checked .checkbox-custom {
+  border-color: var(--teal);
+  background: var(--teal);
+}
+.checkbox-custom::after {
+  content: '✓';
+  display: none;
+}
+.hygiene-item-row.checked .checkbox-custom::after {
+  display: block;
+}
+.item-content {
+  flex: 1;
+}
+.item-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.item-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 3px;
+}
+
+.score-box {
+  background: var(--teal-light);
+  border: 1.5px solid var(--teal);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.score-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 4px 14px rgba(29, 158, 117, 0.3);
+  margin-bottom: 12px;
+}
+.score-circle span {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.score-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--teal-dark);
+  margin-bottom: 6px;
+}
+.score-desc {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.recommendations {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.recommendations h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rec-list {
+  display: grid;
+  gap: 8px;
+}
+.rec-item {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding: 8px 10px;
+  background: var(--bg-card);
+  border-radius: var(--r-sm);
+  border: 1px dashed var(--border);
+}
+.rec-item a {
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Routine checks</div>
+  <h1>Sleep Hygiene Checklist</h1>
+  <p class="hero-sub">A scientific self-assessment. Check the sleep habits you practice consistently to calculate your sleep hygiene score and identify areas to optimize.</p>
+</div>
+
+<div class="page">
+  <div class="score-box" id="score-card">
+    <div class="score-circle" id="score-number">0<span>/ 10</span></div>
+    <div class="score-title" id="score-header">Evaluate Your Sleep Habits</div>
+    <div class="score-desc" id="score-text">Check your current sleep habits below to calculate your personalized sleep hygiene rating and get tailored tips.</div>
+  </div>
+
+  <div class="recommendations" id="recommendations-box" style="display: none;">
+    <h3>💡 Personalized Sleep Recommendations</h3>
+    <div class="rec-list" id="rec-list">
+      <!-- Recommendations will be populated here -->
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title" style="font-size: 15px; margin-bottom: 12px;">Your 10-Point Sleep Checklist</div>
+    <div class="hygiene-list">
+      
+      <!-- Item 1 -->
+      <div class="hygiene-item-row" data-index="1" data-rec="Set a consistent sleep schedule to lock in your circadian rhythm. Use our <a href='/sleep-schedule'>Sleep Schedule Builder</a> to map out your 7-day routine.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">1. Consistent Wake-Up Time</div>
+          <div class="item-desc">You wake up at the exact same time every day, including weekends, within a 30-minute window.</div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="hygiene-item-row" data-index="2" data-rec="Avoid drinking caffeine in the late afternoon. Verify your current bedtime levels with the <a href='/caffeine-calculator'>Caffeine Sleep Calculator</a>.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">2. Late Caffeine Cut-off</div>
+          <div class="item-desc">You avoid all caffeine (coffee, tea, sodas, energy drinks) within 10 hours of your target bedtime.</div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="hygiene-item-row" data-index="3" data-rec="Exposure to morning sunlight (even on cloudy days) stops melatonin production and helps you feel alert. Take a 10-minute morning walk.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">3. Morning Sunlight Exposure</div>
+          <div class="item-desc">You get 10-15 minutes of natural sunlight outside within 2 hours of waking to calibrate your body clock.</div>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="hygiene-item-row" data-index="4" data-rec="Blue light from screens delays melatonin. Swap screen time for a paperback book or a audio guide during your final hour.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">4. No Screens in Final Hour</div>
+          <div class="item-desc">You turn off or put away your phone, tablet, and TV at least 60 minutes before attempting to sleep.</div>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="hygiene-item-row" data-index="5" data-rec="Keep the bedroom dedicated to sleep. Working or watching TV in bed teaches your brain to associate the bed with alertness.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">5. Bed Dedicated to Sleep</div>
+          <div class="item-desc">You only use your bed for sleep and intimacy (no working, scrolling, or studying in bed).</div>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="hygiene-item-row" data-index="6" data-rec="Your body needs to drop its core temperature by 2°F to sleep. Set your thermostat to 65°F (18°C) or open a window.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">6. Cool Room Temperature</div>
+          <div class="item-desc">Your bedroom is kept cool (ideally between 60-67°F or 15-19°C) and ventilated.</div>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="hygiene-item-row" data-index="7" data-rec="Alcohol is a sedative that blocks REM sleep. Keep alcohol consumption strictly to earlier in the evening.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">7. No Late Alcohol</div>
+          <div class="item-desc">You avoid alcohol within 3 to 4 hours of sleeping to prevent disrupted sleep cycles.</div>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="hygiene-item-row" data-index="8" data-rec="A relaxing wind-down lowers blood pressure and prepares your nervous system. Try deep breathing or reading.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">8. Dedicated Wind-Down routine</div>
+          <div class="item-desc">You practice a consistent, relaxing wind-down routine (reading, stretching, writing) for 30 minutes before sleep.</div>
+        </div>
+      </div>
+
+      <!-- Item 9 -->
+      <div class="hygiene-item-row" data-index="9" data-rec="Lying awake in bed triggers sleep anxiety. If awake after 20 minutes, get up and do a boring activity in dim light until sleepy.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">9. The 20-Minute Bed Rule</div>
+          <div class="item-desc">You do not lie awake in bed for more than 20 minutes; if you can't sleep, you get out of bed until sleepy.</div>
+        </div>
+      </div>
+
+      <!-- Item 10 -->
+      <div class="hygiene-item-row" data-index="10" data-rec="Regular exercise promotes deep sleep, but late workouts spike cortisol and body temperature. Finish workouts earlier.">
+        <div class="checkbox-custom"></div>
+        <div class="item-content">
+          <div class="item-title">10. No Late Intensive Workouts</div>
+          <div class="item-desc">You finish strenuous workouts or intense cardio sessions at least 3 hours before bed.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'\u2600\ufe0f':'\ud83c\udf19'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'\u2600\ufe0f':'\ud83c\udf19'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+document.getElementById('back-top').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+
+// CHECKLIST INTERACTIVE ENGINE
+(function() {
+  const items = document.querySelectorAll('.hygiene-item-row');
+  const scoreNum = document.getElementById('score-number');
+  const scoreHeader = document.getElementById('score-header');
+  const scoreText = document.getElementById('score-text');
+  
+  const recsBox = document.getElementById('recommendations-box');
+  const recList = document.getElementById('rec-list');
+  
+  // Array to hold index of checked items (1-indexed)
+  let checkedIndices = [];
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.getAttribute('data-index'));
+      item.classList.toggle('checked');
+      
+      if (item.classList.contains('checked')) {
+        if (!checkedIndices.includes(index)) {
+          checkedIndices.push(index);
+        }
+      } else {
+        checkedIndices = checkedIndices.filter(idx => idx !== index);
+      }
+      
+      calculateScore();
+    });
+  });
+
+  function calculateScore() {
+    const score = checkedIndices.length;
+    scoreNum.innerHTML = `${score}<span>/ 10</span>`;
+
+    // Dynamic rating header
+    let rating = "";
+    let desc = "";
+    if (score <= 3) {
+      rating = "Poor Sleep Hygiene";
+      desc = "Your daily routine has significant disruptors that block natural melatonin release and interfere with sleep cycles. Try adjusting 2-3 habits below.";
+    } else if (score <= 7) {
+      rating = "Fair Sleep Hygiene";
+      desc = "You have some great sleep habits, but minor gaps (like screen blue light or afternoon coffee) are still keeping you from achieving optimal sleep depth.";
+    } else {
+      rating = "Excellent Sleep Hygiene!";
+      desc = "Outstanding! You are practicing sleep science guidelines. Keep up the consistency to maximize your cognitive focus and morning energy levels.";
+    }
+
+    scoreHeader.textContent = rating;
+    scoreText.textContent = desc;
+
+    // Recommendations Logic
+    recList.innerHTML = '';
+    let missingCount = 0;
+
+    items.forEach(item => {
+      if (!item.classList.contains('checked')) {
+        const recText = item.getAttribute('data-rec');
+        const recDiv = document.createElement('div');
+        recDiv.className = 'rec-item';
+        recDiv.innerHTML = recText;
+        recList.appendChild(recDiv);
+        missingCount++;
+      }
+    });
+
+    if (missingCount > 0 && score > 0) {
+      recsBox.style.display = 'block';
+    } else {
+      recsBox.style.display = 'none';
+    }
+  }
+
+})();
+</script>
+</body>
+</html>

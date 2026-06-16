@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kids Bedtime Calculator — Pediatric Sleep Cycle Calculator | GoodSleep</title>
+<meta name="description" content="Calculate the best bedtime for infants, toddlers, preschoolers, and school-aged kids based on shorter pediatric sleep cycles. Keep your child rested.">
+<meta property="og:title" content="Kids Bedtime Calculator — Pediatric Sleep Cycle Calculator | GoodSleep">
+<meta property="og:description" content="Kids have shorter sleep cycles (50-70 mins). Calculate the perfect bedtime for your child based on age and pediatric science.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/kids-sleep-calculator">
+<meta property="og:url" content="https://goodsleep.rest/kids-sleep-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<meta property="og:image" content="https://goodsleep.rest/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* ── KIDS PAGE-SPECIFIC ── */
+.kids-age-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.age-card-btn {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s;
+  font-family: var(--font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.age-card-btn:hover {
+  border-color: var(--teal-mid);
+  background: var(--teal-light);
+}
+.age-card-btn.selected {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+.age-emoji {
+  font-size: 24px;
+}
+.age-label {
+  font-size: 13px;
+  color: var(--text);
+}
+.age-range-sub {
+  font-size: 11px;
+  color: var(--text-hint);
+}
+.age-card-btn.selected .age-range-sub {
+  color: var(--teal-dark);
+}
+
+.tabs {
+  display: flex;
+  background: var(--bg-soft);
+  border-radius: var(--r-sm);
+  padding: 4px;
+  margin-bottom: 1.25rem;
+  gap: 4px;
+}
+.tab {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--font);
+  transition: all .2s;
+  font-weight: 500;
+}
+.tab.active {
+  background: var(--bg-card);
+  color: var(--teal-dark);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+@media(max-width: 480px) {
+  .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+.input-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.input-col label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+}
+.time-picker-select {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s;
+}
+.time-picker-select:focus {
+  border-color: var(--teal);
+}
+
+.results {
+  display: none;
+  animation: slideUp .4s ease;
+}
+.results.show {
+  display: block;
+}
+.results-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 12px;
+}
+.cycles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.cycle-card {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--bg-card);
+}
+.cycle-card:hover {
+  border-color: var(--teal-mid);
+  transform: translateY(-2px);
+}
+.cycle-card.best {
+  border-color: var(--teal);
+  background: var(--teal-light);
+}
+.c-time {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+.cycle-card.best .c-time {
+  color: var(--teal-dark);
+}
+.c-cycles {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+.c-hours {
+  font-size: 11px;
+  color: var(--text-hint);
+}
+.best-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  background: var(--teal);
+  color: #fff;
+  border-radius: 50px;
+  padding: 1px 6px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.graph-wrap {
+  margin: 1.5rem 0;
+  background: var(--bg-soft);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+}
+.graph-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-hint);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 8px;
+}
+.graph-svg-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.graph-legend {
+  display: flex;
+  gap: 1rem;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.tip-box {
+  border-left: 3px solid var(--teal);
+  padding: 12px 16px;
+  background: var(--teal-light);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: 14px;
+  color: var(--teal-dark);
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Kids bedtime calculator</div>
+  <h1>Kids Sleep Calculator</h1>
+  <p class="hero-sub">Children have shorter sleep cycles (50 to 70 minutes) and require more rest. Select their age below to find their optimal bedtime.</p>
+</div>
+
+<div class="page">
+  <!-- Age Selection -->
+  <div class="card">
+    <div class="section-title" style="font-size: 15px; margin-bottom: 10px;">1. Select Child's Age Group</div>
+    <div class="kids-age-grid">
+      <button class="age-card-btn selected" data-age="infant" data-cycle="50" data-min-hrs="12" data-max-hrs="15">
+        <span class="age-emoji">👶</span>
+        <span class="age-label">Infant</span>
+        <span class="age-range-sub">4-11 mos (12-15h)</span>
+      </button>
+      <button class="age-card-btn" data-age="toddler" data-cycle="50" data-min-hrs="11" data-max-hrs="14">
+        <span class="age-emoji">🧸</span>
+        <span class="age-label">Toddler</span>
+        <span class="age-range-sub">1-2 yrs (11-14h)</span>
+      </button>
+      <button class="age-card-btn" data-age="preschooler" data-cycle="60" data-min-hrs="10" data-max-hrs="13">
+        <span class="age-emoji">🎨</span>
+        <span class="age-label">Preschooler</span>
+        <span class="age-range-sub">3-5 yrs (10-13h)</span>
+      </button>
+      <button class="age-card-btn" data-age="schoolage" data-cycle="70" data-min-hrs="9" data-max-hrs="11">
+        <span class="age-emoji">🎒</span>
+        <span class="age-label">School-Age</span>
+        <span class="age-range-sub">6-13 yrs (9-11h)</span>
+      </button>
+    </div>
+
+    <!-- Mode Selector Tabs -->
+    <div class="tabs">
+      <button class="tab active" id="tab-wakeup">⏰ Wake up at...</button>
+      <button class="tab" id="tab-sleep">😴 Going to sleep now</button>
+    </div>
+
+    <!-- Time Input Row -->
+    <div class="form-row" id="time-input-row">
+      <div class="input-col">
+        <label for="hour-select">Hour</label>
+        <select id="hour-select" class="time-picker-select">
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7" selected>07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="input-col">
+        <label for="minute-select">Minute</label>
+        <select id="minute-select" class="time-picker-select">
+          <option value="0" selected>00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
+      </div>
+      <div class="input-col">
+        <label for="ampm-select">AM/PM</label>
+        <select id="ampm-select" class="time-picker-select">
+          <option value="AM" selected>AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Sleep Now State Box -->
+    <div class="sleep-now-box" id="sleep-now-box" style="display: none;">
+      <span class="live-dot"></span>
+      Putting your child to bed at <strong id="sleep-now-time"></strong> &nbsp;·&nbsp; 15 minutes to fall asleep already included.
+    </div>
+
+    <button class="btn" id="calculate-btn">
+      Calculate Times <span class="btn-icon">→</span>
+    </button>
+  </div>
+
+  <!-- Results Block -->
+  <div class="results" id="results-panel">
+    <p class="results-label" id="results-label">Go to bed at one of these times:</p>
+    <div class="cycles-grid" id="cycles-grid"></div>
+    
+    <div class="graph-wrap">
+      <div class="graph-title">Pediatric Sleep Cycle Graph Preview</div>
+      <div class="graph-svg-wrap">
+        <svg viewBox="0 0 700 140" width="100%" height="100%" id="sleep-graph"></svg>
+      </div>
+      <div class="graph-legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#9FE1CB"></span><span>Light Sleep</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#1D9E75"></span><span>Deep Sleep (Growth &amp; Repair)</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#534AB7"></span><span>REM Sleep (Brain Development)</span></div>
+      </div>
+    </div>
+    
+    <div class="tip-box" id="tip-box"></div>
+  </div>
+
+  <!-- Educational Section -->
+  <div class="section">
+    <h2>Why Children's Sleep Cycles Are Different</h2>
+    <p>Many parents assume that children have the same 90-minute sleep cycles as adults, but this is a scientific misconception. Pediatric sleep biology differs significantly in both structure and length:</p>
+    
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Shorter Cycles</h3>
+        <p>Infants and toddlers have sleep cycles that last only <strong>50 minutes</strong>. As children grow, their cycle length slowly extends—preschoolers average <strong>60 minutes</strong>, and school-aged children average <strong>70 minutes</strong>, only reaching adult 90-minute cycle lengths in their late teens.</p>
+      </div>
+      <div class="info-card">
+        <h3>More REM Sleep</h3>
+        <p>Babies and children spend a much higher percentage of their sleep time in REM (active) sleep. REM sleep is critical for early brain development, synapses creation, and learning processing. This is why kids wake up more easily during the night.</p>
+      </div>
+      <div class="info-card">
+        <h3>Consistent Bedtimes</h3>
+        <p>A child's circadian rhythm is highly sensitive. Maintaining a consistent bedtime and morning wake time—even on weekends—promotes growth hormone release, improves daytime behavior, and helps them fall asleep much faster.</p>
+      </div>
+    </div>
+
+    <h2>Pediatric Sleep Guidelines</h2>
+    <p>Below are the official recommended hours of daily sleep (including naps) from the American Academy of Pediatrics:</p>
+    
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Age Group</th>
+          <th>Recommended Sleep</th>
+          <th>Cycle Length</th>
+          <th>Waking Symptoms of Deficit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Infants (4-11 mos)</strong></td>
+          <td>12 to 15 hours</td>
+          <td>~50 minutes</td>
+          <td>Excessive crying, rubbing eyes, zoning out</td>
+        </tr>
+        <tr>
+          <td><strong>Toddlers (1-2 yrs)</strong></td>
+          <td>11 to 14 hours</td>
+          <td>~50 minutes</td>
+          <td>Hyperactivity, daytime tantrums, resisting bedtime</td>
+        </tr>
+        <tr>
+          <td><strong>Preschool (3-5 yrs)</strong></td>
+          <td>10 to 13 hours</td>
+          <td>~60 minutes</td>
+          <td>Aggressive behaviors, morning grogginess, clumsiness</td>
+        </tr>
+        <tr>
+          <td><strong>School-Age (6-13 yrs)</strong></td>
+          <td>9 to 11 hours</td>
+          <td>~70 minutes</td>
+          <td>Lack of concentration, poor grades, moodiness</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'\u2600\ufe0f':'\ud83c\udf19'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'\u2600\ufe0f':'\ud83c\udf19'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+document.getElementById('back-top').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+
+// KIDS Sleep Calculator Engine
+(function() {
+  const ageBtns = document.querySelectorAll('.age-card-btn');
+  const tabWakeup = document.getElementById('tab-wakeup');
+  const tabSleep = document.getElementById('tab-sleep');
+  const timeInputRow = document.getElementById('time-input-row');
+  const sleepNowBox = document.getElementById('sleep-now-box');
+  const sleepNowTime = document.getElementById('sleep-now-time');
+  const calculateBtn = document.getElementById('calculate-btn');
+  
+  const resultsPanel = document.getElementById('results-panel');
+  const resultsLabel = document.getElementById('results-label');
+  const cyclesGrid = document.getElementById('cycles-grid');
+  const tipBox = document.getElementById('tip-box');
+  
+  let currentAge = 'infant';
+  let cycleDuration = 50; // default for infant
+  let minHours = 12;
+  let maxHours = 15;
+  let mode = 'wakeup'; // default
+
+  // Age selection toggles
+  ageBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      ageBtns.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentAge = btn.getAttribute('data-age');
+      cycleDuration = parseInt(btn.getAttribute('data-cycle'));
+      minHours = parseFloat(btn.getAttribute('data-min-hrs'));
+      maxHours = parseFloat(btn.getAttribute('data-max-hrs'));
+      if (resultsPanel.classList.contains('show')) {
+        runCalculation();
+      }
+    });
+  });
+
+  // Tab switching
+  tabWakeup.addEventListener('click', () => {
+    tabWakeup.classList.add('active');
+    tabSleep.classList.remove('active');
+    timeInputRow.style.display = '';
+    sleepNowBox.style.display = 'none';
+    mode = 'wakeup';
+    resultsPanel.classList.remove('show');
+  });
+
+  tabSleep.addEventListener('click', () => {
+    tabSleep.classList.add('active');
+    tabWakeup.classList.remove('active');
+    timeInputRow.style.display = 'none';
+    sleepNowBox.style.display = 'block';
+    mode = 'sleep';
+    resultsPanel.classList.remove('show');
+    updateLiveTime();
+  });
+
+  function updateLiveTime() {
+    const now = new Date();
+    let h = now.getHours();
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    sleepNowTime.textContent = `${h}:${m} ${ampm}`;
+  }
+  setInterval(() => {
+    if (mode === 'sleep') updateLiveTime();
+  }, 15000);
+
+  calculateBtn.addEventListener('click', runCalculation);
+
+  function fmt(d){
+    let h=d.getHours(),m=d.getMinutes();
+    const ap=h>=12?'PM':'AM';
+    h=h%12||12;
+    return `${h}:${m<10?'0'+m:m} ${ap}`;
+  }
+
+  function drawGraph(bedMs, cycles) {
+    const svg = document.getElementById('sleep-graph');
+    const W = 700, H = 140, pad = 30;
+    const colors = { light: '#9FE1CB', deep: '#1D9E75', rem: '#534AB7', awake: '#e5e7eb' };
+    const pts = [];
+    let t = 0;
+    for (let c = 0; c < cycles; c++) {
+      const seq = [
+        { h: 0.1, t: 0.02 }, { h: 0.35, t: 0.05 }, { h: 0.7, t: 0.08 },
+        { h: 1.0, t: 0.15 }, { h: 0.85, t: 0.2 }, { h: 0.5, t: 0.28 },
+        { h: 0.3, t: 0.36 }, { h: 0.6, t: 0.5 }, { h: 0.4, t: 0.65 },
+        { h: 0.15, t: 0.85 }, { h: 0.05, t: 1.0 }
+      ];
+      seq.forEach(p => {
+        const x = pad + (t / cycles + p.t / cycles) * (W - pad * 2);
+        const y = pad + (1 - p.h) * (H - pad * 2);
+        pts.push({ x, y, h: p.h });
+      });
+      t++;
+    }
+    pts.push({ x: W - pad, y: pad + (H - pad * 2) * 0.95, h: 0.05 });
+
+    let pathStr = `M ${pts[0].x} ${pts[0].y}`;
+    for (let i = 1; i < pts.length; i++) {
+      const prev = pts[i - 1], cur = pts[i];
+      const cpx = (prev.x + cur.x) / 2;
+      pathStr += ` C ${cpx} ${prev.y} ${cpx} ${cur.y} ${cur.x} ${cur.y}`;
+    }
+
+    let fills = '';
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p = pts[i], n = pts[i + 1];
+      const h = (p.h + n.h) / 2;
+      let col = h > 0.7 ? colors.deep : h > 0.4 ? colors.rem : h > 0.15 ? colors.light : colors.awake;
+      fills += `<polygon points="${p.x},${p.y} ${n.x},${n.y} ${n.x},${H - 4} ${p.x},${H - 4}" fill="${col}" opacity="0.25"/>`;
+    }
+
+    let markers = '';
+    for (let c = 1; c < cycles; c++) {
+      const x = pad + c / cycles * (W - pad * 2);
+      markers += `<line x1="${x}" y1="${pad}" x2="${x}" y2="${H - pad}" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,3"/>`;
+      const ti = new Date(bedMs + c * cycleDuration * 60 * 1000);
+      markers += `<text x="${x}" y="${H - 2}" text-anchor="middle" font-size="10" fill="#9ca3af">${fmt(ti)}</text>`;
+    }
+    const startT = new Date(bedMs);
+    const endT = new Date(bedMs + cycles * cycleDuration * 60 * 1000);
+    markers += `<text x="${pad}" y="${H - 2}" text-anchor="middle" font-size="10" fill="#9ca3af">${fmt(startT)}</text>`;
+    markers += `<text x="${W-pad}" y="${H-2}" text-anchor="end" font-size="10" fill="#1D9E75" font-weight="600">${fmt(endT)} ✓</text>`;
+
+    svg.innerHTML = `${fills}${markers}<path d="${pathStr}" fill="none" stroke="#1D9E75" stroke-width="2.5" stroke-linejoin="round"/>`;
+  }
+
+  function runCalculation() {
+    let targetMs;
+    if (mode === 'wakeup') {
+      const h = parseInt(document.getElementById('hour-select').value);
+      const m = parseInt(document.getElementById('minute-select').value);
+      const ampm = document.getElementById('ampm-select').value;
+      
+      let hr24 = h;
+      if (ampm === 'PM' && h !== 12) hr24 += 12;
+      if (ampm === 'AM' && h === 12) hr24 = 0;
+      
+      const now = new Date();
+      const target = new Date(now);
+      target.setHours(hr24, m, 0, 0);
+      if (target <= now) target.setDate(target.getDate() + 1);
+      targetMs = target.getTime();
+    } else {
+      const now = new Date();
+      targetMs = now.getTime() + 15 * 60 * 1000; // 15 mins to fall asleep
+    }
+
+    cyclesGrid.innerHTML = '';
+    
+    // We want to list 4 cycle options that approximately correspond to the age sleep targets.
+    // e.g. for Toddler (11-14 hours), cycle is 50 mins.
+    // Cycle counts that get us close to target hours:
+    // Toddler needs 11h (660 mins = 13.2 cycles) to 14h (840 mins = 16.8 cycles).
+    // Let's dynamically calculate cycle counts that fall within or near [minHours, maxHours]
+    const midHours = (minHours + maxHours) / 2;
+    const centerCycleCount = Math.round((midHours * 60) / cycleDuration);
+    
+    // Suggest 4 options: centerCycleCount - 1, centerCycleCount, centerCycleCount + 1, centerCycleCount + 2
+    const suggestedCycles = [
+      centerCycleCount + 1,
+      centerCycleCount,
+      centerCycleCount - 1,
+      centerCycleCount - 2
+    ];
+
+    if (mode === 'sleep') {
+      suggestedCycles.reverse(); // ascending order of alarm times
+    }
+
+    let defaultSelectMs = 0;
+    let defaultCycles = 0;
+
+    suggestedCycles.forEach((c, index) => {
+      // 15 mins bedtime wind-down is standard for kids
+      const ms = mode === 'wakeup'
+        ? targetMs - (c * cycleDuration * 60 * 1000) - (15 * 60 * 1000)
+        : targetMs + (c * cycleDuration * 60 * 1000);
+      
+      if (index === 1) {
+        defaultSelectMs = mode === 'wakeup' ? ms : targetMs;
+        defaultCycles = c;
+      }
+
+      const d = new Date(ms);
+      const hoursCount = (c * cycleDuration) / 60;
+      
+      // Best badge if it matches the average sweet spot cycle
+      const isBest = c === centerCycleCount;
+
+      const card = document.createElement('div');
+      card.className = 'cycle-card' + (isBest ? ' best' : '');
+      card.innerHTML = `
+        <div class="c-time">${fmt(d)}</div>
+        <div class="c-cycles">${c} cycles</div>
+        <div class="c-hours">${hoursCount.toFixed(1)}h sleep</div>
+        ${isBest ? '<div class="best-badge">Ideal</div>' : ''}
+      `;
+      
+      card.onclick = () => {
+        document.querySelectorAll('.cycle-card').forEach(x => x.style.transform = '');
+        card.style.transform = 'scale(1.04)';
+        const drawMs = mode === 'wakeup' ? ms : targetMs;
+        drawGraph(drawMs, c);
+      };
+
+      cyclesGrid.appendChild(card);
+    });
+
+    drawGraph(defaultSelectMs, defaultCycles);
+
+    resultsLabel.textContent = mode === 'wakeup' 
+      ? 'Ideal bedtimes for your child:' 
+      : 'Wake-up alarms based on cycle lengths:';
+
+    tipBox.innerHTML = mode === 'wakeup'
+      ? `<strong>Pediatric Sleep Guidance:</strong> Children in the <strong>${currentAge}</strong> group need between <strong>${minHours}-${maxHours} hours</strong> of sleep. The "Ideal" bedtime yields <strong>${(centerCycleCount * cycleDuration / 60).toFixed(1)} hours</strong> across ${centerCycleCount} full sleep cycles of ${cycleDuration} minutes. Bedtime calculations already include a 15-minute wind-down buffer.`
+      : `<strong>Pediatric Sleep Guidance:</strong> Alarm calculations are tailored to a cycle length of <strong>${cycleDuration} minutes</strong>. Bedtime begins 15 minutes after putting them down. Tap any card above to see the sleep structure graph.`;
+
+    resultsPanel.classList.add('show');
+    setTimeout(() => resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+
+})();
+</script>
+</body>
+</html>

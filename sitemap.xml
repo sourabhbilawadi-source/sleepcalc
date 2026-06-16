@@ -61,6 +61,36 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://goodsleep.rest/caffeine-calculator</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://goodsleep.rest/bedtime-calculator</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://goodsleep.rest/kids-sleep-calculator</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://goodsleep.rest/magnesium-glycinate</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://goodsleep.rest/sleep-hygiene</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://goodsleep.rest/about</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
