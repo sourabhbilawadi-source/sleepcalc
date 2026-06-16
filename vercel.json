@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/sleep-calculator", "destination": "/sleep-calculator.html" },
     { "source": "/explore", "destination": "/explore.html" },
     { "source": "/caffeine-calculator", "destination": "/caffeine-calculator.html" },
     { "source": "/bedtime-calculator", "destination": "/bedtime-calculator.html" },
