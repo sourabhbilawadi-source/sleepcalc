@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signs You Have Sleep Apnea: Symptoms &amp; Risks — GoodSleep</title>
+<meta name="description" content="Wondering if you have sleep apnea? Snoring, gasping, or morning fatigue? Read our guide on key symptoms, risks, and how to evaluate your risk level.">
+<meta property="og:title" content="Signs You Have Sleep Apnea: Symptoms &amp; Risks — GoodSleep">
+<meta property="og:description" content="Learn the key indicators of Obstructive Sleep Apnea and assess your risk level.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://goodsleep.rest/blog/signs-you-have-sleep-apnea">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .article-header {
+    margin-bottom: 2rem;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .article-category {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .article-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .article-content p {
+    margin-bottom: 1.5rem;
+  }
+  .article-content h2 {
+    font-size: 22px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .article-content h3 {
+    font-size: 18px;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  .article-content ul, .article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .article-content li {
+    margin-bottom: 0.5rem;
+  }
+  /* Premium CTA Card */
+  .blog-cta-card {
+    background: linear-gradient(135deg, rgba(29, 158, 117, 0.06), rgba(83, 74, 183, 0.06));
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.75rem;
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: var(--shadow);
+  }
+  .blog-cta-info {
+    flex: 1;
+  }
+  .blog-cta-info h3 {
+    margin: 0 0 6px 0 !important;
+    font-size: 18px !important;
+    color: var(--text);
+  }
+  .blog-cta-info p {
+    margin: 0 !important;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .blog-cta-btn {
+    background: var(--teal);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .blog-cta-btn:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(29,158,117,0.2);
+  }
+  @media (max-width: 600px) {
+    .blog-cta-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 1.25rem;
+    }
+    .blog-cta-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb" style="font-size: 13px; opacity: 0.8; margin-bottom: 0.5rem;"><a href="/blog" style="color: inherit; text-decoration: none;">Blog</a> › Sleep Science</div>
+  <h1 style="font-size: clamp(28px, 5vw, 40px); line-height: 1.2;">Signs You Have Sleep Apnea: Symptoms &amp; Risks</h1>
+  <p class="hero-sub">Could your fatigue be breathing-related? Explore the clinical indicators of Obstructive Sleep Apnea.</p>
+</div>
+
+<div class="page">
+  <article class="article-content">
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="article-category">Sleep Science</span>
+        <span>June 16, 2026</span>
+        <span>⏱️ 5 min read</span>
+      </div>
+    </div>
+
+    <p>Millions of people worldwide struggle with chronic daytime fatigue, morning headaches, and poor concentration. Often, they blame their stress levels or busy schedules. But for many, the actual culprit is a silent sleep disorder: **Obstructive Sleep Apnea (OSA)**.</p>
+    
+    <p>Sleep apnea is a serious medical condition where your breathing repeatedly stops and starts during the night. Left untreated, it places severe strain on your cardiovascular system, increases stroke risk, and causes chronic exhaustion. Here is how to identify the signs of sleep apnea.</p>
+
+    <h2>What is Obstructive Sleep Apnea?</h2>
+    <p>Obstructive Sleep Apnea occurs when the throat muscles and soft tissues at the back of your mouth temporarily relax during sleep. This relaxation causes your airway to narrow or close completely, cutting off airflow (an apnea event). </p>
+    
+    <p>When your blood oxygen drops, your brain senses the danger and briefly jolts you out of sleep (a micro-arousal) to reopen your airway. These events can occur **30 to 100 times per hour**, preventing you from spending time in deep slow-wave sleep and REM dreaming sleep.</p>
+
+    <h2>Key Signs &amp; Symptoms of Sleep Apnea</h2>
+    <p>Because these events occur when you are unconscious, many sufferers have no memory of waking up. Instead, they must look for the daytime and nighttime consequences of sleep apnea:</p>
+
+    <h3>1. Loud, Chronic Snoring</h3>
+    <p>Loud snoring is the most common indicator of airway narrowing. While not everyone who snores has sleep apnea, chronic, disruptive snoring that is interrupted by silent pauses is a major warning sign.</p>
+
+    <h3>2. Gasping or Choking for Air</h3>
+    <p>If you sleep with a partner, they may observe you suddenly stop breathing, followed by a sudden gasp, snort, or choking sound as your brain forces the airway to reopen. Waking up suddenly feeling out of breath is a clear indicator.</p>
+
+    <h3>3. Chronic Morning Headaches &amp; Dry Mouth</h3>
+    <p>Waking up with a dull, throbbing headache is caused by low oxygen levels and CO2 retention in the blood during the night. Waking up with a dry mouth or sore throat is caused by breathing through an open mouth to bypass airway blockages.</p>
+
+    <h3>4. Severe Daytime Fatigue</h3>
+    <p>Because micro-arousals break up your sleep architecture, you spend very little time in deep sleep. This results in severe daytime grogginess, lack of focus, and an urge to nod off during passive activities like reading, driving, or sitting in meetings.</p>
+
+    <!-- CTA Card: Sleep Apnea Quiz -->
+    <div class="blog-cta-card">
+      <div class="blog-cta-info">
+        <h3>Assess Your Sleep Apnea Risk Level</h3>
+        <p>Uncover your risk score using the clinical STOP-BANG questionnaire—the standard diagnostic tool used by sleep medicine specialists.</p>
+      </div>
+      <a href="/sleep-apnea-quiz" class="blog-cta-btn">Take Sleep Apnea Quiz</a>
+    </div>
+
+    <h2>Risk Factors: Who is Most Vulnerable?</h2>
+    <p>While sleep apnea can affect anyone (including children and thin individuals), certain physiological traits increase your risk:
+      <ul>
+        <li><strong>Body Weight:</strong> Excess fat deposits around the upper airway can obstruct breathing.</li>
+        <li><strong>Neck Circumference:</strong> Men with a neck size of 17 inches (43 cm) or larger, and women with 16 inches (40 cm) or larger, have a higher risk.</li>
+        <li><strong>Gender:</strong> Men are 2 to 3 times more likely to develop sleep apnea than pre-menopausal women.</li>
+        <li><strong>Age:</strong> Sleep apnea occurs significantly more frequently in adults over 50.</li>
+      </ul>
+    </p>
+
+    <h2>Next Steps: What to Do If You Have Signs</h2>
+    <p>If you snore regularly and struggle with morning fatigue, take action:
+      <ol>
+        <li><strong>Take the STOP-BANG Quiz:</strong> Answer the 8 clinical questions on our interactive Sleep Apnea Quiz to check your risk profile (Low, Medium, or High).</li>
+        <li><strong>Consult a Doctor:</strong> If your risk is moderate or high, share your quiz results with a doctor. They can schedule a home sleep test (HST) or an in-lab polysomnography study.</li>
+        <li><strong>Standard Treatments:</strong> Sleep apnea is highly treatable. Solutions include Continuous Positive Airway Pressure (CPAP) therapy, custom oral appliances, or positional therapy.</li>
+      </ol>
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>Sleep apnea is a treatable condition that should not be ignored. If you snore loudly, wake up dry, or fight fatigue all day, check your risk level with our Sleep Apnea Quiz. Diagnosing and treating sleep apnea is one of the most life-changing things you can do for your health and vitality.</p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME MANAGEMENT
+(function(){
+  var t = document.getElementById('theme-toggle');
+  if(!t) return;
+  function updateBtn(theme){
+    t.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+  }
+  var current = localStorage.getItem('gs-theme');
+  if(!current) {
+    current = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  }
+  updateBtn(current);
+  t.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('gs-theme', next);
+    updateBtn(next);
+  });
+})();
+
+// BACK TO TOP
+(function(){
+  var b = document.getElementById('back-top');
+  if(!b) return;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 400) b.classList.add('visible');
+    else b.classList.remove('visible');
+  });
+  b.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

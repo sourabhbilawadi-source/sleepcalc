@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Am I Always Tired After 8 Hours of Sleep? — GoodSleep</title>
+<meta name="description" content="Always tired despite getting 8 hours of sleep? Discover why sleep quality, apnea, chronotype mismatch, and sleep disruptions leave you groggy.">
+<meta property="og:title" content="Why Am I Always Tired After 8 Hours of Sleep? — GoodSleep">
+<meta property="og:description" content="Learn the difference between sleep quantity and quality and check for hidden sleep disruptions.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://goodsleep.rest/blog/why-am-i-always-tired-even-after-8-hours-of-sleep">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .article-header {
+    margin-bottom: 2rem;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .article-category {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .article-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .article-content p {
+    margin-bottom: 1.5rem;
+  }
+  .article-content h2 {
+    font-size: 22px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .article-content h3 {
+    font-size: 18px;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  .article-content ul, .article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .article-content li {
+    margin-bottom: 0.5rem;
+  }
+  /* Premium CTA Card */
+  .blog-cta-card {
+    background: linear-gradient(135deg, rgba(29, 158, 117, 0.06), rgba(83, 74, 183, 0.06));
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.75rem;
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: var(--shadow);
+  }
+  .blog-cta-info {
+    flex: 1;
+  }
+  .blog-cta-info h3 {
+    margin: 0 0 6px 0 !important;
+    font-size: 18px !important;
+    color: var(--text);
+  }
+  .blog-cta-info p {
+    margin: 0 !important;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .blog-cta-btn {
+    background: var(--teal);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .blog-cta-btn:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(29,158,117,0.2);
+  }
+  @media (max-width: 600px) {
+    .blog-cta-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 1.25rem;
+    }
+    .blog-cta-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb" style="font-size: 13px; opacity: 0.8; margin-bottom: 0.5rem;"><a href="/blog" style="color: inherit; text-decoration: none;">Blog</a> › Sleep Science</div>
+  <h1 style="font-size: clamp(28px, 5vw, 40px); line-height: 1.2;">Why Am I Always Tired Even After 8 Hours of Sleep?</h1>
+  <p class="hero-sub">Unraveling the mystery of poor sleep quality. Discover why sleep duration alone doesn't guarantee energy.</p>
+</div>
+
+<div class="page">
+  <article class="article-content">
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="article-category">Sleep Science</span>
+        <span>June 16, 2026</span>
+        <span>⏱️ 5 min read</span>
+      </div>
+    </div>
+
+    <p>You did everything right. You went to bed on time, spent a full 8 hours in bed, and woke up to your alarm. Yet, the moment your feet hit the floor, you feel exhausted. You find yourself fighting off fatigue all day, wondering: *how can I be this tired when I slept for 8 hours?*</p>
+    
+    <p>In sleep science, this is one of the most common complaints. The reason is simple: **sleep quantity does not equal sleep quality**. If your sleep structure is fragmented or out of sync with your biology, even a 10-hour night will leave you feeling drained. Let's look at the primary reasons you might be tired after a full night's sleep.</p>
+
+    <h2>1. Sleep Fragmentation & Micro-Arousals</h2>
+    <p>You might believe you slept continuously for 8 hours, but your brain might have woken up dozens of times without you realizing it. These are called **micro-arousals**—brief awakenings lasting 3 to 15 seconds that are too short to remember, but long enough to disrupt your sleep cycle and kick you out of deep, slow-wave sleep.</p>
+    
+    <p>Common triggers for micro-arousals include:</p>
+    <ul>
+      <li><strong>Subtle Breathing Interruptions:</strong> Obstructive Sleep Apnea (OSA) is characterized by temporary airway blockages that force the brain to wake up to breathe. Even mild apnea can cause 15+ micro-arousals *per hour*, completely destroying sleep quality.</li>
+      <li><strong>Environmental Disruptions:</strong> Subtle room noises, temperature spikes (above 68°F / 20°C), or light leakage into your bedroom.</li>
+      <li><strong>Late Digestion:</strong> Digesting a heavy meal forces your body to expend energy, raising your core body temperature and heart rate when they should be at their lowest.</li>
+    </ul>
+
+    <!-- CTA Card 1: Sleep Apnea Quiz -->
+    <div class="blog-cta-card">
+      <div class="blog-cta-info">
+        <h3>Could it Be Sleep Apnea?</h3>
+        <p>Evaluate your risk levels for breathing-related sleep fragmentation. Take our interactive STOP-BANG Sleep Apnea Quiz.</p>
+      </div>
+      <a href="/sleep-apnea-quiz" class="blog-cta-btn">Take Sleep Apnea Quiz</a>
+    </div>
+
+    <h2>2. Chronotype Mismatch (Social Jet Lag)</h2>
+    <p>Your sleep schedule might be in conflict with your genetics. If you are naturally a **Wolf** (night owl) but force yourself to sleep from 10:00 PM to 6:00 AM to align with a 9-to-5 schedule, your sleep quality will suffer. Waking up during your biological "melatonin window" (when your brain is still producing sleep hormones) triggers severe grogginess, even if you got 8 hours of sleep.</p>
+
+    <!-- CTA Card 2: Chronotype Quiz -->
+    <div class="blog-cta-card">
+      <div class="blog-cta-info">
+        <h3>Discover Your Biological Sleep Schedule</h3>
+        <p>Are you sleeping out of alignment with your biological clock? Take our Chronotype Quiz to find your optimal circadian schedule.</p>
+      </div>
+      <a href="/chronotype" class="blog-cta-btn">Start Chronotype Quiz</a>
+    </div>
+
+    <h2>3. The "Light Pollution" Effect on Deep Sleep</h2>
+    <p>Exposure to blue light from smartphones, TVs, and tablets in the 2 hours before bed suppresses **melatonin production**. While you might still fall asleep, the lack of melatonin shifts your sleep architecture: your brain spends less time in Stage N3 deep sleep (which is responsible for physical recovery) and more time in light sleep, leaving you unrefreshed in the morning.</p>
+
+    <h2>Conclusion</h2>
+    <p>If you are consistently tired after 8 hours of sleep, stop counting hours and start auditing sleep quality. Protect your deep sleep stages by dimming lights before bed, keeping your room cool, and taking our Sleep Apnea Quiz to verify that breathing issues aren't fragmenting your night.</p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME MANAGEMENT
+(function(){
+  var t = document.getElementById('theme-toggle');
+  if(!t) return;
+  function updateBtn(theme){
+    t.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+  }
+  var current = localStorage.getItem('gs-theme');
+  if(!current) {
+    current = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  }
+  updateBtn(current);
+  t.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('gs-theme', next);
+    updateBtn(next);
+  });
+})();
+
+// BACK TO TOP
+(function(){
+  var b = document.getElementById('back-top');
+  if(!b) return;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 400) b.classList.add('visible');
+    else b.classList.remove('visible');
+  });
+  b.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

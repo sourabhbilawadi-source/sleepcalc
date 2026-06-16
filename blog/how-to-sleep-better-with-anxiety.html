@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Sleep Better with Anxiety — GoodSleep</title>
+<meta name="description" content="Struggle with a racing mind at night? Read our science-backed guide on how to calm anxiety before bed, calm hyperarousal, and sleep peacefully.">
+<meta property="og:title" content="How to Sleep Better with Anxiety — GoodSleep">
+<meta property="og:description" content="Discover neurological strategies to calm your racing mind and improve sleep quality under stress.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://goodsleep.rest/blog/how-to-sleep-better-with-anxiety">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .article-header {
+    margin-bottom: 2rem;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .article-category {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .article-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .article-content p {
+    margin-bottom: 1.5rem;
+  }
+  .article-content h2 {
+    font-size: 22px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .article-content h3 {
+    font-size: 18px;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  .article-content ul, .article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .article-content li {
+    margin-bottom: 0.5rem;
+  }
+  /* Premium CTA Card */
+  .blog-cta-card {
+    background: linear-gradient(135deg, rgba(29, 158, 117, 0.06), rgba(83, 74, 183, 0.06));
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.75rem;
+    margin: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: var(--shadow);
+  }
+  .blog-cta-info {
+    flex: 1;
+  }
+  .blog-cta-info h3 {
+    margin: 0 0 6px 0 !important;
+    font-size: 18px !important;
+    color: var(--text);
+  }
+  .blog-cta-info p {
+    margin: 0 !important;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .blog-cta-btn {
+    background: var(--teal);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .blog-cta-btn:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(29,158,117,0.2);
+  }
+  @media (max-width: 600px) {
+    .blog-cta-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 1.25rem;
+    }
+    .blog-cta-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb" style="font-size: 13px; opacity: 0.8; margin-bottom: 0.5rem;"><a href="/blog" style="color: inherit; text-decoration: none;">Blog</a> › Circadian Rhythm</div>
+  <h1 style="font-size: clamp(28px, 5vw, 40px); line-height: 1.2;">How to Sleep Better with Anxiety &amp; a Racing Mind</h1>
+  <p class="hero-sub">Calm hyperarousal naturally. Learn how the nervous system regulates sleep and protocols to wind down.</p>
+</div>
+
+<div class="page">
+  <article class="article-content">
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="article-category">Circadian Rhythm</span>
+        <span>June 16, 2026</span>
+        <span>⏱️ 5 min read</span>
+      </div>
+    </div>
+
+    <p>You lie down in bed, close your eyes, and wait for sleep. But instead of resting, your brain switches into high gear. You begin rehashing past conversations, obsessing over tomorrow's to-do list, or worrying about your inability to fall asleep. </p>
+    
+    <p>This "racing mind at night" is the classic sign of anxiety-induced insomnia. In neurology, this is known as **hyperarousal**—a state where your sympathetic nervous system (fight-or-flight) overrides your parasympathetic nervous system (rest-and-digest). To sleep, you cannot simply force your eyes shut; you must actively deactivate this biological threat response.</p>
+
+    <h2>The Biology of Sleep Anxiety</h2>
+    <p>When you feel anxious, your adrenal glands release stress hormones: **cortisol, adrenaline, and noradrenaline**. These hormones raise your heart rate, increase muscle tension, and keep your brain in a state of high vigilance. Waking up during cortisol surges prevents you from sliding into light sleep stages. </p>
+    
+    <p>Fortunately, you can use physical, neurological, and nutritional triggers to deactivate the stress response and trigger a natural sleep state.</p>
+
+    <h2>1. Neurological Offloading: The "Brain Dump"</h2>
+    <p>One of the primary triggers for late-night anxiety is carrying unorganized tasks or concerns in your working memory. Your brain acts as a survival engine; if a task is incomplete, it will repeatedly alert you to prevent you from forgetting it. </p>
+    
+    <p>To stop this cycle: **keep a journal by your bed**. Two hours before sleep, write down a complete, bulleted list of everything on your mind, along with a simple action step for tomorrow. Physically putting these thoughts on paper signals your brain that it is safe to let go of them for the night.</p>
+
+    <h2>2. Deep Pressure Stimulation: Weighted Blankets</h2>
+    <p>Physiological anxiety can be calmed using **Deep Pressure Stimulation (DPS)**. DPS applies gentle, distributed weight across the body, which mimics the sensory input of a hug or swaddle. </p>
+    
+    <p>DPS has been clinically shown to:
+      <ul>
+        <li>Increase **serotonin** and **melatonin** levels in the brain.</li>
+        <li>Decrease **cortisol** (stress hormone) concentrations.</li>
+        <li>Increase parasympathetic activity (resting heart rate variability).</li>
+      </ul>
+    </p>
+
+    <!-- CTA Card 1: Weighted Blanket Calculator -->
+    <div class="blog-cta-card">
+      <div class="blog-cta-info">
+        <h3>Find Your Optimal Blanket Weight</h3>
+        <p>A weighted blanket should be tailored to your body weight to ensure comfort and safety. Use our Weighted Blanket Calculator to find your ideal size.</p>
+      </div>
+      <a href="/weighted-blanket-calculator" class="blog-cta-btn">Calculate Blanket Weight</a>
+    </div>
+
+    <h2>3. Nutritional Support: The Calming Mineral</h2>
+    <p>Anxiety-induced hyperarousal is often exacerbated by mineral deficiencies—specifically **magnesium**. Magnesium plays a critical role in blocking the excitatory neurotransmitter glutamate, allowing the brain to transition into a quiet, GABA-regulated state. </p>
+    
+    <p>However, different forms of magnesium have very different bioavailabilities. **Magnesium Glycinate** is bound to the amino acid glycine, which acts as a inhibitory neurotransmitter in the brain, making it the most potent form for anxiety and muscle relaxation. Avoid magnesium oxide or citrate, which primarily act as laxatives.</p>
+
+    <!-- CTA Card 2: Magnesium Quiz -->
+    <div class="blog-cta-card">
+      <div class="blog-cta-info">
+        <h3>Which Magnesium is Best for Your Sleep?</h3>
+        <p>Find the best therapeutic magnesium form for your brain, muscle, and digestive profile. Take our interactive Magnesium Quiz.</p>
+      </div>
+      <a href="/magnesium-type-quiz" class="blog-cta-btn">Take Magnesium Quiz</a>
+    </div>
+
+    <h2>4. Breathwork: The 4-7-8 Technique</h2>
+    <p>You can directly manipulate your autonomic nervous system using your breathing pattern. The **4-7-8 breathing technique** (developed by Dr. Andrew Weil) acts as a natural tranquilizer for the nervous system:
+      <ol>
+        <li>Exhale completely through your mouth.</li>
+        <li>Inhale quietly through your nose for a count of **4 seconds**.</li>
+        <li>Hold your breath for a count of **7 seconds**.</li>
+        <li>Exhale completely through your mouth, making a "whoosh" sound, for a count of **8 seconds**.</li>
+        <li>Repeat this cycle 4 times.</li>
+      </ol>
+      The extended 8-second exhalation slows your heart rate and forces your vagus nerve to send calming signals throughout your body.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>Sleeping with anxiety requires working with your biology, not fighting it. Offload your thoughts onto paper, activate deep pressure pathways with a weighted blanket, supplement with magnesium glycinate, and use 4-7-8 breathing to signal your brain that it is safe to rest.</p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME MANAGEMENT
+(function(){
+  var t = document.getElementById('theme-toggle');
+  if(!t) return;
+  function updateBtn(theme){
+    t.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+  }
+  var current = localStorage.getItem('gs-theme');
+  if(!current) {
+    current = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  }
+  updateBtn(current);
+  t.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('gs-theme', next);
+    updateBtn(next);
+  });
+})();
+
+// BACK TO TOP
+(function(){
+  var b = document.getElementById('back-top');
+  if(!b) return;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 400) b.classList.add('visible');
+    else b.classList.remove('visible');
+  });
+  b.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>
