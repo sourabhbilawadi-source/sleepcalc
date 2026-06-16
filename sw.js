@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goodsleep-v2';
+const CACHE_NAME = 'goodsleep-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -80,33 +80,40 @@ self.addEventListener('fetch', event => {
     cacheKey += '.html';
   }
 
+  const absoluteCacheUrl = new URL(cacheKey, self.location.origin).toString();
+
   event.respondWith(
-    caches.match(cacheKey).then(cachedResponse => {
+    caches.match(absoluteCacheUrl).then(cachedResponse => {
       if (cachedResponse) {
         // Fetch a fresh version in the background (stale-while-revalidate)
         fetch(event.request).then(networkResponse => {
-          if (networkResponse.status === 200) {
+          if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then(cache => {
-              cache.put(cacheKey, networkResponse);
+              cache.put(absoluteCacheUrl, networkResponse.clone());
             });
           }
-        }).catch(() => {/* Ignore network errors offline */});
+        }).catch(err => {
+          console.warn('Background sync failed:', err);
+        });
         
         return cachedResponse;
       }
 
       // Fallback to network
       return fetch(event.request).then(networkResponse => {
-        if (networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200) {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then(cache => {
-            cache.put(cacheKey, responseToCache);
+            cache.put(absoluteCacheUrl, responseToCache);
           });
         }
         return networkResponse;
-      }).catch(() => {
-        // Fail silently or handle fallback if needed
       });
+    }).catch(err => {
+      // Critical fallback: if caches.match or network fetch fails inside our code,
+      // return a direct fetch to the network to avoid breaking the page display.
+      console.error('Service Worker fallback to network:', err);
+      return fetch(event.request);
     })
   );
 });
