@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"Sleepy Girl Mocktail" Recipe & Timing Calculator — GoodSleep</title>
+<meta name="description" content="Optimize your Sleepy Girl Mocktail! Calculate the perfect time to drink it based on fluid volume and target bedtime to get sleep benefits without midnight bathroom trips.">
+<meta property="og:title" content="Sleepy Girl Mocktail Recipe & Timing Calculator — GoodSleep">
+<meta property="og:description" content="Calculate your custom Sleepy Girl Mocktail recipe proportions and optimal intake window to avoid sleep-disrupting nocturia.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/sleepy-girl-mocktail">
+<meta property="og:url" content="https://goodsleep.rest/sleepy-girl-mocktail">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Sleepy Girl Mocktail</div>
+  <h1>"Sleepy Girl Mocktail"<br>Timing & Recipe Calculator</h1>
+  <p class="hero-sub">Balance sleep-promoting ingredients with fluid volume. Calculate the optimal time to drink your mocktail to fall asleep easily without waking up to use the bathroom.</p>
+</div>
+
+<div class="page">
+  <div class="sg-container">
+    <!-- INPUT PANEL -->
+    <div class="sg-panel">
+      <div class="sg-title-row">
+        <div class="sg-icon-circle">🍹</div>
+        <h3>Recipe Proportions</h3>
+      </div>
+
+      <div class="sg-form-group">
+        <label>Tart Cherry Juice (oz)</label>
+        <div class="sg-slider-row">
+          <input type="range" id="sg-cherry-slider" class="sg-slider" min="2" max="12" value="4" oninput="syncCherrySlider(this.value)">
+          <input type="number" id="sg-cherry-num" class="sg-num-input" min="2" max="12" value="4" oninput="syncCherryNum(this.value)">
+        </div>
+      </div>
+
+      <div class="sg-form-group">
+        <label>Magnesium Supplement Form</label>
+        <select id="sg-mag-type" class="sg-select" onchange="calculateMocktail()">
+          <option value="glycinate" selected>Magnesium Bisglycinate (Recommended)</option>
+          <option value="citrate">Magnesium Citrate (Laxative risk)</option>
+          <option value="carbonate">Magnesium Carbonate (E.g. Natural Calm)</option>
+        </select>
+      </div>
+
+      <div class="sg-form-group">
+        <label>Magnesium Dosage (mg)</label>
+        <div class="sg-slider-row">
+          <input type="range" id="sg-mag-slider" class="sg-slider" min="50" max="600" step="10" value="200" oninput="syncMagSlider(this.value)">
+          <input type="number" id="sg-mag-num" class="sg-num-input" min="50" max="600" step="10" value="200" oninput="syncMagNum(this.value)">
+        </div>
+      </div>
+
+      <div class="sg-form-group">
+        <label>Diluent Soda / Sparkling Water (oz)</label>
+        <div class="sg-slider-row">
+          <input type="range" id="sg-diluent-slider" class="sg-slider" min="2" max="16" value="6" oninput="syncDiluentSlider(this.value)">
+          <input type="number" id="sg-diluent-num" class="sg-num-input" min="2" max="16" value="6" oninput="syncDiluentNum(this.value)">
+        </div>
+      </div>
+
+      <div class="sg-form-group">
+        <label>Target Bedtime</label>
+        <input type="time" id="sg-bedtime" class="sg-select" value="22:30" oninput="calculateMocktail()">
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="sg-results">
+      <div class="sg-main-card">
+        <div class="sg-result-label">Optimal Drink Window</div>
+        <div class="sg-time-display" id="sg-time-output">9:30 PM</div>
+        <div class="sg-volume-display" id="sg-volume-output">Total Volume: 10 oz</div>
+        <div class="sg-desc-display" id="sg-desc-output">
+          Drink your mocktail between 9:00 PM and 9:30 PM (60 to 90 minutes before bedtime) to allow your kidneys to process the fluids before you go to sleep.
+        </div>
+      </div>
+
+      <!-- Glass SVG preview -->
+      <div class="sg-glass-card">
+        <div class="sg-result-label" style="margin-bottom:0.5rem;">Visual Glass Fill</div>
+        <div class="sg-glass-container">
+          <svg class="sg-glass-svg" viewBox="0 0 100 150" id="sg-glass-svg">
+            <!-- Tart Cherry Juice (Red bottom layer) -->
+            <path d="M 23 115 L 77 115 L 73 130 L 27 130 Z" fill="#7F1D1D" id="sg-layer-cherry" />
+            <!-- Magnesium powder (Violet middle layer) -->
+            <path d="M 21 100 L 79 100 L 77 115 L 23 115 Z" fill="#8B5CF6" opacity="0.8" id="sg-layer-mag" />
+            <!-- Diluent Sparkling Water (Pink top layer) -->
+            <path d="M 15 60 L 85 60 L 79 100 L 21 100 Z" fill="#F472B6" opacity="0.6" id="sg-layer-diluent" />
+            
+            <!-- Animated bubbles (SVG elements) -->
+            <circle cx="30" cy="95" r="1.5" fill="#FFFFFF" class="sg-bubble-node" style="animation-delay: 0s; --dur: 2.5s" />
+            <circle cx="50" cy="80" r="1.2" fill="#FFFFFF" class="sg-bubble-node" style="animation-delay: 0.5s; --dur: 3s" />
+            <circle cx="70" cy="90" r="1.8" fill="#FFFFFF" class="sg-bubble-node" style="animation-delay: 1s; --dur: 2s" />
+            <circle cx="40" cy="110" r="1" fill="#FFFFFF" class="sg-bubble-node" style="animation-delay: 1.5s; --dur: 2.7s" />
+            <circle cx="60" cy="105" r="1.5" fill="#FFFFFF" class="sg-bubble-node" style="animation-delay: 2s; --dur: 3.2s" />
+
+            <!-- Glass Outline (Coupe or Highball goblet design) -->
+            <path d="M 10 30 L 12 50 L 20 110 L 27 135 L 73 135 L 80 110 L 88 50 L 90 30 Z" fill="none" stroke="#E5E7EB" stroke-width="2.5" />
+            <path d="M 47 135 L 47 145 L 35 145 L 35 147 L 65 147 L 65 145 L 53 145 L 53 135 Z" fill="none" stroke="#E5E7EB" stroke-width="2.5" />
+            
+            <!-- Lime garnish wheel on the rim -->
+            <g class="sg-cherry-garnish" id="garnish-wheel" transform="translate(13, 27)">
+              <circle cx="0" cy="0" r="12" fill="#10B981" stroke="#FFFFFF" stroke-width="1.5" />
+              <!-- Segments -->
+              <line x1="0" y1="0" x2="0" y2="-12" stroke="#FFFFFF" stroke-width="1" />
+              <line x1="0" y1="0" x2="0" y2="12" stroke="#FFFFFF" stroke-width="1" />
+              <line x1="0" y1="0" x2="-12" y2="0" stroke="#FFFFFF" stroke-width="1" />
+              <line x1="0" y1="0" x2="12" y2="0" stroke="#FFFFFF" stroke-width="1" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Warnings and tips -->
+      <div class="sg-tip-box" id="sg-notice-box">
+        <strong>Bladder Note:</strong> A classic Sleepy Girl Mocktail contains around 10-12 oz of fluid. To prevent waking up at 3 AM to urinate, drink it at least 60-90 minutes before sleeping.
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATIONAL SECTION -->
+  <div class="sg-science">
+    <h2>The Science Behind the "Sleepy Girl Mocktail"</h2>
+    <p>The Sleepy Girl Mocktail is more than a social media trend. It is based on two clinically studied compounds that support natural sleep: **Magnesium** and **Tart Cherry Juice**. When combined, they offer a synergistic calming effect on your nervous system.</p>
+
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>How Tart Cherry Juice Promotes Sleep</h3>
+        <p>Montmorency tart cherries are one of the few natural dietary sources of <strong>melatonin</strong>, the hormone that regulates sleep-wake cycles. Additionally, they are rich in <strong>tryptophan</strong> (an amino acid used to synthesize serotonin and melatonin) and procyanidins (antioxidants that prevent tryptophan breakdown in the body).</p>
+        <p>Clinical studies show that drinking 8 oz of tart cherry juice daily increases sleep time by an average of 84 minutes in older adults suffering from insomnia.</p>
+      </div>
+
+      <div class="about-card">
+        <h3>Magnesium's Role in Muscle & Brain Relaxation</h3>
+        <p>Magnesium acts as an agonist for **GABA** (gamma-aminobutyric acid), the primary inhibitory neurotransmitter that calms down nerve activity. By binding to GABA receptors, magnesium quietens the central nervous system, reduces muscle tension, and lowers heart rate.</p>
+        <p>Using **Magnesium Bisglycinate** (glycinate) is highly recommended over magnesium citrate or carbonate, as glycine is an amino acid that has its own calming effect and doesn't cause digestive irritation.</p>
+      </div>
+    </div>
+
+    <h3>The "Nocturia Trap"</h3>
+    <p>Drinking a large glass of liquid immediately before bed overrides any biochemical sleep benefit it provides. The volume of fluid stretches your bladder, signalling your brain to wake you up in the middle of the night to urinate. Waking up during deep sleep or REM sleep cycles fragments your rest and causes next-day grogginess. Therefore, timing your mocktail to be consumed **60 to 90 minutes before bed** allows your body to process the fluid and empty the bladder before sleep begins.</p>
+
+    <div class="mela-citations">
+      <strong>References & Research Sources:</strong>
+      <ol>
+        <li><strong>American Journal of Therapeutics (2018):</strong> <em>"Pilot study of tart cherry juice for the treatment of insomnia and investigation of mechanisms."</em> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5617749/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
+        <li><strong>Journal of Research in Medical Sciences (2012):</strong> <em>"The effect of magnesium supplementation on primary insomnia in elderly: A double-blind placebo-controlled clinical trial."</em> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3703169/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// ── THEME & STARS ──
+(function(){
+  var s=localStorage.getItem('gs-theme');
+  if(s)document.documentElement.setAttribute('data-theme',s);
+  var b=document.getElementById('theme-toggle');
+  if(b){
+    var th=document.documentElement.getAttribute('data-theme');
+    var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent=dk?'☀️':'🌙';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var r=document.documentElement;
+  var c=r.getAttribute('data-theme');
+  var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  var n=dk?'light':'dark';
+  r.setAttribute('data-theme',n);
+  localStorage.setItem('gs-theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+
+// STARS background
+const starsEl = document.getElementById('stars');
+if(starsEl){
+  for(let i=0;i<25;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s`;
+    starsEl.appendChild(s);
+  }
+}
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('back-top');
+  if(b)b.classList.toggle('show',window.scrollY>400);
+},{passive:true});
+document.getElementById('back-top').addEventListener('click',function(){
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ── HIDE LOADING OVERLAY ──
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
+
+// ── SLIDER CO-REGULATION ──
+function syncCherrySlider(val) {
+  document.getElementById('sg-cherry-num').value = val;
+  calculateMocktail();
+}
+function syncCherryNum(val) {
+  document.getElementById('sg-cherry-slider').value = val;
+  calculateMocktail();
+}
+
+function syncMagSlider(val) {
+  document.getElementById('sg-mag-num').value = val;
+  calculateMocktail();
+}
+function syncMagNum(val) {
+  document.getElementById('sg-mag-slider').value = val;
+  calculateMocktail();
+}
+
+function syncDiluentSlider(val) {
+  document.getElementById('sg-diluent-num').value = val;
+  calculateMocktail();
+}
+function syncDiluentNum(val) {
+  document.getElementById('sg-diluent-slider').value = val;
+  calculateMocktail();
+}
+
+// ── CALCULATION LOGIC ──
+function calculateMocktail() {
+  const cherry = parseFloat(document.getElementById('sg-cherry-num').value) || 0;
+  const magType = document.getElementById('sg-mag-type').value;
+  const magDose = parseFloat(document.getElementById('sg-mag-num').value) || 0;
+  const diluent = parseFloat(document.getElementById('sg-diluent-num').value) || 0;
+  const bedtimeVal = document.getElementById('sg-bedtime').value;
+  
+  const totalVolume = cherry + diluent;
+  
+  // 1. Calculate drink timing offset
+  // Large volumes require earlier intake to prevent waking up to urinate (nocturia)
+  let offset = 60; // default 1 hour before bed
+  if (totalVolume >= 14) {
+    offset = 120; // 2 hours
+  } else if (totalVolume >= 10) {
+    offset = 90; // 1.5 hours
+  } else if (totalVolume < 6) {
+    offset = 45; // 45 minutes
+  }
+  
+  // Parse bedtime
+  let [h, m] = bedtimeVal.split(':').map(Number);
+  let bedtimeMinutes = h * 60 + m;
+  let drinkMinutes = (bedtimeMinutes - offset + 1440) % 1440;
+  
+  // Output display
+  document.getElementById('sg-time-output').textContent = formatTimeStr(drinkMinutes);
+  document.getElementById('sg-volume-output').textContent = `Total Drink Volume: ${totalVolume} oz`;
+  
+  // Warnings and messages
+  let warningText = "";
+  let isWarning = false;
+  let descText = "";
+  
+  if (magDose > 350) {
+    isWarning = true;
+    warningText = `⚠️ HIGH DOSAGE: Supplemental magnesium above 350 mg can cause gas, cramping, or diarrhea, especially with ${magType === 'glycinate' ? 'Citrate or Carbonate' : magType} forms. Consider lower doses.`;
+  } else if (magType === 'citrate' && magDose > 250) {
+    isWarning = true;
+    warningText = "⚠️ LAXATIVE RISK: Magnesium Citrate is highly bioavailable but draws water into the intestines. It has a notable laxative effect and may cause mild cramping.";
+  } else if (totalVolume >= 12) {
+    isWarning = true;
+    warningText = "⚠️ NOCTURIA RISK: Consuming 12 oz or more of liquid close to bedtime increases bladder stretch and the risk of waking up in the night to urinate.";
+  }
+  
+  if (isWarning) {
+    const notice = document.getElementById('sg-notice-box');
+    notice.className = 'sg-warning-box';
+    notice.innerHTML = `<strong>Dietary Alert:</strong> ${warningText}`;
+  } else {
+    const notice = document.getElementById('sg-notice-box');
+    notice.className = 'sg-tip-box';
+    notice.innerHTML = `<strong>Bladder Safety Tip:</strong> A fluid volume of ${totalVolume} oz is safe. Drinking it ${offset} minutes before bed allows you to urinate once more before turning off the lights, avoiding middle-of-the-night sleep fragmentation.`;
+  }
+  
+  descText = `For a total fluid volume of ${totalVolume} oz, we recommend drinking your Sleepy Girl Mocktail at <strong>${formatTimeStr(drinkMinutes)}</strong> (${offset} minutes before your bedtime of ${formatTimeStr(bedtimeMinutes)}).`;
+  document.getElementById('sg-desc-output').innerHTML = descText;
+  
+  // Update glass filling heights dynamically
+  updateGlassFill(cherry, diluent);
+}
+
+function formatTimeStr(minutes) {
+  let h = Math.floor(minutes / 60);
+  let m = minutes % 60;
+  let ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return `${h}:${m < 10 ? '0' + m : m} ${ampm}`;
+}
+
+function updateGlassFill(cherry, diluent) {
+  const layerCherry = document.getElementById('sg-layer-cherry');
+  const layerMag = document.getElementById('sg-layer-mag');
+  const layerDiluent = document.getElementById('sg-layer-diluent');
+  const garnish = document.getElementById('garnish-wheel');
+  
+  if (!layerCherry || !layerDiluent) return;
+  
+  // Total maximum volume is 12 + 16 = 28 oz
+  // Minimum is 2 + 2 = 4 oz
+  const total = cherry + diluent;
+  
+  // Height ranges inside the glass SVG:
+  // Base glass bottom is y=135
+  // Top lip is y=30
+  // Max fluid level is y=40, Min is y=130
+  // Available height is 90 pixels
+  const maxPixelHeight = 90;
+  const fillPct = Math.min(total / 24, 1.0); // max scale relative to 24 oz
+  const totalFluidHeight = 10 + fillPct * maxPixelHeight; // in pixels
+  
+  const cherryRatio = cherry / total;
+  const cherryHeight = totalFluidHeight * cherryRatio;
+  
+  // Coordinates mapping
+  const yBottom = 135;
+  const yCherryTop = yBottom - cherryHeight;
+  const yDiluentTop = yBottom - totalFluidHeight;
+  
+  // Calculate horizontal widths at various heights (the glass tapers)
+  // At y=135, width is 46 (from x=27 to x=73)
+  // At y=30, width is 80 (from x=10 to x=90)
+  // linear interpolation of x-coords:
+  const getXLimits = (y) => {
+    const pct = (y - 30) / 105; // 0 at top, 1 at bottom
+    const xLeft = 10 + pct * 17;
+    const xRight = 90 - pct * 17;
+    return [xLeft, xRight];
+  };
+  
+  const [xcL, xcR] = getXLimits(yCherryTop);
+  const [xdL, xdR] = getXLimits(yDiluentTop);
+  
+  // 1. Draw Cherry path (bottom layer)
+  // Starts at bottom left (27, 135) -> bottom right (73, 135) -> cherry top right (xcR, yCherryTop) -> cherry top left (xcL, yCherryTop) -> close
+  layerCherry.setAttribute('d', `M 27 135 L 73 135 L ${xcR} ${yCherryTop} L ${xcL} ${yCherryTop} Z`);
+  
+  // 2. Draw Magnesium layer (thin divider overlay just above cherry)
+  const yMagTop = Math.max(yCherryTop - 4, yDiluentTop);
+  const [xmL, xmR] = getXLimits(yMagTop);
+  layerMag.setAttribute('d', `M ${xcL} ${yCherryTop} L ${xcR} ${yCherryTop} L ${xmR} ${yMagTop} L ${xmL} ${yMagTop} Z`);
+  
+  // 3. Draw Diluent layer (top layer)
+  layerDiluent.setAttribute('d', `M ${xmL} ${yMagTop} L ${xmR} ${yMagTop} L ${xdR} ${yDiluentTop} L ${xdL} ${yDiluentTop} Z`);
+  
+  // Position garnish lime wheel slightly adjusting to fluid height
+  if (garnish) {
+    garnish.setAttribute('transform', `translate(13, ${Math.max(yDiluentTop - 10, 25)})`);
+  }
+}
+
+// Initialize
+window.addEventListener('load', () => {
+  calculateMocktail();
+});
+</script>
+
+</body>
+</html>
