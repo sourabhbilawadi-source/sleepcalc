@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weighted Blanket Weight Calculator — GoodSleep</title>
+<meta name="description" content="Calculate your optimal weighted blanket weight and dimensions based on your body weight, age, and bed size. Includes critical pediatric safety guidelines.">
+<meta property="og:title" content="Weighted Blanket Weight Calculator — GoodSleep">
+<meta property="og:description" content="Find the perfect weighted blanket size and weight based on sleep science and occupational therapy standards.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/weighted-blanket-calculator">
+<meta property="og:url" content="https://goodsleep.rest/weighted-blanket-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+.wb-form-group.hidden {
+  display: none !important;
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Weighted Blanket Calculator</div>
+  <h1>Weighted Blanket<br>Weight Calculator</h1>
+  <p class="hero-sub">Determine the ideal weight and size for your weighted blanket based on your body dimensions and bed size for optimal sensory sleep therapy.</p>
+</div>
+
+<div class="page">
+  <div class="wb-container">
+    <!-- INPUT PANEL -->
+    <div class="wb-panel">
+      <div class="wb-title-row">
+        <div class="wb-icon-circle">⚖️</div>
+        <h3>Calculator Inputs</h3>
+      </div>
+
+      <div class="wb-form-group">
+        <label>User Type</label>
+        <div class="wb-toggle-group">
+          <button type="button" class="wb-toggle-btn active" id="btn-user-adult" onclick="setUserType('adult')">Adult</button>
+          <button type="button" class="wb-toggle-btn" id="btn-user-child" onclick="setUserType('child')">Child (4-12)</button>
+        </div>
+      </div>
+
+      <div class="wb-form-group">
+        <label>Measurement Unit</label>
+        <div class="wb-toggle-group">
+          <button type="button" class="wb-toggle-btn active" id="btn-unit-imperial" onclick="setUnits('imperial')">Imperial (lbs/in)</button>
+          <button type="button" class="wb-toggle-btn" id="btn-unit-metric" onclick="setUnits('metric')">Metric (kg/cm)</button>
+        </div>
+      </div>
+
+      <div class="wb-form-group">
+        <label id="lbl-weight">Body Weight</label>
+        <div class="wb-slider-row">
+          <input type="range" id="wb-weight-slider" class="wb-slider" min="30" max="300" value="150" oninput="syncWeightSlider(this.value)">
+          <input type="number" id="wb-weight-num" class="wb-num-input" min="30" max="300" value="150" oninput="syncWeightNum(this.value)">
+        </div>
+      </div>
+
+      <div class="wb-form-group">
+        <label id="lbl-height">User Height</label>
+        <div class="wb-slider-row">
+          <input type="range" id="wb-height-slider" class="wb-slider" min="36" max="84" value="68" oninput="syncHeightSlider(this.value)">
+          <input type="number" id="wb-height-num" class="wb-num-input" min="36" max="84" value="68" oninput="syncHeightNum(this.value)">
+        </div>
+      </div>
+
+      <div class="wb-form-group">
+        <label>Bed Mattress Size</label>
+        <select id="wb-bed-size" class="wb-select" onchange="calculateBlanket()">
+          <option value="twin">Twin / Single Bed</option>
+          <option value="full">Full / Double Bed</option>
+          <option value="queen" selected>Queen Bed</option>
+          <option value="king">King Bed</option>
+          <option value="crib">Crib / Toddler Bed</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="wb-results">
+      <div class="wb-main-card">
+        <div class="wb-result-label">Recommended Blanket Weight</div>
+        <div class="wb-value-display" id="wb-weight-output">15 lbs</div>
+        <div class="wb-size-display" id="wb-size-output">60" x 80" (Queen Bed Size)</div>
+        <div class="wb-desc-display" id="wb-desc-output">
+          An optimal weighted blanket is about 10% of your body weight. For your weight of 150 lbs, a 15 lb blanket is recommended.
+        </div>
+      </div>
+
+      <!-- Bed Preview Card -->
+      <div class="wb-bed-card">
+        <div class="wb-result-label" style="margin-bottom: 0.5rem;">Visual Fit Preview</div>
+        <div class="wb-bed-container">
+          <svg class="wb-bed-svg" viewBox="0 0 200 160" id="wb-bed-svg">
+            <!-- Bed frame / Headboard -->
+            <rect x="25" y="10" width="150" height="15" rx="3" fill="#6B7280" />
+            <!-- Mattress -->
+            <rect x="30" y="25" width="140" height="120" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1.5" id="mattress-bg" />
+            
+            <!-- Pillows -->
+            <rect x="38" y="30" width="55" height="20" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" id="pillow-1" />
+            <rect x="107" y="30" width="55" height="20" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" id="pillow-2" />
+            
+            <!-- Person Outline -->
+            <g id="person-outline" opacity="0.6">
+              <!-- Head -->
+              <circle cx="100" cy="65" r="10" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1" />
+              <!-- Body -->
+              <rect x="88" y="77" width="24" height="60" rx="6" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1" />
+            </g>
+            
+            <!-- Weighted Blanket Overlay -->
+            <rect x="35" y="60" width="130" height="80" rx="4" fill="var(--teal)" opacity="0.4" stroke="var(--teal-dark)" stroke-width="2" id="blanket-overlay" />
+            
+            <!-- Dimensions labels -->
+            <text x="100" y="152" text-anchor="middle" font-size="7" font-weight="700" fill="var(--text-muted)" id="lbl-bed-dim">Queen Bed: 60" x 80"</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Notification / Warnings -->
+      <div class="wb-tip-box" id="wb-notice-box">
+        <strong>Sensor Tip:</strong> A weighted blanket should fit your body, not your bed. Recommending a blanket that covers from your chin to your feet without hanging off the sides, which prevents it from slipping off due to gravity.
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE & EDUCATION SECTION -->
+  <div class="wb-science">
+    <h2>The Science of Deep Pressure Stimulation (DPS)</h2>
+    
+    <p>Weighted blankets work through a clinical therapeutic mechanism known as <strong>Deep Pressure Stimulation (DPS)</strong> or Deep Touch Pressure. By applying gentle, distributed pressure across the body, it mimics the sensory experience of a firm hug, holding, or swaddling.</p>
+    
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>Autonomic Nervous System Shift</h3>
+        <p>Weighted pressure shifts your autonomic nervous system from a state of arousal (the sympathetic "fight-or-flight" system) into a resting state (the parasympathetic "rest-and-digest" system). This down-regulation leads to:</p>
+        <ul>
+          <li><strong>Reduced Heart Rate:</strong> Sensory input relaxes heart rate variability.</li>
+          <li><strong>Cortisol Reduction:</strong> Lowers circulating stress hormone levels.</li>
+          <li><strong>Serotonin & Melatonin Boost:</strong> Pressure triggers chemical pathways that release neurotransmitters needed for sleep preparation.</li>
+        </ul>
+      </div>
+      
+      <div class="about-card">
+        <h3>How to Choose the Right Dimensions</h3>
+        <p>A common mistake is buying a weighted blanket that matches your bed size exactly (like a standard King comforter). A heavy blanket that hangs over the edge of the mattress will naturally pull itself to the floor due to gravity. Instead:</p>
+        <ul>
+          <li><strong>Twin Beds:</strong> Use a standard 48" x 72" blanket.</li>
+          <li><strong>Queen Beds:</strong> Use a 60" x 80" blanket (focuses weight on the sleeping area).</li>
+          <li><strong>Children:</strong> Use smaller dimensions (such as 36" x 48") so that the weight remains concentrated on their smaller bodies.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wb-tip-box" style="margin-top: 1.5rem; background: rgba(245,158,11,0.06); border-left-color: var(--amber);">
+      <h3>⚠️ Crucial Pediatric Safety Rules</h3>
+      <p>While highly effective for calming sensory overstimulation and ADHD, weighted blankets carry strict medical rules for young children:</p>
+      <ul>
+        <li><strong>No Toddlers/Infants:</strong> Never use a weighted blanket for children under 2 years of age or anyone under 30 pounds. Doing so presents a high risk of accidental suffocation.</li>
+        <li><strong>Independent Removal:</strong> A child must be strong enough to pull the blanket off their head and body independently. Never use a weighted blanket as a physical restraint.</li>
+        <li><strong>Breathing Safety:</strong> The blanket should never cover the head or face. Do not use if the user has asthma, sleep apnea, or other respiratory concerns without consulting a pediatrician.</li>
+      </ul>
+    </div>
+
+    <div class="mela-citations">
+      <strong>Scientific References & OT Studies:</strong>
+      <ol>
+        <li><strong>Journal of Sleep Medicine & Disorders (2015):</strong> <em>"Positive effects of a weighted blanket on insomnia: Weighted blankets provide a safe and effective therapeutic tool for calmative sleep."</em> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4214609/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
+        <li><strong>American Journal of Occupational Therapy:</strong> Clinical review of Deep Touch Pressure and its regulatory effects on sensory modulation.</li>
+        <li><strong>Harvard Medical School (Harvard Health Publishing):</strong> <em>"Do weighted blankets help with anxiety or insomnia? The physiological grounding effect of deep pressure stimulation."</em></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// ── THEME & STARS ──
+(function(){
+  var s=localStorage.getItem('gs-theme');
+  if(s)document.documentElement.setAttribute('data-theme',s);
+  var b=document.getElementById('theme-toggle');
+  if(b){
+    var th=document.documentElement.getAttribute('data-theme');
+    var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent=dk?'☀️':'🌙';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var r=document.documentElement;
+  var c=r.getAttribute('data-theme');
+  var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  var n=dk?'light':'dark';
+  r.setAttribute('data-theme',n);
+  localStorage.setItem('gs-theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+
+// STARS background
+const starsEl = document.getElementById('stars');
+if(starsEl){
+  for(let i=0;i<25;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s`;
+    starsEl.appendChild(s);
+  }
+}
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('back-top');
+  if(b)b.classList.toggle('show',window.scrollY>400);
+},{passive:true});
+document.getElementById('back-top').addEventListener('click',function(){
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ── HIDE LOADING OVERLAY ──
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
+
+// ── CALCULATION LOGIC ──
+let unitType = 'imperial'; // 'imperial' or 'metric'
+let userType = 'adult'; // 'adult' or 'child'
+
+function setUserType(type) {
+  userType = type;
+  document.getElementById('btn-user-adult').classList.toggle('active', type === 'adult');
+  document.getElementById('btn-user-child').classList.toggle('active', type === 'child');
+  
+  // Update weight boundaries
+  const slider = document.getElementById('wb-weight-slider');
+  const num = document.getElementById('wb-weight-num');
+  const bedSelect = document.getElementById('wb-bed-size');
+  
+  if (type === 'child') {
+    slider.min = 20;
+    slider.max = 120;
+    slider.value = 60;
+    num.min = 20;
+    num.max = 120;
+    num.value = 60;
+    
+    // Suggest Crib Bed
+    bedSelect.value = 'crib';
+  } else {
+    slider.min = 60;
+    slider.max = 350;
+    slider.value = 160;
+    num.min = 60;
+    num.max = 350;
+    num.value = 160;
+    
+    // Suggest Queen Bed
+    bedSelect.value = 'queen';
+  }
+  
+  calculateBlanket();
+}
+
+function setUnits(unit) {
+  unitType = unit;
+  document.getElementById('btn-unit-imperial').classList.toggle('active', unit === 'imperial');
+  document.getElementById('btn-unit-metric').classList.toggle('active', unit === 'metric');
+  
+  const sliderW = document.getElementById('wb-weight-slider');
+  const numW = document.getElementById('wb-weight-num');
+  const lblW = document.getElementById('lbl-weight');
+  
+  const sliderH = document.getElementById('wb-height-slider');
+  const numH = document.getElementById('wb-height-num');
+  const lblH = document.getElementById('lbl-height');
+  
+  if (unit === 'metric') {
+    lblW.textContent = "Body Weight (kg)";
+    lblH.textContent = "User Height (cm)";
+    
+    // Convert current weight values (approximate)
+    if (userType === 'adult') {
+      sliderW.min = 30; sliderW.max = 160; sliderW.value = 70;
+      numW.min = 30; numW.max = 160; numW.value = 70;
+    } else {
+      sliderW.min = 10; sliderW.max = 60; sliderW.value = 30;
+      numW.min = 10; numW.max = 60; numW.value = 30;
+    }
+    
+    sliderH.min = 90; sliderH.max = 210; sliderH.value = 170;
+    numH.min = 90; numH.max = 210; numH.value = 170;
+  } else {
+    lblW.textContent = "Body Weight (lbs)";
+    lblH.textContent = "User Height (inches)";
+    
+    if (userType === 'adult') {
+      sliderW.min = 60; sliderW.max = 350; sliderW.value = 150;
+      numW.min = 60; numW.max = 350; numW.value = 150;
+    } else {
+      sliderW.min = 20; sliderW.max = 130; sliderW.value = 60;
+      numW.min = 20; numW.max = 130; numW.value = 60;
+    }
+    
+    sliderH.min = 36; sliderH.max = 84; sliderH.value = 68;
+    numH.min = 36; numH.max = 84; numH.value = 68;
+  }
+  
+  calculateBlanket();
+}
+
+function syncWeightSlider(val) {
+  document.getElementById('wb-weight-num').value = val;
+  calculateBlanket();
+}
+
+function syncWeightNum(val) {
+  document.getElementById('wb-weight-slider').value = val;
+  calculateBlanket();
+}
+
+function syncHeightSlider(val) {
+  document.getElementById('wb-height-num').value = val;
+  calculateBlanket();
+}
+
+function syncHeightNum(val) {
+  document.getElementById('wb-height-slider').value = val;
+  calculateBlanket();
+}
+
+function calculateBlanket() {
+  const weight = parseFloat(document.getElementById('wb-weight-num').value) || 0;
+  const height = parseFloat(document.getElementById('wb-height-num').value) || 0;
+  const bedSize = document.getElementById('wb-bed-size').value;
+  
+  let recWeight = 0;
+  let recWeightMin = 0;
+  let recWeightMax = 0;
+  let sizeStr = "";
+  let sizeLabel = "";
+  let descText = "";
+  let warningText = "";
+  let isWarning = false;
+  
+  // Formulas
+  if (unitType === 'imperial') {
+    recWeight = weight * 0.10;
+    recWeightMin = Math.round(recWeight - 2);
+    recWeightMax = Math.round(recWeight + 2);
+    
+    // Warnings
+    if (weight < 30 || (userType === 'child' && weight < 35)) {
+      isWarning = true;
+      warningText = "⚠️ SAFETY WARNING: Weighted blankets are NOT safe for infants, toddlers under 2 years, or anyone weighing under 30 lbs due to breathing risk.";
+    }
+  } else {
+    // Metric (kg)
+    recWeight = weight * 0.10;
+    recWeightMin = Math.round(recWeight - 1);
+    recWeightMax = Math.round(recWeight + 1);
+    
+    // Warnings
+    if (weight < 14) {
+      isWarning = true;
+      warningText = "⚠️ SAFETY WARNING: Weighted blankets are NOT safe for infants, toddlers under 2 years, or anyone weighing under 14 kg due to breathing risk.";
+    }
+  }
+  
+  // Make sure minimums don't drop to zero or negative
+  recWeightMin = Math.max(recWeightMin, 1);
+  const roundedWeight = Math.round(recWeight);
+  
+  // Decide dimensions based on Bed Size and User Height
+  if (bedSize === 'crib') {
+    sizeStr = "36\" x 48\" (Crib / Child)";
+    sizeLabel = "Crib Mattress: 28\" x 52\"";
+  } else if (bedSize === 'twin') {
+    sizeStr = height > 60 ? "48\" x 72\" (Twin Adult)" : "41\" x 60\" (Twin Youth)";
+    sizeLabel = "Twin Mattress: 38\" x 75\"";
+  } else if (bedSize === 'full') {
+    sizeStr = "54\" x 75\" (Full size)";
+    sizeLabel = "Full Mattress: 54\" x 75\"";
+  } else if (bedSize === 'queen') {
+    sizeStr = "60\" x 80\" (Queen size)";
+    sizeLabel = "Queen Mattress: 60\" x 80\"";
+  } else if (bedSize === 'king') {
+    sizeStr = "80\" x 87\" (King size)";
+    sizeLabel = "King Mattress: 76\" x 80\"";
+  }
+  
+  // Render text results
+  const weightUnitStr = unitType === 'imperial' ? 'lbs' : 'kg';
+  document.getElementById('wb-weight-output').textContent = `${roundedWeight} ${weightUnitStr}`;
+  document.getElementById('wb-size-output').textContent = `${sizeStr}`;
+  
+  descText = `For a body weight of ${weight} ${weightUnitStr}, a blanket weighing about 10% is optimal. A range of ${recWeightMin} to ${recWeightMax} ${weightUnitStr} is safe.`;
+  document.getElementById('wb-desc-output').textContent = descText;
+  
+  // Update warnings / tips
+  const noticeBox = document.getElementById('wb-notice-box');
+  if (isWarning) {
+    noticeBox.className = 'wb-warning-box';
+    noticeBox.innerHTML = `<strong>Child Safety Alert:</strong> ${warningText}`;
+  } else {
+    noticeBox.className = 'wb-tip-box';
+    noticeBox.innerHTML = `<strong>OT Fit Recommendation:</strong> Weighted blankets should cover your body from the chin down, but should not hang over the edges of the mattress (like standard comforters). If they do, gravity will pull the heavy blanket down, causing it to slip off the bed.`;
+  }
+  
+  // Update bed preview drawing
+  updateBedPreview(bedSize, height);
+}
+
+function updateBedPreview(bedSize, heightVal) {
+  const blanket = document.getElementById('blanket-overlay');
+  const mattress = document.getElementById('mattress-bg');
+  const p1 = document.getElementById('pillow-1');
+  const p2 = document.getElementById('pillow-2');
+  const person = document.getElementById('person-outline');
+  const bedLabel = document.getElementById('lbl-bed-dim');
+  
+  if (!blanket || !mattress) return;
+  
+  // Default values mapping
+  if (bedSize === 'crib') {
+    // Crib (smaller bed)
+    mattress.setAttribute('x', '55');
+    mattress.setAttribute('width', '90');
+    mattress.setAttribute('y', '30');
+    mattress.setAttribute('height', '110');
+    
+    p1.setAttribute('x', '72');
+    p1.setAttribute('width', '56');
+    p1.setAttribute('y', '34');
+    p1.setAttribute('height', '14');
+    p2.style.display = 'none'; // single pillow
+    
+    // Scale down person slightly
+    person.setAttribute('transform', 'translate(0, 5) scale(1, 0.85)');
+    
+    // Blanket dimensions on crib
+    blanket.setAttribute('x', '60');
+    blanket.setAttribute('width', '80');
+    blanket.setAttribute('y', '65');
+    blanket.setAttribute('height', '70');
+    
+    bedLabel.textContent = "Crib / Toddler Bed: 36\" x 48\" Blanket";
+  } 
+  else if (bedSize === 'twin') {
+    mattress.setAttribute('x', '50');
+    mattress.setAttribute('width', '100');
+    mattress.setAttribute('y', '25');
+    mattress.setAttribute('height', '120');
+    
+    p1.setAttribute('x', '65');
+    p1.setAttribute('width', '70');
+    p1.setAttribute('y', '29');
+    p1.setAttribute('height', '16');
+    p2.style.display = 'none';
+    
+    person.removeAttribute('transform');
+    
+    blanket.setAttribute('x', '56');
+    blanket.setAttribute('width', '88');
+    blanket.setAttribute('y', '58');
+    blanket.setAttribute('height', '80');
+    
+    bedLabel.textContent = "Twin Bed: 48\" x 72\" Blanket";
+  } 
+  else if (bedSize === 'queen' || bedSize === 'full') {
+    mattress.setAttribute('x', '30');
+    mattress.setAttribute('width', '140');
+    mattress.setAttribute('y', '25');
+    mattress.setAttribute('height', '120');
+    
+    p1.setAttribute('x', '38');
+    p1.setAttribute('width', '55');
+    p1.setAttribute('y', '29');
+    p1.setAttribute('height', '16');
+    
+    p2.style.display = 'block';
+    p2.setAttribute('x', '107');
+    p2.setAttribute('width', '55');
+    p2.setAttribute('y', '29');
+    p2.setAttribute('height', '16');
+    
+    person.removeAttribute('transform');
+    
+    blanket.setAttribute('x', '35');
+    blanket.setAttribute('width', '130');
+    blanket.setAttribute('y', '58');
+    blanket.setAttribute('height', '82');
+    
+    bedLabel.textContent = `${bedSize === 'queen' ? 'Queen' : 'Full'} Bed: 60\" x 80\" Blanket`;
+  } 
+  else if (bedSize === 'king') {
+    mattress.setAttribute('x', '22');
+    mattress.setAttribute('width', '156');
+    mattress.setAttribute('y', '25');
+    mattress.setAttribute('height', '120');
+    
+    p1.setAttribute('x', '28');
+    p1.setAttribute('width', '64');
+    p1.setAttribute('y', '29');
+    p1.setAttribute('height', '16');
+    
+    p2.style.display = 'block';
+    p2.setAttribute('x', '108');
+    p2.setAttribute('width', '64');
+    p2.setAttribute('y', '29');
+    p2.setAttribute('height', '16');
+    
+    person.removeAttribute('transform');
+    
+    blanket.setAttribute('x', '26');
+    blanket.setAttribute('width', '148');
+    blanket.setAttribute('y', '58');
+    blanket.setAttribute('height', '82');
+    
+    bedLabel.textContent = "King Bed: 80\" x 87\" Blanket";
+  }
+}
+
+// Initial calculation on load
+window.addEventListener('load', () => {
+  calculateBlanket();
+});
+</script>
+
+</body>
+</html>
