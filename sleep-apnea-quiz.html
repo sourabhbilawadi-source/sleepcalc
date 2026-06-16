@@ -269,6 +269,7 @@
     <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
     <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
     <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
   </div>
   <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
     <a href="/about">About</a>
@@ -471,6 +472,10 @@ function updateQuiz() {
   if (needle) {
     needle.setAttribute('transform', `rotate(${angle})`);
   }
+  
+  localStorage.setItem('gs-sleep-apnea-risk', riskLevel);
+  localStorage.setItem('gs-sleep-apnea-score', totalScore);
+  localStorage.setItem('gs-sleep-apnea-date', new Date().toISOString());
 }
 </script>
 

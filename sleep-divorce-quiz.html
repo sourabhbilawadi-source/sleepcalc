@@ -277,6 +277,7 @@
     <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
     <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
     <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
     <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
     <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
     <a href="/about">ℹ️ About Us</a>
@@ -361,6 +362,10 @@ function calculateCompatibility() {
   // Show highlighted selection
   document.getElementById(recommendedId).classList.add('recommended');
   document.getElementById(badgeId).className = "sd-badge-rec";
+  
+  localStorage.setItem('gs-sleep-divorce-score', score);
+  localStorage.setItem('gs-sleep-divorce-rec', recommendedId.replace('rec-', ''));
+  localStorage.setItem('gs-sleep-divorce-date', new Date().toISOString());
 }
 
 // Initial calculation

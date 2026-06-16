@@ -675,6 +675,7 @@
     <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
     <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
     <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
     <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
     <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
     <a href="/about">ℹ️ About Us</a>
@@ -1053,6 +1054,19 @@ function calculateJetLagTimeline() {
     `;
     cardDeck.appendChild(card);
   });
+
+  const depCityText = document.getElementById('jl-dep-city').value === 'custom' 
+    ? `UTC${depOffset >= 0 ? '+' : ''}${depOffset}` 
+    : document.getElementById('jl-dep-city').options[document.getElementById('jl-dep-city').selectedIndex].text.split(' — ')[0];
+  const destCityText = document.getElementById('jl-dest-city').value === 'custom' 
+    ? `UTC${destOffset >= 0 ? '+' : ''}${destOffset}` 
+    : document.getElementById('jl-dest-city').options[document.getElementById('jl-dest-city').selectedIndex].text.split(' — ')[0];
+
+  localStorage.setItem('gs-jet-lag-dep', depCityText);
+  localStorage.setItem('gs-jet-lag-dest', destCityText);
+  localStorage.setItem('gs-jet-lag-diff', diff);
+  localStorage.setItem('gs-jet-lag-days', totalDaysNeeded);
+  localStorage.setItem('gs-jet-lag-date', new Date().toISOString());
 }
 
 onCityChange('dep');

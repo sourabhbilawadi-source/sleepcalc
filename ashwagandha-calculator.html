@@ -273,6 +273,7 @@
     <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
     <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
     <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
     <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
     <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
     <a href="/about">ℹ️ About Us</a>
@@ -520,6 +521,12 @@ function calculateAshwagandha() {
 
     calendarContainer.appendChild(weekBox);
   }
+  
+  localStorage.setItem('gs-ashwagandha-extract', extract);
+  localStorage.setItem('gs-ashwagandha-dose', recommendedDose);
+  localStorage.setItem('gs-ashwagandha-strategy', strategy);
+  localStorage.setItem('gs-ashwagandha-status', isOn ? 'active' : 'washout');
+  localStorage.setItem('gs-ashwagandha-date', new Date().toISOString());
 }
 
 function checkAnhedonia() {

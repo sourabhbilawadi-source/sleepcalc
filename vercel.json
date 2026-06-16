@@ -15,6 +15,7 @@
     { "source": "/polyphasic-sleep-planner", "destination": "/polyphasic-sleep-planner.html" },
     { "source": "/jet-lag-planner", "destination": "/jet-lag-planner.html" },
     { "source": "/explore", "destination": "/explore.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/caffeine-calculator", "destination": "/caffeine-calculator.html" },
     { "source": "/bedtime-calculator", "destination": "/bedtime-calculator.html" },
     { "source": "/kids-sleep-calculator", "destination": "/kids-sleep-calculator.html" },

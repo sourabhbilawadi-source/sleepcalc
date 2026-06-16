@@ -310,6 +310,7 @@
     <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
     <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
     <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
     <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
     <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
     <a href="/about">ℹ️ About Us</a>
@@ -475,6 +476,9 @@ function calculateMagnesiumMatch() {
   else if (maxPct === pctTau) document.getElementById('bar-taurate').classList.add('highlight');
   else if (maxPct === pctMal) document.getElementById('bar-malate').classList.add('highlight');
   else document.getElementById('bar-citrate').classList.add('highlight');
+  
+  localStorage.setItem('gs-magnesium-form', bestForm);
+  localStorage.setItem('gs-magnesium-form-date', new Date().toISOString());
 }
 
 // Initial calculation

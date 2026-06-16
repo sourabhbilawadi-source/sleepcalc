@@ -271,6 +271,7 @@
     <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
     <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
     <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
   </div>
   <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
     <a href="/about">About</a>
@@ -371,6 +372,8 @@ function showResult(){
   if(type==='wolf'&&hasHighVariance&&scores[7]>=3)type='dolphin';
 
   const t=types[type];
+  localStorage.setItem('gs-chronotype', type);
+  localStorage.setItem('gs-chronotype-date', new Date().toISOString());
   document.getElementById('quiz-area').style.display='none';
   const rw=document.getElementById('result-wrap');
   rw.classList.add('show');

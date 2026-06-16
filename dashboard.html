@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Circadian Biohacking Dashboard — GoodSleep</title>
+<meta name="description" content="View your consolidated sleep profiles, supplement stacks, and active routines. Free circadian biohacking center.">
+<meta property="og:title" content="Your Circadian Biohacking Dashboard — GoodSleep">
+<meta property="og:description" content="Aggregate your chronotypes, sleep schedules, and supplement guides in one dashboard.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/dashboard">
+<meta property="og:url" content="https://goodsleep.rest/dashboard">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-specific styling overrides */
+@media (min-width: 901px) {
+  .page {
+    max-width: 1200px;
+  }
+}
+.db-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.db-user-welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.db-welcome-title {
+  font-size: clamp(20px, 3.5vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+.db-welcome-sub {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+.db-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 950px) {
+  .db-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+.db-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.db-col-header {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--teal);
+  border-bottom: 1.5px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.db-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s, border-color 0.2s, background 0.3s;
+}
+.db-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal);
+}
+.db-card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  gap: 8px;
+}
+.db-card-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.db-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.db-card-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+}
+.db-card-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 50px;
+}
+.db-badge-teal { background: var(--teal-light); color: var(--teal); }
+.db-badge-amber { background: var(--amber-light); color: var(--amber); }
+.db-badge-purple { background: var(--purple-light); color: var(--purple); }
+.db-badge-red { background: var(--purple-light); color: var(--red); border: 1px solid var(--red); }
+
+.db-card-body {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.db-card-body strong {
+  color: var(--text);
+}
+.db-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+}
+.db-action-link {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.15s;
+}
+.db-action-link:hover {
+  color: var(--teal-dark);
+}
+.db-date-tag {
+  color: var(--text-hint);
+  font-size: 11px;
+}
+
+/* Placeholders */
+.db-placeholder {
+  border: 2px dashed var(--border);
+  background: transparent;
+  box-shadow: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.25rem 1.5rem;
+  gap: 12px;
+}
+.db-placeholder:hover {
+  border-color: var(--teal-mid);
+}
+.db-ph-icon {
+  font-size: 24px;
+}
+.db-ph-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.db-ph-desc {
+  font-size: 12px;
+  color: var(--text-hint);
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+/* Control Buttons */
+.db-btn {
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.db-btn:hover {
+  background: var(--teal-dark);
+  transform: translateY(-1px);
+}
+.db-btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+}
+.db-btn-outline:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-light);
+}
+.db-btn-danger {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+}
+.db-btn-danger:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--purple-light);
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Biohacking Dashboard</div>
+  <h1>Your Circadian Biohacking Dashboard</h1>
+  <p class="hero-sub">Synchronize your sleep profile, supplement stacks, and active schedules. Stored completely client-side to safeguard your privacy.</p>
+</div>
+
+<div class="page">
+  <div class="db-header-row">
+    <div class="db-user-welcome">
+      <span class="db-welcome-title" id="db-user-title">Welcome Back, Biohacker</span>
+      <span class="db-welcome-sub">Here is your consolidated circadian architecture overview.</span>
+    </div>
+    <div>
+      <button class="db-btn db-btn-danger" onclick="resetAllData()">🗑️ Reset Stored Data</button>
+    </div>
+  </div>
+
+  <div class="db-grid">
+    <!-- COLUMN 1: CIRCADIAN PROFILE -->
+    <div class="db-col">
+      <div class="db-col-header">👤 Circadian Profile</div>
+      
+      <!-- Chronotype animal widget -->
+      <div id="widget-chronotype"></div>
+
+      <!-- Sleep Apnea Risk widget -->
+      <div id="widget-sleep-apnea"></div>
+
+      <!-- Sleep Divorce couples widget -->
+      <div id="widget-sleep-divorce"></div>
+    </div>
+
+    <!-- COLUMN 2: SUPPLEMENTS STACK -->
+    <div class="db-col">
+      <div class="db-col-header">💊 Supplement Stack</div>
+
+      <!-- Magnesium form match widget -->
+      <div id="widget-magnesium"></div>
+
+      <!-- Ashwagandha Cycle tracker widget -->
+      <div id="widget-ashwagandha"></div>
+    </div>
+
+    <!-- COLUMN 3: SCHEDULES & PLANNER -->
+    <div class="db-col">
+      <div class="db-col-header">📅 Schedules & Planners</div>
+
+      <!-- Polyphasic schedule widget -->
+      <div id="widget-polyphasic"></div>
+
+      <!-- Jet Lag trip planner widget -->
+      <div id="widget-jet-lag"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">🛏️ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">🧒 Kids Sleep</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/melatonin-calculator">💤 Melatonin Calculator</a>
+    <a href="/sleep-apnea-quiz">🫁 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍒 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
+    <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
+    <a href="/about">ℹ️ About Us</a>
+    <a href="/privacy">🔒 Privacy Policy</a>
+    <a href="/contact">✉️ Contact Us</a>
+  </div>
+  <p>© 2026 GoodSleep. All rights reserved. Our content is for informational purposes and does not constitute medical advice.</p>
+</footer>
+
+<script>
+// Format date labels
+function formatDate(isoStr) {
+  if (!isoStr) return '';
+  const d = new Date(isoStr);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function loadDashboardWidgets() {
+  // 1. Chronotype Animal Widget
+  const chronotype = localStorage.getItem('gs-chronotype');
+  const chronotypeDate = localStorage.getItem('gs-chronotype-date');
+  const widgetChronotype = document.getElementById('widget-chronotype');
+  
+  if (chronotype) {
+    const animals = {
+      bear: { name: 'Bear', emoji: '🐻', badge: 'db-badge-teal', desc: 'Active in the middle of the day. Your rhythm matches the sun. Keep your bedtime near 11:00 PM.' },
+      lion: { name: 'Lion', emoji: '🦁', badge: 'db-badge-amber', desc: 'Early riser, highly active in the morning. Focus on deep work early; wind down by 9:00 PM.' },
+      wolf: { name: 'Wolf', emoji: '🐺', badge: 'db-badge-purple', desc: 'Late night energy peaks. Mornings are difficult. Shift your creative window to evenings.' },
+      dolphin: { name: 'Dolphin', emoji: '🐬', badge: 'db-badge-red', desc: 'Light sleeper, high mental alert windows. Prone to insomnia. Prioritize nervous system cooling.' }
+    };
+    const ani = animals[chronotype] || animals.bear;
+    
+    // Update user name title
+    document.getElementById('db-user-title').innerText = `Welcome Back, Bio-(${ani.name})`;
+
+    widgetChronotype.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">🦁</div>
+            <span class="db-card-name">Chronotype</span>
+          </div>
+          <span class="db-card-badge ${ani.badge}">${ani.emoji} ${ani.name}</span>
+        </div>
+        <div class="db-card-body">
+          ${ani.desc}
+        </div>
+        <div class="db-card-actions">
+          <a href="/chronotype" class="db-action-link">Retake Quiz</a>
+          <span class="db-date-tag">Completed ${formatDate(chronotypeDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetChronotype.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">🦁</div>
+        <div class="db-ph-title">Chronotype Animal</div>
+        <div class="db-ph-desc">Determine whether you are a Bear, Lion, Wolf, or Dolphin to align your daily productivity peak.</div>
+        <a href="/chronotype" class="db-btn">Take Chronotype Quiz</a>
+      </div>
+    `;
+  }
+
+  // 2. Sleep Apnea Risk Widget
+  const apneaRisk = localStorage.getItem('gs-sleep-apnea-risk');
+  const apneaScore = localStorage.getItem('gs-sleep-apnea-score');
+  const apneaDate = localStorage.getItem('gs-sleep-apnea-date');
+  const widgetApnea = document.getElementById('widget-sleep-apnea');
+
+  if (apneaRisk) {
+    let badge = 'db-badge-teal';
+    if (apneaRisk.includes('Moderate')) badge = 'db-badge-amber';
+    if (apneaRisk.includes('High')) badge = 'db-badge-red';
+
+    widgetApnea.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">🫁</div>
+            <span class="db-card-name">Sleep Apnea Risk</span>
+          </div>
+          <span class="db-card-badge ${badge}">${apneaRisk}</span>
+        </div>
+        <div class="db-card-body">
+          Your STOP-BANG screening score: <strong>${apneaScore} / 8</strong>.<br>
+          ${apneaRisk.includes('High') ? '⚠️ Recommended to speak with a physician about a home sleep study.' : 'Maintain standard nasal breathing protocols.'}
+        </div>
+        <div class="db-card-actions">
+          <a href="/sleep-apnea-quiz" class="db-action-link">Update Answers</a>
+          <span class="db-date-tag">Screened ${formatDate(apneaDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetApnea.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">🫁</div>
+        <div class="db-ph-title">Sleep Apnea Risk</div>
+        <div class="db-ph-desc">Assess your clinical risk for obstructive sleep apnea using the official STOP-BANG criteria.</div>
+        <a href="/sleep-apnea-quiz" class="db-btn">Evaluate Risk</a>
+      </div>
+    `;
+  }
+
+  // 3. Sleep Divorce Widget
+  const divorceScore = localStorage.getItem('gs-sleep-divorce-score');
+  const divorceRec = localStorage.getItem('gs-sleep-divorce-rec');
+  const divorceDate = localStorage.getItem('gs-sleep-divorce-date');
+  const widgetDivorce = document.getElementById('widget-sleep-divorce');
+
+  if (divorceScore) {
+    let badge = 'db-badge-teal';
+    if (divorceScore < 80) badge = 'db-badge-amber';
+    if (divorceScore < 50) badge = 'db-badge-purple';
+    
+    const labelMap = {
+      'scandinavian': 'Scandinavian Bedding Method',
+      'split-king': 'Split Mattress Customization',
+      'co-hygiene': 'Co-Sleeping Hygiene Alignments',
+      'sleep-divorce': 'Separate Sleeping Rooms'
+    };
+    const recLabel = labelMap[divorceRec] || divorceRec;
+
+    widgetDivorce.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">👩‍❤️‍👨</div>
+            <span class="db-card-name">Sleep Compatibility</span>
+          </div>
+          <span class="db-card-badge ${badge}">Score: ${divorceScore}%</span>
+        </div>
+        <div class="db-card-body">
+          Recommended Solution: <strong>${recLabel}</strong>.<br>
+          Making these changes will decrease micro-arousals from motion, noise, or temperature friction.
+        </div>
+        <div class="db-card-actions">
+          <a href="/sleep-divorce-quiz" class="db-action-link">Retake Quiz</a>
+          <span class="db-date-tag">Completed ${formatDate(divorceDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetDivorce.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">👩‍❤️‍👨</div>
+        <div class="db-ph-title">Sleep Compatibility Quiz</div>
+        <div class="db-ph-desc">Assess co-sleeping friction with your partner and get mattress/method configurations.</div>
+        <a href="/sleep-divorce-quiz" class="db-btn">Test Compatibility</a>
+      </div>
+    `;
+  }
+
+  // 4. Magnesium Match Widget
+  const magForm = localStorage.getItem('gs-magnesium-form');
+  const magDate = localStorage.getItem('gs-magnesium-form-date');
+  const widgetMagnesium = document.getElementById('widget-magnesium');
+
+  if (magForm) {
+    let badge = 'db-badge-teal';
+    if (magForm.includes('Threonate')) badge = 'db-badge-purple';
+    if (magForm.includes('Taurate')) badge = 'db-badge-amber';
+    if (magForm.includes('Malate')) badge = 'db-badge-teal';
+
+    widgetMagnesium.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">💊</div>
+            <span class="db-card-name">Magnesium Form Match</span>
+          </div>
+          <span class="db-card-badge ${badge}">${magForm.split(' (')[0]}</span>
+        </div>
+        <div class="db-card-body">
+          Your optimal matched compound is <strong>${magForm}</strong>.<br>
+          Provides bioavailable relaxation and targets your specific sleep hurdles.
+        </div>
+        <div class="db-card-actions">
+          <a href="/magnesium-type-quiz" class="db-action-link">Retake Quiz</a>
+          <span class="db-date-tag">Matched ${formatDate(magDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetMagnesium.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">💊</div>
+        <div class="db-ph-title">Magnesium Matcher</div>
+        <div class="db-ph-desc">Find which chelate chelation form is compatible with your muscle, digestive, and brain symptoms.</div>
+        <a href="/magnesium-type-quiz" class="db-btn">Find Your Magnesium</a>
+      </div>
+    `;
+  }
+
+  // 5. Ashwagandha Cycle Tracker Widget
+  const ashExtract = localStorage.getItem('gs-ashwagandha-extract');
+  const ashDose = localStorage.getItem('gs-ashwagandha-dose');
+  const ashStatus = localStorage.getItem('gs-ashwagandha-status');
+  const ashDate = localStorage.getItem('gs-ashwagandha-date');
+  const widgetAsh = document.getElementById('widget-ashwagandha');
+
+  if (ashExtract) {
+    const badge = ashStatus === 'active' ? 'db-badge-teal' : 'db-badge-amber';
+    const statusDisp = ashStatus === 'active' ? 'Active ON-Cycle' : 'Washout OFF-Cycle';
+
+    widgetAsh.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">🌿</div>
+            <span class="db-card-name">Ashwagandha Cycling</span>
+          </div>
+          <span class="db-card-badge ${badge}">${statusDisp}</span>
+        </div>
+        <div class="db-card-body">
+          Extract Type: <strong>${ashExtract.toUpperCase()}</strong>.<br>
+          Recommended Dose: <strong>${ashDose} mg</strong>.<br>
+          Always cycle (e.g. 5 days on, 2 days off) to protect receptor sensitivity.
+        </div>
+        <div class="db-card-actions">
+          <a href="/ashwagandha-calculator" class="db-action-link">Update Cycle</a>
+          <span class="db-date-tag">Started ${formatDate(ashDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetAsh.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">🌿</div>
+        <div class="db-ph-title">Ashwagandha Dose &amp; Cycle</div>
+        <div class="db-ph-desc">Time your ashwagandha cycles correctly to manage daytime cortisol without receptor flatlining.</div>
+        <a href="/ashwagandha-calculator" class="db-btn">Setup Cycle</a>
+      </div>
+    `;
+  }
+
+  // 6. Polyphasic Sleep Planner Widget
+  const polyRoutine = localStorage.getItem('gs-polyphasic-routine');
+  const polySleep = localStorage.getItem('gs-polyphasic-sleep-hours');
+  const polyDate = localStorage.getItem('gs-polyphasic-date');
+  const widgetPoly = document.getElementById('widget-polyphasic');
+
+  if (polyRoutine) {
+    const nameMap = {
+      'biphasic-siesta': 'Biphasic (Siesta)',
+      'biphasic-segmented': 'Biphasic (Segmented)',
+      'everyman-e2': 'Everyman E2',
+      'everyman-e3': 'Everyman E3',
+      'uberman': 'Uberman (Extreme)',
+      'dymaxion': 'Dymaxion (Extreme)'
+    };
+    const dispName = nameMap[polyRoutine] || polyRoutine;
+    let badge = 'db-badge-teal';
+    if (polyRoutine.includes('everyman')) badge = 'db-badge-amber';
+    if (polyRoutine.includes('uberman') || polyRoutine.includes('dymaxion')) badge = 'db-badge-purple';
+
+    widgetPoly.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">⏰</div>
+            <span class="db-card-name">Polyphasic Sleep</span>
+          </div>
+          <span class="db-card-badge ${badge}">${dispName}</span>
+        </div>
+        <div class="db-card-body">
+          Target Routine Total Sleep: <strong>${polySleep} hours</strong>.<br>
+          Co-ordinates sleep cores and power naps. Focus on strict nap hygiene.
+        </div>
+        <div class="db-card-actions">
+          <a href="/polyphasic-sleep-planner" class="db-action-link">Modify Schedule</a>
+          <span class="db-date-tag">Planned ${formatDate(polyDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetPoly.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">⏰</div>
+        <div class="db-ph-title">Polyphasic Planner</div>
+        <div class="db-ph-desc">Map cores and power naps on a 24-hour circular dial to reduce overall monophasic hours.</div>
+        <a href="/polyphasic-sleep-planner" class="db-btn">Design Schedule</a>
+      </div>
+    `;
+  }
+
+  // 7. Jet Lag Planner Widget
+  const jlDep = localStorage.getItem('gs-jet-lag-dep');
+  const jlDest = localStorage.getItem('gs-jet-lag-dest');
+  const jlDiff = localStorage.getItem('gs-jet-lag-diff');
+  const jlDays = localStorage.getItem('gs-jet-lag-days');
+  const jlDate = localStorage.getItem('gs-jet-lag-date');
+  const widgetJl = document.getElementById('widget-jet-lag');
+
+  if (jlDep) {
+    const shiftHrs = parseFloat(jlDiff);
+    const badge = Math.abs(shiftHrs) >= 8 ? 'db-badge-purple' : 'db-badge-amber';
+
+    widgetJl.innerHTML = `
+      <div class="db-card">
+        <div class="db-card-title-row">
+          <div class="db-card-title-left">
+            <div class="db-card-icon">✈️</div>
+            <span class="db-card-name">Jet Lag Plan</span>
+          </div>
+          <span class="db-card-badge ${badge}">${jlDep} ➔ ${jlDest}</span>
+        </div>
+        <div class="db-card-body">
+          Timezone difference: <strong>${shiftHrs >= 0 ? '+' : ''}${shiftHrs} hours</strong>.<br>
+          Total adaptation schedule duration: <strong>${jlDays} days</strong>.<br>
+          Reset your clock using target light exposure windows.
+        </div>
+        <div class="db-card-actions">
+          <a href="/jet-lag-planner" class="db-action-link">View Travel Plan</a>
+          <span class="db-date-tag">Calculated ${formatDate(jlDate)}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    widgetJl.innerHTML = `
+      <div class="db-card db-placeholder">
+        <div class="db-ph-icon">✈️</div>
+        <div class="db-ph-title">Jet Lag Circadian Planner</div>
+        <div class="db-ph-desc">Calculate day-by-day light seek/avoidance windows when traveling to prevent biological lag.</div>
+        <a href="/jet-lag-planner" class="db-btn">Plan Itinerary</a>
+      </div>
+    `;
+  }
+}
+
+function resetAllData() {
+  if (confirm("Are you sure you want to delete all your saved sleep profiling, supplement calculations, and scheduling data? This cannot be undone.")) {
+    const keys = [
+      'gs-chronotype', 'gs-chronotype-date',
+      'gs-sleep-apnea-risk', 'gs-sleep-apnea-score', 'gs-sleep-apnea-date',
+      'gs-sleep-divorce-score', 'gs-sleep-divorce-rec', 'gs-sleep-divorce-date',
+      'gs-magnesium-form', 'gs-magnesium-form-date',
+      'gs-ashwagandha-extract', 'gs-ashwagandha-dose', 'gs-ashwagandha-strategy', 'gs-ashwagandha-status', 'gs-ashwagandha-date',
+      'gs-polyphasic-routine', 'gs-polyphasic-sleep-hours', 'gs-polyphasic-date',
+      'gs-jet-lag-dep', 'gs-jet-lag-dest', 'gs-jet-lag-diff', 'gs-jet-lag-days', 'gs-jet-lag-date'
+    ];
+    keys.forEach(k => localStorage.removeItem(k));
+    document.getElementById('db-user-title').innerText = `Welcome Back, Biohacker`;
+    loadDashboardWidgets();
+  }
+}
+
+// Initial Widget load
+loadDashboardWidgets();
+</script>
+
+<script>
+// Theme Switcher Logic
+const themeToggle = document.getElementById('theme-toggle');
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+};
+themeToggle.addEventListener('click', toggleTheme);
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.style.display = 'none', 400);
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>
