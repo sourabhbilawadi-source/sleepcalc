@@ -15,6 +15,7 @@
 <meta property="og:site_name" content="GoodSleep">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
 <style>
 /* Page-specific inline styling */
 .pp-disclaimer {
@@ -157,9 +158,11 @@
             </div>
             <div class="pp-legend-item">
               <div class="pp-legend-color pp-slice-nap"></div>
-              <span>Power Nap</span>
-            </div>
+            <span>Power Nap</span>
           </div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <button class="share-btn" onclick="downloadPolyphasicCard()">📥 Download Shareable Card</button>
         </div>
       </div>
 
@@ -428,6 +431,37 @@ function calculatePolyphasicSchedule() {
   localStorage.setItem('gs-polyphasic-routine', routine);
   localStorage.setItem('gs-polyphasic-sleep-hours', totalSleep.toFixed(2));
   localStorage.setItem('gs-polyphasic-date', new Date().toISOString());
+
+  // Export active data for share card
+  window.activePolyphasicData = {
+    routineName: document.getElementById('pp-routine').options[document.getElementById('pp-routine').selectedIndex].text,
+    totalSleep: `${totalSleep.toFixed(1)} hours`,
+    difficulty: difficulty,
+    adaptation: adaptation,
+    svgElement: document.getElementById('pp-clock-svg')
+  };
+}
+
+function downloadPolyphasicCard() {
+  const data = window.activePolyphasicData;
+  if (!data) return;
+
+  const stats = [
+    { label: 'Total Daily Sleep:', value: data.totalSleep },
+    { label: 'Routine Difficulty:', value: data.difficulty },
+    { label: 'Adaptation Duration:', value: data.adaptation },
+    { label: 'Schedule Type:', value: 'Polyphasic sleep cycle' }
+  ];
+
+  const tagline = `Adopting the ${data.routineName} routine requires strict adherence to scheduled cores and naps to survive.`;
+  GoodSleepShare.generateSvgResultCard(
+    'POLYPHASIC SLEEP ROUTINE',
+    data.routineName,
+    tagline,
+    stats,
+    data.svgElement,
+    'goodsleep-polyphasic-schedule.png'
+  );
 }
 
 function drawClockDial(blocks) {

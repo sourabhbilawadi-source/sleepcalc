@@ -17,6 +17,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
 <style>
 /* Page Specific styling helper for Caffeine slider input override */
 .custom-mg-slider-wrap {
@@ -213,6 +214,9 @@
         <text x="406" y="192" class="caffeine-chart-axis-label" text-anchor="middle">2 AM</text>
         <text x="480" y="192" class="caffeine-chart-axis-label" text-anchor="middle">6 AM</text>
       </svg>
+      <div style="text-align: center; margin-top: 1rem;">
+        <button class="share-btn" onclick="downloadCaffeineCard()">📥 Download Shareable Card</button>
+      </div>
     </div>
   </div>
 
@@ -602,7 +606,65 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
       bedtimeMarkerLine.style.display = 'block';
       bedtimeMarkerText.style.display = 'block';
     }
+
+    // Export active stats for shareable card
+    window.activeCaffeineData = {
+      bedtimeQueryMin: bedtimeQueryMin,
+      bedtimeCaffeine: bedtimeCaffeine,
+      getCaffeineAtMinute: getCaffeineAtMinute,
+      halfLifeHrs: halfLifeHrs,
+      statusLabel: statusLabel.textContent,
+      totalDose: loggedDrinks.reduce((sum, d) => sum + d.mg, 0),
+      svgElement: document.getElementById('caffeine-chart')
+    };
   }
+
+  // Globally exposed share card download
+  window.downloadCaffeineCard = function() {
+    const data = window.activeCaffeineData;
+    if (!data) return;
+
+    let clearanceTime = "Safe at Bedtime";
+    if (data.bedtimeCaffeine >= 20) {
+      let m = data.bedtimeQueryMin;
+      const endLimit = data.bedtimeQueryMin + 24 * 60;
+      let clearedMin = -1;
+      while (m < endLimit) {
+        if (data.getCaffeineAtMinute(m % (24 * 60)) < 20) {
+          clearedMin = m % (24 * 60);
+          break;
+        }
+        m += 15;
+      }
+      if (clearedMin !== -1) {
+        const hrs = Math.floor(clearedMin / 60);
+        const mins = clearedMin % 60;
+        const ampm = hrs >= 12 ? 'PM' : 'AM';
+        const dispHrs = hrs % 12 === 0 ? 12 : hrs % 12;
+        const dispMins = mins < 10 ? '0' + mins : mins;
+        clearanceTime = `${dispHrs}:${dispMins} ${ampm}`;
+      } else {
+        clearanceTime = "Next Day";
+      }
+    }
+
+    const stats = [
+      { label: 'Bedtime Caffeine Level:', value: `${Math.round(data.bedtimeCaffeine)} mg` },
+      { label: 'Sleep-Safe Clearance Hour:', value: clearanceTime },
+      { label: 'Caffeine Metabolism Half-Life:', value: `${data.halfLifeHrs} Hours` },
+      { label: 'Total Intake (24 Hours):', value: `${data.totalDose} mg` }
+    ];
+
+    const tagline = `Bedtime status is ${data.statusLabel.toLowerCase()}. Caffeine takes hours to clear and disrupts deep sleep cycles.`;
+    GoodSleepShare.generateSvgResultCard(
+      'CAFFEINE CLEARANCE PROFILE',
+      `Sleep-Safe: ${clearanceTime}`,
+      tagline,
+      stats,
+      data.svgElement,
+      'goodsleep-caffeine-clearance.png'
+    );
+  };
 
 })();
 </script>

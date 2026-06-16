@@ -16,6 +16,7 @@
 </script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
 <style>
 /* CHRONOTYPE PREVIEW CARDS */
 .type-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2rem}
@@ -168,6 +169,7 @@
       <div class="result-type" id="result-type"></div>
       <div class="result-pct" id="result-pct"></div>
       <div class="result-tagline" id="result-tagline"></div>
+      <button class="share-btn" onclick="downloadChronotypeCard()" style="margin-top: 1.25rem;">📥 Download Shareable Card</button>
     </div>
     <h3 style="font-size:15px;font-weight:700;margin-bottom:0.75rem">Your ideal sleep schedule</h3>
     <div class="result-schedule" id="result-schedule"></div>
@@ -372,6 +374,7 @@ function showResult(){
   if(type==='wolf'&&hasHighVariance&&scores[7]>=3)type='dolphin';
 
   const t=types[type];
+  window.activeChronotype = t;
   localStorage.setItem('gs-chronotype', type);
   localStorage.setItem('gs-chronotype-date', new Date().toISOString());
   document.getElementById('quiz-area').style.display='none';
@@ -413,6 +416,18 @@ function toggleFaq(btn){
 window.addEventListener('scroll',()=>{
   document.getElementById('back-top').classList.toggle('show',window.scrollY>400);
 },{passive:true});
+
+function downloadChronotypeCard() {
+  const t = window.activeChronotype;
+  if (!t) return;
+  const stats = [
+    { label: 'Ideal Bedtime:', value: t.bedtime },
+    { label: 'Ideal Wake Up:', value: t.wake },
+    { label: 'Peak Energy Window:', value: t.peakHours },
+    { label: 'Population Rarity:', value: t.pct }
+  ];
+  GoodSleepShare.generateChronotypeCard(t.name, t.emoji, t.tagline, stats, `goodsleep-${t.name.toLowerCase()}-chronotype.png`);
+}
 
 renderQuestion();
 </script>

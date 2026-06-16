@@ -3368,6 +3368,32 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   to { box-shadow: 0 0 12px var(--purple); }
 }
 
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(29, 158, 117, 0.08);
+  border: 1.5px solid rgba(29, 158, 117, 0.3);
+  color: var(--teal);
+  padding: 10px 18px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font);
+  margin-top: 1rem;
+}
+.share-btn:hover {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+  box-shadow: 0 4px 15px rgba(29, 158, 117, 0.25);
+  transform: translateY(-2px);
+}
+
+
 
 
 

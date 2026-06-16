@@ -15,6 +15,7 @@
 <meta property="og:site_name" content="GoodSleep">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
 <link rel="stylesheet" href="/styles.css">
+<script src="/share-card.js"></script>
 <style>
 /* Page-specific styling */
 .jl-container {
@@ -546,6 +547,9 @@
           <span class="jl-stat-val" id="jl-stat-days">8 Days</span>
         </div>
       </div>
+      <div style="text-align: center; margin-top: 1rem; margin-bottom: 1.5rem;">
+        <button class="share-btn" onclick="downloadJetLagCard()">📥 Download Shareable Card</button>
+      </div>
 
       <!-- ALERT BANNERS -->
       <div class="jl-alert" id="jl-banner-info">
@@ -1067,6 +1071,51 @@ function calculateJetLagTimeline() {
   localStorage.setItem('gs-jet-lag-diff', diff);
   localStorage.setItem('gs-jet-lag-days', totalDaysNeeded);
   localStorage.setItem('gs-jet-lag-date', new Date().toISOString());
+
+  // Extract travel guidelines for shareable card
+  let activeGuidelines = [];
+  if (diff > 0) {
+    activeGuidelines.push("Seek bright light in your biological morning to advance your sleep phase.");
+    activeGuidelines.push("Avoid bright light in your biological late night (wear blue blockers).");
+  } else {
+    activeGuidelines.push("Seek bright light in your biological evening to delay your sleep phase.");
+    activeGuidelines.push("Avoid bright light in your biological morning.");
+  }
+
+  // Find melatonin timing recommendation
+  let melDose = '';
+  let melTime = '';
+  if (diff > 0) {
+    const arrivalDay = daysList.find(d => d.type === 'arrival') || daysList[0];
+    if (arrivalDay) {
+      melTime = formatHour(arrivalDay.sleepStart - 0.75);
+    }
+    melDose = '0.3mg - 1.5mg';
+  }
+
+  window.activeJetLagData = {
+    routeLabel: `${depCityText} ➔ ${destCityText}`,
+    offsetHours: `${diff > 0 ? '+' : ''}${diff} Hours`,
+    daysNeeded: totalDaysNeeded,
+    melatoninDose: melDose,
+    melatoninTime: melTime,
+    guidelines: activeGuidelines
+  };
+}
+
+function downloadJetLagCard() {
+  const data = window.activeJetLagData;
+  if (!data) return;
+
+  GoodSleepShare.generateJetLagCard(
+    data.routeLabel,
+    data.offsetHours,
+    data.daysNeeded,
+    data.melatoninDose,
+    data.melatoninTime,
+    data.guidelines,
+    'goodsleep-jetlag-plan.png'
+  );
 }
 
 onCityChange('dep');
