@@ -768,6 +768,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   border: 1.5px solid var(--border);
   border-radius: var(--r);
   padding: 1.5rem;
+  min-width: 0;
 }
 .mela-timeline-container {
   width: 100%;
@@ -2800,6 +2801,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   padding: 1.5rem;
   box-shadow: var(--shadow);
   overflow-x: auto;
+  min-width: 0;
 }
 .mq-table {
   width: 100%;
@@ -3702,4 +3704,19 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
   .pp-time-range {
     padding-left: 44px !important;
   }
+}
+
+/* Prevent grid items from expanding beyond viewport width due to content min-widths */
+.mela-container > *,
+.mq-container > *,
+.pp-container > *,
+.wb-container > *,
+.sg-container > *,
+.ash-container > *,
+.mt-container > *,
+.sd-container > *,
+.st-container > *,
+.sa-container > *,
+.audit-container > * {
+  min-width: 0;
 }
