@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mouth Taping Safety Quiz &amp; Nasal Breathing Guide — GoodSleep</title>
+<meta name="description" content="Screen yourself for mouth taping safety using our clinical compatibility quiz and interactive nasal passage clearance test. Learn the science of nasal breathing.">
+<meta property="og:title" content="Mouth Taping Safety Quiz &amp; Nasal Breathing Guide — GoodSleep">
+<meta property="og:description" content="Is mouth taping safe for you? Screen your risk factors, take our interactive nasal breathing test, and get safe protocols.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/mouth-taping-guide">
+<meta property="og:url" content="https://goodsleep.rest/mouth-taping-guide">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-specific inline styling */
+.mt-alert-danger {
+  background: var(--red);
+  color: #fff;
+  border-radius: var(--r-sm);
+  padding: 1rem;
+  margin-top: 1rem;
+  font-size: 13.5px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mt-bullet-list {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+.mt-bullet-list li {
+  margin-bottom: 6px;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Mouth Taping Safety</div>
+  <h1>Mouth Taping Safety Quiz &amp;<br>Nasal Breathing Guide</h1>
+  <p class="hero-sub">Is mouth taping safe for you? Screen your respiratory compatibility, test your nasal passages, and learn the science of nighttime nasal breathing.</p>
+</div>
+
+<div class="page">
+  <div class="mt-container">
+    <!-- INPUTS PANEL -->
+    <div class="mt-panel">
+      <div class="mt-title-row">
+        <div class="mt-icon-circle">🤐</div>
+        <h3>Safety Screening</h3>
+      </div>
+
+      <div class="mt-form-group">
+        <label style="margin-bottom: 0.75rem;">Check any statements that apply to you:</label>
+        <div class="mt-checkbox-list">
+          <label class="mt-checkbox-item" id="item-q1">
+            <input type="checkbox" id="q-apnea" class="mt-q-check" onchange="evaluateMouthTaping(this)">
+            <span>I have untreated or suspected Obstructive Sleep Apnea (OSA) or heavy snoring.</span>
+          </label>
+          <label class="mt-checkbox-item" id="item-q2">
+            <input type="checkbox" id="q-congestion" class="mt-q-check" onchange="evaluateMouthTaping(this)">
+            <span>My nose is currently congested, blocked, or I have a cold/sinus allergy flare-up.</span>
+          </label>
+          <label class="mt-checkbox-item" id="item-q3">
+            <input type="checkbox" id="q-intoxicated" class="mt-q-check" onchange="evaluateMouthTaping(this)">
+            <span>I have consumed alcohol or taken sedatives/sleeping pills tonight.</span>
+          </label>
+          <label class="mt-checkbox-item" id="item-q4">
+            <input type="checkbox" id="q-asthma" class="mt-q-check" onchange="evaluateMouthTaping(this)">
+            <span>I suffer from severe asthma, COPD, or other chronic respiratory conditions.</span>
+          </label>
+          <label class="mt-checkbox-item" id="item-q5">
+            <input type="checkbox" id="q-reflux" class="mt-q-check" onchange="evaluateMouthTaping(this)">
+            <span>I experience frequent nighttime nausea, acid reflux, or vomiting risk.</span>
+          </label>
+          <label class="mt-checkbox-item" id="item-q6">
+            <input type="checkbox" id="q-skin" class="mt-q-check" onchange="evaluateMouthTaping(this)">
+            <span>I have highly sensitive skin or a contact allergy to medical adhesives.</span>
+          </label>
+          <label class="mt-checkbox-item" id="item-q7">
+            <input type="checkbox" id="q-nose-check" class="mt-q-check" onchange="evaluateMouthTaping(this)">
+            <span>I find it difficult to breathe only through my nose for 3 minutes during the day.</span>
+          </label>
+        </div>
+      </div>
+
+      <div style="font-size: 12px; color: var(--text-hint); line-height: 1.4; margin-top: 1rem;">
+        * This quiz screens for absolute safety contraindications. Taping your mouth when nasal pathways are blocked or when reflexes are suppressed can result in severe hypoxia or aspiration.
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="mt-results">
+      <!-- STATUS DISPLAY CARD -->
+      <div class="mt-main-card status-safe" id="mt-status-card">
+        <div class="mt-result-label" id="mt-result-label">Screening Assessment</div>
+        <div class="mt-status-display" id="mt-status-display">Safe to Try</div>
+        <div class="mt-desc-display" id="mt-desc-output">
+          You have no absolute contraindications. Nasal breathing is highly beneficial for sleep. Always use breathable, medical-grade paper micropore tape and fold a "quick-release tab" on one edge so you can peel it off instantly if needed.
+        </div>
+      </div>
+
+      <!-- INTERACTIVE TIMER CARD -->
+      <div class="mt-timer-card">
+        <div class="mt-timer-display-row">
+          <div class="mt-timer-label-col">
+            <div class="mt-timer-title">Interactive Nasal Patency Test</div>
+            <div class="mt-timer-desc">
+              Close your mouth. Block one nostril, breathe deeply for 30s. Switch sides and repeat. If you experience air hunger or panic, stop immediately.
+            </div>
+          </div>
+          <div class="mt-timer-value" id="mt-timer-val">60s</div>
+        </div>
+        
+        <div class="mt-progress-container">
+          <div class="mt-progress-bar" id="mt-timer-progress"></div>
+        </div>
+
+        <div class="mt-timer-controls">
+          <button class="mt-timer-btn mt-timer-btn-primary" id="btn-timer-start" onclick="toggleTimer()">Start Test</button>
+          <button class="mt-timer-btn mt-timer-btn-secondary" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE GUIDE -->
+  <div class="mt-science">
+    <h2>The Science of Nasal Breathing vs. Mouth Breathing</h2>
+    
+    <p>
+      Breathing is so automatic that we rarely think about <em>how</em> we breathe. However, human physiology is designed specifically for nasal breathing, particularly during sleep. Chronic mouth breathing during the night is linked to snoring, sleep apnea, dental decay, dry mouth, and morning fatigue.
+    </p>
+
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>The Physiological Benefits of Nasal Breathing</h3>
+        <p>
+          Your nose is not just an airway; it is a sophisticated air conditioning system:
+        </p>
+        <ul class="mt-bullet-list">
+          <li><strong>Nitric Oxide (NO) Production:</strong> Nasal cells produce Nitric Oxide, a powerful vasodilator. NO dilates blood vessels, improving oxygen absorption in the lungs by up to 18%.</li>
+          <li><strong>Filtration &amp; Humidification:</strong> Cilia and mucus filter out allergens, dust, and pathogens, while warming and humidifying the dry air to protect lung tissue.</li>
+          <li><strong>Parasympathetic Activation:</strong> Nasal breathing naturally slows down respiration rates, activating the parasympathetic nervous system ("rest and digest") to lower heart rate and reduce nighttime anxiety.</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h3>The Danger of Absolute Contraindications</h3>
+        <p>
+          While forcing nasal breathing is beneficial, **mouth taping can be dangerous if done under the wrong conditions**:
+        </p>
+        <ul class="mt-bullet-list">
+          <li><strong>Untreated Sleep Apnea (OSA):</strong> When an airway obstruction occurs in OSA, the body's natural response is to gasp for air through the mouth. Taping the mouth shut prevents this safety mechanism.</li>
+          <li><strong>Intoxication &amp; Sedatives:</strong> Alcohol and sleeping pills suppress brainstem arousal reflexes. If you experience an airway blockage while taped and sedated, your brain may fail to wake you up to remove the tape.</li>
+          <li><strong>Congestion:</strong> If nasal passages are mechanically blocked (allergies, deviated septum), taping the mouth forces breathing through a restricted space, leading to oxygen desaturation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Safe Protocols: How to Mouth Tape Correctly</h3>
+    <p>
+      If you pass the safety screening and the nasal patency test, follow these clinical safety guidelines:
+    </p>
+    <ol style="padding-left: 1.25rem; line-height: 1.8; margin-top: 0.75rem;">
+      <li><strong>Use the Right Tape:</strong> ONLY use medical-grade, hypoallergenic paper micropore tape or silicone tape. **Never** use duct tape, packing tape, or heavy adhesives. The tape must release easily with minimal pulling force.</li>
+      <li><strong>Create a Quick-Release Tab:</strong> Fold a small portion of the tape over on itself at one end to create a non-sticky tab. This allows you or a partner to peel it off instantly in the dark.</li>
+      <li><strong>Start Small (The Vertical Strip):</strong> Instead of taping your entire mouth horizontally, apply a single vertical strip of tape over the center of your lips. This leaves the corners of your mouth open, allowing emergency breathing if you cough or panic.</li>
+      <li><strong>Prep your Lips:</strong> Dry your lips and apply a light layer of lip balm before taping to protect the delicate skin from irritation.</li>
+    </ol>
+
+    <div class="mt-citations">
+      <strong>Scientific References & Authority Citations:</strong>
+      <ol>
+        <li><strong>Journal of Clinical Sleep Medicine (2022):</strong> <em>"The impact of mouth taping during sleep on patients with mild obstructive sleep apnea."</em> <a href="https://pubmed.ncbi.nlm.nih.gov/36254707/" target="_blank" rel="noopener">Read Abstract (PubMed)</a></li>
+        <li><strong>American Journal of Rhinology &amp; Allergy:</strong> <em>"Nitric oxide and the paranasal sinuses: physiological role and clinical implications."</em></li>
+        <li><strong>Stanford Medicine:</strong> <em>"Nasal breathing improves systemic oxygenation and increases respiratory efficiency compared to oral breathing during sleep."</em></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">🛏️ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">🧒 Kids Sleep</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/melatonin-calculator">💤 Melatonin Calculator</a>
+    <a href="/sleep-apnea-quiz">🫁 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍒 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
+    <a href="/about">ℹ️ About Us</a>
+    <a href="/privacy">🔒 Privacy Policy</a>
+    <a href="/contact">✉️ Contact Us</a>
+  </div>
+  <p>© 2026 GoodSleep. All rights reserved. Our content is for informational purposes and does not constitute medical advice.</p>
+</footer>
+
+<script>
+function evaluateMouthTaping(element) {
+  // Update class of checkbox-item for visual highlight
+  if (element && element.type === 'checkbox') {
+    const parent = element.closest('.mt-checkbox-item');
+    if (element.checked) {
+      parent.classList.add('checked');
+    } else {
+      parent.classList.remove('checked');
+    }
+  }
+
+  // Get individual check states
+  const hasApnea = document.getElementById('q-apnea').checked;
+  const hasCongestion = document.getElementById('q-congestion').checked;
+  const isIntoxicated = document.getElementById('q-intoxicated').checked;
+  const hasAsthma = document.getElementById('q-asthma').checked;
+  const hasReflux = document.getElementById('q-reflux').checked;
+  const hasSkinSensitivity = document.getElementById('q-skin').checked;
+  const hasNoseIssue = document.getElementById('q-nose-check').checked;
+
+  const statusCard = document.getElementById('mt-status-card');
+  const statusDisplay = document.getElementById('mt-status-display');
+  const descOutput = document.getElementById('mt-desc-output');
+
+  // Logic:
+  // Red Flag: apnea, congestion, alcohol/sedative, asthma, reflux, nose issue
+  // Amber Flag: skin sensitivity (needs specific hypoallergenic medical silicone tape or lip strips instead of paper)
+  // Green Flag: none
+
+  if (hasApnea || hasCongestion || isIntoxicated || hasAsthma || hasReflux || hasNoseIssue) {
+    statusCard.className = "mt-main-card status-danger";
+    statusDisplay.innerText = "❌ Contraindicated (Dangerous)";
+    
+    let dangerReasons = [];
+    if (hasApnea) dangerReasons.push("Untreated sleep apnea requires the mouth-opening reflex to resolve nighttime airway collapses.");
+    if (hasCongestion || hasNoseIssue) dangerReasons.push("Your nasal airway is restricted. Taping your mouth shut will trigger oxygen desaturation (hypoxia).");
+    if (isIntoxicated) dangerReasons.push("Alcohol and sedatives suppress brain stem response, making it dangerous to tape as you may not wake up to clear your airway.");
+    if (hasAsthma) dangerReasons.push("Chronic respiratory diseases require free airways to resolve sudden bronchospasms.");
+    if (hasReflux) dangerReasons.push("Nighttime acid reflux raises the risk of vomit aspiration if the mouth is taped shut.");
+
+    descOutput.innerHTML = `
+      <strong>We strongly advise against mouth taping due to the following safety risks:</strong>
+      <ul class="mt-bullet-list">
+        ${dangerReasons.map(r => `<li>${r}</li>`).join('')}
+      </ul>
+      <strong>Alternative Recommendation:</strong> Try using nasal dilator strips (Breathe Right strips), saline nasal sprays, and sleep on your side to open nasal airways naturally.
+    `;
+  } else if (hasSkinSensitivity) {
+    statusCard.className = "mt-main-card status-caution";
+    statusDisplay.innerText = "⚠️ Caution Recommended";
+    descOutput.innerHTML = `
+      You have no respiratory contraindications, but your **sensitive skin** puts you at risk of irritation or adhesive burns.
+      <br><br>
+      <strong>Safe Protocol:</strong>
+      <ul class="mt-bullet-list">
+        <li>Avoid standard paper micropore tape. Use **medical-grade silicone adhesive tape** which peels off gently without tearing skin.</li>
+        <li>Apply a layer of lip balm or petroleum jelly on and around the lips before taping.</li>
+        <li>Start with a tiny vertical strip over the center of your lips first.</li>
+      </ul>
+    `;
+  } else {
+    statusCard.className = "mt-main-card status-safe";
+    statusDisplay.innerText = "✅ Safe to Try";
+    descOutput.innerText = "You have no absolute contraindications. Nasal breathing is highly beneficial for sleep. Always use breathable, medical-grade paper micropore tape and fold a 'quick-release tab' on one edge so you can peel it off instantly if needed.";
+  }
+}
+
+// Interactive Timer Logic
+let timerInterval = null;
+let timeLeft = 60;
+let isTimerActive = false;
+
+function toggleTimer() {
+  const startBtn = document.getElementById('btn-timer-start');
+  const timerVal = document.getElementById('mt-timer-val');
+  const progressBar = document.getElementById('mt-timer-progress');
+
+  if (isTimerActive) {
+    // Pause
+    clearInterval(timerInterval);
+    isTimerActive = false;
+    startBtn.innerText = "Resume Test";
+    timerVal.classList.remove('active');
+    progressBar.classList.remove('active');
+  } else {
+    // Start
+    isTimerActive = true;
+    startBtn.innerText = "Pause Test";
+    timerVal.classList.add('active');
+    progressBar.classList.add('active');
+
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      timerVal.innerText = timeLeft + "s";
+      
+      const percentDone = ((60 - timeLeft) / 60) * 100;
+      progressBar.style.width = percentDone + "%";
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        isTimerActive = false;
+        timerVal.innerText = "Done! 🎉";
+        timerVal.classList.remove('active');
+        progressBar.classList.remove('active');
+        startBtn.innerText = "Test Passed";
+        startBtn.disabled = true;
+      }
+    }, 1000);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  isTimerActive = false;
+  timeLeft = 60;
+  
+  const timerVal = document.getElementById('mt-timer-val');
+  const progressBar = document.getElementById('mt-timer-progress');
+  const startBtn = document.getElementById('btn-timer-start');
+
+  timerVal.innerText = "60s";
+  timerVal.classList.remove('active');
+  progressBar.style.width = "0%";
+  progressBar.classList.remove('active');
+  startBtn.innerText = "Start Test";
+  startBtn.disabled = false;
+}
+</script>
+
+<script>
+// Theme Switcher Logic
+const themeToggle = document.getElementById('theme-toggle');
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+};
+themeToggle.addEventListener('click', toggleTheme);
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.style.display = 'none', 400);
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>

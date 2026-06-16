@@ -8,6 +8,7 @@
     { "source": "/sleep-apnea-quiz", "destination": "/sleep-apnea-quiz.html" },
     { "source": "/sleepy-girl-mocktail", "destination": "/sleepy-girl-mocktail.html" },
     { "source": "/ashwagandha-calculator", "destination": "/ashwagandha-calculator.html" },
+    { "source": "/mouth-taping-guide", "destination": "/mouth-taping-guide.html" },
     { "source": "/explore", "destination": "/explore.html" },
     { "source": "/caffeine-calculator", "destination": "/caffeine-calculator.html" },
     { "source": "/bedtime-calculator", "destination": "/bedtime-calculator.html" },
