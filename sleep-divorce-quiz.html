@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Divorce &amp; Couples Compatibility Quiz — GoodSleep</title>
+<meta name="description" content="Take our interactive sleep compatibility quiz for couples. Calculate your sleep harmony score and discover custom solutions like the Scandinavian Sleep Method.">
+<meta property="og:title" content="Sleep Divorce &amp; Couples Compatibility Quiz — GoodSleep">
+<meta property="og:description" content="Calculate your couples sleep compatibility score. Get personalized sleep setups to resolve snoring, movement, and temperature mismatches.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/sleep-divorce-quiz">
+<meta property="og:url" content="https://goodsleep.rest/sleep-divorce-quiz">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-specific inline styling */
+.sd-badge-rec {
+  background: var(--teal);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.sd-badge-hidden {
+  display: none !important;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Sleep Divorce Quiz</div>
+  <h1>Sleep Divorce &amp; Couples<br>Compatibility Quiz</h1>
+  <p class="hero-sub">Are nighttime disruptions affecting your relationship? Calculate your compatibility score and discover modern sleep arrangements designed for couples.</p>
+</div>
+
+<div class="page">
+  <div class="sd-container">
+    <!-- INPUTS PANEL -->
+    <div class="sd-panel">
+      <div class="sd-title-row">
+        <div class="sd-icon-circle">👩‍❤️‍👨</div>
+        <h3>Quiz Questions</h3>
+      </div>
+
+      <div class="sd-form-group">
+        <label for="sd-snore">1. Snoring &amp; Nighttime Noise</label>
+        <select id="sd-snore" class="sd-select" onchange="calculateCompatibility()">
+          <option value="0" selected>Quiet / No noise issues</option>
+          <option value="1">Mild, occasional snoring or sleep talking</option>
+          <option value="2">Severe, loud, chronic snoring or teeth grinding</option>
+        </select>
+      </div>
+
+      <div class="sd-form-group">
+        <label for="sd-move">2. Bed Movement &amp; Tossing</label>
+        <select id="sd-move" class="sd-select" onchange="calculateCompatibility()">
+          <option value="0" selected>Still sleeper / Minimal motion transfer</option>
+          <option value="1">Restless / Occasional sheet stealing or kicking</option>
+          <option value="2">Severe restless legs, constant turning, or major sheet hogs</option>
+        </select>
+      </div>
+
+      <div class="sd-form-group">
+        <label for="sd-schedule">3. Schedule &amp; Chronotype Alignment</label>
+        <select id="sd-schedule" class="sd-select" onchange="calculateCompatibility()">
+          <option value="0" selected>Synced schedules (sleep/wake within 1 hour)</option>
+          <option value="1">Staggered schedules (mismatched by 1-3 hours)</option>
+          <option value="2">Extreme conflicts (opposite shifts, night owl vs. early riser)</option>
+        </select>
+      </div>
+
+      <div class="sd-form-group">
+        <label for="sd-temp">4. Temperature Mismatches</label>
+        <select id="sd-temp" class="sd-select" onchange="calculateCompatibility()">
+          <option value="0" selected>Similar temperature preferences</option>
+          <option value="1">Slight mismatch (one likes it slightly colder/warmer)</option>
+          <option value="2">Polar opposites (one sweating, one freezing under 3 blankets)</option>
+        </select>
+      </div>
+
+      <div class="sd-form-group">
+        <label for="sd-light">5. Environmental Preferences (Light/TV)</label>
+        <select id="sd-light" class="sd-select" onchange="calculateCompatibility()">
+          <option value="0" selected>Compatible settings (both need dark/silent room)</option>
+          <option value="1">Minor differences (one reads with dim light or scrolls)</option>
+          <option value="2">Opposite needs (needs white noise/TV/light on vs. needs pitch black)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="sd-results">
+      <!-- MAIN SCORE DISPLAY -->
+      <div class="sd-main-card">
+        <div class="sd-score-col">
+          <div class="sd-score-circle" id="sd-circle-border">
+            <span class="sd-score-val" id="sd-score-num">100%</span>
+          </div>
+          <span class="sd-score-lbl">Sleep Harmony</span>
+        </div>
+        <div class="sd-info-col">
+          <div class="sd-info-title" id="sd-harmony-title">Excellent Compatibility</div>
+          <div class="sd-info-desc" id="sd-harmony-desc">
+            You and your partner are highly compatible sleepers. Standard co-sleeping is working well. Keep practicing good sleep hygiene together!
+          </div>
+        </div>
+      </div>
+
+      <!-- RECOMMENDATION SECTION -->
+      <div class="sd-rec-section">
+        <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; color: var(--text-muted);">
+          Suggested Solutions
+        </h4>
+
+        <!-- REC 1: SCANDINAVIAN METHOD -->
+        <div class="sd-rec-card" id="rec-scandinavian">
+          <div class="sd-rec-icon">🛌</div>
+          <div class="sd-rec-content">
+            <span class="sd-badge-rec" id="badge-scandinavian">Top Choice</span>
+            <div class="sd-rec-title">The Scandinavian Sleep Method</div>
+            <div class="sd-rec-desc">
+              Sleep on the same mattress but use **two separate twin-size duvets/comforters** instead of one large shared blanket. This completely eliminates sheet-stealing and allows individual temperature control.
+            </div>
+          </div>
+        </div>
+
+        <!-- REC 2: SPLIT MATTRESS -->
+        <div class="sd-rec-card" id="rec-split-king">
+          <div class="sd-rec-icon">🛏️</div>
+          <div class="sd-rec-content">
+            <span class="sd-badge-rec" id="badge-split-king">Top Choice</span>
+            <div class="sd-rec-title">Split Mattress / Dual Pocket Springs</div>
+            <div class="sd-rec-desc">
+              Upgrade to a split mattress (e.g. Split King) or mattresses with individual pocketed coils. This isolates motion transfer, preventing restless tossing/turning from waking the other partner.
+            </div>
+          </div>
+        </div>
+
+        <!-- REC 3: CO-SLEEP HYGIENE -->
+        <div class="sd-rec-card" id="rec-co-hygiene">
+          <div class="sd-rec-icon">🎧</div>
+          <div class="sd-rec-content">
+            <span class="sd-badge-rec" id="badge-co-hygiene">Top Choice</span>
+            <div class="sd-rec-title">Environmental Buffering</div>
+            <div class="sd-rec-desc">
+              Use environmental buffers: premium molded earplugs or white noise machines for light snoring, and contoured eye masks for light mismatches. Stagger bedtime routines to avoid sleep onset disruption.
+            </div>
+          </div>
+        </div>
+
+        <!-- REC 4: SEPARATE ROOMS (SLEEP DIVORCE) -->
+        <div class="sd-rec-card" id="rec-sleep-divorce">
+          <div class="sd-rec-icon">🚪</div>
+          <div class="sd-rec-content">
+            <span class="sd-badge-rec" id="badge-sleep-divorce">Top Choice</span>
+            <div class="sd-rec-title">Separate Bedrooms ("Sleep Divorce")</div>
+            <div class="sd-rec-desc">
+              Sleeping in separate rooms is a highly effective, relationship-saving arrangement. It eliminates conflict from severe snoring and conflicting work shifts. We advise combining this with medical sleep studies for chronic snoring.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE GUIDE -->
+  <div class="sd-science">
+    <h2>The Science of "Sleep Divorce" &amp; Relationship Harmony</h2>
+    
+    <p>
+      The term "Sleep Divorce" sounds drastic, but sleep scientists and relationship therapists increasingly recommend separate sleeping arrangements as a way to **save** marriages rather than end them. According to a National Sleep Foundation poll, nearly **25% of married couples** sleep in separate beds or rooms.
+    </p>
+
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>How Poor Sleep Erodes Relationships</h3>
+        <p>
+          Sleep deprivation is not just a personal health crisis; it is an interpersonal one. When co-sleeping partners repeatedly disrupt each other's sleep:
+        </p>
+        <ul class="mt-bullet-list">
+          <li><strong>Increased Cortisol:</strong> Lack of sleep spikes cortisol (the stress hormone), leading to heightened irritability, anxiety, and arguments over trivial matters.</li>
+          <li><strong>Empathy Depletion:</strong> Neuroimaging studies show that sleep-deprived brains experience functional downregulation of the amygdala and prefrontal cortex, reducing emotional empathy and patience.</li>
+          <li><strong>Resentment Build-up:</strong> The disrupted partner often builds silent resentment toward the snoring or tossing partner, creating relationship barriers.</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h3>The Scandinavian Sleep Method Explained</h3>
+        <p>
+          For couples who want to maintain the physical intimacy of sharing a bed but eliminate co-sleeping disturbances, the **Scandinavian Sleep Method** is the gold standard:
+        </p>
+        <p>
+          Instead of using a single queen or king-size comforter that is easily stolen and traps heat, you dress the bed with **two individual twin-size duvets**.
+        </p>
+        <p>
+          This simple change allows one partner to sleep cool under a light linen sheet while the other wraps themselves in a heavy down comforter—completely eliminating sheet-tugging wars and micro-awakenings.
+        </p>
+      </div>
+    </div>
+
+    <h3>How to Discuss Sleep Arrangements with Your Partner</h3>
+    <p>
+      Bringing up separate sleep arrangements requires sensitivity. Follow these therapeutic communication tips:
+    </p>
+    <ol style="padding-left: 1.25rem; line-height: 1.8; margin-top: 0.75rem;">
+      <li><strong>Frame it around Health, Not Love:</strong> Emphasize that you want to sleep apart because you care about your physiological health and cognitive performance, not because you are pulling away emotionally. (e.g. <em>"I love you, but my body needs deep sleep to be the best partner for you during the day."</em>)</li>
+      <li><strong>Suggest a 2-Week Trial:</strong> Instead of proposing a permanent sleep divorce, frame it as a two-week science experiment. Track your mood, energy, and relationship warmth before and after.</li>
+      <li><strong>Maintain Intimacy Rituals:</strong> Set a rule to cuddle, read, or talk in the same bed before sleep onset, then have one partner transition to the other space when it is time to sleep.</li>
+    </ol>
+
+    <div class="sd-citations">
+      <strong>Scientific References & Authority Citations:</strong>
+      <ol>
+        <li><strong>Journal of Social and Personal Relationships:</strong> <em>"Sleep quality predicts conflict frequency and resolution capacity in romantic couples."</em></li>
+        <li><strong>American Academy of Sleep Medicine (AASM):</strong> <em>"Over one-third of Americans occasionally or consistently sleep in separate rooms to accommodate a partner's snoring or sleep disorders."</em></li>
+        <li><strong>National Sleep Foundation:</strong> Couples sleep poll surveying co-sleeping disruption metrics.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">🛏️ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">🧒 Kids Sleep</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/melatonin-calculator">💤 Melatonin Calculator</a>
+    <a href="/sleep-apnea-quiz">🫁 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍒 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
+    <a href="/about">ℹ️ About Us</a>
+    <a href="/privacy">🔒 Privacy Policy</a>
+    <a href="/contact">✉️ Contact Us</a>
+  </div>
+  <p>© 2026 GoodSleep. All rights reserved. Our content is for informational purposes and does not constitute medical advice.</p>
+</footer>
+
+<script>
+function calculateCompatibility() {
+  const snore = parseInt(document.getElementById('sd-snore').value);
+  const move = parseInt(document.getElementById('sd-move').value);
+  const schedule = parseInt(document.getElementById('sd-schedule').value);
+  const temp = parseInt(document.getElementById('sd-temp').value);
+  const light = parseInt(document.getElementById('sd-light').value);
+
+  // Score calculations
+  const totalDeductions = snore + move + schedule + temp + light;
+  const score = Math.max(0, 100 - (totalDeductions * 10));
+
+  // Update Score Circle text
+  const scoreNum = document.getElementById('sd-score-num');
+  scoreNum.innerText = score + "%";
+
+  // Score ring color
+  const circleBorder = document.getElementById('sd-circle-border');
+  if (score >= 80) {
+    circleBorder.style.borderColor = "var(--teal)";
+    scoreNum.style.color = "var(--teal)";
+  } else if (score >= 50) {
+    circleBorder.style.borderColor = "var(--amber)";
+    scoreNum.style.color = "var(--amber)";
+  } else {
+    circleBorder.style.borderColor = "var(--red)";
+    scoreNum.style.color = "var(--red)";
+  }
+
+  // Update Title & Desc
+  const title = document.getElementById('sd-harmony-title');
+  const desc = document.getElementById('sd-harmony-desc');
+
+  if (score >= 80) {
+    title.innerText = "High Compatibility";
+    desc.innerText = "You have excellent sleep alignment. Minor differences can be easily bypassed with standard co-sleeping arrangements or simple sleep products.";
+  } else if (score >= 50) {
+    title.innerText = "Moderate Compatibility";
+    desc.innerText = "You experience frequent micro-disruptions due to differing sleep preferences. Making targeted upgrades to your bedding setup will dramatically improve co-sleeping health.";
+  } else {
+    title.innerText = "Low Compatibility / Sleep Friction";
+    desc.innerText = "Severe sleep schedule mismatches, loud snoring, or tossing/turning are significantly eroding your sleep quality. Implementing a formal sleep setup change is highly recommended to protect relationship harmony.";
+  }
+
+  // Determine top recommendation highlights
+  // Hide all badges first
+  document.getElementById('badge-scandinavian').className = "sd-badge-rec sd-badge-hidden";
+  document.getElementById('badge-split-king').className = "sd-badge-rec sd-badge-hidden";
+  document.getElementById('badge-co-hygiene').className = "sd-badge-rec sd-badge-hidden";
+  document.getElementById('badge-sleep-divorce').className = "sd-badge-rec sd-badge-hidden";
+
+  // Remove recommended classes
+  document.getElementById('rec-scandinavian').className = "sd-rec-card";
+  document.getElementById('rec-split-king').className = "sd-rec-card";
+  document.getElementById('rec-co-hygiene').className = "sd-rec-card";
+  document.getElementById('rec-sleep-divorce').className = "sd-rec-card";
+
+  // Recommendation logic based on highest scores
+  let recommendedId = "rec-co-hygiene";
+  let badgeId = "badge-co-hygiene";
+
+  if (score < 50 || snore === 2 || schedule === 2) {
+    recommendedId = "rec-sleep-divorce";
+    badgeId = "badge-sleep-divorce";
+  } else if (move === 2) {
+    recommendedId = "rec-split-king";
+    badgeId = "badge-split-king";
+  } else if (temp === 2 || move === 1) {
+    recommendedId = "rec-scandinavian";
+    badgeId = "badge-scandinavian";
+  }
+
+  // Show highlighted selection
+  document.getElementById(recommendedId).classList.add('recommended');
+  document.getElementById(badgeId).className = "sd-badge-rec";
+}
+
+// Initial calculation
+calculateCompatibility();
+</script>
+
+<script>
+// Theme Switcher Logic
+const themeToggle = document.getElementById('theme-toggle');
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+};
+themeToggle.addEventListener('click', toggleTheme);
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.style.display = 'none', 400);
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>
