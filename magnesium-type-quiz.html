@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Magnesium is Best for Sleep? Quiz &amp; Form Selector — GoodSleep</title>
+<meta name="description" content="Take our interactive Magnesium Form Quiz to find the best type of magnesium for your sleep (Glycinate, L-Threonate, Taurate, Malate) based on your physiology and symptoms.">
+<meta property="og:title" content="Which Magnesium is Best for Sleep? Quiz &amp; Form Selector — GoodSleep">
+<meta property="og:description" content="Find the perfect magnesium form for your sleep quality, anxiety, or muscle cramps. Interactive match scores &amp; comparative science.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/magnesium-type-quiz">
+<meta property="og:url" content="https://goodsleep.rest/magnesium-type-quiz">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-specific overrides */
+.mq-dosage-info {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--r-sm);
+  padding: 8px 12px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Magnesium Quiz</div>
+  <h1>Which Magnesium is Best for Sleep?<br>Interactive Quiz &amp; Guide</h1>
+  <p class="hero-sub">Don't waste money on laxative oxide or citrate. Evaluate your symptoms, check your brain/muscle profile, and choose the correct therapeutic magnesium form.</p>
+</div>
+
+<div class="page">
+  <div class="mq-container">
+    <!-- INPUTS PANEL -->
+    <div class="mq-panel">
+      <div class="mq-title-row">
+        <div class="mq-icon-circle">💊</div>
+        <h3>Quiz Questions</h3>
+      </div>
+
+      <div class="mq-form-group">
+        <label for="mq-concern">1. Primary Sleep/Health Disrupter</label>
+        <select id="mq-concern" class="mq-select" onchange="calculateMagnesiumMatch()">
+          <option value="racing-mind" selected>Racing mind, anxiety, or constant overthinking at night</option>
+          <option value="muscle-tension">Nighttime leg cramps, muscle spasms, or restless legs</option>
+          <option value="heart-palpitations">Calming nighttime heart palpitations or high pulse rate</option>
+          <option value="fatigue">Daytime chronic pain, fibromyalgia, or low energy</option>
+          <option value="general-sleep">General difficulty staying asleep without specific pain/anxiety</option>
+        </select>
+      </div>
+
+      <div class="mq-form-group">
+        <label for="mq-cognitive">2. Daytime Cognitive Patterns</label>
+        <select id="mq-cognitive" class="mq-select" onchange="calculateMagnesiumMatch()">
+          <option value="adhd-brainfog" selected>Severe brain fog, memory issues, or ADHD symptoms</option>
+          <option value="distracted">Mild distraction or difficulty focusing under stress</option>
+          <option value="normal">Normal, clear focus during the day</option>
+        </select>
+      </div>
+
+      <div class="mq-form-group">
+        <label for="mq-gi">3. Gastrointestinal Sensitivity</label>
+        <select id="mq-gi" class="mq-select" onchange="calculateMagnesiumMatch()">
+          <option value="sensitive" selected>Highly sensitive stomach (prone to loose stools/diarrhea)</option>
+          <option value="constipation">Suffer from regular constipation (need digestive movement)</option>
+          <option value="normal">Normal, regular digestion</option>
+        </select>
+      </div>
+
+      <div class="mq-form-group">
+        <label for="mq-muscle">4. Physical Body Status</label>
+        <select id="mq-muscle" class="mq-select" onchange="calculateMagnesiumMatch()">
+          <option value="cramps" selected>Frequent physical cramps, tightness, or restless legs</option>
+          <option value="stiffness">Mild joint/muscle stiffness after workouts or waking</option>
+          <option value="none">No major physical muscle pain or spasms</option>
+        </select>
+      </div>
+
+      <div class="mq-form-group">
+        <label for="mq-timing">5. Supplement Timing Preference</label>
+        <select id="mq-timing" class="mq-select" onchange="calculateMagnesiumMatch()">
+          <option value="evening" selected>Prefer taking a single dose 1 hour before bedtime</option>
+          <option value="split">Prefer splitting into morning and evening doses</option>
+          <option value="morning">Prefer taking supplements only in the morning</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="mq-results">
+      <!-- MAIN MATCH DISPLAY CARD -->
+      <div class="mq-main-card" id="mq-result-card">
+        <div class="mq-result-label">Your Recommended Match</div>
+        <div class="mq-status-display" id="mq-best-match">Magnesium Glycinate</div>
+        <div class="mq-desc-display" id="mq-match-desc">
+          Magnesium Glycinate is bound to the amino acid glycine, which acts as an inhibitory neurotransmitter. It offers maximum bioavailability, is highly gentle on the stomach, and excels at reducing muscle tension.
+        </div>
+        <div class="mq-dosage-info" id="mq-dosage-info">Recommended Dose: 200 mg - 400 mg of elemental magnesium</div>
+      </div>
+
+      <!-- MATCH STRENGTHS CHART CARD -->
+      <div class="mq-match-card">
+        <div class="mq-result-label" style="margin-bottom:0.5rem;">Form Compatibility Strengths</div>
+        <div class="mq-match-list">
+          <!-- Magnesium Glycinate -->
+          <div class="mq-match-item">
+            <span class="mq-match-label">Glycinate</span>
+            <div class="mq-match-bar">
+              <div id="bar-glycinate" class="mq-match-fill"></div>
+            </div>
+            <span id="percent-glycinate" class="mq-match-percent">50%</span>
+          </div>
+
+          <!-- Magnesium L-Threonate -->
+          <div class="mq-match-item">
+            <span class="mq-match-label">L-Threonate</span>
+            <div class="mq-match-bar">
+              <div id="bar-threonate" class="mq-match-fill"></div>
+            </div>
+            <span id="percent-threonate" class="mq-match-percent">50%</span>
+          </div>
+
+          <!-- Magnesium Taurate -->
+          <div class="mq-match-item">
+            <span class="mq-match-label">Taurate</span>
+            <div class="mq-match-bar">
+              <div id="bar-taurate" class="mq-match-fill"></div>
+            </div>
+            <span id="percent-taurate" class="mq-match-percent">50%</span>
+          </div>
+
+          <!-- Magnesium Malate -->
+          <div class="mq-match-item">
+            <span class="mq-match-label">Malate</span>
+            <div class="mq-match-bar">
+              <div id="bar-malate" class="mq-match-fill"></div>
+            </div>
+            <span id="percent-malate" class="mq-match-percent">50%</span>
+          </div>
+
+          <!-- Magnesium Citrate/Oxide -->
+          <div class="mq-match-item">
+            <span class="mq-match-label">Citrate/Oxide</span>
+            <div class="mq-match-bar">
+              <div id="bar-citrate" class="mq-match-fill"></div>
+            </div>
+            <span id="percent-citrate" class="mq-match-percent">50%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON MATRIX CARD -->
+      <div class="mq-matrix-card">
+        <div class="mq-result-label" style="margin-bottom:0.75rem;">Magnesium Forms Comparison Matrix</div>
+        <table class="mq-table">
+          <thead>
+            <tr>
+              <th>Magnesium Form</th>
+              <th>Absorption Rate</th>
+              <th>Target Benefits</th>
+              <th>Laxative Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Glycinate</strong></td>
+              <td>⭐⭐⭐⭐⭐ (Excellent)</td>
+              <td>Muscular relaxation, anxiety relief, general sleep quality</td>
+              <td>Very Low</td>
+            </tr>
+            <tr>
+              <td><strong>L-Threonate</strong></td>
+              <td>⭐⭐⭐⭐ (High)</td>
+              <td>Brain fog, memory, ADHD, calming racing thoughts</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td><strong>Taurate</strong></td>
+              <td>⭐⭐⭐⭐ (High)</td>
+              <td>Cardiovascular health, heart palpitations, blood pressure</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td><strong>Malate</strong></td>
+              <td>⭐⭐⭐⭐⭐ (Excellent)</td>
+              <td>Fibromyalgia, chronic fatigue, muscle soreness (energizing)</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td><strong>Citrate</strong></td>
+              <td>⭐⭐⭐ (Moderate)</td>
+              <td>Constipation relief (not ideal for sleep)</td>
+              <td>⭐⭐⭐⭐⭐ (Extreme)</td>
+            </tr>
+            <tr>
+              <td><strong>Oxide</strong></td>
+              <td>⭐ (Very Poor - 4%)</td>
+              <td>Basic mineral replacement, cheap fillers</td>
+              <td>⭐⭐⭐⭐ (High)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE GUIDE -->
+  <div class="mq-science">
+    <h2>The Science of Magnesium &amp; Sleep Physiology</h2>
+    
+    <p>
+      Magnesium is an essential macromineral involved in over 600 enzymatic reactions in the human body. However, modern dietary practices leave nearly 50% of adults chronically deficient. Regarding sleep, magnesium plays a critical regulatory role by modulating neural pathways.
+    </p>
+
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h3>How Magnesium Calms the Brain</h3>
+        <p>
+          Magnesium acts as a natural **NMDA receptor antagonist**. NMDA is a receptor for glutamate—the brain's primary excitatory neurotransmitter. By sits in the NMDA channel, magnesium prevents glutamate from over-stimulating neurons, stopping racing thoughts and hyperexcitability.
+        </p>
+        <p>
+          Additionally, magnesium is a cofactor in the synthesis of **GABA** (gamma-aminobutyric acid), the primary inhibitory neurotransmitter that shuts down brain activity to prepare the body for deep slow-wave sleep.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>Why Chelation Matters (Elemental vs. Compound Weight)</h3>
+        <p>
+          Magnesium cannot exist as a stable pure mineral in pill form; it must be bound (chelated) to another carrier molecule (e.g. glycine, taurine, or citric acid).
+        </p>
+        <p>
+          This carrier molecule dictates where the magnesium is absorbed in the body:
+        </p>
+        <ul>
+          <li><strong>Glycine</strong> carries magnesium to skeletal muscles and central nervous tissue.</li>
+          <li><strong>L-Threonate</strong> utilizes a unique transport mechanism that lets it cross the blood-brain barrier to raise cerebrospinal fluid magnesium levels.</li>
+          <li><strong>Citric Acid</strong> remains mostly in the colon, attracting water and causing a laxative effect.</li>
+        </ul>
+        <p>
+          Always check the label for **elemental magnesium weight** (the actual magnesium absorbed) rather than total compound weight.
+        </p>
+      </div>
+    </div>
+
+    <div class="mq-citations">
+      <strong>Scientific References & Authority Citations:</strong>
+      <ol>
+        <li><strong>Journal of Research in Medical Sciences (2012):</strong> <em>"The effect of magnesium supplementation on primary insomnia in elderly: A double-blind placebo-controlled clinical trial."</em> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3703169/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
+        <li><strong>Neuropharmacology Journal (2010):</strong> <em>"Enhancement of learning and memory by elevating brain magnesium levels via L-Threonate supplementation."</em></li>
+        <li><strong>Journal of the American College of Nutrition:</strong> Review of organic magnesium chelates bioavailability.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">🛏️ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">🧒 Kids Sleep</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/melatonin-calculator">💤 Melatonin Calculator</a>
+    <a href="/sleep-apnea-quiz">🫁 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍒 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
+    <a href="/about">ℹ️ About Us</a>
+    <a href="/privacy">🔒 Privacy Policy</a>
+    <a href="/contact">✉️ Contact Us</a>
+  </div>
+  <p>© 2026 GoodSleep. All rights reserved. Our content is for informational purposes and does not constitute medical advice.</p>
+</footer>
+
+<script>
+function calculateMagnesiumMatch() {
+  const concern = document.getElementById('mq-concern').value;
+  const cognitive = document.getElementById('mq-cognitive').value;
+  const gi = document.getElementById('mq-gi').value;
+  const muscle = document.getElementById('mq-muscle').value;
+  const timing = document.getElementById('mq-timing').value;
+
+  // Initialize raw scores
+  let gly = 30;
+  let thr = 30;
+  let tau = 30;
+  let mal = 20;
+  let cit = 10;
+
+  // 1. Evaluate Primary Concern
+  if (concern === 'racing-mind') {
+    thr += 50;
+    gly += 25;
+  } else if (concern === 'muscle-tension') {
+    gly += 50;
+    mal += 20;
+  } else if (concern === 'heart-palpitations') {
+    tau += 60;
+  } else if (concern === 'fatigue') {
+    mal += 60;
+  } else if (concern === 'general-sleep') {
+    gly += 30;
+    thr += 20;
+  }
+
+  // 2. Evaluate Daytime Cognitive Patterns
+  if (cognitive === 'adhd-brainfog') {
+    thr += 40;
+  } else if (cognitive === 'distracted') {
+    thr += 20;
+    gly += 10;
+  } else {
+    gly += 10;
+    thr += 10;
+    tau += 10;
+    mal += 10;
+  }
+
+  // 3. Evaluate Gastrointestinal Sensitivity
+  if (gi === 'sensitive') {
+    cit -= 80; // strong penalty for citrate
+    gly += 25;
+    thr += 25;
+  } else if (gi === 'constipation') {
+    cit += 60; // citrate is positive for constipation
+  } else {
+    gly += 10;
+    thr += 10;
+    tau += 10;
+  }
+
+  // 4. Evaluate Physical Body Status
+  if (muscle === 'cramps') {
+    gly += 45;
+    mal += 15;
+  } else if (muscle === 'stiffness') {
+    gly += 25;
+    mal += 25;
+  }
+
+  // 5. Evaluate Supplement Timing Preference
+  if (timing === 'evening') {
+    gly += 25;
+    thr += 25;
+    mal -= 20; // malate energizes, penalty for evening
+  } else if (timing === 'morning') {
+    mal += 40;
+    gly -= 10;
+  }
+
+  // Clamp minimum scores to 0
+  gly = Math.max(0, gly);
+  thr = Math.max(0, thr);
+  tau = Math.max(0, tau);
+  mal = Math.max(0, mal);
+  cit = Math.max(0, cit);
+
+  // Normalize scores to percentages (finding maximum raw score and mapping it)
+  const maxRaw = Math.max(gly, thr, tau, mal, cit);
+  const scale = maxRaw > 0 ? (100 / maxRaw) : 1;
+
+  const pctGly = Math.round(gly * scale);
+  const pctThr = Math.round(thr * scale);
+  const pctTau = Math.round(tau * scale);
+  const pctMal = Math.round(mal * scale);
+  const pctCit = Math.round(cit * scale);
+
+  // Update UI match percentages
+  document.getElementById('percent-glycinate').innerText = pctGly + "%";
+  document.getElementById('percent-threonate').innerText = pctThr + "%";
+  document.getElementById('percent-taurate').innerText = pctTau + "%";
+  document.getElementById('percent-malate').innerText = pctMal + "%";
+  document.getElementById('percent-citrate').innerText = pctCit + "%";
+
+  document.getElementById('bar-glycinate').style.width = pctGly + "%";
+  document.getElementById('bar-threonate').style.width = pctThr + "%";
+  document.getElementById('bar-taurate').style.width = pctTau + "%";
+  document.getElementById('bar-malate').style.width = pctMal + "%";
+  document.getElementById('bar-citrate').style.width = pctCit + "%";
+
+  // Determine best match name
+  let bestForm = "Magnesium Glycinate";
+  let bestDesc = "";
+  let dosage = "200 mg - 400 mg";
+  let timingLabel = "Take 1 hour before bedtime";
+  let themeColorClass = "mq-main-card"; // default
+
+  // We find which normalized percentage is highest
+  const maxPct = Math.max(pctGly, pctThr, pctTau, pctMal, pctCit);
+
+  if (maxPct === pctGly) {
+    bestForm = "Magnesium Glycinate / Bisglycinate";
+    bestDesc = "Magnesium Glycinate is highly bioavailable, bound to glycine (an inhibitory neurotransmitter). It offers superior muscle relaxation, reduces nighttime anxiety, and is extremely gentle on sensitive stomachs.";
+    dosage = "200 mg - 400 mg of elemental magnesium";
+    timingLabel = "Take 1-2 hours before bed with a small snack.";
+  } else if (maxPct === pctThr) {
+    bestForm = "Magnesium L-Threonate (Magtein®)";
+    bestDesc = "L-Threonate is the only form of magnesium clinically proven to easily cross the blood-brain barrier. It raises brain magnesium levels, helping to turn off a racing mind, reduce anxiety, and improve daytime memory/ADHD symptoms.";
+    dosage = "1,000 mg - 2,000 mg of total compound (providing 72 mg - 144 mg of elemental magnesium)";
+    timingLabel = "Take 1 capsule in the morning & 2 capsules 1 hour before bed.";
+  } else if (maxPct === pctTau) {
+    bestForm = "Magnesium Taurate";
+    bestDesc = "Magnesium Taurate is bound to the amino acid taurine, which plays a major role in heart health and blood pressure regulation. It is best for calming nighttime heart palpitations and lowering general anxiety.";
+    dosage = "125 mg - 250 mg of elemental magnesium";
+    timingLabel = "Take with dinner/evening meals.";
+  } else if (maxPct === pctMal) {
+    bestForm = "Magnesium Malate";
+    bestDesc = "Magnesium Malate is bound to malic acid, which is key to cell energy production (ATP cycle). It is excellent for soothing chronic daytime muscle pain or fibromyalgia, but should be taken during the day as it can be energizing.";
+    dosage = "300 mg - 600 mg of elemental magnesium";
+    timingLabel = "Take with breakfast or split between morning & lunch.";
+  } else {
+    bestForm = "Magnesium Citrate (For Constipation Only)";
+    bestDesc = "Magnesium Citrate is primarily a laxative. It has moderate absorption, but because it draws water into the colon, it is not recommended for sleep unless you suffer from chronic constipation. Switch to Glycinate if sleep is your primary goal.";
+    dosage = "150 mg - 300 mg of elemental magnesium";
+    timingLabel = "Take in the evening with a glass of water.";
+  }
+
+  document.getElementById('mq-best-match').innerText = bestForm;
+  document.getElementById('mq-match-desc').innerText = bestDesc;
+  document.getElementById('mq-dosage-info').innerText = `Recommended Dose: ${dosage} | Timing: ${timingLabel}`;
+
+  // Highlight the highest matching bar in purple class
+  const fills = document.querySelectorAll('.mq-match-fill');
+  fills.forEach(f => f.classList.remove('highlight'));
+
+  if (maxPct === pctGly) document.getElementById('bar-glycinate').classList.add('highlight');
+  else if (maxPct === pctThr) document.getElementById('bar-threonate').classList.add('highlight');
+  else if (maxPct === pctTau) document.getElementById('bar-taurate').classList.add('highlight');
+  else if (maxPct === pctMal) document.getElementById('bar-malate').classList.add('highlight');
+  else document.getElementById('bar-citrate').classList.add('highlight');
+}
+
+// Initial calculation
+calculateMagnesiumMatch();
+</script>
+
+<script>
+// Theme Switcher Logic
+const themeToggle = document.getElementById('theme-toggle');
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+};
+themeToggle.addEventListener('click', toggleTheme);
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.style.display = 'none', 400);
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>
