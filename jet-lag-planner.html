@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jet Lag Circadian Light Planner — GoodSleep</title>
+<meta name="description" content="Calculate and visualize your day-by-day light exposure, light avoidance, and melatonin windows to beat jet lag using circadian science and pre-adaptation cycles.">
+<meta property="og:title" content="Jet Lag Circadian Light Planner — GoodSleep">
+<meta property="og:description" content="Use circadian phase response curves to shift your biological clock and minimize jet lag. Free interactive planner.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/jet-lag-planner">
+<meta property="og:url" content="https://goodsleep.rest/jet-lag-planner">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-specific styling */
+.jl-container {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 950px) {
+  .jl-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+.jl-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  height: fit-content;
+  box-shadow: var(--shadow);
+  transition: background 0.3s, border-color 0.3s;
+}
+.jl-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+.jl-icon-circle {
+  width: 36px;
+  height: 36px;
+  background: var(--teal-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--teal);
+}
+.jl-form-group {
+  margin-bottom: 1.25rem;
+}
+.jl-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+.jl-select, .jl-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.3s, color 0.3s;
+}
+.jl-select:focus, .jl-input:focus {
+  border-color: var(--teal);
+}
+.jl-flex-row {
+  display: flex;
+  gap: 10px;
+}
+.jl-flex-row > * {
+  flex: 1;
+}
+
+/* Results styles */
+.jl-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.jl-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem 1rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background 0.3s, border-color 0.3s;
+}
+.jl-stat-title {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.jl-stat-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--teal);
+}
+.jl-badge-severity {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 50px;
+  text-transform: capitalize;
+}
+.jl-severity-easy { background: var(--teal-light); color: var(--teal); }
+.jl-severity-moderate { background: var(--amber-light); color: var(--amber); }
+.jl-severity-severe { background: var(--purple-light); color: var(--purple); }
+.jl-severity-extreme { background: var(--purple-light); color: var(--red); border: 1px solid var(--red); }
+
+.jl-alert {
+  background: var(--amber-light);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--r-sm);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.jl-alert-danger {
+  background: var(--purple-light);
+  border-left: 4px solid var(--purple);
+}
+
+/* Timeline grid styles */
+.jl-timeline-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  transition: background 0.3s, border-color 0.3s;
+}
+.jl-timeline-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+.jl-timeline-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.jl-legend {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+.jl-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.jl-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+.jl-color-sleep { background: var(--teal); }
+.jl-color-seek { border: 1.5px dashed var(--amber); background: rgba(239, 159, 39, 0.15); }
+.jl-color-avoid { border: 1.5px dashed var(--purple); background: rgba(83, 74, 183, 0.15); }
+
+.jl-day-row {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 1.25rem;
+}
+.jl-day-row:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.jl-day-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.jl-day-title {
+  font-weight: 700;
+  color: var(--text);
+}
+.jl-day-desc {
+  color: var(--text-muted);
+}
+.jl-timeline-bar-wrapper {
+  position: relative;
+  height: 36px;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 6px;
+}
+.jl-timeline-bar-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Night-day-night gradient local dest time: 0-6 Night, 6-20 Day, 20-24 Night */
+  background: linear-gradient(to right, #1e293b 0%, #1e293b 25%, #bae6fd 25%, #bae6fd 83.3%, #1e293b 83.3%, #1e293b 100%);
+}
+[data-theme="dark"] .jl-timeline-bar-bg {
+  background: linear-gradient(to right, #020617 0%, #020617 25%, #075985 25%, #075985 83.3%, #020617 83.3%, #020617 100%);
+}
+.jl-block-sleep {
+  position: absolute;
+  height: calc(100% - 6px);
+  top: 3px;
+  background: var(--teal);
+  border-radius: 4px;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: help;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.jl-block-seek {
+  position: absolute;
+  height: calc(100% - 6px);
+  top: 3px;
+  background: rgba(239, 159, 39, 0.12);
+  border: 1.5px dashed var(--amber);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--amber);
+  font-size: 12px;
+  cursor: help;
+}
+.jl-block-avoid {
+  position: absolute;
+  height: calc(100% - 6px);
+  top: 3px;
+  background: rgba(83, 74, 183, 0.12);
+  border: 1.5px dashed var(--purple);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+  font-size: 12px;
+  cursor: help;
+}
+.jl-block-transit {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  background: repeating-linear-gradient(45deg, rgba(156,163,175,0.12) 0px, rgba(156,163,175,0.12) 8px, rgba(107,114,128,0.22) 8px, rgba(107,114,128,0.22) 16px);
+  border-left: 2px solid var(--text-hint);
+  border-right: 2px solid var(--text-hint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  z-index: 5;
+  cursor: help;
+}
+.jl-timeline-ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+  font-size: 10px;
+  color: var(--text-hint);
+  font-weight: 700;
+}
+
+/* Card details styling */
+.jl-card-deck {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+.jl-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background 0.3s, border-color 0.3s;
+}
+.jl-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+.jl-card-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+}
+.jl-card-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 50px;
+}
+.jl-badge-pre {
+  background: var(--purple-light);
+  color: var(--purple);
+}
+.jl-badge-travel {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+.jl-badge-arrival {
+  background: var(--teal-light);
+  color: var(--teal);
+}
+.jl-action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.jl-action-icon {
+  font-size: 16px;
+  margin-top: 2px;
+}
+.jl-action-text {
+  color: var(--text-muted);
+}
+.jl-action-text strong {
+  color: var(--text);
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Jet Lag Planner</div>
+  <h1>Jet Lag Circadian Light Planner</h1>
+  <p class="hero-sub">Synchronize your body clock before you land. Calculate custom bright light, light avoidance, and melatonin windows based on flight timing and sleep biology.</p>
+</div>
+
+<div class="page">
+  <div class="jl-container">
+    <!-- INPUTS PANEL -->
+    <div class="jl-panel">
+      <div class="jl-title-row">
+        <div class="jl-icon-circle">✈️</div>
+        <h3>Flight Itinerary</h3>
+      </div>
+
+      <div class="jl-form-group">
+        <label for="jl-dep-city">Departure City</label>
+        <select id="jl-dep-city" class="jl-select" onchange="onCityChange('dep')">
+          <option value="-8" selected>Los Angeles (LAX) — UTC-8</option>
+          <option value="-5">New York (JFK) — UTC-5</option>
+          <option value="-6">Chicago (ORD) — UTC-6</option>
+          <option value="-7">Denver (DEN) — UTC-7</option>
+          <option value="-9">Anchorage (ANC) — UTC-9</option>
+          <option value="-10">Honolulu (HNL) — UTC-10</option>
+          <option value="-3">Rio de Janeiro (GIG) — UTC-3</option>
+          <option value="-3">Buenos Aires (EZE) — UTC-3</option>
+          <option value="-1">Azores (PDL) — UTC-1</option>
+          <option value="0">London (LHR) — UTC+0</option>
+          <option value="1">Paris / Berlin (CDG/BER) — UTC+1</option>
+          <option value="2">Cairo / Athens (CAI/ATH) — UTC+2</option>
+          <option value="3">Moscow / Nairobi (SVO/NBO) — UTC+3</option>
+          <option value="4">Dubai (DXB) — UTC+4</option>
+          <option value="5.5">New Delhi / Mumbai (DEL/BOM) — UTC+5.5</option>
+          <option value="7">Bangkok (BKK) — UTC+7</option>
+          <option value="8">Singapore / Hong Kong (SIN/HKG) — UTC+8</option>
+          <option value="9">Tokyo / Seoul (NRT/ICN) — UTC+9</option>
+          <option value="10">Sydney (SYD) — UTC+10</option>
+          <option value="12">Auckland (AKL) — UTC+12</option>
+          <option value="custom">-- Custom Offset --</option>
+        </select>
+      </div>
+
+      <div class="jl-form-group" id="jl-dep-custom-row" style="display:none;">
+        <label for="jl-dep-offset">Departure Timezone Offset (Hours)</label>
+        <input type="number" id="jl-dep-offset" class="jl-input" value="-8" min="-12" max="14" step="0.5" onchange="calculateJetLagTimeline()">
+      </div>
+
+      <div class="jl-form-group">
+        <label for="jl-dest-city">Destination City</label>
+        <select id="jl-dest-city" class="jl-select" onchange="onCityChange('dest')">
+          <option value="-8">Los Angeles (LAX) — UTC-8</option>
+          <option value="-5">New York (JFK) — UTC-5</option>
+          <option value="-6">Chicago (ORD) — UTC-6</option>
+          <option value="-7">Denver (DEN) — UTC-7</option>
+          <option value="-9">Anchorage (ANC) — UTC-9</option>
+          <option value="-10">Honolulu (HNL) — UTC-10</option>
+          <option value="-3">Rio de Janeiro (GIG) — UTC-3</option>
+          <option value="-3">Buenos Aires (EZE) — UTC-3</option>
+          <option value="-1">Azores (PDL) — UTC-1</option>
+          <option value="0" selected>London (LHR) — UTC+0</option>
+          <option value="1">Paris / Berlin (CDG/BER) — UTC+1</option>
+          <option value="2">Cairo / Athens (CAI/ATH) — UTC+2</option>
+          <option value="3">Moscow / Nairobi (SVO/NBO) — UTC+3</option>
+          <option value="4">Dubai (DXB) — UTC+4</option>
+          <option value="5.5">New Delhi / Mumbai (DEL/BOM) — UTC+5.5</option>
+          <option value="7">Bangkok (BKK) — UTC+7</option>
+          <option value="8">Singapore / Hong Kong (SIN/HKG) — UTC+8</option>
+          <option value="9">Tokyo / Seoul (NRT/ICN) — UTC+9</option>
+          <option value="10">Sydney (SYD) — UTC+10</option>
+          <option value="12">Auckland (AKL) — UTC+12</option>
+          <option value="custom">-- Custom Offset --</option>
+        </select>
+      </div>
+
+      <div class="jl-form-group" id="jl-dest-custom-row" style="display:none;">
+        <label for="jl-dest-offset">Destination Timezone Offset (Hours)</label>
+        <input type="number" id="jl-dest-offset" class="jl-input" value="0" min="-12" max="14" step="0.5" onchange="calculateJetLagTimeline()">
+      </div>
+
+      <div class="jl-flex-row jl-form-group">
+        <div>
+          <label for="jl-dep-date">Departure Date</label>
+          <input type="date" id="jl-dep-date" class="jl-input" onchange="calculateJetLagTimeline()">
+        </div>
+        <div>
+          <label for="jl-dep-time">Departure Time</label>
+          <input type="time" id="jl-dep-time" class="jl-input" value="14:00" onchange="calculateJetLagTimeline()">
+        </div>
+      </div>
+
+      <div class="jl-form-group">
+        <label for="jl-flight-duration">Flight Duration (Hours)</label>
+        <input type="number" id="jl-flight-duration" class="jl-input" value="10" min="0.5" max="30" step="0.5" onchange="calculateJetLagTimeline()">
+      </div>
+
+      <div class="jl-title-row" style="margin-top: 1.5rem;">
+        <div class="jl-icon-circle">🛌</div>
+        <h3>Habitual Sleep</h3>
+      </div>
+
+      <div class="jl-flex-row jl-form-group">
+        <div>
+          <label for="jl-sleep-bedtime">Normal Bedtime</label>
+          <input type="time" id="jl-sleep-bedtime" class="jl-input" value="23:00" onchange="calculateJetLagTimeline()">
+        </div>
+        <div>
+          <label for="jl-sleep-wake">Normal Wake Time</label>
+          <input type="time" id="jl-sleep-wake" class="jl-input" value="07:00" onchange="calculateJetLagTimeline()">
+        </div>
+      </div>
+
+      <div class="jl-form-group">
+        <label for="jl-pre-adapt">Pre-Adaptation Shifts</label>
+        <select id="jl-pre-adapt" class="jl-select" onchange="calculateJetLagTimeline()">
+          <option value="0" selected>None (Shift entirely after arrival)</option>
+          <option value="1">1 Day prior (Shift bedtime 1 hour)</option>
+          <option value="2">2 Days prior (Shift bedtime 2 hours)</option>
+          <option value="3">3 Days prior (Shift bedtime 3 hours)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="jl-results">
+      <!-- STATS GRID -->
+      <div class="jl-stats-grid">
+        <div class="jl-stat-card">
+          <span class="jl-stat-title">Time Shift</span>
+          <span class="jl-stat-val" id="jl-stat-diff">+8 hours</span>
+        </div>
+        <div class="jl-stat-card">
+          <span class="jl-stat-title">Severity Tier</span>
+          <span class="jl-card-badge jl-badge-severity jl-severity-severe" id="jl-stat-severity">Severe</span>
+        </div>
+        <div class="jl-stat-card">
+          <span class="jl-stat-title">Adaptation Period</span>
+          <span class="jl-stat-val" id="jl-stat-days">8 Days</span>
+        </div>
+      </div>
+
+      <!-- ALERT BANNERS -->
+      <div class="jl-alert" id="jl-banner-info">
+        <strong>⚡ Phase Advance: Eastward Flight.</strong> You are traveling East. To shift your rhythm earlier, you should avoid light in your biological late night and seek bright light in your biological morning.
+      </div>
+      <div class="jl-alert jl-alert-danger" id="jl-banner-danger" style="display:none;">
+        <strong>⚠️ Circadian Danger Zone (> 8h Shift):</strong> Extreme timezone shifts crossing 8 or more time zones risk pushing your circadian clock in the wrong direction if light exposure is timed incorrectly. Strictly follow the light avoidance windows below.
+      </div>
+
+      <!-- HORIZONTAL TRANSITION GRAPH -->
+      <div class="jl-timeline-container">
+        <div class="jl-timeline-header-row">
+          <span class="jl-timeline-title">Circadian Shift Timeline (Destination Local Time)</span>
+          <div class="jl-legend">
+            <div class="jl-legend-item">
+              <div class="jl-legend-color jl-color-sleep"></div>
+              <span>Sleep</span>
+            </div>
+            <div class="jl-legend-item">
+              <div class="jl-legend-color jl-color-seek"></div>
+              <span>Seek Light ☀️</span>
+            </div>
+            <div class="jl-legend-item">
+              <div class="jl-legend-color jl-color-avoid"></div>
+              <span>Avoid Light 🕶️</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="jl-timeline-rows">
+          <!-- Timeline rows injected dynamically -->
+        </div>
+
+        <div class="jl-timeline-ticks" style="margin-top:0.75rem;">
+          <span>12 AM</span>
+          <span>3 AM</span>
+          <span>6 AM</span>
+          <span>9 AM</span>
+          <span>12 PM</span>
+          <span>3 PM</span>
+          <span>6 PM</span>
+          <span>9 PM</span>
+          <span>12 AM</span>
+        </div>
+      </div>
+
+      <!-- DAILY PROTOCOL CARDS -->
+      <h3 style="margin: 1.5rem 0 0.75rem 0; font-size: 16px; font-weight: 700;">Day-by-Day Biohacking Protocol</h3>
+      <div class="jl-card-deck" id="jl-card-deck">
+        <!-- Daily action cards injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE GUIDE -->
+  <div class="pp-science">
+    <h2>The Science of Circadian Jet Lag Management</h2>
+    
+    <p>
+      Jet lag is not merely feeling tired; it is a clinical condition known as **circadian desynchrony**. It occurs when the master pacemaker in your brain—the suprachiasmatic nucleus (SCN)—is out of sync with the physical day/night cycle of your destination. This disrupts melatonin secretion, core body temperature cycles, cortisol rhythms, and digestive activity.
+    </p>
+
+    <div class="about-grid" style="margin-top: 1.5rem;">
+      <div class="about-card">
+        <h4>The Temperature Minimum (Tmin)</h4>
+        <p>
+          Your body temperature fluctuates on a 24-hour cycle, dropping to its lowest point (Tmin) roughly 2 to 3 hours before your natural wake time (typically around 4:00 AM). Tmin is the critical inflection point of the human **Phase Response Curve (PRC)**. Light exposure right before or after this point determines how your clock shifts.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h4>Phase Advance vs. Phase Delay</h4>
+        <p>
+          <strong>Eastward Travel (Phase Advance)</strong> shifts your cycle earlier. Light exposure *after* Tmin advances your clock, while light exposure *before* Tmin delays it. <strong>Westward Travel (Phase Delay)</strong> shifts your cycle later. Light exposure *before* Tmin delays your clock, while light exposure *after* Tmin advances it.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h4>Melatonin Timing Rules</h4>
+        <p>
+          Melatonin is a hormone signaling darkness. For eastward travel, taking a micro-dose (0.3mg to 3.0mg) 30–60 minutes before your target bedtime at the destination acts as a phase advance trigger. For westward travel, melatonin is generally not needed, but can be taken at destination bedtime to sustain sleep.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h4>Natural vs. Artificial Light</h4>
+        <p>
+          The SCN is highly sensitive to blue wavelength light (460–480 nm). Direct sunlight provides up to 100,000 lux and is the best tool. If your "Seek Light" window falls during destination night hours, you must use a dedicated 10,000 lux light box or blue-light-emitting therapy glasses to trigger the shift.
+        </p>
+      </div>
+    </div>
+
+    <div class="pp-science-citations" style="margin-top: 2rem;">
+      <h4>Scientific References</h4>
+      <ol>
+        <li><strong>New England Journal of Medicine:</strong> <em>"Circadian rhythms and travel: Mechanisms and management of jet lag."</em></li>
+        <li><strong>Lancet:</strong> <em>"Jet lag: etiology, prevention, and treatment protocols using bright light and melatonin."</em></li>
+        <li><strong>Journal of Biological Rhythms:</strong> <em>"The phase response curve of human circadian pacemakers to bright light."</em></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">🛏️ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">🧒 Kids Sleep</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/melatonin-calculator">💤 Melatonin Calculator</a>
+    <a href="/sleep-apnea-quiz">🫁 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍒 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
+    <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-hygiene">🧼 Sleep Hygiene</a>
+    <a href="/about">ℹ️ About Us</a>
+    <a href="/privacy">🔒 Privacy Policy</a>
+    <a href="/contact">✉️ Contact Us</a>
+  </div>
+  <p>© 2026 GoodSleep. All rights reserved. Our content is for informational purposes and does not constitute medical advice.</p>
+</footer>
+
+<script>
+// Pre-populate departure date with today's date local
+document.getElementById('jl-dep-date').value = new Date().toISOString().split('T')[0];
+
+function onCityChange(type) {
+  const citySelect = document.getElementById(`jl-${type}-city`);
+  const customRow = document.getElementById(`jl-${type}-custom-row`);
+  const offsetInput = document.getElementById(`jl-${type}-offset`);
+  
+  if (citySelect.value === 'custom') {
+    customRow.style.display = 'block';
+  } else {
+    customRow.style.display = 'none';
+    offsetInput.value = citySelect.value;
+  }
+  calculateJetLagTimeline();
+}
+
+function calculateJetLagTimeline() {
+  const depOffset = parseFloat(document.getElementById('jl-dep-offset').value);
+  const destOffset = parseFloat(document.getElementById('jl-dest-offset').value);
+  const depDateStr = document.getElementById('jl-dep-date').value;
+  const depTimeStr = document.getElementById('jl-dep-time').value;
+  const duration = parseFloat(document.getElementById('jl-flight-duration').value);
+  
+  const bedtimeStr = document.getElementById('jl-sleep-bedtime').value;
+  const wakeStr = document.getElementById('jl-sleep-wake').value;
+  const preAdaptDays = parseInt(document.getElementById('jl-pre-adapt').value);
+
+  if (!depDateStr || !depTimeStr || isNaN(depOffset) || isNaN(destOffset)) return;
+
+  const parseTime = (timeStr) => {
+    const parts = timeStr.split(':');
+    return parseInt(parts[0]) + parseInt(parts[1]) / 60;
+  };
+
+  const formatHour = (hourFloat) => {
+    const h = (Math.floor(hourFloat) + 24) % 24;
+    const m = Math.round((hourFloat - Math.floor(hourFloat)) * 60);
+    const dispH = h < 10 ? '0' + h : h;
+    const dispM = m < 10 ? '0' + m : m;
+    
+    // AM/PM format
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const h12 = h % 12 === 0 ? 12 : h % 12;
+    const mDisp = dispM;
+    return `${h12}:${mDisp} ${ampm}`;
+  };
+
+  const normBedtime = parseTime(bedtimeStr);
+  const normWake = parseTime(wakeStr);
+  const tMinNorm = (normWake - 3 + 24) % 24; // baseline biological temp min (approx 3h before wake)
+
+  // Net offset difference
+  let diff = destOffset - depOffset;
+  if (diff > 12) diff -= 24;
+  if (diff < -12) diff += 24;
+
+  const absDiff = Math.abs(diff);
+  let severity = 'easy';
+  if (absDiff >= 8) severity = 'extreme';
+  else if (absDiff >= 5) severity = 'severe';
+  else if (absDiff >= 3) severity = 'moderate';
+
+  // Update headers
+  document.getElementById('jl-stat-diff').innerText = `${diff >= 0 ? '+' : ''}${diff} hrs`;
+  
+  const sevBadge = document.getElementById('jl-stat-severity');
+  sevBadge.innerText = severity;
+  sevBadge.className = `jl-card-badge jl-badge-severity jl-severity-${severity}`;
+
+  // Travel description banner
+  const bannerInfo = document.getElementById('jl-banner-info');
+  const bannerDanger = document.getElementById('jl-banner-danger');
+  if (diff > 0) {
+    bannerInfo.innerHTML = `<strong>⚡ Phase Advance: Eastward Flight.</strong> You are traveling East. To shift your rhythm earlier, you should avoid light in your biological late night and seek bright light in your biological morning.`;
+    bannerInfo.style.display = 'block';
+  } else if (diff < 0) {
+    bannerInfo.innerHTML = `<strong>⚡ Phase Delay: Westward Flight.</strong> You are traveling West. To shift your rhythm later, you should seek bright light in your biological evening and avoid light in your biological morning.`;
+    bannerInfo.style.display = 'block';
+  } else {
+    bannerInfo.style.display = 'none';
+  }
+
+  if (absDiff >= 8) {
+    bannerDanger.style.display = 'block';
+  } else {
+    bannerDanger.style.display = 'none';
+  }
+
+  // Daily shifts: Westward: 1.5h per day. Eastward: 1.0h per day.
+  const rate = diff < 0 ? 1.5 : 1.0;
+  
+  // Calculate total adaptation days
+  const shiftAchievedInPre = preAdaptDays * rate;
+  const remainingShift = Math.max(0, absDiff - shiftAchievedInPre);
+  const postArrivalDays = Math.ceil(remainingShift / rate);
+  const totalDaysNeeded = preAdaptDays + 1 + postArrivalDays;
+  
+  document.getElementById('jl-stat-days').innerText = `${totalDaysNeeded} Day${totalDaysNeeded > 1 ? 's' : ''}`;
+
+  // Build timeline and cards
+  const timelineRows = document.getElementById('jl-timeline-rows');
+  const cardDeck = document.getElementById('jl-card-deck');
+  timelineRows.innerHTML = '';
+  cardDeck.innerHTML = '';
+
+  // Parse flight departure datetime
+  const depDateTime = new Date(`${depDateStr}T${depTimeStr}`);
+  
+  // Helper to format Date objects nicely
+  const formatDateLabel = (d) => {
+    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  };
+
+  // Helper to construct absolute timeline blocks (handles wrap arounds)
+  const renderTimelineBlocks = (sleepStart, sleepEnd, seekStart, seekEnd, avoidStart, avoidEnd, isTransit = false, transitStart = 0, transitEnd = 0) => {
+    let html = '';
+    
+    // Normalise all hours
+    const norm = h => (h + 24) % 24;
+    const sStart = norm(sleepStart);
+    const sEnd = norm(sleepEnd);
+    const skStart = norm(seekStart);
+    const skEnd = norm(seekEnd);
+    const avStart = norm(avoidStart);
+    const avEnd = norm(avoidEnd);
+
+    // Render helper
+    const makeBlock = (start, end, className, label, icon) => {
+      if (start === end) return '';
+      if (start < end) {
+        return `<div class="${className}" style="left: ${(start/24)*100}%; width: ${((end-start)/24)*100}%;" title="${label}">${icon}</div>`;
+      } else {
+        return `<div class="${className}" style="left: ${(start/24)*100}%; width: ${((24-start)/24)*100}%;" title="${label}">${icon}</div>` +
+               `<div class="${className}" style="left: 0%; width: ${(end/24)*100}%;" title="${label}">${icon}</div>`;
+      }
+    };
+
+    if (isTransit) {
+      const tStart = norm(transitStart);
+      const tEnd = norm(transitEnd);
+      html += makeBlock(tStart, tEnd, 'jl-block-transit', 'In-Transit Flight Window', '✈️');
+    }
+
+    html += makeBlock(sStart, sEnd, 'jl-block-sleep', 'Sleep Window', '💤');
+    html += makeBlock(skStart, skEnd, 'jl-block-seek', 'Seek Bright Light / Sunlight', '☀️');
+    html += makeBlock(avStart, avEnd, 'jl-block-avoid', 'Avoid Bright Light (Wear Blue Blockers)', '🕶️');
+    
+    return html;
+  };
+
+  // Generate Day-by-Day data structure
+  let daysList = [];
+
+  // 1. Pre-Adaptation Days
+  for (let i = preAdaptDays; i >= 1; i--) {
+    const preDate = new Date(depDateTime);
+    preDate.setDate(depDateTime.getDate() - i);
+    
+    const shift = i * rate * (diff > 0 ? 1 : -1);
+    
+    const sleepStart = normBedtime - shift;
+    const sleepEnd = normWake - shift;
+    const tMin = tMinNorm - shift;
+    
+    let seekStart, seekEnd, avoidStart, avoidEnd;
+    if (diff > 0) {
+      seekStart = tMin;
+      seekEnd = tMin + 4;
+      avoidStart = tMin - 4;
+      avoidEnd = tMin;
+    } else {
+      seekStart = tMin - 4;
+      seekEnd = tMin;
+      avoidStart = tMin;
+      avoidEnd = tMin + 4;
+    }
+
+    daysList.push({
+      type: 'pre',
+      title: `Pre-Departure Day -${i}`,
+      dateStr: formatDateLabel(preDate),
+      location: 'Home (Origin)',
+      sleepStart,
+      sleepEnd,
+      seekStart,
+      seekEnd,
+      avoidStart,
+      avoidEnd,
+      offsetDisp: `Shifted ${Math.abs(shift).toFixed(1)} hrs towards dest`,
+      rawShift: shift
+    });
+  }
+
+  // 2. Travel Day (Transit)
+  const travelDate = new Date(depDateTime);
+  const preShift = preAdaptDays * rate * (diff > 0 ? 1 : -1);
+  const remainingDiffOnTravel = diff - preShift;
+  
+  const sleepStartDest = normBedtime + remainingDiffOnTravel;
+  const sleepEndDest = normWake + remainingDiffOnTravel;
+  const tMinDest = tMinNorm + remainingDiffOnTravel;
+
+  const departureHourDest = parseTime(depTimeStr) + diff;
+  const arrivalHourDest = departureHourDest + duration;
+
+  let seekStartDest, seekEndDest, avoidStartDest, avoidEndDest;
+  if (diff > 0) {
+    seekStartDest = tMinDest;
+    seekEndDest = tMinDest + 4;
+    avoidStartDest = tMinDest - 4;
+    avoidEndDest = tMinDest;
+  } else {
+    seekStartDest = tMinDest - 4;
+    seekEndDest = tMinDest;
+    avoidStartDest = tMinDest;
+    avoidEndDest = tMinDest + 4;
+  }
+
+  daysList.push({
+    type: 'travel',
+    title: 'Flight & Arrival Day',
+    dateStr: formatDateLabel(travelDate),
+    location: 'In-Transit',
+    sleepStart: sleepStartDest,
+    sleepEnd: sleepEndDest,
+    seekStart: seekStartDest,
+    seekEnd: seekEndDest,
+    avoidStart: avoidStartDest,
+    avoidEnd: avoidEndDest,
+    offsetDisp: `Arrive ${formatHour(arrivalHourDest)} (Dest Time)`,
+    isTransit: true,
+    transitStart: departureHourDest,
+    transitEnd: arrivalHourDest
+  });
+
+  // 3. Post-Arrival Days
+  let dayNum = 1;
+  let remainingShiftMag = Math.max(0, absDiff - Math.abs(preShift));
+  
+  while (remainingShiftMag > 0 || dayNum <= 1) {
+    const postDate = new Date(depDateTime);
+    postDate.setDate(depDateTime.getDate() + dayNum);
+
+    const currentShiftStep = Math.min(remainingShiftMag, rate);
+    const dayShiftDirection = diff > 0 ? 1 : -1;
+    const dayOffset = (remainingShiftMag - currentShiftStep) * dayShiftDirection;
+    
+    const sleepStart = normBedtime + dayOffset;
+    const sleepEnd = normWake + dayOffset;
+    const tMin = tMinNorm + dayOffset;
+
+    let seekStart, seekEnd, avoidStart, avoidEnd;
+    if (diff > 0) {
+      seekStart = tMin;
+      seekEnd = tMin + 4;
+      avoidStart = tMin - 4;
+      avoidEnd = tMin;
+    } else {
+      seekStart = tMin - 4;
+      seekEnd = tMin;
+      avoidStart = tMin;
+      avoidEnd = tMin + 4;
+    }
+
+    daysList.push({
+      type: 'arrival',
+      title: `Arrival Day +${dayNum}`,
+      dateStr: formatDateLabel(postDate),
+      location: 'Destination',
+      sleepStart,
+      sleepEnd,
+      seekStart,
+      seekEnd,
+      avoidStart,
+      avoidEnd,
+      offsetDisp: dayOffset === 0 ? 'Fully Synchronized! 🎉' : `${Math.abs(dayOffset).toFixed(1)} hrs out of sync`,
+      rawShift: dayOffset
+    });
+
+    remainingShiftMag -= currentShiftStep;
+    dayNum++;
+    if (dayNum > 15) break;
+  }
+
+  // Render HTML for each day row
+  daysList.forEach((d, idx) => {
+    // 1. TIMELINE ROW
+    const row = document.createElement('div');
+    row.className = 'jl-day-row';
+    row.innerHTML = `
+      <div class="jl-day-meta">
+        <span class="jl-day-title">${d.title} <span style="font-weight:400; color:var(--text-muted);">(${d.dateStr})</span></span>
+        <span class="jl-day-desc">📍 ${d.location} | ${d.offsetDisp}</span>
+      </div>
+      <div class="jl-timeline-bar-wrapper">
+        <div class="jl-timeline-bar-bg"></div>
+        ${renderTimelineBlocks(d.sleepStart, d.sleepEnd, d.seekStart, d.seekEnd, d.avoidStart, d.avoidEnd, d.isTransit, d.transitStart, d.transitEnd)}
+      </div>
+    `;
+    timelineRows.appendChild(row);
+
+    // 2. DAILY DETAIL CARD
+    const card = document.createElement('div');
+    card.className = 'jl-card';
+    
+    let badgeClass = 'jl-badge-pre';
+    if (d.type === 'travel') badgeClass = 'jl-badge-travel';
+    if (d.type === 'arrival') badgeClass = 'jl-badge-arrival';
+
+    let melatoninHtml = '';
+    if (diff > 0 && d.type !== 'pre') {
+      const melatoninHour = d.sleepStart - 0.75;
+      melatoninHtml = `
+        <div class="jl-action-item">
+          <div class="jl-action-icon">💊</div>
+          <div class="jl-action-text">
+            <strong>Melatonin Support:</strong> Take 0.3mg - 1.5mg melatonin at <strong>${formatHour(melatoninHour)}</strong> to anchor the phase advance.
+          </div>
+        </div>
+      `;
+    }
+
+    let sunlightHtml = '';
+    if (d.type !== 'pre') {
+      const startH = (d.seekStart + 24) % 24;
+      const endH = (d.seekEnd + 24) % 24;
+      
+      const isDaytime = (h) => h >= 6 && h <= 20;
+      const startIsDay = isDaytime(startH);
+      const endIsDay = isDaytime(endH);
+      
+      if (startIsDay && endIsDay) {
+        sunlightHtml = `<span style="color:var(--teal); font-weight:700;">☀️ Outdoor Sunlight (Best)</span>`;
+      } else if (startIsDay || endIsDay) {
+        sunlightHtml = `<span style="color:var(--amber); font-weight:700;">⛅ Partial Sunlight (Use light box if dark)</span>`;
+      } else {
+        sunlightHtml = `<span style="color:var(--purple); font-weight:700;">💡 Light Therapy Box Required (Indoor)</span>`;
+      }
+    }
+
+    card.innerHTML = `
+      <div class="jl-card-header">
+        <span class="jl-card-title">${d.title}</span>
+        <span class="jl-card-badge ${badgeClass}">${d.location}</span>
+      </div>
+      <div class="jl-action-item">
+        <div class="jl-action-icon">🛌</div>
+        <div class="jl-action-text">
+          <strong>Target Sleep:</strong> sleep from <strong>${formatHour(d.sleepStart)}</strong> to <strong>${formatHour(d.sleepEnd)}</strong>.
+        </div>
+      </div>
+      <div class="jl-action-item">
+        <div class="jl-action-icon">☀️</div>
+        <div class="jl-action-text">
+          <strong>Seek Light:</strong> Bright light exposure from <strong>${formatHour(d.seekStart)}</strong> to <strong>${formatHour(d.seekEnd)}</strong>. ${sunlightHtml}
+        </div>
+      </div>
+      <div class="jl-action-item">
+        <div class="jl-action-icon">🕶️</div>
+        <div class="jl-action-text">
+          <strong>Avoid Light:</strong> wear blue-blocking glasses / remain in dim light from <strong>${formatHour(d.avoidStart)}</strong> to <strong>${formatHour(d.avoidEnd)}</strong>.
+        </div>
+      </div>
+      ${melatoninHtml}
+    `;
+    cardDeck.appendChild(card);
+  });
+}
+
+onCityChange('dep');
+onCityChange('dest');
+calculateJetLagTimeline();
+</script>
+
+<script>
+// Theme Switcher Logic
+const themeToggle = document.getElementById('theme-toggle');
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('gs-theme', newTheme);
+  themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+  calculateJetLagTimeline();
+};
+themeToggle.addEventListener('click', toggleTheme);
+const initialTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+themeToggle.innerText = initialTheme === 'dark' ? '☀️' : '🌙';
+
+// Loader Dismissal
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loading-overlay');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.style.display = 'none', 400);
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>
