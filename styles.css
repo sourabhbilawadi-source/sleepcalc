@@ -281,3 +281,217 @@ footer a.active{color:var(--teal)}
 input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:50px;background:var(--border);outline:none;cursor:pointer}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--teal);border:3px solid var(--bg-card);box-shadow:0 1px 6px rgba(0,0,0,0.2);cursor:pointer;transition:transform .15s}
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+
+/* ── CAFFEINE CALCULATOR SPECIFIC ── */
+.caffeine-drink-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.drink-preset-btn {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s;
+  font-family: var(--font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.drink-preset-btn:hover {
+  border-color: var(--teal-mid);
+  background: var(--teal-light);
+}
+.drink-preset-btn.selected {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+.drink-preset-emoji {
+  font-size: 24px;
+}
+.drink-preset-name {
+  font-size: 13px;
+  color: var(--text);
+}
+.drink-preset-mg {
+  font-size: 11px;
+  color: var(--text-hint);
+}
+.drink-preset-btn.selected .drink-preset-mg {
+  color: var(--teal-dark);
+}
+
+.caffeine-log {
+  margin-top: 1.5rem;
+  border-top: 1.5px solid var(--border);
+  padding-top: 1.5rem;
+}
+.logged-drink-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-soft);
+  border-radius: var(--r-sm);
+  margin-bottom: 8px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+.logged-drink-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logged-drink-remove {
+  background: transparent;
+  border: none;
+  color: var(--red);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  font-weight: 700;
+  transition: transform .15s;
+}
+.logged-drink-remove:hover {
+  transform: scale(1.2);
+}
+
+.caffeine-result-card {
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  transition: all .3s;
+}
+.caffeine-result-card.safe {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: var(--teal-dark);
+}
+.caffeine-result-card.warn {
+  border-color: var(--amber);
+  background: var(--amber-light);
+  color: var(--amber);
+}
+[data-theme="dark"] .caffeine-result-card.warn {
+  color: #f59e0b;
+}
+.caffeine-result-card.danger {
+  border-color: var(--red);
+  background: #FCEBEB;
+  color: var(--red);
+}
+[data-theme="dark"] .caffeine-result-card.danger {
+  background: #2D1010;
+  color: #e05050;
+}
+
+.caffeine-level-num {
+  font-size: clamp(36px, 8vw, 54px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.caffeine-level-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+}
+.caffeine-status-msg {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 10px;
+  color: var(--text-muted);
+}
+.caffeine-result-card.safe .caffeine-status-msg {
+  color: var(--teal-dark);
+}
+
+.caffeine-svg-wrap {
+  width: 100%;
+  background: var(--bg-soft);
+  border-radius: var(--r-sm);
+  padding: 10px;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
+}
+.caffeine-chart-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 700;
+  color: var(--text-hint);
+  margin-bottom: 8px;
+}
+.caffeine-chart-axis-label {
+  font-size: 10px;
+  fill: var(--text-hint);
+}
+.caffeine-chart-line {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.caffeine-chart-threshold {
+  stroke: var(--text-hint);
+  stroke-dasharray: 4 4;
+  stroke-width: 1;
+}
+.caffeine-chart-area {
+  fill: url(#caffeine-gradient);
+  opacity: 0.15;
+}
+.caffeine-chart-dot {
+  fill: var(--teal-dark);
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.form-group-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+@media(max-width: 500px) {
+  .form-group-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+.form-input-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.form-input-col label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+}
+.caffeine-select, .caffeine-time-input {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s;
+}
+.caffeine-select:focus, .caffeine-time-input:focus {
+  border-color: var(--teal);
+}
+

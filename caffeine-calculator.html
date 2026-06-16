@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caffeine Half-Life Sleep Calculator — GoodSleep</title>
+<meta name="description" content="Calculate how much caffeine from coffee, tea, soda, or energy drinks remains in your body at bedtime and find out if it will disrupt your sleep cycles.">
+<meta property="og:title" content="Caffeine Half-Life Sleep Calculator — GoodSleep">
+<meta property="og:description" content="Find out if coffee or energy drinks will disrupt your sleep. Calculates caffeine levels at bedtime based on metabolic half-life.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/caffeine-calculator">
+<meta property="og:url" content="https://goodsleep.rest/caffeine-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<meta property="og:image" content="https://goodsleep.rest/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page Specific styling helper for Caffeine slider input override */
+.custom-mg-slider-wrap {
+  display: none;
+  margin-top: 10px;
+  background: var(--bg-soft);
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Caffeine calculator</div>
+  <h1>Caffeine Sleep Calculator</h1>
+  <p class="hero-sub">Caffeine has a 5-hour half-life. See how much remains in your system at bedtime and find out if it's disrupting your deep sleep.</p>
+</div>
+
+<div class="page">
+  <div class="card">
+    <div class="section-title">1. Log Your Caffeine Intake</div>
+    <p class="section-sub">Select your drinks and specify what time you consumed them. You can add multiple drinks to see how they stack up.</p>
+
+    <!-- Preset Grid -->
+    <div class="caffeine-drink-grid">
+      <button class="drink-preset-btn selected" data-type="coffee" data-mg="95">
+        <span class="drink-preset-emoji">☕</span>
+        <span class="drink-preset-name">Brewed Coffee</span>
+        <span class="drink-preset-mg">95 mg</span>
+      </button>
+      <button class="drink-preset-btn" data-type="espresso" data-mg="64">
+        <span class="drink-preset-emoji">☕</span>
+        <span class="drink-preset-name">Single Espresso</span>
+        <span class="drink-preset-mg">64 mg</span>
+      </button>
+      <button class="drink-preset-btn" data-type="double-espresso" data-mg="120">
+        <span class="drink-preset-emoji">🚀</span>
+        <span class="drink-preset-name">Double Espresso</span>
+        <span class="drink-preset-mg">120 mg</span>
+      </button>
+      <button class="drink-preset-btn" data-type="energy" data-mg="160">
+        <span class="drink-preset-emoji">⚡</span>
+        <span class="drink-preset-name">Energy Drink</span>
+        <span class="drink-preset-mg">160 mg</span>
+      </button>
+      <button class="drink-preset-btn" data-type="black-tea" data-mg="47">
+        <span class="drink-preset-emoji">🍵</span>
+        <span class="drink-preset-name">Black Tea</span>
+        <span class="drink-preset-mg">47 mg</span>
+      </button>
+      <button class="drink-preset-btn" data-type="soda" data-mg="40">
+        <span class="drink-preset-emoji">🥤</span>
+        <span class="drink-preset-name">Soda / Cola</span>
+        <span class="drink-preset-mg">40 mg</span>
+      </button>
+      <button class="drink-preset-btn" data-type="custom" data-mg="100">
+        <span class="drink-preset-emoji">🧪</span>
+        <span class="drink-preset-name">Custom Amount</span>
+        <span class="drink-preset-mg">100 mg</span>
+      </button>
+    </div>
+
+    <!-- Custom Slider wrap -->
+    <div class="custom-mg-slider-wrap" id="custom-mg-wrap">
+      <div class="slider-top">
+        <span class="slider-hint">Custom Caffeine Amount</span>
+        <span class="slider-val" id="custom-mg-val">100<span class="slider-unit">mg</span></span>
+      </div>
+      <input type="range" id="custom-mg-slider" min="10" max="400" step="5" value="100">
+    </div>
+
+    <div class="form-group-row" style="margin-top: 1rem;">
+      <div class="form-input-col">
+        <label for="intake-time">Intake Time</label>
+        <input type="time" id="intake-time" class="caffeine-time-input" value="08:00">
+      </div>
+      <div class="form-input-col" style="justify-content: flex-end;">
+        <button class="btn" id="add-drink-btn" style="padding: 11px;">
+          ➕ Add to Log
+        </button>
+      </div>
+    </div>
+
+    <!-- Logged list -->
+    <div class="caffeine-log" id="caffeine-log-section" style="display: none;">
+      <div class="section-title" style="font-size: 14px; margin-bottom: 8px;">Logged Today:</div>
+      <div id="caffeine-log-list">
+        <!-- items will be injected -->
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">2. Configure Bedtime &amp; Metabolism</div>
+    
+    <div class="form-group-row">
+      <div class="form-input-col">
+        <label for="bedtime">Target Bedtime</label>
+        <input type="time" id="bedtime" class="caffeine-time-input" value="23:00">
+      </div>
+      <div class="form-input-col">
+        <label for="metabolism">Metabolic Rate</label>
+        <select id="metabolism" class="caffeine-select">
+          <option value="5" selected>Normal (5h Half-Life)</option>
+          <option value="3">Fast (3h Half-Life) — highly tolerant</option>
+          <option value="7">Slow (7h Half-Life) — sensitive to caffeine</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Block -->
+  <div class="card" id="results-card" style="display: none;">
+    <div class="section-title">Your Bedtime Caffeine Forecast</div>
+    
+    <div class="caffeine-result-card" id="caffeine-result-box">
+      <div class="caffeine-level-num" id="bedtime-level">0 mg</div>
+      <div class="caffeine-level-label" id="caffeine-status-label">System Clear</div>
+      <div class="caffeine-status-msg" id="caffeine-status-advisory">
+        Your system has cleared all caffeine. Your sleep cycles and deep sleep phases will be undisturbed.
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="caffeine-svg-wrap">
+      <div class="caffeine-chart-title">Caffeine Level Over 24 Hours (mg)</div>
+      <svg viewBox="0 0 500 220" width="100%" id="caffeine-chart" style="display: block;">
+        <defs>
+          <linearGradient id="caffeine-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--teal)" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="var(--teal)" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+        <!-- Grids -->
+        <line x1="40" y1="20" x2="480" y2="20" stroke="var(--border)" stroke-width="1"></line>
+        <line x1="40" y1="70" x2="480" y2="70" stroke="var(--border)" stroke-width="1"></line>
+        <line x1="40" y1="120" x2="480" y2="120" stroke="var(--border)" stroke-width="1"></line>
+        <line x1="40" y1="170" x2="480" y2="170" stroke="var(--border)" stroke-width="2"></line>
+        
+        <!-- Y-Axis Labels -->
+        <text x="32" y="24" class="caffeine-chart-axis-label" text-anchor="end" id="y-max">150</text>
+        <text x="32" y="74" class="caffeine-chart-axis-label" text-anchor="end" id="y-mid">75</text>
+        <text x="32" y="124" class="caffeine-chart-axis-label" text-anchor="end" id="y-low">30</text>
+        <text x="32" y="174" class="caffeine-chart-axis-label" text-anchor="end">0 mg</text>
+
+        <!-- Sleep threshold line -->
+        <line x1="40" y1="140" x2="480" y2="140" class="caffeine-chart-threshold"></line>
+        <text x="475" y="135" class="caffeine-chart-axis-label" text-anchor="end" fill="var(--text-hint)" style="font-size: 8px;">Sleep Impact Limit (20mg)</text>
+
+        <!-- Bedtime vertical line -->
+        <line x1="250" y1="20" x2="250" y2="170" stroke="var(--amber)" stroke-dasharray="3 3" stroke-width="1.5" id="bedtime-marker-line"></line>
+        <text x="250" y="15" class="caffeine-chart-axis-label" text-anchor="middle" id="bedtime-marker-text" fill="var(--amber)" style="font-weight: 700;">Bedtime</text>
+
+        <!-- Curve path -->
+        <path d="" class="caffeine-chart-area" id="chart-area-path"></path>
+        <path d="" class="caffeine-chart-line" id="chart-line-path"></path>
+
+        <!-- Bedtime dot -->
+        <circle cx="250" cy="170" r="5" class="caffeine-chart-dot" id="chart-bedtime-dot"></circle>
+
+        <!-- X-Axis Labels (Hours) -->
+        <text x="40" y="192" class="caffeine-chart-axis-label" text-anchor="middle">6 AM</text>
+        <text x="113" y="192" class="caffeine-chart-axis-label" text-anchor="middle">10 AM</text>
+        <text x="186" y="192" class="caffeine-chart-axis-label" text-anchor="middle">2 PM</text>
+        <text x="260" y="192" class="caffeine-chart-axis-label" text-anchor="middle">6 PM</text>
+        <text x="333" y="192" class="caffeine-chart-axis-label" text-anchor="middle">10 PM</text>
+        <text x="406" y="192" class="caffeine-chart-axis-label" text-anchor="middle">2 AM</text>
+        <text x="480" y="192" class="caffeine-chart-axis-label" text-anchor="middle">6 AM</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Science Explainer Section -->
+  <div class="section">
+    <h2>The Science of Caffeine Half-Life &amp; Sleep</h2>
+    <p>Caffeine is one of the most widely consumed psychoactive substances in the world. While it works wonders for morning alertness, it is a primary disruptor of quality sleep due to how it behaves in the human body:</p>
+    
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>What is Half-Life?</h3>
+        <p>Caffeine's average half-life is 5 hours. This means if you consume 100mg of caffeine (about 1 cup of coffee) at 2:00 PM, by 7:00 PM your body will still have 50mg in circulation, and by midnight (10 hours later), 25mg is still active in your system.</p>
+      </div>
+      <div class="info-card">
+        <h3>The Role of Adenosine</h3>
+        <p>Throughout the day, your brain builds up a chemical called adenosine, which creates "sleep pressure" (the natural urge to sleep). Caffeine molecules bind to your adenosine receptors, blocking them and artificially masking sleepiness.</p>
+      </div>
+      <div class="info-card">
+        <h3>Disrupted Deep Sleep</h3>
+        <p>Even if you can fall asleep with caffeine in your blood, studies show it reduces Slow Wave Sleep (deep sleep) and REM cycles. You wake up feeling unrefreshed, starting a cycle of needing more caffeine the next morning.</p>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>Pro Sleep Tip:</strong> Sleep science suggests aiming for less than <strong>20 mg</strong> of active caffeine in your system by bedtime to allow your adenosine receptors to operate naturally and secure high-quality deep sleep.
+    </div>
+
+    <h2>How to Clear Caffeine Faster</h2>
+    <p>While you cannot instantly eliminate caffeine from your liver, you can help mitigate its sleep-disrupting effects:</p>
+    <ul>
+      <li><strong>Hydrate:</strong> Caffeine is a mild diuretic. Drinking plenty of water supports your kidneys in flushing out metabolites, though it does not change the metabolic rate in the liver.</li>
+      <li><strong>Consistent Cut-off Time:</strong> Establish a strict cutoff time for caffeine (usually 10 hours before bed, i.e., no caffeine after 12:00 PM or 1:00 PM).</li>
+      <li><strong>Exercise:</strong> Moderate physical activity increases blood flow and general metabolic rate, which can slightly support natural liver detoxification pathways.</li>
+      <li><strong>Know Your Sensitivity:</strong> Genetic differences in the CYP1A2 liver enzyme dictate how fast you process caffeine. Slow metabolizers can take up to 9 hours to clear half their caffeine.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'\u2600\ufe0f':'\ud83c\udf19'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'\u2600\ufe0f':'\ud83c\udf19'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+document.getElementById('back-top').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+// STAR FIELD
+(function(){
+  var wrapper = document.getElementById('stars');
+  if(!wrapper) return;
+  var count = 30;
+  for(var i=0; i<count; i++){
+    var star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + '%';
+    star.style.top = Math.random()*100 + '%';
+    star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
+    star.style.setProperty('--delay', (Math.random()*5) + 's');
+    wrapper.appendChild(star);
+  }
+})();
+
+// CAFFEINE ENGINE
+(function(){
+  const presetBtns = document.querySelectorAll('.drink-preset-btn');
+  const customMgWrap = document.getElementById('custom-mg-wrap');
+  const customMgSlider = document.getElementById('custom-mg-slider');
+  const customMgVal = document.getElementById('custom-mg-val');
+  
+  const addBtn = document.getElementById('add-drink-btn');
+  const intakeTimeInput = document.getElementById('intake-time');
+  const bedtimeInput = document.getElementById('bedtime');
+  const metabolismSelect = document.getElementById('metabolism');
+  
+  const logSection = document.getElementById('caffeine-log-section');
+  const logList = document.getElementById('caffeine-log-list');
+  const resultsCard = document.getElementById('results-card');
+  
+  const bedtimeLevelText = document.getElementById('bedtime-level');
+  const statusLabel = document.getElementById('caffeine-status-label');
+  const statusAdvisory = document.getElementById('caffeine-status-advisory');
+  const resultBox = document.getElementById('caffeine-result-box');
+  
+  // Chart elements
+  const bedtimeMarkerLine = document.getElementById('bedtime-marker-line');
+  const bedtimeMarkerText = document.getElementById('bedtime-marker-text');
+  const chartLinePath = document.getElementById('chart-line-path');
+  const chartAreaPath = document.getElementById('chart-area-path');
+  const chartBedtimeDot = document.getElementById('chart-bedtime-dot');
+  const yMaxText = document.getElementById('y-max');
+  const yMidText = document.getElementById('y-mid');
+  const yLowText = document.getElementById('y-low');
+
+  let loggedDrinks = [];
+  let currentSelection = { type: 'coffee', mg: 95 };
+
+  // Set default intake time to current time
+  const now = new Date();
+  const currentHrs = String(now.getHours()).padStart(2, '0');
+  const currentMins = String(now.getMinutes()).padStart(2, '0');
+  intakeTimeInput.value = `${currentHrs}:${currentMins}`;
+
+  // Tab Selection
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      presetBtns.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      const type = btn.getAttribute('data-type');
+      const mg = parseInt(btn.getAttribute('data-mg'));
+      
+      currentSelection.type = type;
+      currentSelection.mg = mg;
+
+      if(type === 'custom') {
+        customMgWrap.style.display = 'block';
+        currentSelection.mg = parseInt(customMgSlider.value);
+      } else {
+        customMgWrap.style.display = 'none';
+      }
+      
+      updateSliderGradient();
+    });
+  });
+
+  // Custom Slider Input
+  customMgSlider.addEventListener('input', (e) => {
+    const val = parseInt(e.target.value);
+    customMgVal.innerHTML = `${val}<span class="slider-unit">mg</span>`;
+    currentSelection.mg = val;
+    updateSliderGradient();
+  });
+
+  function updateSliderGradient() {
+    const pct = ((customMgSlider.value - customMgSlider.min) / (customMgSlider.max - customMgSlider.min)) * 100;
+    customMgSlider.style.setProperty('--pct', pct + '%');
+  }
+  updateSliderGradient();
+
+  // Add Drink Event
+  addBtn.addEventListener('click', () => {
+    const timeVal = intakeTimeInput.value;
+    if(!timeVal) return;
+    
+    // Parse time into minutes from midnight
+    const [hrs, mins] = timeVal.split(':').map(Number);
+    const timeOfDayMin = hrs * 60 + mins;
+
+    let drinkLabel = "";
+    let emoji = "☕";
+    switch(currentSelection.type) {
+      case 'coffee': drinkLabel = "Brewed Coffee"; emoji = "☕"; break;
+      case 'espresso': drinkLabel = "Single Espresso"; emoji = "☕"; break;
+      case 'double-espresso': drinkLabel = "Double Espresso"; emoji = "🚀"; break;
+      case 'energy': drinkLabel = "Energy Drink"; emoji = "⚡"; break;
+      case 'black-tea': drinkLabel = "Black Tea"; emoji = "🍵"; break;
+      case 'soda': drinkLabel = "Soda / Cola"; emoji = "🥤"; break;
+      default: drinkLabel = "Custom Caffeine"; emoji = "🧪";
+    }
+
+    loggedDrinks.push({
+      id: Date.now(),
+      label: drinkLabel,
+      emoji: emoji,
+      mg: currentSelection.mg,
+      timeOfDayMin: timeOfDayMin,
+      timeStr: formatTimeLabel(hrs, mins)
+    });
+
+    renderLog();
+    calculateCaffeine();
+  });
+
+  function formatTimeLabel(h, m) {
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hr = h % 12 || 12;
+    const min = String(m).padStart(2, '0');
+    return `${hr}:${min} ${ampm}`;
+  }
+
+  function renderLog() {
+    if(loggedDrinks.length === 0) {
+      logSection.style.display = 'none';
+      resultsCard.style.display = 'none';
+      return;
+    }
+    
+    logSection.style.display = 'block';
+    resultsCard.style.display = 'block';
+    logList.innerHTML = '';
+    
+    loggedDrinks.forEach(drink => {
+      const item = document.createElement('div');
+      item.className = 'logged-drink-item';
+      item.innerHTML = `
+        <div class="logged-drink-info">
+          <span>${drink.emoji}</span>
+          <strong>${drink.label}</strong>
+          <span style="color: var(--text-hint);">(${drink.mg}mg at ${drink.timeStr})</span>
+        </div>
+        <button class="logged-drink-remove" data-id="${drink.id}">×</button>
+      `;
+      logList.appendChild(item);
+    });
+
+    // Attach removes
+    document.querySelectorAll('.logged-drink-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.getAttribute('data-id'));
+        loggedDrinks = loggedDrinks.filter(d => d.id !== id);
+        renderLog();
+        calculateCaffeine();
+      });
+    });
+  }
+
+  // Update calculations when bedtime or metabolism changes
+  bedtimeInput.addEventListener('change', calculateCaffeine);
+  metabolismSelect.addEventListener('change', calculateCaffeine);
+
+  function calculateCaffeine() {
+    if(loggedDrinks.length === 0) return;
+
+    const bedtimeVal = bedtimeInput.value;
+    const [bedHrs, bedMins] = bedtimeVal.split(':').map(Number);
+    const bedtimeMin = bedHrs * 60 + bedMins;
+
+    const halfLifeHrs = parseFloat(metabolismSelect.value); // 3, 5, or 7 hours
+
+    // We plot a 24-hour cycle starting at 6:00 AM (360 minutes) to 6:00 AM next day (1800 minutes)
+    const startMin = 6 * 60; // 6:00 AM
+    const totalDurationMin = 24 * 60; // 1440 mins
+
+    // Stacking math function: calculate total active caffeine at any minute 't' (from midnight)
+    function getCaffeineAtMinute(t) {
+      let sum = 0;
+      loggedDrinks.forEach(drink => {
+        let elapsedMins = 0;
+        if (t >= drink.timeOfDayMin) {
+          elapsedMins = t - drink.timeOfDayMin;
+        } else {
+          // Wrap around for drinks taken late night that decay into the early morning
+          elapsedMins = (t + 24 * 60) - drink.timeOfDayMin;
+          if (elapsedMins >= 24 * 60) return; // ignore if it's way past
+        }
+        
+        const elapsedHrs = elapsedMins / 60;
+        const decay = drink.mg * Math.pow(0.5, elapsedHrs / halfLifeHrs);
+        sum += decay;
+      });
+      return sum;
+    }
+
+    // Determine caffeine at Bedtime
+    // Since bedtime could be early morning (e.g. 1:00 AM), handle rollover
+    let bedtimeQueryMin = bedtimeMin;
+    if (bedtimeMin < startMin) {
+      bedtimeQueryMin = bedtimeMin + 24 * 60;
+    }
+    const bedtimeCaffeine = getCaffeineAtMinute(bedtimeQueryMin);
+    
+    // Update Bedtime Result Card
+    bedtimeLevelText.textContent = `${Math.round(bedtimeCaffeine)} mg`;
+    
+    // Reset status classes
+    resultBox.className = 'caffeine-result-card';
+    
+    if(bedtimeCaffeine < 15) {
+      resultBox.classList.add('safe');
+      statusLabel.textContent = "Safe Zone";
+      statusAdvisory.textContent = "Your system has cleared almost all caffeine. Your sleep quality and deep/REM cycles should be unaffected.";
+    } else if (bedtimeCaffeine <= 50) {
+      resultBox.classList.add('warn');
+      statusLabel.textContent = "Moderate Disruption";
+      statusAdvisory.textContent = "Caffeine is still active in your system. While you might fall asleep, it is likely to reduce deep sleep, increase restlessness, and trigger micro-awakenings.";
+    } else {
+      resultBox.classList.add('danger');
+      statusLabel.textContent = "High Alertness Alert";
+      statusAdvisory.textContent = "High caffeine level! This is equivalent to having half a cup of coffee right as you sleep. Falling asleep will likely be difficult, and you will miss out on restorative sleep.";
+    }
+
+    // Graph plotting logic
+    // Generate data points every 15 minutes for 24 hours starting at 6:00 AM
+    const points = [];
+    let maxVal = 0;
+    for(let m = startMin; m <= startMin + totalDurationMin; m += 15) {
+      const val = getCaffeineAtMinute(m % (24 * 60));
+      points.push({ min: m, val: val });
+      if (val > maxVal) maxVal = val;
+    }
+
+    // Setup Y scaling
+    const yAxisMax = Math.max(maxVal * 1.15, 100); // minimum scale peak is 100mg
+    yMaxText.textContent = `${Math.round(yAxisMax)} mg`;
+    yMidText.textContent = `${Math.round(yAxisMax * 0.5)} mg`;
+    yLowText.textContent = `${Math.round(yAxisMax * 0.2)}`;
+
+    // Graph boundaries: Width is 440px (from 40 to 480), Height is 150px (from 20 to 170)
+    const mapX = (min) => {
+      const pct = (min - startMin) / totalDurationMin;
+      return 40 + pct * 440;
+    };
+    const mapY = (val) => {
+      const pct = val / yAxisMax;
+      return 170 - pct * 150;
+    };
+
+    // Construct curve path
+    let pathD = "";
+    let areaD = `M ${mapX(startMin)} 170 `;
+    
+    points.forEach((pt, idx) => {
+      const x = mapX(pt.min);
+      const y = mapY(pt.val);
+      if(idx === 0) {
+        pathD += `M ${x} ${y} `;
+      } else {
+        pathD += `L ${x} ${y} `;
+      }
+      areaD += `L ${x} ${y} `;
+    });
+    areaD += `L ${mapX(startMin + totalDurationMin)} 170 Z`;
+
+    chartLinePath.setAttribute('d', pathD);
+    chartAreaPath.setAttribute('d', areaD);
+
+    // Update bedtime marker
+    const bx = mapX(bedtimeQueryMin);
+    bedtimeMarkerLine.setAttribute('x1', bx);
+    bedtimeMarkerLine.setAttribute('x2', bx);
+    bedtimeMarkerText.setAttribute('x', bx);
+    
+    // Position dot at bedtime intersection
+    const by = mapY(bedtimeCaffeine);
+    chartBedtimeDot.setAttribute('cx', bx);
+    chartBedtimeDot.setAttribute('cy', by);
+    
+    // Hide dot or marker if out of bounds (should not happen in 24h cycle)
+    if(bx < 40 || bx > 480) {
+      chartBedtimeDot.style.display = 'none';
+      bedtimeMarkerLine.style.display = 'none';
+      bedtimeMarkerText.style.display = 'none';
+    } else {
+      chartBedtimeDot.style.display = 'block';
+      bedtimeMarkerLine.style.display = 'block';
+      bedtimeMarkerText.style.display = 'block';
+    }
+  }
+
+})();
+</script>
+</body>
+</html>
