@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goodsleep-v10';
+const CACHE_NAME = 'goodsleep-v11';
 const ASSETS = [
   '/',
   '/about',
@@ -63,6 +63,9 @@ const ASSETS = [
   '/blog/sleepytime-tea-vs-melatonin',
   '/blog/zzzquil-vs-melatonin',
   '/blog/polyphasic-vs-biphasic-sleep',
+  '/blog/best-white-noise-machines',
+  '/blog/best-sleep-masks',
+  '/blog/best-magnesium-supplements',
   '/styles.css',
   '/share-card.js',
   '/favicon.svg',
