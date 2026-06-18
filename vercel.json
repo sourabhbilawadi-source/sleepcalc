@@ -1,6 +1,11 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/blog/sleep-paralysis-causes", "destination": "/blog/sleep-paralysis", "permanent": true },
+    { "source": "/blog/melatonin-dosage-for-adults", "destination": "/blog/melatonin-dosage", "permanent": true },
+    { "source": "/blog/best-sleep-position-for-back-pain", "destination": "/blog/sleep-position-back-pain", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sleep-stages", "destination": "/sleep-stages.html" },
     { "source": "/circadian-rhythm", "destination": "/circadian-rhythm.html" },
@@ -18,13 +23,13 @@
     { "source": "/blog/how-long-does-caffeine-last", "destination": "/blog/how-long-does-caffeine-last.html" },
     { "source": "/blog/what-is-rem-sleep", "destination": "/blog/what-is-rem-sleep.html" },
     { "source": "/blog/how-to-stop-snoring", "destination": "/blog/how-to-stop-snoring.html" },
-    { "source": "/blog/melatonin-dosage-for-adults", "destination": "/blog/melatonin-dosage-for-adults.html" },
+    { "source": "/blog/melatonin-dosage", "destination": "/blog/melatonin-dosage.html" },
     { "source": "/blog/how-to-sleep-on-a-plane", "destination": "/blog/how-to-sleep-on-a-plane.html" },
     { "source": "/blog/why-do-i-talk-in-my-sleep", "destination": "/blog/why-do-i-talk-in-my-sleep.html" },
-    { "source": "/blog/sleep-paralysis-causes", "destination": "/blog/sleep-paralysis-causes.html" },
+    { "source": "/blog/sleep-paralysis", "destination": "/blog/sleep-paralysis.html" },
     { "source": "/blog/best-sleep-tracker", "destination": "/blog/best-sleep-tracker.html" },
     { "source": "/blog/foods-that-help-you-sleep", "destination": "/blog/foods-that-help-you-sleep.html" },
-    { "source": "/blog/best-sleep-position-for-back-pain", "destination": "/blog/best-sleep-position-for-back-pain.html" },
+    { "source": "/blog/sleep-position-back-pain", "destination": "/blog/sleep-position-back-pain.html" },
     { "source": "/blog/how-to-sleep-with-lower-back-pain", "destination": "/blog/how-to-sleep-with-lower-back-pain.html" },
     { "source": "/blog/sleepytime-tea-vs-melatonin", "destination": "/blog/sleepytime-tea-vs-melatonin.html" },
     { "source": "/blog/zzzquil-vs-melatonin", "destination": "/blog/zzzquil-vs-melatonin.html" },
