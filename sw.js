@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goodsleep-v8';
+const CACHE_NAME = 'goodsleep-v9';
 const ASSETS = [
   '/',
   '/about',
@@ -53,6 +53,13 @@ const ASSETS = [
   '/blog/what-is-rem-sleep',
   '/blog/how-to-stop-snoring',
   '/blog/melatonin-dosage-for-adults',
+  '/blog/how-to-sleep-on-a-plane',
+  '/blog/why-do-i-talk-in-my-sleep',
+  '/blog/sleep-paralysis-causes',
+  '/blog/best-sleep-tracker',
+  '/blog/foods-that-help-you-sleep',
+  '/blog/best-sleep-position-for-back-pain',
+  '/blog/how-to-sleep-with-lower-back-pain',
   '/styles.css',
   '/share-card.js',
   '/favicon.svg',
