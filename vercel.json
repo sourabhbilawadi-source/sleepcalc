@@ -2,6 +2,13 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/sleep-stages", "destination": "/sleep-stages.html" },
+    { "source": "/circadian-rhythm", "destination": "/circadian-rhythm.html" },
+    { "source": "/sleep-disorders", "destination": "/sleep-disorders.html" },
+    { "source": "/cpap-guide", "destination": "/cpap-guide.html" },
+    { "source": "/melatonin", "destination": "/melatonin.html" },
+    { "source": "/sleep-positions", "destination": "/sleep-positions.html" },
+    { "source": "/blog/how-long-does-caffeine-last", "destination": "/blog/how-long-does-caffeine-last.html" },
     { "source": "/shift-work-sleep-calculator", "destination": "/shift-work-sleep-calculator.html" },
     { "source": "/muscle-recovery-sleep-calculator", "destination": "/muscle-recovery-sleep-calculator.html" },
     { "source": "/new-parent-sleep-sync", "destination": "/new-parent-sleep-sync.html" },

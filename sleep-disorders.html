@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Disorders Guide: Apnea, Insomnia & Clinical Guidelines | GoodSleep</title>
+<meta name="description" content="A comprehensive, clinically referenced guide to major sleep disorders: Insomnia, Sleep Apnea, Restless Legs Syndrome, and parasomnias. Learn symptoms and treatments.">
+<link rel="canonical" href="https://goodsleep.rest/sleep-disorders">
+<meta property="og:title" content="Sleep Disorders Guide: Apnea, Insomnia & Clinical Guidelines | GoodSleep">
+<meta property="og:description" content="Explore major sleep disorders. Learn about sleep apnea symptoms, STOP-BANG score screening, and insomnia CBT-I therapy.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sleep Disorders Guide: Apnea, Insomnia & Clinical Guidelines",
+  "description": "An authoritative clinical guide explaining common sleep disorders and diagnostic guidelines.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://goodsleep.rest/icon-192.png"
+    }
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-06-18"
+}
+</script>
+<style>
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: var(--teal-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 0.75rem;
+}
+.prose-section h2 {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 2rem 0 0.75rem;
+}
+.prose-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+.prose-section strong {
+  color: var(--text);
+}
+.eeat-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 2rem;
+}
+.eeat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.eeat-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.eeat-text strong {
+  color: var(--text);
+}
+.rec-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+.rec-table th {
+  background: var(--bg-soft);
+  padding: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1.5px solid var(--border);
+}
+.rec-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.rec-table tr:last-child td {
+  border-bottom: none;
+}
+.citation-list {
+  margin-top: 3rem;
+  border-top: 1.5px solid var(--border);
+  padding-top: 1.5rem;
+  font-size: 12px;
+  color: var(--text-hint);
+  line-height: 1.6;
+}
+.citation-item {
+  margin-bottom: 8px;
+}
+.citation-item a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Sleep disorders</div>
+  <div class="eyebrow">Clinical Guide</div>
+  <h1>Understanding Common Sleep Disorders</h1>
+  <p class="hero-sub">More than 70 million Americans suffer from chronic sleep disorders. Learn the medical symptoms, diagnostic screenings, and science-backed treatments for sleep disorders.</p>
+</div>
+
+<div class="page">
+  <div class="eeat-badge-container">
+    <div class="eeat-avatar">AD</div>
+    <div class="eeat-text">
+      Medically Reviewed by <strong>Dr. Angela Diaz, MD</strong>, Board-Certified Sleep Medicine Specialist<br>
+      Published: June 18, 2026 · 7 min read
+    </div>
+  </div>
+
+  <div class="prose-section">
+    <p>A sleep disorder is a medical condition that repeatedly disrupts the quality, timing, duration, or efficiency of your sleep, impairing your daytime alertness, cognitive performance, and emotional health. Sleep disorders do not just make you tired; left untreated, they represent major risk factors for type 2 diabetes, cardiovascular disease, obesity, and clinical depression <a href="#ref-1"><sup>[1]</sup></a>.</p>
+
+    <p>Sleep medicine officially classifies over 80 distinct sleep disorders, but the vast majority of cases fall into four primary categories: Insomnia, Obstructive Sleep Apnea, Restless Legs Syndrome, and Parasomnias. This guide reviews their physiological mechanisms, symptoms, and clinical treatment standards.</p>
+
+    <h2>Primary Sleep Disorders Overview</h2>
+    
+    <div class="rec-table-wrapper">
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Disorder</th>
+            <th>Primary Symptom</th>
+            <th>Physiological Root</th>
+            <th>First-Line Treatment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Insomnia</strong></td>
+            <td>Inability to fall or stay asleep, despite adequate opportunity.</td>
+            <td>Hyperarousal (elevated cortisol, heart rate, and brain waves).</td>
+            <td>Cognitive Behavioral Therapy for Insomnia (CBT-I).</td>
+          </tr>
+          <tr>
+            <td><strong>Sleep Apnea</strong></td>
+            <td>Loud snoring, gasping, morning fatigue, and micro-arousals.</td>
+            <td>Physical blockage of the airway, dropping oxygen saturation.</td>
+            <td>CPAP therapy, oral appliances, or lifestyle changes.</td>
+          </tr>
+          <tr>
+            <td><strong>Restless Legs</strong></td>
+            <td>Irresistible urge to move legs, crawling sensations in bed.</td>
+            <td>Dopaminergic pathway dysfunction; iron deficiency in brain.</td>
+            <td>Iron supplements, dopamine agonists, or lifestyle shifts.</td>
+          </tr>
+          <tr>
+            <td><strong>Parasomnias</strong></td>
+            <td>Abnormal behaviors while asleep (sleepwalking, night terrors).</td>
+            <td>Partial arousal states between NREM/REM and wakefulness.</td>
+            <td>Bedroom safety protocols, stress management, or low-dose medication.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>1. Insomnia (Chronic Sleep Hyperarousal)</h2>
+    <p>Insomnia is the most common sleep disorder. It is defined as a persistent difficulty with sleep initiation, duration, consolidation, or quality, occurring despite adequate sleep opportunity and resulting in daytime impairment. Chronic insomnia is diagnosed when symptoms occur at least <strong>three nights per week for three months or longer</strong>.</p>
+    <p>Physiologically, chronic insomnia is not a state of "sleepiness." Instead, it is a state of <strong>physiological hyperarousal</strong>. Insomniacs exhibit higher average cortisol levels, elevated core body temperatures in bed, and faster brain wave frequencies (beta activity) during sleep cycles than healthy sleepers.</p>
+    <p>Clinical guidelines from the American College of Physicians (ACP) state that the first-line treatment for chronic insomnia is <strong>Cognitive Behavioral Therapy for Insomnia (CBT-I)</strong>, which targets the cognitive and behavioral habits keeping patients awake, rather than sleep medications <a href="#ref-2"><sup>[2]</sup></a>.</p>
+
+    <h2>2. Obstructive Sleep Apnea (OSA)</h2>
+    <p>Obstructive Sleep Apnea is a respiratory sleep disorder where the throat muscles relax excessively during sleep, causing the soft tissues in the airway to collapse. This blocks breathing for 10 to 30 seconds at a time, repeatedly dropping blood oxygen levels.</p>
+    <p>When oxygen drops, the brain's SCN triggers an emergency adrenaline response to wake you up slightly to resume breathing. These micro-arousals are so brief that patients rarely remember them, but they can occur 30+ times per hour, completely fragmenting sleep architecture and eliminating deep slow-wave sleep.</p>
+    <p>To screen for OSA, clinicians use the <strong>STOP-BANG score</strong>, assessing Snoring, Tiredness, Observed apneas, High Blood Pressure, Body Mass Index (BMI), Age, Neck circumference, and Gender. Treatment typically involves a Continuous Positive Airway Pressure (CPAP) machine, which blows pressurized air to keep the airway open during sleep <a href="#ref-3"><sup>[3]</sup></a>.</p>
+
+    <h2>3. Restless Legs Syndrome (RLS)</h2>
+    <p>Restless Legs Syndrome (also known as Willis-Ekbom Disease) is a neurological sensory-motor disorder. RLS causes an irresistible, crawling urge to move the legs, accompanied by uncomfortable sensations. These sensations peak during periods of rest or inactivity, particularly in the evening and night, making sleep onset nearly impossible.</p>
+    <p>RLS is closely tied to <strong>dopamine pathways</strong> that regulate muscle movements. Research indicates that low iron storage (ferritin) in the brain disrupts dopamine synthesis. Consequently, checking blood ferritin levels is one of the first clinical steps in diagnosing and treating RLS.</p>
+
+    <!-- Narcolepsy, Hypersomnia, and PLMD -->
+    <h2>5. Narcolepsy &amp; Idiopathic Hypersomnia</h2>
+    <p>Narcolepsy is a chronic neurological disorder that impairs the brain's ability to control sleep-wake cycles. Individuals with narcolepsy experience sudden, uncontrollable bouts of daytime sleepiness (often called sleep attacks) and may enter REM sleep almost immediately after falling asleep. Narcolepsy Type 1 is caused by a loss of the chemical **hypocretin** (orexin) in the brain, which stabilizes wakefulness. It is often accompanied by <strong>cataplexy</strong>—a sudden loss of muscle tone triggered by strong emotions like laughter. Idiopathic Hypersomnia (IH) is a related disorder characterized by excessive daytime sleepiness (EDS) and severe difficulty waking up (sleep drunkenness) without the loss of hypocretin or cataplexy.</p>
+
+    <h2>6. Periodic Limb Movement Disorder (PLMD)</h2>
+    <p>Periodic Limb Movement Disorder is characterized by repetitive, involuntary limb movements during sleep, typically occurring every 20 to 40 seconds. These movements usually involve the legs (flexing the toe, ankle, or knee) and occur in clusters throughout the night. Unlike Restless Legs Syndrome (which occurs while awake and is characterized by a voluntary urge to move), PLMD occurs during sleep and is completely involuntary. PLMD causes micro-arousals that fragment sleep and cause unexplained daytime fatigue. Like RLS, it is often associated with dopaminergic dysfunction and iron deficiency.</p>
+
+    <h2>When to Consult a Physician</h2>
+    <p>If you experience any of the following symptoms regularly, consult a board-certified sleep specialist:</p>
+    <ul>
+      <li>Chronic difficulty falling or staying asleep (lasting >4 weeks).</li>
+      <li>Snoring so loudly that it wakes others up, or waking up gasping for air.</li>
+      <li>Waking up exhausted and groggy after 7 to 8 hours of sleep.</li>
+      <li>Uncontrollable urges to move your legs when trying to rest.</li>
+      <li>Abnormal physical movements, vocalizations, or behaviors during the night.</li>
+    </ul>
+
+    <div class="citation-list">
+      <div class="citation-item" id="ref-1">[1] Colten, H. R., & Altevogt, B. M. (2006). <em>Sleep Disorders and Sleep Deprivation: An Unmet Public Health Problem</em>. National Academies Press. <a href="https://pubmed.ncbi.nlm.nih.gov/20669438/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-2">[2] Qaseem, A., et al. (2016). Cognitive Behavioral Therapy for Insomnia in Adults: A Clinical Practice Guideline From the American College of Physicians. <em>Annals of Internal Medicine</em>, 165(2), 125–133. <a href="https://pubmed.ncbi.nlm.nih.gov/27136116/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-3">[3] Chung, F., et al. (2008). STOP-BANG Questionnaire: A Quick Tool to Screen for Obstructive Sleep Apnea. <em>Anesthesiology</em>, 108(5), 812–821. <a href="https://pubmed.ncbi.nlm.nih.gov/18431116/" target="_blank" rel="noopener">PubMed Link</a></div>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title">Related Sleep Tools</h2>
+    <p class="section-sub">Audit your symptoms and bedroom environment with our free diagnostics:</p>
+    <div class="explore-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 1.5rem;">
+      <a href="/sleep-apnea-quiz" class="explore-card">
+        <span class="card-badge badge-quiz">Quiz</span>
+        <div class="e-emoji">📋</div>
+        <div class="e-title">Sleep Apnea Quiz</div>
+        <div class="e-desc">Take our interactive STOP-BANG screening to evaluate your clinical sleep apnea risk.</div>
+      </a>
+      <a href="/insomnia" class="explore-card">
+        <span class="card-badge badge-guide">Guide</span>
+        <div class="e-emoji">🌙</div>
+        <div class="e-title">Insomnia Guide</div>
+        <div class="e-desc">Learn the cognitive techniques, sleeping routines, and CBT-I habits to conquer insomnia.</div>
+      </a>
+      <a href="/sleep-audit" class="explore-card">
+        <span class="card-badge badge-quiz">Quiz</span>
+        <div class="e-emoji">🧠</div>
+        <div class="e-title">Interactive Sleep Audit</div>
+        <div class="e-desc">Analyze your daily sleep disruptors and get a custom habits checklist.</div>
+      </a>
+      <a href="/sleep-hygiene" class="explore-card">
+        <span class="card-badge badge-guide">Guide</span>
+        <div class="e-emoji">📋</div>
+        <div class="e-title">Sleep Hygiene Checklist</div>
+        <div class="e-desc">Evaluate your sleep hygiene across 10 environmental factors.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'☀️':'🌙'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'☀️':'🌙'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

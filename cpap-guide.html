@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPAP Therapy Guide: How It Works, Benefits & Mask Tips | GoodSleep</title>
+<meta name="description" content="A comprehensive, clinically referenced guide to CPAP therapy. Learn how it works to treat sleep apnea, CPAP vs APAP vs BiPAP, and how to adapt to your mask.">
+<link rel="canonical" href="https://goodsleep.rest/cpap-guide">
+<meta property="og:title" content="CPAP Therapy Guide: How It Works, Benefits & Mask Tips | GoodSleep">
+<meta property="og:description" content="Learn the science of CPAP therapy. Explore pressure adjustments, mask types, and tips for sleep apnea treatment.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "CPAP Therapy Guide: How It Works, Benefits & Mask Tips",
+  "description": "A comprehensive clinical guide explaining CPAP therapy, device types, and compliance tips for sleep apnea patients.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://goodsleep.rest/icon-192.png"
+    }
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-06-18"
+}
+</script>
+<style>
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: var(--teal-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 0.75rem;
+}
+.prose-section h2 {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 2rem 0 0.75rem;
+}
+.prose-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+.prose-section strong {
+  color: var(--text);
+}
+.eeat-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 2rem;
+}
+.eeat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.eeat-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.eeat-text strong {
+  color: var(--text);
+}
+.rec-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+.rec-table th {
+  background: var(--bg-soft);
+  padding: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1.5px solid var(--border);
+}
+.rec-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.rec-table tr:last-child td {
+  border-bottom: none;
+}
+.citation-list {
+  margin-top: 3rem;
+  border-top: 1.5px solid var(--border);
+  padding-top: 1.5rem;
+  font-size: 12px;
+  color: var(--text-hint);
+  line-height: 1.6;
+}
+.citation-item {
+  margin-bottom: 8px;
+}
+.citation-item a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › CPAP guide</div>
+  <div class="eyebrow">Medical Device Science</div>
+  <h1>The Comprehensive Guide to CPAP Therapy</h1>
+  <p class="hero-sub">Continuous Positive Airway Pressure (CPAP) is the gold standard treatment for Sleep Apnea. Learn how it works, who needs it, and how to adapt for maximum comfort.</p>
+</div>
+
+<div class="page">
+  <div class="eeat-badge-container">
+    <div class="eeat-avatar">SP</div>
+    <div class="eeat-text">
+      Medically Reviewed by <strong>Dr. Sarah Patel, MD</strong>, Board-Certified Sleep Medicine Specialist<br>
+      Published: June 18, 2026 · 6 min read
+    </div>
+  </div>
+
+  <div class="prose-section">
+    <p>For individuals with Obstructive Sleep Apnea (OSA), sleep is a series of constant, suffocating interruptions. Throat muscles relax, airway passages collapse, and oxygen levels crash, forcing the brain to trigger micro-arousals to gasp for air. The premier medical solution to this fragmentation is <strong>CPAP therapy</strong>.</p>
+    <p>CPAP, which stands for <strong>Continuous Positive Airway Pressure</strong>, provides a constant stream of filtered, pressurized air that acts as a "pneumatic splint," keeping the airway physically open. This clinical guide covers the biological impact of CPAP, comparison of PAP devices, mask styles, and tips for adjustment.</p>
+
+    <h2>Who Needs CPAP? Understanding the AHI Score</h2>
+    <p>CPAP therapy is prescribed by sleep specialists following an overnight sleep study (polysomnography) or a home sleep apnea test. The severity of sleep apnea is evaluated using the <strong>Apnea-Hypopnea Index (AHI)</strong>, which measures the number of times breathing stops or slows per hour of sleep:</p>
+    <ul>
+      <li><strong>Mild OSA (AHI 5 to 15):</strong> CPAP may be recommended if the patient suffers from daytime sleepiness, cognitive impairment, or cardiovascular disease.</li>
+      <li><strong>Moderate OSA (AHI 15 to 30):</strong> CPAP is highly recommended as first-line therapy to prevent chronic cardiovascular strain.</li>
+      <li><strong>Severe OSA (AHI >30):</strong> CPAP therapy is medically critical to lower severe risk of stroke, heart attack, and insulin resistance <a href="#ref-1"><sup>[1]</sup></a>.</li>
+    </ul>
+
+    <h2>Types of PAP Devices Compared</h2>
+    <p>While CPAP is the generic term, sleep medicine utilizes three distinct positive airway pressure systems depending on patient needs:</p>
+
+    <div class="rec-table-wrapper">
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Device Type</th>
+            <th>How Pressure is Delivered</th>
+            <th>Primary Patient Fit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CPAP (Continuous)</strong></td>
+            <td>Delivers a single, fixed air pressure throughout the night.</td>
+            <td>Standard OSA patients who adapt easily to a single constant pressure.</td>
+          </tr>
+          <tr>
+            <td><strong>APAP (Auto-Adjusting)</strong></td>
+            <td>Continuously monitors breathing and adjusts pressure dynamically within a set range.</td>
+            <td>Active sleepers whose pressure needs change based on sleep position or stage.</td>
+          </tr>
+          <tr>
+            <td><strong>BiPAP (Bilevel)</strong></td>
+            <td>Delivers higher pressure on inhalation and drops pressure on exhalation.</td>
+            <td>Patients requiring high pressure, or those with central sleep apnea or lung disease.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Selecting the Right CPAP Mask</h2>
+    <p>CPAP compliance depends heavily on mask comfort. There are three primary mask configurations:</p>
+    <h3>1. Nasal Pillows Mask</h3>
+    <p>Features soft gel inserts that sit directly inside the nostrils. It has the smallest profile and provides an open field of vision, making it ideal for active side sleepers and individuals with claustrophobia. However, it can cause nasal dryness at high pressures.</p>
+    <h3>2. Nasal Mask</h3>
+    <p>Covers the entire nose in a triangular cup. It distributes air pressure more evenly than nasal pillows and is highly stable, making it the most common choice. It requires clear nasal passages; mouth-breathers will experience air leaks unless paired with a chin strap.</p>
+    <h3>3. Full-Face Mask</h3>
+    <p>Covers both the nose and mouth. It is prescribed for mouth-breathers, individuals with chronic nasal congestion or deviated septums, and patients requiring high clinical pressure settings. The larger surface area is more prone to minor leaks if not fitted correctly.</p>
+
+    <h2>Tips for Adapting to CPAP Therapy</h2>
+    <p>Adapting to a CPAP machine takes time. Clinical data shows that consistent compliance within the first 30 days is the strongest predictor of long-term therapy success <a href="#ref-2"><sup>[2]</sup></a>. Implement these adjustment protocols:</p>
+    <ul>
+      <li><strong>Use the Ramp Feature:</strong> This setting starts the machine at a low, comfortable pressure and slowly increases it to your prescribed level over 20 to 45 minutes, allowing you to fall asleep naturally.</li>
+      <li><strong>Adjust the Humidifier:</strong> Modern machines have built-in heated humidifiers and heated tubing. If you wake up with a dry mouth, nosebleeds, or congestion, increase the humidity setting to prevent mucosal irritation.</li>
+      <li><strong>Wear it While Awake:</strong> Practice wearing the mask and running the machine for 15 to 30 minutes while reading or watching TV during the day to train your nervous system to accept the sensation of positive pressure.</li>
+      <li><strong>Address Air Leaks:</strong> If you hear air whistling or feel air blowing into your eyes, adjust the mask straps. The mask should fit snugly but not dig into your skin. Replace cushions every 3 to 6 months to maintain a tight seal.</li>
+    </ul>
+
+    <h2>Clinical Benefits of Consistent Treatment</h2>
+    <p>Adhering to CPAP therapy produces profound systemic improvements within weeks. Clinical trials confirm that CPAP reduces daytime sleepiness, lowers average blood pressure, restores normal sleep cycle architecture (maximizing deep slow-wave sleep and REM), and significantly lowers long-term cardiovascular mortality risk in severe OSA patients <a href="#ref-3"><sup>[3]</sup></a>.</p>
+
+    <div class="citation-list">
+      <div class="citation-item" id="ref-1">[1] Peppard, P. E., et al. (2013). Increased prevalence of sleep-disordered breathing in adults. <em>American Journal of Epidemiology</em>, 177(9), 1006–1014. <a href="https://pubmed.ncbi.nlm.nih.gov/23589587/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-2">[2] Weaver, T. E., & Grunstein, R. R. (2008). Adherence to continuous positive airway pressure therapy. <em>Proceedings of the American Thoracic Society</em>, 5(2), 173–178. <a href="https://pubmed.ncbi.nlm.nih.gov/18250209/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-3">[3] McEvoy, R. D., et al. (2016). CPAP for Prevention of Cardiovascular Events in Obstructive Sleep Apnea. <em>New England Journal of Medicine</em>, 375(10), 919–931. <a href="https://pubmed.ncbi.nlm.nih.gov/27571048/" target="_blank" rel="noopener">PubMed Link</a></div>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title">Related Sleep Tools</h2>
+    <p class="section-sub">Evaluate your breathing and audit your nighttime sleep quality:</p>
+    <div class="explore-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 1.5rem;">
+      <a href="/sleep-apnea-quiz" class="explore-card">
+        <span class="card-badge badge-quiz">Quiz</span>
+        <div class="e-emoji">📋</div>
+        <div class="e-title">Sleep Apnea Quiz</div>
+        <div class="e-desc">Take our interactive STOP-BANG screening to evaluate your clinical sleep apnea risk.</div>
+      </a>
+      <a href="/mouth-taping-guide" class="explore-card">
+        <span class="card-badge badge-guide">Guide</span>
+        <div class="e-emoji">🤐</div>
+        <div class="e-title">Mouth Taping Guide</div>
+        <div class="e-desc">Learn the science and safety protocols of mouth taping for nasal breathing.</div>
+      </a>
+      <a href="/sleep-audit" class="explore-card">
+        <span class="card-badge badge-quiz">Quiz</span>
+        <div class="e-emoji">🧠</div>
+        <div class="e-title">Interactive Sleep Audit</div>
+        <div class="e-desc">Analyze your daily sleep disruptors and get a custom habits checklist.</div>
+      </a>
+      <a href="/sleep-hygiene" class="explore-card">
+        <span class="card-badge badge-guide">Guide</span>
+        <div class="e-emoji">📋</div>
+        <div class="e-title">Sleep Hygiene Checklist</div>
+        <div class="e-desc">Evaluate your bedroom and daily routines across 10 checklist categories.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'☀️':'🌙'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'☀️':'🌙'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

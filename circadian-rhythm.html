@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circadian Rhythm Science: SCN Clock & Alignment Protocols | GoodSleep</title>
+<meta name="description" content="Learn the science of your biological clock. Discover how the suprachiasmatic nucleus regulates sleep, melatonin, and cortisol, and how to align your circadian rhythm.">
+<link rel="canonical" href="https://goodsleep.rest/circadian-rhythm">
+<meta property="og:title" content="Circadian Rhythm Science: SCN Clock & Alignment Protocols | GoodSleep">
+<meta property="og:description" content="Master your circadian rhythm. Learn how light, melatonin, and chronotypes govern sleep, and how to reset your internal clock.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Circadian Rhythm Science: SCN Clock & Alignment Protocols",
+  "description": "A science-backed guide to the biological mechanisms regulating the human circadian clock.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://goodsleep.rest/icon-192.png"
+    }
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-06-18"
+}
+</script>
+<style>
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: var(--teal-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 0.75rem;
+}
+.prose-section h2 {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 2rem 0 0.75rem;
+}
+.prose-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+.prose-section strong {
+  color: var(--text);
+}
+.eeat-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 2rem;
+}
+.eeat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.eeat-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.eeat-text strong {
+  color: var(--text);
+}
+.rec-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+.rec-table th {
+  background: var(--bg-soft);
+  padding: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1.5px solid var(--border);
+}
+.rec-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.rec-table tr:last-child td {
+  border-bottom: none;
+}
+.citation-list {
+  margin-top: 3rem;
+  border-top: 1.5px solid var(--border);
+  padding-top: 1.5rem;
+  font-size: 12px;
+  color: var(--text-hint);
+  line-height: 1.6;
+}
+.citation-item {
+  margin-bottom: 8px;
+}
+.citation-item a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Circadian rhythm</div>
+  <div class="eyebrow">Circadian Science</div>
+  <h1>Understanding Your Circadian Rhythm</h1>
+  <p class="hero-sub">Deep inside your brain sits a master biological clock regulating sleep-wake cycles, cortisol, melatonin, and metabolism. Discover the science and protocols to align it.</p>
+</div>
+
+<div class="page">
+  <div class="eeat-badge-container">
+    <div class="eeat-avatar">JV</div>
+    <div class="eeat-text">
+      Medically Reviewed by <strong>Dr. Julian Vance, PhD</strong>, Circadian Biology Researcher<br>
+      Published: June 18, 2026 · 7 min read
+    </div>
+  </div>
+
+  <div class="prose-section">
+    <p>Every living organism has an internal pacing system designed to synchronize its biology with the rotation of the Earth. In humans, this 24-hour cycle is known as the <strong>circadian rhythm</strong> (from the Latin <em>circa</em> meaning "about" and <em>diem</em> meaning "day").</p>
+
+    <p>Your circadian rhythm does not just dictate when you sleep. It acts as the master conductor for body temperature, digestion, immune system strength, cardiovascular activity, and hormonal pulses. When your lifestyle matches this internal clock, you experience deep sleep and high daytime vitality. When they mismatch—a state called <strong>circadian desynchrony</strong>—it results in chronic fatigue, brain fog, and metabolic dysfunction.</p>
+
+    <h2>The Master Clock: Suprachiasmatic Nucleus (SCN)</h2>
+    <p>The core controller of your circadian rhythm is a tiny region of the brain's hypothalamus containing about 20,000 neurons, called the <strong>Suprachiasmatic Nucleus (SCN)</strong> <a href="#ref-1"><sup>[1]</sup></a>. The SCN acts as the master biological clock, sending signals to the rest of the body to keep cellular clocks aligned.</p>
+    <p>While the SCN has a natural pacing rhythm, it requires daily recalibration. The primary stimulus (or <em>zeitgeber</em>) is <strong>light</strong>. Special light-sensitive receptors in the eyes, called intrinsically photosensitive retinal ganglion cells (ipRGCs), detect blue wavelengths in environmental light. These cells bypass visual processing pathways and send direct signals via the retinohypothalamic tract to the SCN, informing the brain whether it is day or night.</p>
+
+    <h2>The Hormonal Dance: Melatonin vs. Cortisol</h2>
+    <p>The SCN coordinates the sleep-wake cycle primarily by regulating the timing of two key hormones:</p>
+
+    <h3>1. Cortisol (The Alertness Hormone)</h3>
+    <p>Cortisol begins a sharp, natural rise in the early morning hours, peaking around 8:00 AM. This rise—known as the cortisol awakening response—raises your heart rate, increases body temperature, and increases blood sugar, waking you up and preparing you for physical activity. Cortisol declines gradually throughout the day, hitting its lowest point around midnight.</p>
+
+    <h3>2. Melatonin (The Sleep Gatekeeper)</h3>
+    <p>Melatonin is secreted by the pineal gland in response to darkness. During daylight hours, SCN signals suppress melatonin production. As light fades, the SCN removes this suppression, and melatonin levels begin to rise, peaking between 2:00 AM and 4:00 AM. Melatonin does not make you sleep directly; instead, it acts as a chemical gatekeeper, notifying your physiological systems that it is time to wind down.</p>
+
+    <h2>Understanding Chronotypes</h2>
+    <p>While the human clock defaults to "active in the day, asleep at night," genetic variations dictate the exact timing of your biological peaks. These genetic variations are known as <strong>chronotypes</strong> <a href="#ref-2"><sup>[2]</sup></a>:</p>
+    <ul>
+      <li><strong>Lion (Morning Lark):</strong> Natural early risers with peak alertness in the morning. They wind down early in the evening. (approx. 15% of the population).</li>
+      <li><strong>Bear (Daylight Tracker):</strong> Sleep and energy align closely with the sun. Peak productivity is in the late morning and early afternoon. (approx. 50% of the population).</li>
+      <li><strong>Wolf (Night Owl):</strong> Melatonin rises much later in the night. Peak creative and analytical energy occurs in the late afternoon and evening hours. (approx. 20% of the population).</li>
+      <li><strong>Dolphin (Sleepless/Sensitive):</strong> Extremely light, easily fragmented sleepers who often struggle with insomnia. Peak productivity is in mid-day. (approx. 15% of the population).</li>
+    </ul>
+
+    <h2>Circadian Disruption: The Modern Crisis</h2>
+    <p>Our ancestors lived by natural light cycles. Today, we spend 90% of our lives indoors under dim light during the day, and bright artificial blue light from screens and bulbs at night. This confuses the SCN, leading to <strong>circadian mismatch</strong>.</p>
+    
+    <p>The three main forms of circadian disruption are:</p>
+    <div class="rec-table-wrapper">
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Disruption Type</th>
+            <th>Primary Cause</th>
+            <th>Physiological Consequence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Social Jet Lag</strong></td>
+            <td>Sleeping/waking late on weekends compared to weekday alarms.</td>
+            <td>Constant biological shifting; matches physical jet lag across 2–3 time zones.</td>
+          </tr>
+          <tr>
+            <td><strong>Shift Work</strong></td>
+            <td>Working nights or irregular rotating hours.</td>
+            <td>Forces SCN to fight external light-dark signals; increases long-term health risks.</td>
+          </tr>
+          <tr>
+            <td><strong>Blue Light Exposure</strong></td>
+            <td>Using screens (phones, TVs) within 2 hours of bedtime.</td>
+            <td>Suppresses melatonin release by up to 50%; delays sleep onset by 30+ minutes <a href="#ref-3"><sup>[3]</sup></a>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Science-Backed Protocols to Align Your Rhythm</h2>
+    <p>To align your circadian rhythm and optimize daytime energy, implement these SCN-calibration protocols daily:</p>
+    <p><strong>1. View Morning Sunlight:</strong> View 10 to 15 minutes of direct outdoor sunlight within 1 hour of waking up (30 minutes on cloudy days). Do not look through windows or sunglasses. This bright light triggers the morning cortisol surge and sets a timer for melatonin release ~16 hours later.</p>
+    <p><strong>2. Restrict Evening Light:</strong> Dim household lights and avoid screens (or use blue-blocking filters) at least 2 hours before bedtime. This allows melatonin to rise naturally, preparing you for deep sleep.</p>
+    <p><strong>3. Keep Consistent Meal Windows:</strong> Your liver, gut, and muscles have peripheral clocks calibrated by digestion. Eating meals at the same times every day (and avoiding food 3 hours before bed) locks in digestive and metabolic circadian rhythms.</p>
+    <p><strong>4. Implement a Caffeine Cut-off:</strong> Caffeine blocks adenosine receptors, masking sleep pressure. Because it has a 5-hour half-life, consume your final caffeinated beverage at least 10 hours before your target bedtime.</p>
+
+    <div class="citation-list">
+      <div class="citation-item" id="ref-1">[1] Satchidananda, P. (2018). <em>The Circadian Code: Lose Weight, Supercharge Your Energy, and Transform Your Health</em>. Rodale Books.</div>
+      <div class="citation-item" id="ref-2">[2] Roenneberg, T., et al. (2007). Epidemiology of the human circadian clock. <em>Sleep Medicine Reviews</em>, 11(6), 429–438. <a href="https://pubmed.ncbi.nlm.nih.gov/17936059/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-3">[3] Chang, A. M., et al. (2015). Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness. <em>PNAS</em>, 112(4), 1232–1237. <a href="https://pubmed.ncbi.nlm.nih.gov/25535358/" target="_blank" rel="noopener">PubMed Link</a></div>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title">Related Sleep Tools</h2>
+    <p class="section-sub">Understand and align your circadian cycle using our interactive tools:</p>
+    <div class="explore-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 1.5rem;">
+      <a href="/chronotype" class="explore-card">
+        <span class="card-badge badge-quiz">Quiz</span>
+        <div class="e-emoji">🦁</div>
+        <div class="e-title">Chronotype Quiz</div>
+        <div class="e-desc">Determine your biological chronotype (Bear, Lion, Wolf, Dolphin) and daily schedule.</div>
+      </a>
+      <a href="/jet-lag-planner" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">✈️</div>
+        <div class="e-title">Jet Lag Planner</div>
+        <div class="e-desc">Get a personalized light exposure and adjustment plan when traveling across time zones.</div>
+      </a>
+      <a href="/shift-work-sleep-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">👷</div>
+        <div class="e-title">Shift Work Sleep Calculator</div>
+        <div class="e-desc">Find the optimal sleep windows and circadian adjustments for night shift rotations.</div>
+      </a>
+      <a href="/melatonin-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">💊</div>
+        <div class="e-title">Melatonin Calculator</div>
+        <div class="e-desc">Calculate the correct, science-backed dosage and timing for melatonin supplementation.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'☀️':'🌙'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'☀️':'🌙'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

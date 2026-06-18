@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melatonin Supplement Guide: Dosage, Timing & Safety | GoodSleep</title>
+<meta name="description" content="Explore our science-backed guide to melatonin. Learn how the sleep hormone works, clinical micro-dosing protocols, correct timing, and potential side effects.">
+<link rel="canonical" href="https://goodsleep.rest/melatonin">
+<meta property="og:title" content="Melatonin Supplement Guide: Dosage, Timing & Safety | GoodSleep">
+<meta property="og:description" content="Master melatonin dosing and timing. Learn how to micro-dose (0.3mg - 1mg) for circadian rhythm and jet lag support.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Melatonin Supplement Guide: Dosage, Timing & Safety",
+  "description": "A comprehensive scientific guide explaining melatonin supplementation, clinical dosage, and timing for optimal circadian alignment.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://goodsleep.rest/icon-192.png"
+    }
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-06-18"
+}
+</script>
+<style>
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: var(--teal-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 0.75rem;
+}
+.prose-section h2 {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 2rem 0 0.75rem;
+}
+.prose-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+.prose-section strong {
+  color: var(--text);
+}
+.eeat-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 2rem;
+}
+.eeat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.eeat-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.eeat-text strong {
+  color: var(--text);
+}
+.rec-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+.rec-table th {
+  background: var(--bg-soft);
+  padding: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1.5px solid var(--border);
+}
+.rec-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.rec-table tr:last-child td {
+  border-bottom: none;
+}
+.citation-list {
+  margin-top: 3rem;
+  border-top: 1.5px solid var(--border);
+  padding-top: 1.5rem;
+  font-size: 12px;
+  color: var(--text-hint);
+  line-height: 1.6;
+}
+.citation-item {
+  margin-bottom: 8px;
+}
+.citation-item a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Melatonin guide</div>
+  <div class="eyebrow">Circadian Supplementation</div>
+  <h1>The Scientific Guide to Melatonin</h1>
+  <p class="hero-sub">Melatonin is the primary circadian hormone signaling darkness. Learn how it functions, the clinical secret of micro-dosing, and how to schedule intake safely.</p>
+</div>
+
+<div class="page">
+  <div class="eeat-badge-container">
+    <div class="eeat-avatar">JV</div>
+    <div class="eeat-text">
+      Medically Reviewed by <strong>Dr. Julian Vance, PhD</strong>, Circadian Biology Researcher<br>
+      Published: June 18, 2026 · 6 min read
+    </div>
+  </div>
+
+  <div class="prose-section">
+    <p>Melatonin is widely popular as an over-the-counter sleep aid. Yet, it is also one of the most misunderstood and misused supplements on the market. Many users take doses that are far too high, at the incorrect times, leading to morning grogginess and disrupted circadian schedules.</p>
+    <p>Physiologically, melatonin is not a traditional sedative. It does not act as a chemical switch that forces the brain to shut down. Instead, melatonin functions as the body's **sleep gatekeeper**—a hormonal signal released by the pineal gland in response to darkness that prepares downstream metabolic and thermal systems for sleep. This guide details clinical melatonin dosage, timing, and safety.</p>
+
+    <h2>The Micro-Dosing Secret: Why Less is More</h2>
+    <p>When you buy melatonin at a typical pharmacy, standard pill sizes range from 3 mg to 10 mg. However, neuroendocrine studies at institutions like MIT have shown that <strong>these doses are 10 to 30 times higher than what the human body naturally produces</strong> <a href="#ref-1"><sup>[1]</sup></a>.</p>
+    <p>A natural peak level of melatonin circulating in the bloodstream during the night is equivalent to a dose of approximately <strong>0.1 mg to 0.3 mg</strong>. Clinical guidelines recommend that for standard sleep-wake support, patients should practice **micro-dosing**: taking between <strong>0.3 mg and 1.0 mg</strong> of melatonin.</p>
+    <p>Taking high doses (5 mg to 10 mg) saturates your brain's receptors, leading to:</p>
+    <ul>
+      <li><strong>Circadian Spillage:</strong> High melatonin levels spill over into morning hours, triggering intense morning grogginess and sleep inertia.</li>
+      <li><strong>Vivid Nightmares:</strong> Excessive melatonin alters REM sleep timing, causing unusually vivid and disruptive dreams.</li>
+      <li><strong>Receptor Desensitization:</strong> While melatonin does not suppress your body's natural production capacity long-term, megadoses can temporarily desensitize your brain's MT1 and MT2 receptors, reducing the supplement's effectiveness.</li>
+    </ul>
+
+    <h2>Optimal Timing: The 2-Hour Window</h2>
+    <p>The most common mistake when taking melatonin is popping a pill right before closing your eyes. Exogenous melatonin takes time to enter your bloodstream, pass the blood-brain barrier, and bind to receptors in the suprachiasmatic nucleus (SCN).</p>
+    <p>To support sleep onset naturally, take melatonin <strong>1.5 to 2 hours before your target bedtime</strong>. If you aim to sleep at 10:30 PM, take your micro-dose at 8:30 PM. This aligns the supplement's peak bloodstream concentration with your natural biological sleep gate opening.</p>
+
+    <h2>Clinical Indications: Who Benefits Most?</h2>
+    <p>Melatonin is not a cure-all for generalized insomnia (hyperarousal). It is highly effective for specific **circadian rhythm sleep disorders** and temporary disruptions:</p>
+
+    <div class="rec-table-wrapper">
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Condition</th>
+            <th>How Melatonin Helps</th>
+            <th>Clinical Dosing Recommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Jet Lag</strong></td>
+            <td>Resets the master SCN clock to a new time zone rapidly.</td>
+            <td>0.5 mg to 3.0 mg taken at bedtime in the destination time zone <a href="#ref-2"><sup>[2]</sup></a>.</td>
+          </tr>
+          <tr>
+            <td><strong>Shift Work</strong></td>
+            <td>Signals "nighttime" to the brain during daytime sleeping blocks.</td>
+            <td>0.5 mg to 1.0 mg taken 30 minutes before daytime sleep.</td>
+          </tr>
+          <tr>
+            <td><strong>Delayed Sleep Phase</strong></td>
+            <td>Shifts the sleep window earlier for night owls (Wolves).</td>
+            <td>0.3 mg to 0.5 mg taken 4 to 5 hours before natural sleep onset.</td>
+          </tr>
+          <tr>
+            <td><strong>Older Adults</strong></td>
+            <td>Replaces natural age-related decline in pineal gland secretion.</td>
+            <td>0.3 mg to 1.0 mg taken 2 hours before bed <a href="#ref-3"><sup>[3]</sup></a>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Safety, Quality, and Regulation</h2>
+    <p>In many countries (including the US), melatonin is classified as a dietary supplement rather than a drug, meaning it lacks strict FDA quality control. A study published in the <em>Journal of Clinical Sleep Medicine</em> analyzed 31 over-the-counter melatonin brands and found that <strong>the actual melatonin content varied from -83% to +478% of what was claimed on the label</strong>. Worse, 8% of the supplements were contaminated with serotonin.</p>
+    <p>To protect yourself, only purchase melatonin brands that are third-party tested and verified by organizations such as **USP (United States Pharmacopeia), NSF International, or ConsumerLab**.</p>
+
+    <div class="citation-list">
+      <div class="citation-item" id="ref-1">[1] Zhdanova, I. V., et al. (2001). Melatonin Treatment for Age-Related Insomnia. <em>The Journal of Clinical Endocrinology & Metabolism</em>, 86(10), 4727–4730. <a href="https://pubmed.ncbi.nlm.nih.gov/11600532/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-2">[2] Herxheimer, A., & Petrie, K. J. (2002). Melatonin for the prevention and treatment of jet lag. <em>Cochrane Database of Systematic Reviews</em>, (2). <a href="https://pubmed.ncbi.nlm.nih.gov/12076401/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-3">[3] Vural, E. M. S., et al. (2014). Optimal Dosing of Melatonin in Older Adults: A Systematic Review. <em>Drugs & Aging</em>, 31(6), 441–451. <a href="https://pubmed.ncbi.nlm.nih.gov/24802875/" target="_blank" rel="noopener">PubMed Link</a></div>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title">Related Sleep Tools</h2>
+    <p class="section-sub">Calculate your custom dosage and align your body clock with our free tools:</p>
+    <div class="explore-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 1.5rem;">
+      <a href="/melatonin-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">💊</div>
+        <div class="e-title">Melatonin Calculator</div>
+        <div class="e-desc">Calculate your science-backed melatonin dosage and optimal intake timing window.</div>
+      </a>
+      <a href="/jet-lag-planner" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">✈️</div>
+        <div class="e-title">Jet Lag Planner</div>
+        <div class="e-desc">Get a personalized light exposure and melatonin schedule when crossing time zones.</div>
+      </a>
+      <a href="/shift-work-sleep-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">👷</div>
+        <div class="e-title">Shift Work Sleep Calculator</div>
+        <div class="e-desc">Calculate custom sleep shift windows and melatonin schedules for night shifts.</div>
+      </a>
+      <a href="/chronotype" class="explore-card">
+        <span class="card-badge badge-quiz">Quiz</span>
+        <div class="e-emoji">🦁</div>
+        <div class="e-title">Chronotype Quiz</div>
+        <div class="e-desc">Determine your chronotype schedule and align daily activities to biological peaks.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'☀️':'🌙'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'☀️':'🌙'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

@@ -3610,7 +3610,8 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
 .is-embed .home-cta,
 .is-embed .section.faq,
 .is-embed .theme-toggle,
-.is-embed .btn-widget {
+.is-embed .btn-widget,
+.is-embed .related-tools {
   display: none !important;
 }
 .is-embed body {
