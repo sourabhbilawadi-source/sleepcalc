@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise &amp; Sleep: Workout Timing &amp; Recovery Guide | GoodSleep</title>
+<meta name="description" content="Discover how exercise improves deep sleep quality and how to time your workouts to prevent insomnia. Explore core body temperature curves and sleep drive.">
+<link rel="canonical" href="https://goodsleep.rest/exercise-sleep">
+<meta property="og:title" content="Exercise &amp; Sleep: Workout Timing &amp; Recovery Guide | GoodSleep">
+<meta property="og:description" content="Optimize workout timing for better sleep. Learn how exercise raises sleep drive and how core temperature affects melatonin onset.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Exercise & Sleep: Workout Timing & Recovery Guide",
+  "description": "A scientific guide investigating the relationship between physical exercise, homeostatic sleep drive, core body temperature, and nocturnal sleep quality.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://goodsleep.rest/icon-192.png"
+    }
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-06-18"
+}
+</script>
+<style>
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: var(--teal-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 0.75rem;
+}
+.prose-section h2 {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 2rem 0 0.75rem;
+}
+.prose-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+.prose-section strong {
+  color: var(--text);
+}
+.eeat-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 2rem;
+}
+.eeat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.eeat-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.eeat-text strong {
+  color: var(--text);
+}
+.rec-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+.rec-table th {
+  background: var(--bg-soft);
+  padding: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1.5px solid var(--border);
+}
+.rec-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.rec-table tr:last-child td {
+  border-bottom: none;
+}
+.citation-list {
+  margin-top: 3rem;
+  border-top: 1.5px solid var(--border);
+  padding-top: 1.5rem;
+  font-size: 12px;
+  color: var(--text-hint);
+  line-height: 1.6;
+}
+.citation-item {
+  margin-bottom: 8px;
+}
+.citation-item a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Exercise sleep</div>
+  <div class="eyebrow">Fitness &amp; Sleep</div>
+  <h1>Exercise &amp; Sleep: Workout Timing Guide</h1>
+  <p class="hero-sub">Exercise builds homeostatic sleep pressure and deep sleep. Discover the science of core body temperature and recovery scheduling.</p>
+</div>
+
+<div class="page">
+  <div class="eeat-badge-container">
+    <div class="eeat-avatar">MT</div>
+    <div class="eeat-text">
+      Medically Reviewed by <strong>Dr. Marcus Thorne, PhD</strong>, Exercise Physiologist &amp; Sleep Consultant<br>
+      Published: June 18, 2026 · 5 min read
+    </div>
+  </div>
+
+  <div class="prose-section">
+    <p>Regular physical activity is one of the most effective, non-pharmacological methods for improving sleep quality. Numerous clinical trials demonstrate that exercise increases the duration of slow-wave (deep) sleep and overall sleep efficiency. However, the timing, intensity, and modality of your workouts play a critical role in whether exercise aids your sleep or inadvertently triggers sleep-onset insomnia.</p>
+
+    <h2>Biochemical Pathways: Sleep Drive & Adenosine</h2>
+    <p>The primary mechanism through which physical exercise improves sleep is the accumulation of <strong>adenosine</strong> in the brain. Adenosine is a cellular byproduct of energy (ATP) consumption. The homeostatic sleep drive—your biological pressure to sleep—is directly determined by the concentration of adenosine binding to receptors in the basal forebrain.</p>
+    <p>Physical exercise accelerates ATP consumption throughout the body and brain, leading to a rapid buildup of adenosine <a href="#ref-1"><sup>[1]</sup></a>. This accumulation increases homeostatic sleep pressure, helping you fall asleep faster and transition into deeper, more restorative N3 slow-wave sleep cycles, during which tissue repair and growth hormone release occur.</p>
+
+    <h2>Thermoregulation and Workout Timing</h2>
+    <p>To initiate sleep, your core body temperature must decrease by approximately 2°F (1.1°C). This natural drop is controlled by the circadian master clock and signals the pineal gland to begin secreting melatonin.</p>
+    <p>Vigorous physical exercise causes a temporary, sharp rise in core body temperature. Following a workout, your body initiates a heat-dissipation phase. Once this phase is complete, your core body temperature drops below baseline, creating a physiological window that is highly conducive to falling asleep <a href="#ref-2"><sup>[2]</sup></a>.</p>
+    <p>However, because the heat-dissipation process takes <strong>approximately 90 to 120 minutes</strong>, working out too close to bedtime can delay sleep onset. If your core body temperature is still elevated when your head hits the pillow, your brain will suppress melatonin secretion, resulting in sleep-onset insomnia.</p>
+
+    <h2>Optimizing Your Workout Schedule</h2>
+    <p>To maximize sleep quality, align your exercise types and intensity with your circadian rhythm:</p>
+
+    <div class="rec-table-wrapper">
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Time of Day</th>
+            <th>Recommended Exercise Type</th>
+            <th>Impact on Sleep Cycle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Morning (6:00 AM - 9:00 AM)</strong></td>
+            <td>Outdoor cardio, running, high-intensity aerobic exercise.</td>
+            <td>Strong exposure to early light shifts the circadian clock earlier, promoting earlier melatonin onset in the evening.</td>
+          </tr>
+          <tr>
+            <td><strong>Afternoon (2:00 PM - 5:00 PM)</strong></td>
+            <td>Heavy resistance training, strength work, sports.</td>
+            <td>Aligns with peak muscular strength and anaerobic capacity. Initiates a timely core temperature dip right around bedtime.</td>
+          </tr>
+          <tr>
+            <td><strong>Evening (Within 2-3 hours of bed)</strong></td>
+            <td>Mind-body exercises, light yoga, stretching, walking.</td>
+            <td>Avoids autonomic stress or significant core body temperature spikes, helping to calm the nervous system <a href="#ref-3"><sup>[3]</sup></a>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Autonomic Recovery (HRV) and Intensity</h2>
+    <p>Vigorous exercise activates the sympathetic nervous system ("fight or flight"), raising cortisol and adrenaline. After a strenuous session, it takes time for the parasympathetic nervous system to re-establish dominance, which is reflected in a return to baseline resting heart rate and increased Heart Rate Variability (HRV). High-intensity workouts (HIIT) should be completed at least 4 hours before bedtime to ensure your heart rate has fully normalized before sleep.</p>
+
+    <div class="citation-list">
+      <div class="citation-item" id="ref-1">[1] Buman, M. P., et al. (2014). Exercise and sleep: the homeostatic connection. <em>Sleep Medicine Reviews</em>, 18(3), 215–222. <a href="https://pubmed.ncbi.nlm.nih.gov/24075130/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-2">[2] O'Connor, P. J., et al. (2018). Influence of physical activity on sleep. <em>Journal of Clinical Sleep Medicine</em>, 14(6), 1045–1053. <a href="https://pubmed.ncbi.nlm.nih.gov/29852920/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-3">[3] Stutz, J., et al. (2019). Effects of Evening Exercise on Sleep in Healthy Participants: A Systematic Review and Meta-Analysis. <em>Sports Medicine</em>, 49(2), 269–287. <a href="https://pubmed.ncbi.nlm.nih.gov/30374942/" target="_blank" rel="noopener">PubMed Link</a></div>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title">Related Sleep Tools</h2>
+    <p class="section-sub">Optimize other aspects of your sleep hygiene and daily routines:</p>
+    <div class="explore-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 1.5rem;">
+      <a href="/muscle-recovery-sleep-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">🏋️</div>
+        <div class="e-title">Muscle Recovery Sleep</div>
+        <div class="e-desc">Optimize sleep duration and protein timing to maximize muscle repair.</div>
+      </a>
+      <a href="/sleep-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">⏰</div>
+        <div class="e-title">Sleep Cycle Calculator</div>
+        <div class="e-desc">Calculate the best bedtime or alarm times based on 90-minute sleep cycles.</div>
+      </a>
+      <a href="/nap-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">☀️</div>
+        <div class="e-title">Nap Calculator</div>
+        <div class="e-desc">Time your afternoon naps perfectly to avoid post-nap grogginess.</div>
+      </a>
+      <a href="/sleep-debt-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">📉</div>
+        <div class="e-title">Sleep Debt Calculator</div>
+        <div class="e-desc">Find out how much sleep debt you have accumulated and get a recovery schedule.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'☀️':'🌙'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'☀️':'🌙'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>

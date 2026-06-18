@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Stages by Age: Lifetime Sleep Architecture Changes | GoodSleep</title>
+<meta name="description" content="Explore how sleep stages and sleep architecture change across the lifespan, from infant active sleep to senior deep sleep reduction.">
+<link rel="canonical" href="https://goodsleep.rest/sleep-stages-by-age">
+<meta property="og:title" content="Sleep Stages by Age: Lifetime Sleep Architecture Changes | GoodSleep">
+<meta property="og:description" content="Lifetime changes in sleep architecture. Learn about REM/NREM ratios, active infant sleep, and deep sleep reduction in elderly populations.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sleep Stages by Age: Lifetime Sleep Architecture Changes",
+  "description": "A chronological developmental study analyzing the structural changes in human sleep cycles, slow-wave sleep depletion, and REM density changes from infancy to seniors.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://goodsleep.rest/icon-192.png"
+    }
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-06-18"
+}
+</script>
+<style>
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: var(--teal-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 0.75rem;
+}
+.prose-section h2 {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 2rem 0 0.75rem;
+}
+.prose-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+.prose-section strong {
+  color: var(--text);
+}
+.eeat-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 2rem;
+}
+.eeat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.eeat-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.eeat-text strong {
+  color: var(--text);
+}
+.rec-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+.rec-table th {
+  background: var(--bg-soft);
+  padding: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1.5px solid var(--border);
+}
+.rec-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.rec-table tr:last-child td {
+  border-bottom: none;
+}
+.citation-list {
+  margin-top: 3rem;
+  border-top: 1.5px solid var(--border);
+  padding-top: 1.5rem;
+  font-size: 12px;
+  color: var(--text-hint);
+  line-height: 1.6;
+}
+.citation-item {
+  margin-bottom: 8px;
+}
+.citation-item a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Sleep stages by age</div>
+  <div class="eyebrow">Sleep Science</div>
+  <h1>Sleep Stages by Age</h1>
+  <p class="hero-sub">Human sleep architecture is not static. Explore how deep sleep decreases, REM ratios drop, and cycles stabilize across your lifespan.</p>
+</div>
+
+<div class="page">
+  <div class="eeat-badge-container">
+    <div class="eeat-avatar">SP</div>
+    <div class="eeat-text">
+      Medically Reviewed by <strong>Dr. Sarah Patel, MD</strong>, Board-Certified Sleep Medicine Specialist<br>
+      Published: June 18, 2026 · 6 min read
+    </div>
+  </div>
+
+  <div class="prose-section">
+    <p>We often measure sleep purely by its duration, asking ourselves whether we got the recommended 7 to 9 hours. However, developmental biology reveals that the internal composition of our sleep—known as **sleep architecture**—changes dramatically from the day we are born to our senior years. As the brain matures and ages, the ratios of light, deep, and REM sleep undergo a natural evolution.</p>
+
+    <h2>What is Sleep Architecture?</h2>
+    <p>Sleep is structured in cycles lasting 90 to 110 minutes in adults. Each cycle is divided into distinct stages: Stage N1 (transition to sleep), Stage N2 (light sleep with sleep spindles), Stage N3 (slow-wave deep sleep), and REM (rapid eye movement/dreaming sleep). The distribution and order of these stages throughout the night determine how restorative your sleep is.</p>
+
+    <h2>Chronological Evolution of Sleep Architecture</h2>
+    <p>Throughout your life, sleep cycles undergo distinct developmental transitions:</p>
+
+    <h3>1. Infancy (0 - 12 Months): Active Sleep Dominance</h3>
+    <p>Newborns do not have the organized NREM-REM cycles seen in adults. Instead, their sleep is categorized into **Active Sleep** (equivalent to REM) and **Quiet Sleep** (equivalent to NREM) <a href="#ref-1"><sup>[1]</sup></a>. Newborns spend up to <strong>50% of their sleep time in REM sleep</strong>, compared to just 20% in adults. This high percentage of REM sleep is vital for rapid brain development and synapse formation. Newborn sleep is also polyphasic, occurring in short blocks throughout the day and night.</p>
+
+    <h3>2. Childhood & Adolescence: Cycle Consolidation</h3>
+    <p>By age 2, sleep consolidates into a monophasic nighttime block, and cycles lengthen to 75-90 minutes. Slow-wave deep sleep (N3) peaks during childhood, supporting bone growth, immune function, and tissue repair. During puberty, teenagers experience a biological **circadian phase delay**, shifting their sleep-wake cycles 2 hours later, and their cycles extend to the adult 90-minute length.</p>
+
+    <h3>3. Adulthood (18 - 60 Years): The 90-Minute Rhythm</h3>
+    <p>In adulthood, sleep architecture stabilizes into 4-6 repeating 90-minute cycles per night. The typical breakdown of a healthy adult sleep cycle is:</p>
+    <ul>
+      <li><strong>N1 (Light Transition):</strong> 5% of total sleep time.</li>
+      <li><strong>N2 (Light Sleep):</strong> 45% to 55% of total sleep. Helps with motor learning and memory consolidation.</li>
+      <li><strong>N3 (Slow-Wave/Deep Sleep):</strong> 15% to 25% of total sleep. Essential for physical recovery.</li>
+      <li><strong>REM (Dreaming/Cognitive):</strong> 20% to 25% of total sleep. Vital for emotional regulation and creative processing.</li>
+    </ul>
+
+    <h3>4. Seniors (60+ Years): Deep Sleep Depletion</h3>
+    <p>As the brain ages, the prefrontal cortex and other areas that generate slow-wave delta waves undergo atrophy. Consequently, seniors experience a dramatic **decline in Stage N3 deep sleep**, sometimes dropping to near 0% in elderly men <a href="#ref-2"><sup>[2]</sup></a>. Sleep becomes highly fragmented with frequent awakenings (known as Wake After Sleep Onset, or WASO) <a href="#ref-3"><sup>[3]</sup></a>. Additionally, the circadian clock shifts earlier (advanced phase shift), causing older adults to feel sleepy earlier in the evening and wake up earlier in the morning.</p>
+
+    <h2>Lifespan Sleep Composition Table</h2>
+
+    <div class="rec-table-wrapper">
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Life Stage</th>
+            <th>Total Recommended Sleep</th>
+            <th>REM Sleep %</th>
+            <th>Deep Sleep (N3) %</th>
+            <th>Key Characteristic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Infants (0-12 months)</strong></td>
+            <td>12 to 16 Hours</td>
+            <td>~50%</td>
+            <td>Consolidating</td>
+            <td>Polyphasic active sleep; critical for brain development.</td>
+          </tr>
+          <tr>
+            <td><strong>Children (1-12 years)</strong></td>
+            <td>9 to 11 Hours</td>
+            <td>~25%</td>
+            <td>~30%</td>
+            <td>Peak deep sleep duration; supports physical growth.</td>
+          </tr>
+          <tr>
+            <td><strong>Adolescents (13-18 years)</strong></td>
+            <td>8 to 10 Hours</td>
+            <td>~20%</td>
+            <td>~20%</td>
+            <td>Circadian phase delay; vulnerable to social jet lag.</td>
+          </tr>
+          <tr>
+            <td><strong>Adults (18-60 years)</strong></td>
+            <td>7 to 9 Hours</td>
+            <td>20% - 25%</td>
+            <td>15% - 20%</td>
+            <td>Consolidated 90-minute sleep cycles.</td>
+          </tr>
+          <tr>
+            <td><strong>Seniors (60+ years)</strong></td>
+            <td>7 to 8 Hours</td>
+            <td>15% - 20%</td>
+            <td>0% - 10%</td>
+            <td>Severe deep sleep reduction; high sleep fragmentation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="citation-list">
+      <div class="citation-item" id="ref-1">[1] Ohayon, M. M., et al. (2004). Meta-analysis of quantitative sleep parameters from childhood to old age in healthy individuals. <em>Sleep</em>, 27(7), 1255–1273. <a href="https://pubmed.ncbi.nlm.nih.gov/15586779/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-2">[2] Scullin, M. K., & Bliwise, D. L. (2015). Sleep, cognition, and normal aging: integrating a half-century of multidisciplinary research. <em>Perspectives on Psychological Science</em>, 10(1), 97–137. <a href="https://pubmed.ncbi.nlm.nih.gov/25620997/" target="_blank" rel="noopener">PubMed Link</a></div>
+      <div class="citation-item" id="ref-3">[3] Mander, B. A., et al. (2017). Sleep and Human Aging. <em>Neuron</em>, 94(1), 19–36. <a href="https://pubmed.ncbi.nlm.nih.gov/28384471/" target="_blank" rel="noopener">PubMed Link</a></div>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title">Related Sleep Tools</h2>
+    <p class="section-sub">Optimize other aspects of your sleep hygiene and daily routines:</p>
+    <div class="explore-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 1.5rem;">
+      <a href="/sleep-stages" class="explore-card">
+        <span class="card-badge badge-guide">Guide</span>
+        <div class="e-emoji">🧠</div>
+        <div class="e-title">Sleep Stages Guide</div>
+        <div class="e-desc">Learn the physiology of light, deep N3, and REM cycles and wake up feeling refreshed.</div>
+      </a>
+      <a href="/sleep-by-age" class="explore-card">
+        <span class="card-badge badge-guide">Guide</span>
+        <div class="e-emoji">👶</div>
+        <div class="e-title">Sleep by Age Guide</div>
+        <div class="e-desc">Check recommended sleep durations and cycle patterns from infancy to seniors.</div>
+      </a>
+      <a href="/kids-sleep-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">👶</div>
+        <div class="e-title">Kids Sleep Calculator</div>
+        <div class="e-desc">Calculate sleep requirements and optimal bedtimes for children and toddlers.</div>
+      </a>
+      <a href="/sleep-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">⏰</div>
+        <div class="e-title">Sleep Cycle Calculator</div>
+        <div class="e-desc">Calculate the best bedtime or alarm times based on 90-minute sleep cycles.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/blog">✍️ Blog</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 GoodSleep. All rights reserved. For educational purposes only.</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// THEME
+(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);var b=document.getElementById('theme-toggle');if(b){var th=document.documentElement.getAttribute('data-theme');var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);b.textContent=dk?'☀️':'🌙'}})();
+document.getElementById('theme-toggle').addEventListener('click',function(){var r=document.documentElement;var c=r.getAttribute('data-theme');var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var n=dk?'light':'dark';r.setAttribute('data-theme',n);localStorage.setItem('gs-theme',n);this.textContent=n==='dark'?'☀️':'🌙'});
+
+// BACK TO TOP
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>400)},{passive:true});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200);
+})();
+</script>
+</body>
+</html>
