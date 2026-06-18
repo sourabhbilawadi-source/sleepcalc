@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goodsleep-v6';
+const CACHE_NAME = 'goodsleep-v7';
 const ASSETS = [
   '/',
   '/about',
@@ -92,42 +92,30 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Network-First strategy
   event.respondWith(
-    caches.match(event.request, { ignoreSearch: true }).then(cachedResponse => {
-      if (cachedResponse) {
-        // Fetch a fresh version in the background (stale-while-revalidate)
-        fetch(event.request).then(networkResponse => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then(cache => {
-              const cleanUrl = new URL(event.request.url);
-              cleanUrl.search = '';
-              cache.put(cleanUrl.pathname, networkResponse.clone());
-            });
-          }
-        }).catch(err => {
-          console.warn('Background sync failed:', err);
+    fetch(event.request).then(networkResponse => {
+      // If network request succeeds, cache the new version and return it
+      if (networkResponse && networkResponse.status === 200) {
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then(cache => {
+          const cleanUrl = new URL(event.request.url);
+          cleanUrl.search = '';
+          cache.put(cleanUrl.pathname, responseToCache);
         });
-        
-        return cachedResponse;
       }
-
-      // Fallback to network
-      return fetch(event.request).then(networkResponse => {
-        if (networkResponse && networkResponse.status === 200) {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            const cleanUrl = new URL(event.request.url);
-            cleanUrl.search = '';
-            cache.put(cleanUrl.pathname, responseToCache);
-          });
+      return networkResponse;
+    }).catch(() => {
+      // If network fails (offline), fall back to the cache
+      return caches.match(event.request, { ignoreSearch: true }).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
         }
-        return networkResponse;
+        // Fallback to home page if navigating and offline
+        if (event.request.mode === 'navigate') {
+          return caches.match('/');
+        }
       });
-    }).catch(err => {
-      // Critical fallback: if caches.match or network fetch fails inside our code,
-      // return a direct fetch to the network to avoid breaking the page display.
-      console.error('Service Worker fallback to network:', err);
-      return fetch(event.request);
     })
   );
 });
