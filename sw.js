@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goodsleep-v7';
+const CACHE_NAME = 'goodsleep-v8';
 const ASSETS = [
   '/',
   '/about',
@@ -49,6 +49,10 @@ const ASSETS = [
   '/exercise-sleep',
   '/bedroom-environment',
   '/sleep-stages-by-age',
+  '/blog/how-long-does-caffeine-last',
+  '/blog/what-is-rem-sleep',
+  '/blog/how-to-stop-snoring',
+  '/blog/melatonin-dosage-for-adults',
   '/styles.css',
   '/share-card.js',
   '/favicon.svg',
