@@ -891,11 +891,13 @@ let currentStrategy = "stayup";
 document.addEventListener("DOMContentLoaded", () => {
   // Hide loading spinner
   const loader = document.getElementById("loading-overlay");
-  if(loader) {
-    setTimeout(() => {
-      loader.classList.add("hide");
-    }, 200);
+  function hideLoader() {
+    if (loader && !loader.classList.contains("fade-out")) {
+      loader.classList.add("fade-out");
+    }
   }
+  window.addEventListener("load", hideLoader);
+  setTimeout(hideLoader, 1200); // Safety timeout
 
   // Detect and set local timezone
   try {
