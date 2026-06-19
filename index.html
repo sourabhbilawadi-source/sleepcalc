@@ -592,7 +592,7 @@
 // ── STARS ──
 (function(){
   var wrapper=document.getElementById('stars');
-  if(!wrapper)return;
+  if(!wrapper || window.innerWidth < 768)return;
   for(var i=0;i<40;i++){
     var s=document.createElement('div');
     s.className='star';
@@ -633,6 +633,11 @@
       var target=parseInt(el.getAttribute('data-target'));
       var suffix=el.getAttribute('data-suffix')||'';
       var text=el.getAttribute('data-text');
+      if(window.innerWidth < 768){
+        el.textContent=text||(target+suffix);
+        obs.unobserve(el);
+        return;
+      }
       if(text){el.textContent=text;obs.unobserve(el);return;}
       if(target===0){el.textContent='0'+suffix;obs.unobserve(el);return;}
       var current=0;

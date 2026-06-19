@@ -3711,3 +3711,21 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
 .audit-container > * {
   min-width: 0;
 }
+
+/* ── MOBILE PERFORMANCE OPTIMIZATIONS ── */
+@media (max-width: 768px) {
+  /* Disable animations for main hero content to reduce Largest Contentful Paint (LCP) delay */
+  .home-hero h1,
+  .home-hero .hero-sub,
+  .home-hero .hero-cta-row {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* Hide CPU/GPU-heavy floating blurred orbs */
+  .orb {
+    display: none !important;
+  }
+}
+
