@@ -46,11 +46,33 @@
   .page {
     max-width: 1200px;
   }
+  .wcs-left-panel {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    z-index: 5;
+  }
   .wcs-sticky-panel {
     position: sticky;
     top: 80px;
     height: fit-content;
+    z-index: 5;
   }
+}
+
+/* Fix sticky nav overlap by ensuring nav has higher z-index than relative match cards */
+nav {
+  z-index: 1000 !important;
+}
+
+.match-list-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 5;
 }
 
 /* Timezone & Controls */
@@ -169,6 +191,7 @@
 }
 .match-info {
   flex: 1;
+  min-width: 0;
 }
 .match-teams {
   font-size: 15px;
@@ -518,7 +541,7 @@
   <div class="wcs-container">
     
     <!-- Left Column: Match Selector -->
-    <div>
+    <div class="wcs-left-panel">
       <!-- Timezone Selector Control -->
       <div class="wcs-header-controls">
         <div class="tz-select-wrap">
