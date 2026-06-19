@@ -79,6 +79,12 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://goodsleep.rest/world-cup-sleep-schedule</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://goodsleep.rest/sleep-by-age</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>

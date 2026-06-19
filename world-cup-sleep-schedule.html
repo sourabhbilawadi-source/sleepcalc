@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Cup Sleep Schedule Planner — GoodSleep</title>
+<meta name="description" content="Watch World Cup 2026 matches in different time zones without ruining your sleep. Convert match times and calculate optimal sleep cycle schedules, split sleep, and power naps.">
+<link rel="canonical" href="https://goodsleep.rest/world-cup-sleep-schedule">
+<meta property="og:title" content="World Cup Sleep Schedule Planner — GoodSleep">
+<meta property="og:description" content="Don't ruin your sleep for late-night World Cup games. Calculate optimal sleep cycles, split sleep shifts, and pre-match power naps.">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBGNkU1NiIvPgogIDxwYXRoIGQ9Ik0yMCA3YTkgOSAwIDEgMS05IDkgNyA3IDAgMCAwIDktOXoiIGZpbGw9IndoaXRlIi8+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSI5IiByPSIxLjUiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjciIHI9IjEiIGZpbGw9IiM1RENBQTUiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEyIiByPSIxIiBmaWxsPSIjOUZFMUNCIi8+Cjwvc3ZnPg==">
+<link rel="stylesheet" href="/styles.css">
+
+<style>
+/* Page-Specific Styles */
+.wcs-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 950px) {
+  .wcs-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+@media (min-width: 951px) {
+  .page {
+    max-width: 1200px;
+  }
+  .wcs-sticky-panel {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+}
+
+/* Timezone & Controls */
+.wcs-header-controls {
+  background: var(--bg-soft);
+  padding: 1rem 1.25rem;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.tz-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 260px;
+}
+.tz-select-wrap label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.tz-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.tz-select:focus {
+  border-color: var(--teal);
+}
+
+/* Matches List */
+.match-list-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+.match-list-header {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.match-scroll-area {
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.match-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+.match-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.match-scroll-area::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.match-card {
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.match-card:hover {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  transform: translateY(-1px);
+}
+.match-card.active {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  box-shadow: 0 0 0 1px var(--teal);
+}
+.match-card.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--teal);
+}
+.match-info {
+  flex: 1;
+}
+.match-teams {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.match-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.match-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.badge-safe { background: var(--teal-light); color: var(--teal-dark); border: 1px solid var(--teal); }
+.badge-warning { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber); }
+.badge-sleep-clash { background: var(--purple-light); color: var(--purple); border: 1px solid var(--purple); }
+
+/* Sleep Planner Card */
+.planner-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.planner-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+.planner-icon {
+  font-size: 22px;
+  background: var(--teal-light);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--teal);
+}
+.planner-title-row h2 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.form-group label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.form-input {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus {
+  border-color: var(--teal);
+}
+
+/* Sleep Assessment Results */
+.assessment-result {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border-radius: var(--r-sm);
+  border: 1.5px solid transparent;
+  margin-bottom: 1.25rem;
+}
+.assess-safe {
+  background: var(--teal-light);
+  border-color: var(--teal);
+}
+.assess-clash {
+  background: var(--purple-light);
+  border-color: var(--purple);
+}
+.assess-title {
+  font-weight: 800;
+  font-size: 15px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.assess-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Strategy Tabs */
+.strategy-box {
+  margin-top: 1.5rem;
+}
+.strategy-tabs-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+.strat-tab {
+  padding: 8px 4px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+  transition: all 0.2s;
+  text-align: center;
+}
+.strat-tab:hover {
+  background: var(--bg-soft);
+  color: var(--text);
+}
+.strat-tab.active {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
+.strat-pane {
+  display: none;
+}
+.strat-pane.active {
+  display: block;
+}
+
+/* Strategy Details */
+.strat-metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+.strat-metric {
+  background: var(--bg-soft);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.strat-metric-lbl {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.strat-metric-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 2px;
+}
+.strat-metric-val.bad {
+  color: var(--red);
+}
+.strat-metric-val.good {
+  color: var(--teal);
+}
+
+/* Timeline Visual */
+.timeline-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.timeline-bar {
+  height: 28px;
+  border-radius: var(--r-sm);
+  background: var(--border);
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+}
+.tl-segment {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tl-sleep { background: var(--purple); color: #fff; }
+.tl-match { background: var(--red); color: #fff; }
+.tl-nap { background: var(--amber); color: #fff; }
+.tl-awake { background: var(--teal-mid); color: #fff; }
+
+.timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-hint);
+  margin-top: -12px;
+  margin-bottom: 1.5rem;
+  padding: 0 4px;
+}
+
+/* Nap Block */
+.nap-box {
+  background: var(--amber-light);
+  border: 1.5px solid var(--amber);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  margin-bottom: 1.5rem;
+}
+.nap-box h4 {
+  font-size: 14px;
+  font-weight: 800;
+  color: #8a5a00;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media(prefers-color-scheme:dark){
+  .nap-box h4 { color: var(--amber); }
+}
+.nap-box p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* FAQ Layout */
+.faq-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+.faq-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.faq-card:hover {
+  border-color: var(--teal);
+}
+.faq-q {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.faq-q::after {
+  content: '▼';
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+.faq-card.open .faq-q::after {
+  transform: rotate(180deg);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease-out, margin-top 0.2s;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.faq-card.open .faq-a {
+  max-height: 250px;
+  margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>⚽ World Cup Sleep Planner</h1>
+  <p class="hero-sub">Synchronize match kickoffs to your local time and optimize your sleep cycles to avoid heavy sleep debt.</p>
+</div>
+
+<div class="page">
+  <!-- WCS Layout Grid -->
+  <div class="wcs-container">
+    
+    <!-- Left Column: Match Selector -->
+    <div>
+      <!-- Timezone Selector Control -->
+      <div class="wcs-header-controls">
+        <div class="tz-select-wrap">
+          <label for="timezone-selector">Select Timezone:</label>
+          <select id="timezone-selector" class="tz-select" onchange="changeTimezone(this.value)">
+            <option value="detect">📍 Local Time (Detecting...)</option>
+            <option value="UTC">UTC (Coordinated Universal Time)</option>
+            <option value="America/New_York">US Eastern (EDT / UTC-4)</option>
+            <option value="America/Chicago">US Central (CDT / UTC-5)</option>
+            <option value="America/Los_Angeles">US Pacific (PDT / UTC-7)</option>
+            <option value="Europe/London">UK GMT/BST</option>
+            <option value="Europe/Paris">Central Europe (CET/CEST)</option>
+            <option value="Asia/Kolkata">India Standard Time (IST)</option>
+            <option value="Asia/Tokyo">Japan Standard Time (JST)</option>
+            <option value="Australia/Sydney">Australian Eastern (AEST/AEDT)</option>
+            <option value="America/Sao_Paulo">Brazil Time (BRT)</option>
+            <option value="Asia/Dubai">Gulf Standard Time (GST)</option>
+            <option value="Africa/Johannesburg">South Africa Standard Time (SAST)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Schedule Card -->
+      <div class="match-list-card">
+        <div class="match-list-header">
+          <span>Match Schedule (June – July 2026)</span>
+          <span style="font-weight:400;color:var(--text-hint)">Select a game to plan sleep</span>
+        </div>
+        <div class="match-scroll-area" id="matches-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Sleep Planner -->
+    <div class="wcs-sticky-panel">
+      <div class="planner-card">
+        <div class="planner-title-row">
+          <div class="planner-icon">⏰</div>
+          <div>
+            <h2>Sleep Cycle Planner</h2>
+            <div style="font-size:12px;color:var(--text-muted)">Hacking 90-minute sleep cycles for the match</div>
+          </div>
+        </div>
+
+        <div id="no-match-selected" style="text-align:center;padding:2rem 1rem;color:var(--text-muted)">
+          <div style="font-size:36px;margin-bottom:10px">⚽</div>
+          <p>Please select a World Cup match from the list on the left to analyze sleep disruption and design a custom recovery schedule.</p>
+        </div>
+
+        <div id="planner-active-content" style="display:none">
+          <!-- Selected Match Banner -->
+          <div style="background:var(--bg-soft);border-radius:var(--r-sm);padding:10px 14px;border:1px solid var(--border);margin-bottom:1.25rem">
+            <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase" id="planner-match-stage">Group Stage</div>
+            <div style="font-size:16px;font-weight:800;color:var(--text)" id="planner-match-teams">Brazil vs Haiti</div>
+            <div style="font-size:13px;color:var(--text-muted);margin-top:2px" id="planner-match-time">Saturday, June 20 at 6:00 AM</div>
+          </div>
+
+          <!-- Sleep Habit Inputs -->
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="bedtime-input">Usual Bedtime</label>
+              <input type="time" id="bedtime-input" class="form-input" value="23:00" onchange="recalculatePlanner()">
+            </div>
+            <div class="form-group">
+              <label for="waketime-input">Usual Wakeup</label>
+              <input type="time" id="waketime-input" class="form-input" value="07:00" onchange="recalculatePlanner()">
+            </div>
+          </div>
+
+          <!-- Assessment Result Block -->
+          <div id="assessment-block" class="assessment-result">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Dynamic Strategies Section (Hidden if Safe) -->
+          <div id="strategies-section" style="display:none">
+            <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)">Choose Your Sleep Strategy:</h3>
+            
+            <div class="strategy-tabs-nav">
+              <button class="strat-tab active" onclick="switchStrategy('stayup')">Stay Up</button>
+              <button class="strat-tab" onclick="switchStrategy('split')">Split Sleep</button>
+              <button class="strat-tab" onclick="switchStrategy('early')">Early Bed</button>
+              <button class="strat-tab" onclick="switchStrategy('skip')">Highlights</button>
+            </div>
+
+            <!-- Strategy Content: STAY UP -->
+            <div class="strat-pane active" id="pane-stayup">
+              <div class="strat-metric-row">
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Tonight's Sleep</div>
+                  <div class="strat-metric-val" id="stayup-sleep-dur">--</div>
+                </div>
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Sleep Deficit</div>
+                  <div class="strat-metric-val bad" id="stayup-deficit">--</div>
+                </div>
+              </div>
+
+              <div class="timeline-title">Your Hacked Sleep Timeline</div>
+              <div class="timeline-bar" id="stayup-timeline"></div>
+              <div class="timeline-labels" id="stayup-timeline-labels"></div>
+
+              <div class="nap-box" id="stayup-nap-advice">
+                <h4><span style="font-size:16px">⚡</span> Pre-Match Prophylactic Nap</h4>
+                <p id="stayup-nap-text">Take a 90-minute full cycle nap between 8:00 PM and 9:30 PM. This resets your homeostatic sleep pressure, allowing you to stay up late easily.</p>
+              </div>
+            </div>
+
+            <!-- Strategy Content: SPLIT -->
+            <div class="strat-pane" id="pane-split">
+              <div class="strat-metric-row">
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Shift 1 + Shift 2</div>
+                  <div class="strat-metric-val" id="split-sleep-dur">--</div>
+                </div>
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Total Sleep cycles</div>
+                  <div class="strat-metric-val good" id="split-cycles">--</div>
+                </div>
+              </div>
+
+              <div class="timeline-title">Hacked Segments Timeline</div>
+              <div class="timeline-bar" id="split-timeline"></div>
+              <div class="timeline-labels" id="split-timeline-labels"></div>
+
+              <div class="nap-box" style="background:var(--teal-light);border-color:var(--teal)">
+                <h4 style="color:var(--teal-dark)"><span style="font-size:16px">🧬</span> Circadian Sleep Split</h4>
+                <p id="split-advice-text">Go to bed early at 10:30 PM for a 2-cycle sleep. Wake at 1:45 AM, watch the match, then sleep from 4:15 AM to 8:15 AM (3 cycles). Your cycles align perfectly to prevent sleep inertia.</p>
+              </div>
+            </div>
+
+            <!-- Strategy Content: EARLY WAKE -->
+            <div class="strat-pane" id="pane-early">
+              <div class="strat-metric-row">
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Tonight's Sleep</div>
+                  <div class="strat-metric-val" id="early-sleep-dur">--</div>
+                </div>
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Sleep Deficit</div>
+                  <div class="strat-metric-val" id="early-deficit">--</div>
+                </div>
+              </div>
+
+              <div class="timeline-title">Early Wake Timeline</div>
+              <div class="timeline-bar" id="early-timeline"></div>
+              <div class="timeline-labels" id="early-timeline-labels"></div>
+
+              <div class="nap-box">
+                <h4><span style="font-size:16px">⏰</span> Advance Bedtime Shift</h4>
+                <p id="early-advice-text">Shift your bedtime forward to 9:30 PM (allowing 15 mins to sleep). Wake up at 4:15 AM, enjoy the match, and stay awake. Sleep debt is minimized!</p>
+              </div>
+            </div>
+
+            <!-- Strategy Content: WATCH HIGHLIGHTS -->
+            <div class="strat-pane" id="pane-skip">
+              <div class="strat-metric-row">
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Tonight's Sleep</div>
+                  <div class="strat-metric-val good" id="skip-sleep-dur">8.0 hrs</div>
+                </div>
+                <div class="strat-metric">
+                  <div class="strat-metric-lbl">Sleep Deficit</div>
+                  <div class="strat-metric-val good" id="skip-deficit">0 hrs</div>
+                </div>
+              </div>
+
+              <div class="timeline-title">Standard Sleep Timeline</div>
+              <div class="timeline-bar" id="skip-timeline"></div>
+              <div class="timeline-labels" id="skip-timeline-labels"></div>
+
+              <div class="nap-box" style="background:var(--purple-light);border-color:var(--purple)">
+                <h4 style="color:var(--purple)"><span style="font-size:16px">📱</span> The Cognitive Performance Route</h4>
+                <p>Sleep through the night. Watch spoiler-free replay or highlights with coffee tomorrow morning. Perfect choice if you have critical work or high baseline sleep debt.</p>
+              </div>
+            </div>
+
+            <!-- Next-Day Recovery Link -->
+            <div class="tip-box" style="margin-top:1rem">
+              ⚠️ <strong>Need recovery help tomorrow?</strong> Read our science-backed tips on <a href="/sleep-deprivation">Sleep Deprivation Recovery</a> to reset your biological clock quickly with daylight and caffeine timing.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recovery Science Section -->
+  <div class="section" style="margin-top: 3rem;">
+    <h2>Circadian Hacking: Next-Day Recovery</h2>
+    <p>Staying up or splitting your sleep disrupts your circadian clock. Minimize biological damage with these science-backed protocols:</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>☀️ 1. First-Hour Light Anchor</h3>
+        <p>Step outside within 30 minutes of waking. Expose your eyes to 10 minutes of direct sunlight (don't stare at the sun). This signals your brain's suprachiasmatic nucleus to halt melatonin production and start your circadian timer.</p>
+      </div>
+      <div class="info-card">
+        <h3>☕ 2. Delay Caffeine 90 Minutes</h3>
+        <p>Do not drink coffee immediately after waking. Delaying caffeine for 90–120 minutes allows natural adenosine clearance. This prevents the classic "afternoon crash" common after sleep deprivation.</p>
+      </div>
+      <div class="info-card">
+        <h3>⚡ 3. The 20-Min Coffee Nap</h3>
+        <p>If fatigued in the afternoon, drink a cold espresso or coffee and immediately close your eyes for a 20-minute power nap. Adenosine is cleared while you sleep, and caffeine kicks in just as you open your eyes.</p>
+      </div>
+      <div class="info-card">
+        <h3>🥘 4. High-Protein Breakfast</h3>
+        <p>Avoid heavy carb-loaded breakfasts that trigger insulin spikes and cause grogginess. Eat a high-protein breakfast (eggs, yogurt) to stimulate tyrosine production and boost dopamine/cognitive drive.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="section">
+    <h2>Frequently Asked Questions</h2>
+    <p>Common questions football fans ask about managing sleep during international tournaments:</p>
+    
+    <div class="faq-grid">
+      <div class="faq-card" onclick="toggleFaq(this)">
+        <div class="faq-q">How to watch late-night World Cup matches without ruining my sleep?</div>
+        <div class="faq-a">
+          The best approach is structured sleep cycle planning. Instead of sleeping for random short periods, schedule your sleep in multiples of 90 minutes. If a match starts at 2:30 AM, plan to sleep for two full cycles (3 hours + 15 mins to fall asleep) beforehand, and sleep for another 2-3 cycles after. Waking up at the end of a sleep cycle avoids the groggy feeling known as sleep inertia.
+        </div>
+      </div>
+
+      <div class="faq-card" onclick="toggleFaq(this)">
+        <div class="faq-q">Is it better to stay up late or wake up early for a 3 AM match?</div>
+        <div class="faq-a">
+          Physiologically, waking up early (Split Sleep) is superior. Your body gets its deepest, most restorative slow-wave sleep in the first half of the night (between 11 PM and 3 AM). Going to sleep at your normal bedtime and waking up at 2:45 AM preserves this deep sleep. Staying up late delays sleep into the morning hours, which are dominated by REM sleep and are less physically restorative.
+        </div>
+      </div>
+
+      <div class="faq-card" onclick="toggleFaq(this)">
+        <div class="faq-q">What is a split sleep schedule and does it actually work?</div>
+        <div class="faq-a">
+          A split (or segmented) sleep schedule involves dividing your sleep into two distinct shifts. Historically, humans practiced biphasic sleep regularly. It works exceptionally well for late-night sports if both shifts are timed to complete full 90-minute cycles (e.g., 3 hours sleep, 2 hours awake for the game, 3-4.5 hours sleep after). This prevents you from waking up mid-deep-sleep.
+        </div>
+      </div>
+
+      <div class="faq-card" onclick="toggleFaq(this)">
+        <div class="faq-q">How does a coffee nap work before a late-night game?</div>
+        <div class="faq-a">
+          A coffee nap (or caffeine nap) is a technique where you drink a cup of coffee and immediately take a 20-minute nap. Caffeine takes roughly 20-25 minutes to traverse your gastrointestinal tract and bind to adenosine receptors in your brain. While you nap, your brain naturally clears adenosine. Just as you wake up, the caffeine hits your receptors, providing a powerful dual energy boost.
+        </div>
+      </div>
+
+      <div class="faq-card" onclick="toggleFaq(this)">
+        <div class="faq-q">How can I recover from sleep deprivation after staying up for the game?</div>
+        <div class="faq-a">
+          Avoid sleeping in for more than 60–90 minutes the next morning, as this will shift your circadian rhythm and make sleeping the next night difficult. Instead, get bright natural light immediately upon waking, stay hydrated, keep caffeine within safe limits (cut off by 2 PM), take a 20-minute nap in the early afternoon, and go to bed 30–60 minutes early the next night.
+        </div>
+      </div>
+
+      <div class="faq-card" onclick="toggleFaq(this)">
+        <div class="faq-q">Should I skip sleep entirely if the match starts at 4 AM?</div>
+        <div class="faq-a">
+          No. Skipping sleep entirely (pulling an "all-nighter") severely impairs cognitive function, motor skills, and mood, equivalent to a blood alcohol concentration of 0.05% or higher. Even sleeping for a single 90-minute cycle (or 3 hours) before a 4 AM match provides essential cellular repair and makes a massive difference in how you perform the next day.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title">Related Sleep Tools</h2>
+    <p class="section-sub">Maximize your circadian alignment and optimize sleep hygiene:</p>
+    <div class="explore-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 1.5rem;">
+      <a href="/sleep-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">⏰</div>
+        <div class="e-title">Sleep Cycle Calculator</div>
+        <div class="e-desc">Calculate the best bedtime or alarm times based on 90-minute sleep cycles.</div>
+      </a>
+      <a href="/nap-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">☀️</div>
+        <div class="e-title">Nap Calculator</div>
+        <div class="e-desc">Find the perfect nap length to boost alertness without grogginess.</div>
+      </a>
+      <a href="/sleep-debt-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">📉</div>
+        <div class="e-title">Sleep Debt Calculator</div>
+        <div class="e-desc">Find out how much sleep debt you have accumulated and get a recovery schedule.</div>
+      </a>
+      <a href="/caffeine-calculator" class="explore-card">
+        <span class="card-badge badge-calculator">Calculator</span>
+        <div class="e-emoji">☕</div>
+        <div class="e-title">Caffeine Sleep Calculator</div>
+        <div class="e-desc">Map caffeine decay curves in your system and find your sleep-safe window.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/sleep-calculator">⏰ Sleep Calculator</a>
+    <a href="/nap-calculator">☀️ Nap Calculator</a>
+    <a href="/sleep-by-age">👶 Sleep by Age</a>
+    <a href="/sleep-debt-calculator">💤 Sleep Debt</a>
+    <a href="/how-to-fall-asleep-fast">😴 Fall Asleep Fast</a>
+    <a href="/sleep-deprivation">⚠️ Sleep Deprivation</a>
+    <a href="/how-much-sleep">💡 How Much Sleep</a>
+    <a href="/sleep-schedule">📅 Sleep Schedule</a>
+    <a href="/chronotype">🦁 Chronotype</a>
+    <a href="/insomnia">🌙 Insomnia</a>
+    <a href="/caffeine-calculator">☕ Caffeine Calculator</a>
+    <a href="/bedtime-calculator">⏰ Bedtime Calculator</a>
+    <a href="/kids-sleep-calculator">👶 Kids Calculator</a>
+    <a href="/magnesium-glycinate">💊 Magnesium Glycinate</a>
+    <a href="/sleep-hygiene">📋 Sleep Hygiene</a>
+    <a href="/melatonin-calculator">💊 Melatonin Calculator</a>
+    <a href="/weighted-blanket-calculator">⚖️ Weighted Blanket</a>
+    <a href="/sleep-apnea-quiz">📋 Sleep Apnea Quiz</a>
+    <a href="/sleepy-girl-mocktail">🍹 Sleepy Girl Mocktail</a>
+    <a href="/ashwagandha-calculator">🌿 Ashwagandha Calculator</a>
+    <a href="/mouth-taping-guide">🤐 Mouth Taping Guide</a>
+    <a href="/sleep-divorce-quiz">👩‍❤️‍👨 Sleep Divorce Quiz</a>
+    <a href="/magnesium-type-quiz">💊 Magnesium Quiz</a>
+    <a href="/steroid-sleep-calculator">⚕️ Steroid Calculator</a>
+    <a href="/polyphasic-sleep-planner">⏰ Polyphasic Planner</a>
+    <a href="/jet-lag-planner">✈️ Jet Lag Planner</a>
+    <a href="/dashboard">📊 Biohacking Dashboard</a>
+    <a href="/sleep-audit">📊 Sleep Quality Audit</a>
+    <a href="/shift-work-sleep-calculator">🚨 Shift Work Scheduler</a>
+    <a href="/muscle-recovery-sleep-calculator">💪 Muscle Recovery Calculator</a>
+    <a href="/new-parent-sleep-sync">👶 New Parent Sleep Sync</a>
+    <a href="/world-cup-sleep-schedule" style="font-weight:bold;color:var(--teal)">⚽ World Cup Scheduler</a>
+  </div>
+  <div class="footer-links" style="margin-top:0.5rem;gap:1rem">
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p>© 2026 GoodSleep.rest · Free forever · No sign-up required</p>
+  <p class="footer-disclaimer">For informational purposes only. Not medical advice. Consult a healthcare provider for sleep concerns.</p>
+</footer>
+
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+// WORLD CUP MATCHES DATA
+// Times are defined in UTC (Coordinated Universal Time)
+const matchesData = [
+  { id: 1, home: "Scotland", away: "Morocco", group: "Group C", venue: "Boston Stadium", timeUTC: "2026-06-19T22:00:00Z" },
+  { id: 2, home: "USA", away: "Australia", group: "Group D", venue: "Seattle Stadium", timeUTC: "2026-06-19T19:00:00Z" },
+  { id: 3, home: "Brazil", away: "Haiti", group: "Group C", venue: "Philadelphia Stadium", timeUTC: "2026-06-20T00:30:00Z" },
+  { id: 4, home: "Türkiye", away: "Paraguay", group: "Group D", venue: "San Francisco Bay Area Stadium", timeUTC: "2026-06-20T03:00:00Z" },
+  { id: 5, home: "Germany", away: "Ivory Coast", group: "Group E", venue: "Toronto Stadium", timeUTC: "2026-06-20T19:00:00Z" },
+  { id: 6, home: "Ecuador", away: "Curaçao", group: "Group E", venue: "Kansas City Stadium", timeUTC: "2026-06-20T22:00:00Z" },
+  { id: 7, home: "Tunisia", away: "Japan", group: "Group F", venue: "Monterrey Stadium", timeUTC: "2026-06-20T21:00:00Z" },
+  { id: 8, home: "Netherlands", away: "Sweden", group: "Group F", venue: "Houston Stadium", timeUTC: "2026-06-21T01:00:00Z" },
+  { id: 9, home: "England", away: "Mexico", group: "Group G", venue: "Atlanta Stadium", timeUTC: "2026-06-21T22:00:00Z" },
+  { id: 10, home: "Argentina", away: "South Korea", group: "Group H", venue: "New York/New Jersey Stadium", timeUTC: "2026-06-22T01:00:00Z" },
+  { id: 11, home: "France", away: "Japan", group: "Group H", venue: "Dallas Stadium", timeUTC: "2026-06-23T00:00:00Z" },
+  { id: 12, home: "Spain", away: "Canada", group: "Group I", venue: "Vancouver Stadium", timeUTC: "2026-06-27T02:00:00Z" },
+  { id: 13, home: "Round of 16 Match", away: "TBD", group: "Round of 16", venue: "Miami Stadium", timeUTC: "2026-07-05T22:00:00Z" },
+  { id: 14, home: "Quarter-Final", away: "TBD", group: "Quarter-Finals", venue: "Los Angeles Stadium", timeUTC: "2026-07-11T01:00:00Z" },
+  { id: 15, home: "Semi-Final 1", away: "TBD", group: "Semi-Finals", venue: "Dallas Stadium", timeUTC: "2026-07-15T00:00:00Z" },
+  { id: 16, home: "Semi-Final 2", away: "TBD", group: "Semi-Finals", venue: "Atlanta Stadium", timeUTC: "2026-07-16T00:00:00Z" },
+  { id: 17, home: "World Cup Final", away: "TBD", group: "Final", venue: "New York/New Jersey Stadium", timeUTC: "2026-07-19T19:00:00Z" }
+];
+
+let selectedTimezone = "UTC";
+let selectedMatchId = null;
+let currentStrategy = "stayup";
+
+// Initialize Page
+document.addEventListener("DOMContentLoaded", () => {
+  // Hide loading spinner
+  const loader = document.getElementById("loading-overlay");
+  if(loader) {
+    setTimeout(() => {
+      loader.classList.add("hide");
+    }, 200);
+  }
+
+  // Detect and set local timezone
+  try {
+    const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (userTz) {
+      selectedTimezone = userTz;
+      const selectEl = document.getElementById("timezone-selector");
+      // Add local timezone option as selected
+      const localOption = selectEl.options[0];
+      localOption.value = userTz;
+      localOption.textContent = `📍 Local Time (${userTz})`;
+      selectEl.value = userTz;
+    }
+  } catch(e) {
+    console.error("Timezone detection failed, fallback to UTC:", e);
+    selectedTimezone = "UTC";
+    document.getElementById("timezone-selector").value = "UTC";
+  }
+
+  renderSchedule();
+
+  // Dark mode manual override
+  const themeToggle = document.getElementById("theme-toggle");
+  if(themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("gs-theme", next);
+      themeToggle.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+    // Set initial toggle emoji
+    const currentTheme = document.documentElement.getAttribute("data-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
+  }
+});
+
+// Render Match List
+function renderSchedule() {
+  const container = document.getElementById("matches-container");
+  container.innerHTML = "";
+
+  const bedtimeStr = document.getElementById("bedtime-input").value;
+  const wakeTimeStr = document.getElementById("waketime-input").value;
+
+  matchesData.forEach(match => {
+    const kickoffDate = new Date(match.timeUTC);
+    
+    // Format Kickoff Date in selected timezone
+    const dateFormatted = formatInTimezone(kickoffDate, selectedTimezone);
+
+    // Calculate sleep status
+    const status = getSleepClashStatus(kickoffDate, bedtimeStr, wakeTimeStr);
+    
+    let badgeClass = "badge-safe";
+    let badgeText = "Safe ☀️";
+    if (status === "clash") {
+      badgeClass = "badge-sleep-clash";
+      badgeText = "Sleep Clash ⚠️";
+    } else if (status === "close") {
+      badgeClass = "badge-warning";
+      badgeText = "Near Sleep 🌙";
+    }
+
+    const isActive = selectedMatchId === match.id ? "active" : "";
+
+    const card = document.createElement("div");
+    card.className = `match-card ${isActive}`;
+    card.setAttribute("onclick", `selectMatch(${match.id})`);
+    card.innerHTML = `
+      <div class="match-info">
+        <div class="match-teams">${match.home} vs ${match.away}</div>
+        <div class="match-meta">${match.group} · ${match.venue} · <strong>${dateFormatted}</strong></div>
+      </div>
+      <span class="match-status-badge ${badgeClass}">${badgeText}</span>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Convert Timezone
+function changeTimezone(tzValue) {
+  selectedTimezone = tzValue;
+  renderSchedule();
+  if (selectedMatchId) {
+    updateSelectedMatchDetails();
+    recalculatePlanner();
+  }
+}
+
+// Toggle FAQ Cards
+function toggleFaq(card) {
+  const isOpen = card.classList.contains("open");
+  // Close all other FAQs
+  document.querySelectorAll(".faq-card").forEach(c => c.classList.remove("open"));
+  if (!isOpen) {
+    card.classList.add("open");
+  }
+}
+
+// Format date helper
+function formatInTimezone(date, tz) {
+  const options = {
+    timeZone: tz === 'detect' ? undefined : tz,
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+
+// Select a Match
+function selectMatch(id) {
+  selectedMatchId = id;
+  
+  // Highlight active card
+  document.querySelectorAll(".match-card").forEach(c => c.classList.remove("active"));
+  renderSchedule(); // re-render to apply active class nicely
+  
+  document.getElementById("no-match-selected").style.display = "none";
+  document.getElementById("planner-active-content").style.display = "block";
+
+  updateSelectedMatchDetails();
+  recalculatePlanner();
+}
+
+function updateSelectedMatchDetails() {
+  const match = matchesData.find(m => m.id === selectedMatchId);
+  if (!match) return;
+
+  const kickoffDate = new Date(match.timeUTC);
+  document.getElementById("planner-match-stage").textContent = match.group;
+  document.getElementById("planner-match-teams").textContent = `${match.home} vs ${match.away}`;
+  document.getElementById("planner-match-time").textContent = formatInTimezone(kickoffDate, selectedTimezone);
+}
+
+// Get Clash Status (clash, close, safe)
+function getSleepClashStatus(kickoffDate, bedtimeStr, wakeTimeStr) {
+  const matchStart = kickoffDate;
+  const matchEnd = new Date(kickoffDate.getTime() + 120 * 60 * 1000); // 2 hours duration
+
+  const { start: sleepStart, end: sleepEnd } = getSleepWindow(kickoffDate, bedtimeStr, wakeTimeStr);
+
+  // Checks overlap
+  if (matchStart < sleepEnd && matchEnd > sleepStart) {
+    return "clash";
+  }
+
+  // Check if kickoff is within 1.5 hours of sleep window start or end
+  const bufferMs = 90 * 60 * 1000;
+  const beforeSleep = Math.abs(matchEnd.getTime() - sleepStart.getTime()) < bufferMs;
+  const afterSleep = Math.abs(matchStart.getTime() - sleepEnd.getTime()) < bufferMs;
+
+  if (beforeSleep || afterSleep) {
+    return "close";
+  }
+
+  return "safe";
+}
+
+// Construct Sleep Window aligned to match date
+function getSleepWindow(kickoffDate, bedtimeStr, wakeTimeStr) {
+  const [bedHour, bedMin] = bedtimeStr.split(':').map(Number);
+  const [wakeHour, wakeMin] = wakeTimeStr.split(':').map(Number);
+
+  // Kickoff time in user's detected local time or selected timezone
+  // Note: we can format/parse hours relative to local system clock for simplicity, or UTC hours.
+  // To avoid complex timezone offset parsing in raw JS, we construct dates in local context
+  // based on the kickoff date's local day representations.
+  const kickoffHour = kickoffDate.getHours();
+
+  let sleepStart = new Date(kickoffDate);
+  sleepStart.setHours(bedHour, bedMin, 0, 0);
+
+  let sleepEnd = new Date(kickoffDate);
+  sleepEnd.setHours(wakeHour, wakeMin, 0, 0);
+
+  if (bedHour > wakeHour) {
+    // Sleep spans midnight (e.g. 23:00 to 07:00)
+    // If kickoff is early morning (between midnight and wakeTime + 2h buffer)
+    if (kickoffHour < wakeHour + 2) {
+      sleepStart.setDate(sleepStart.getDate() - 1);
+    } else {
+      sleepEnd.setDate(sleepEnd.getDate() + 1);
+    }
+  } else {
+    // Bedtime is after midnight (e.g. 01:00 to 08:00)
+    if (kickoffHour < wakeHour + 2) {
+      // same day
+    } else {
+      sleepStart.setDate(sleepStart.getDate() + 1);
+      sleepEnd.setDate(sleepEnd.getDate() + 1);
+    }
+  }
+
+  return { start: sleepStart, end: sleepEnd };
+}
+
+// Switching Strategy Tabs
+function switchStrategy(strat) {
+  currentStrategy = strat;
+  document.querySelectorAll(".strat-tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".strat-pane").forEach(p => p.classList.remove("active"));
+
+  // Find matching tab
+  const tabs = document.querySelectorAll(".strat-tab");
+  tabs.forEach(t => {
+    if (t.getAttribute("onclick") === `switchStrategy('${strat}')`) {
+      t.classList.add("active");
+    }
+  });
+  
+  const pane = document.getElementById(`pane-${strat}`);
+  if (pane) pane.classList.add("active");
+}
+
+// Primary Calculations & Planner Render
+function recalculatePlanner() {
+  const match = matchesData.find(m => m.id === selectedMatchId);
+  if (!match) return;
+
+  const bedtimeStr = document.getElementById("bedtime-input").value;
+  const wakeTimeStr = document.getElementById("waketime-input").value;
+
+  const kickoffDate = new Date(match.timeUTC);
+  const matchStart = kickoffDate;
+  const matchEnd = new Date(kickoffDate.getTime() + 120 * 60 * 1000);
+
+  const { start: sleepStart, end: sleepEnd } = getSleepWindow(kickoffDate, bedtimeStr, wakeTimeStr);
+  const status = getSleepClashStatus(kickoffDate, bedtimeStr, wakeTimeStr);
+
+  const assessBlock = document.getElementById("assessment-block");
+  const stratSection = document.getElementById("strategies-section");
+
+  if (status === "safe") {
+    assessBlock.className = "assessment-result assess-safe";
+    assessBlock.innerHTML = `
+      <div class="assess-title">☀️ Safe Watching Window</div>
+      <div class="assess-desc">This match takes place completely outside your standard sleep window. You can watch it live without any special sleep scheduling adjustments. Enjoy the game!</div>
+    `;
+    stratSection.style.display = "none";
+  } else {
+    assessBlock.className = "assessment-result assess-clash";
+    assessBlock.innerHTML = `
+      <div class="assess-title">⚠️ Sleep Disruption Alert</div>
+      <div class="assess-desc">This match overlaps with or is extremely close to your usual sleep window. Waking up or staying up will cause sleep debt and potential circadian fatigue. View strategies below to minimize the impact.</div>
+    `;
+    stratSection.style.display = "block";
+
+    // Perform specific calculation for the 4 strategies
+    calculateStayUp(matchStart, matchEnd, sleepStart, sleepEnd);
+    calculateSplitSleep(matchStart, matchEnd, sleepStart, sleepEnd);
+    calculateEarlyWake(matchStart, matchEnd, sleepStart, sleepEnd);
+    calculateHighlights(matchStart, matchEnd, sleepStart, sleepEnd);
+  }
+}
+
+// Format Hours duration helper
+function formatDuration(hrs) {
+  const rounded = Math.round(hrs * 10) / 10;
+  return `${rounded} hrs`;
+}
+
+// 1. STAY UP STRATEGY CALCULATIONS
+function calculateStayUp(matchStart, matchEnd, sleepStart, sleepEnd) {
+  // Stay up until match ends. Bedtime starts after matchEnd + 15 mins wind-down
+  const newBedtime = new Date(matchEnd.getTime() + 15 * 60 * 1000);
+  const originalWake = sleepEnd;
+
+  // Calculate actual sleep hours
+  let sleepMs = originalWake.getTime() - newBedtime.getTime();
+  if (sleepMs < 0) sleepMs = 0;
+  const sleepHrs = sleepMs / (1000 * 60 * 60);
+
+  // Usual sleep hours
+  const usualSleepHrs = (sleepEnd.getTime() - sleepStart.getTime()) / (1000 * 60 * 60);
+  const deficit = Math.max(0, usualSleepHrs - sleepHrs);
+
+  // Update DOM metrics
+  document.getElementById("stayup-sleep-dur").textContent = formatDuration(sleepHrs);
+  const deficitEl = document.getElementById("stayup-deficit");
+  deficitEl.textContent = formatDuration(deficit);
+  if (deficit > 3) {
+    deficitEl.className = "strat-metric-val bad";
+  } else {
+    deficitEl.className = "strat-metric-val";
+  }
+
+  // Build Timeline Bar
+  const blocks = [
+    { type: "awake", label: "Game & Wind Down", start: sleepStart, end: newBedtime },
+    { type: "sleep", label: "Sleep", start: newBedtime, end: sleepEnd }
+  ];
+
+  const matchBlock = { type: "match", label: "⚽ Game", start: matchStart, end: matchEnd };
+  
+  // Inject nap advice
+  const napStart = new Date(matchStart.getTime() - 105 * 60 * 1000); // 90m nap + 15m buffer
+  const napEnd = new Date(matchStart.getTime() - 15 * 60 * 1000);
+  
+  const napAdvText = document.getElementById("stayup-nap-text");
+  
+  // Check if there is enough space for a prophylactic evening nap
+  const eveningNapPossible = (napStart.getTime() - sleepStart.getTime()) > 0;
+  
+  const formattedNapStart = formatTimeOnly(napStart);
+  const formattedNapEnd = formatTimeOnly(napEnd);
+  
+  if (eveningNapPossible) {
+    napAdvText.innerHTML = `<strong>Evening Prophylactic Nap (Recommended):</strong> Nap for 90 minutes from <strong>${formattedNapStart} to ${formattedNapEnd}</strong> right before the game. This completes a full sleep cycle, flushing adenosine and allowing you to watch the game late with minimal cognitive fatigue.`;
+  } else {
+    napAdvText.innerHTML = `<strong>Circadian Dip Power Nap:</strong> Since the game starts early, take a 20-minute <strong>caffeine nap</strong> today between <strong>2:00 PM and 4:00 PM</strong>. Drink a coffee, nap immediately for 20 minutes, and wake up energized as the caffeine kicks in!`;
+  }
+
+  renderTimeline("stayup-timeline", "stayup-timeline-labels", sleepStart, sleepEnd, blocks, matchBlock);
+}
+
+// 2. SPLIT SLEEP STRATEGY CALCULATIONS
+function calculateSplitSleep(matchStart, matchEnd, sleepStart, sleepEnd) {
+  // First sleep segment: sleepStart to matchStart - 15 mins (wake up early for match)
+  const firstSleepEnd = new Date(matchStart.getTime() - 15 * 60 * 1000);
+  
+  // Adjust sleep start if needed to complete clean 90-min cycles
+  const maxAvailableFirstMs = firstSleepEnd.getTime() - sleepStart.getTime();
+  let firstCycles = Math.floor((maxAvailableFirstMs / (1000 * 60) - 15) / 90);
+  if (firstCycles < 1) firstCycles = 1;
+  const firstSleepDurationMs = (firstCycles * 90 + 15) * 60 * 1000;
+  const optimizedFirstStart = new Date(firstSleepEnd.getTime() - firstSleepDurationMs);
+
+  // Second sleep segment: matchEnd + 15 mins (wind down) to optimized end
+  const secondSleepStart = new Date(matchEnd.getTime() + 15 * 60 * 1000);
+  
+  // Calculate second segment to align with usual wake or extend to complete cycles
+  const originalWake = sleepEnd;
+  const maxAvailableSecondMs = originalWake.getTime() - secondSleepStart.getTime();
+  let secondCycles = Math.round((maxAvailableSecondMs / (1000 * 60) - 15) / 90);
+  if (secondCycles < 1) secondCycles = 1;
+  const secondSleepDurationMs = (secondCycles * 90 + 15) * 60 * 1000;
+  const optimizedSecondEnd = new Date(secondSleepStart.getTime() + secondSleepDurationMs);
+
+  const totalSleepMs = firstSleepDurationMs + secondSleepDurationMs;
+  const totalSleepHrs = totalSleepMs / (1000 * 60 * 60);
+  const totalCycles = firstCycles + secondCycles;
+
+  document.getElementById("split-sleep-dur").textContent = formatDuration(totalSleepHrs);
+  document.getElementById("split-cycles").textContent = `${totalCycles} Cycles`;
+
+  const blocks = [
+    { type: "sleep", label: "Sleep 1", start: optimizedFirstStart, end: firstSleepEnd },
+    { type: "awake", label: "Watch", start: firstSleepEnd, end: secondSleepStart },
+    { type: "sleep", label: "Sleep 2", start: secondSleepStart, end: optimizedSecondEnd }
+  ];
+
+  const matchBlock = { type: "match", label: "⚽ Game", start: matchStart, end: matchEnd };
+
+  // Advice
+  const adviceText = document.getElementById("split-advice-text");
+  adviceText.innerHTML = `<strong>Hacked Split Protocol:</strong> Go to bed early at <strong>${formatTimeOnly(optimizedFirstStart)}</strong>. Wake at <strong>${formatTimeOnly(firstSleepEnd)}</strong> (${firstCycles} cycles). Watch the game, then return to bed at <strong>${formatTimeOnly(secondSleepStart)}</strong> and sleep until <strong>${formatTimeOnly(optimizedSecondEnd)}</strong> (${secondCycles} cycles). Waking up at cycle boundaries prevents grogginess!`;
+
+  renderTimeline("split-timeline", "split-timeline-labels", optimizedFirstStart, optimizedSecondEnd, blocks, matchBlock);
+}
+
+// 3. EARLY WAKEUP STRATEGY CALCULATIONS
+function calculateEarlyWake(matchStart, matchEnd, sleepStart, sleepEnd) {
+  // Sleep early, wake up for kickoff, and stay awake.
+  const wakeForGame = new Date(matchStart.getTime() - 15 * 60 * 1000);
+  
+  // Calculate bedtime to get at least 4 cycles (6 hours) or 5 cycles (7.5 hours)
+  const targetSleepMs = (5 * 90 + 15) * 60 * 1000; // 5 cycles
+  const newBedtime = new Date(wakeForGame.getTime() - targetSleepMs);
+
+  const sleepMs = wakeForGame.getTime() - newBedtime.getTime();
+  const sleepHrs = sleepMs / (1000 * 60 * 60);
+
+  const usualSleepHrs = (sleepEnd.getTime() - sleepStart.getTime()) / (1000 * 60 * 60);
+  const deficit = Math.max(0, usualSleepHrs - sleepHrs);
+
+  document.getElementById("early-sleep-dur").textContent = formatDuration(sleepHrs);
+  document.getElementById("early-deficit").textContent = formatDuration(deficit);
+
+  const timelineEnd = new Date(matchEnd.getTime() + 1.5 * 60 * 60 * 1000);
+
+  const blocks = [
+    { type: "sleep", label: "Sleep", start: newBedtime, end: wakeForGame },
+    { type: "awake", label: "Awake", start: wakeForGame, end: timelineEnd }
+  ];
+
+  const matchBlock = { type: "match", label: "⚽ Game", start: matchStart, end: matchEnd };
+
+  // Advice
+  const adviceText = document.getElementById("early-advice-text");
+  adviceText.innerHTML = `<strong>Bedtime Advance:</strong> Shift your bedtime early to <strong>${formatTimeOnly(newBedtime)}</strong> (allowing 15m to drift off). Wake at <strong>${formatTimeOnly(wakeForGame)}</strong> to watch the game live, then stay awake. You get a full 5 cycles of sleep, keeping your sleep debt at a safe <strong>${formatDuration(deficit)}</strong>.`;
+
+  renderTimeline("early-timeline", "early-timeline-labels", newBedtime, timelineEnd, blocks, matchBlock);
+}
+
+// 4. WATCH HIGHLIGHTS STRATEGY CALCULATIONS
+function calculateHighlights(matchStart, matchEnd, sleepStart, sleepEnd) {
+  // Standard sleep schedule
+  const timelineStart = sleepStart;
+  const timelineEnd = sleepEnd;
+
+  const blocks = [
+    { type: "sleep", label: "Sleep", start: sleepStart, end: sleepEnd }
+  ];
+
+  const matchBlock = { type: "match", label: "⚽ Game", start: matchStart, end: matchEnd };
+
+  renderTimeline("skip-timeline", "skip-timeline-labels", timelineStart, timelineEnd, blocks, matchBlock);
+}
+
+// Shared SVG or Div-based Timeline Renderer
+function renderTimeline(barId, labelsId, start, end, blocks, matchBlock) {
+  const bar = document.getElementById(barId);
+  const labels = document.getElementById(labelsId);
+  bar.innerHTML = "";
+  labels.innerHTML = "";
+
+  const totalMs = end.getTime() - start.getTime();
+
+  // Draw blocks
+  blocks.forEach(block => {
+    // Clamp to start and end
+    const s = Math.max(start.getTime(), block.start.getTime());
+    const e = Math.min(end.getTime(), block.end.getTime());
+    if (e <= s) return;
+
+    const pct = ((e - s) / totalMs) * 100;
+    const segment = document.createElement("div");
+    segment.className = `tl-segment tl-${block.type}`;
+    segment.style.width = `${pct}%`;
+    segment.textContent = block.label;
+    segment.title = `${block.label}: ${formatTimeOnly(new Date(s))} - ${formatTimeOnly(new Date(e))}`;
+    bar.appendChild(segment);
+  });
+
+  // Render start and end time labels
+  const startLbl = document.createElement("span");
+  startLbl.textContent = formatTimeOnly(start);
+  const endLbl = document.createElement("span");
+  endLbl.textContent = formatTimeOnly(end);
+  labels.appendChild(startLbl);
+  labels.appendChild(endLbl);
+}
+
+// Format Time Only (e.g. 11:30 PM)
+function formatTimeOnly(date) {
+  const options = {
+    timeZone: selectedTimezone === 'detect' ? undefined : selectedTimezone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+</script>
+</body>
+</html>
