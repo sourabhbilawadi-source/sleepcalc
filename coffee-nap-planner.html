@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCQXSTXRFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JCQXSTXRFK');
+</script>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Coffee Nap Timing Planner",
+  "url": "https://goodsleep.rest/coffee-nap-planner",
+  "description": "Plan and time the perfect coffee nap (caffeine nap) to maximize afternoon focus and alertness without morning sleep inertia.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5/JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Nap Timing Planner — GoodSleep</title>
+<meta name="description" content="Calculate the perfect schedule for a coffee nap. Learn the science of caffeine naps, clear adenosine sleep pressure, and boost alertness without grogginess.">
+<meta property="og:title" content="Coffee Nap Timing Planner — GoodSleep">
+<meta property="og:description" content="Optimize your coffee nap timing. Visual schedule planner and live 20-minute countdown alarm. Free and science-backed.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/coffee-nap-planner">
+<meta property="og:url" content="https://goodsleep.rest/coffee-nap-planner">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page specific styling overrides */
+.nap-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .nap-container {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 901px) {
+  .page {
+    max-width: 1100px;
+  }
+}
+.nap-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.nap-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.nap-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.nap-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+.nap-form-group {
+  margin-bottom: 1.25rem;
+}
+.nap-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.nap-select, .nap-input-time {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.nap-select:focus, .nap-input-time:focus {
+  border-color: var(--teal);
+}
+.nap-main-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.nap-result-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-hint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+.nap-time-display {
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 800;
+  color: var(--teal-dark);
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+.nap-eval-display {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 0.75rem;
+}
+.nap-desc-display {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.nap-timeline-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.nap-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 1.25rem;
+}
+.nap-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-left: 2px solid var(--border);
+  padding-left: 16px;
+  position: relative;
+}
+.nap-step-item.active {
+  border-left-color: var(--teal);
+}
+.nap-step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  position: absolute;
+  left: -6px;
+  top: 5px;
+}
+.nap-step-item.active .nap-step-dot {
+  background: var(--teal);
+  box-shadow: 0 0 8px var(--teal);
+}
+.nap-step-time {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-hint);
+  text-transform: uppercase;
+}
+.nap-step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 2px 0;
+}
+.nap-step-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-soft);
+  border-radius: var(--r);
+  border: 1.5px dashed var(--border);
+  margin-top: 1rem;
+}
+.timer-circle-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 12px;
+}
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.timer-bg-circle {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 6;
+}
+.timer-progress-circle {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 358;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+}
+.timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+}
+.timer-btn-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.timer-btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: var(--r-sm);
+  font-weight: 700;
+  font-family: var(--font);
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.timer-btn-start {
+  background: var(--teal);
+  color: #fff;
+}
+.timer-btn-start:hover {
+  background: var(--teal-dark);
+}
+.timer-btn-reset {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text);
+}
+.timer-btn-reset:hover {
+  background: var(--bg-card);
+  border-color: var(--text-hint);
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<main>
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Coffee Nap Timing Planner</div>
+  <h1>Coffee Nap<br>Timing Planner</h1>
+  <p class="hero-sub">Science-backed afternoon productivity trick. Time your caffeine intake and alarm perfectly to clear sleepiness without waking up groggy.</p>
+</div>
+
+<div class="page">
+  <div class="nap-container">
+    <!-- INPUT PANEL -->
+    <div class="nap-panel">
+      <div class="nap-title-row">
+        <div class="nap-icon-circle">☕</div>
+        <h3>Nap Settings</h3>
+      </div>
+
+      <!-- Caffeine Source -->
+      <div class="nap-form-group">
+        <label for="caffeine-source">Caffeine Source</label>
+        <select id="caffeine-source" class="nap-select" onchange="calculateNapTimeline()">
+          <option value="espresso" selected>Espresso Shot (~75mg, 20m absorption)</option>
+          <option value="filter">Filter Coffee (~120mg, 25m absorption)</option>
+          <option value="coldbrew">Cold Brew (~150mg, 25m absorption)</option>
+          <option value="energy">Energy Drink (~160mg, 20m absorption)</option>
+          <option value="tea">Black Tea (~40mg, 30m absorption)</option>
+        </select>
+      </div>
+
+      <!-- Start Time -->
+      <div class="nap-form-group">
+        <label for="nap-start-time">Nap Target Start Time</label>
+        <input type="time" id="nap-start-time" class="nap-input-time" onchange="calculateNapTimeline()">
+      </div>
+
+      <!-- Sleepiness Slider -->
+      <div class="nap-form-group">
+        <div class="alc-slider-row">
+          <label>Subjective Fatigue Level</label>
+          <span class="alc-slider-val" id="fatigue-label">Moderate</span>
+        </div>
+        <input type="range" id="fatigue-slider" class="alc-slider" min="1" max="3" value="2" oninput="updateFatigue()">
+      </div>
+
+      <!-- Timer Option Box -->
+      <div class="timer-container">
+        <div class="nap-result-label">Interactive Nap Timer</div>
+        <div class="timer-circle-wrap">
+          <svg class="timer-svg" viewBox="0 0 120 120">
+            <circle class="timer-bg-circle" cx="60" cy="60" r="57" />
+            <circle class="timer-progress-circle" id="timer-progress" cx="60" cy="60" r="57" />
+          </svg>
+          <div class="timer-text" id="timer-display">20:00</div>
+        </div>
+        <div class="timer-btn-row">
+          <button type="button" class="timer-btn timer-btn-start" id="timer-toggle-btn" onclick="toggleTimer()">Start Nap</button>
+          <button type="button" class="timer-btn timer-btn-reset" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="nap-results">
+      <div class="nap-main-card">
+        <div class="nap-result-label">Optimal Wake Alarm Time</div>
+        <div class="nap-time-display" id="alarm-output">2:20 PM</div>
+        <div class="nap-eval-display" id="alertness-output">Expected Alertness Boost: High</div>
+        <div class="nap-desc-display">
+          Adenosine builds up in your brain, causing sleepiness. A short 20-minute nap clears this chemical. By waking up just as caffeine binds to your brain's receptors, you get a double dose of energy.
+        </div>
+      </div>
+
+      <!-- Steps Visualizer Card -->
+      <div class="nap-timeline-card">
+        <div class="nap-result-label">Your Caffeine Nap Sequence</div>
+        <div class="nap-step-list">
+          <!-- Step 1 -->
+          <div class="nap-step-item active">
+            <div class="nap-step-dot"></div>
+            <div class="nap-step-time" id="step-1-time">2:00 PM</div>
+            <div class="nap-step-title">Consume Caffeine Quickly</div>
+            <div class="nap-step-desc">Drink your caffeine source rapidly. Avoid sipping over 30 minutes, or caffeine will enter your blood stream before you begin napping.</div>
+          </div>
+          <!-- Step 2 -->
+          <div class="nap-step-item active">
+            <div class="nap-step-dot"></div>
+            <div class="nap-step-time" id="step-2-time">2:05 PM</div>
+            <div class="nap-step-title">Lay Down &amp; Rest</div>
+            <div class="nap-step-desc">Close your eyes in a quiet, dark room. Don't worry if you don't fall fully asleep; even light rest or meditation helps clear adenosine sleep pressure.</div>
+          </div>
+          <!-- Step 3 -->
+          <div class="nap-step-item active">
+            <div class="nap-step-dot"></div>
+            <div class="nap-step-time" id="step-3-time">2:20 PM</div>
+            <div class="nap-step-title">Wake Up Immediately</div>
+            <div class="nap-step-dot" style="background:var(--purple); box-shadow: 0 0 8px var(--purple);"></div>
+            <div class="nap-step-desc">Your alarm sounds. Wake up immediately. Sleeping past 25-30 minutes drops you into deep sleep, causing groggy sleep inertia.</div>
+          </div>
+          <!-- Step 4 -->
+          <div class="nap-step-item active">
+            <div class="nap-step-dot"></div>
+            <div class="nap-step-time" id="step-4-time">2:30 PM</div>
+            <div class="nap-step-title">Peak Productivity Zone</div>
+            <div class="nap-step-desc">Caffeine reaches peak concentrations and binds to cleared receptors. You will experience 3 to 4 hours of clean, sharp cognitive focus.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>The Science:</strong> Caffeine molecules are structurally identical to adenosine (the fatigue compound). A 20-minute nap acts as a cleanup crew, clearing adenosine out of brain receptors so that caffeine has an open path to bind, block fatigue, and elevate dopamine.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">The Physiology of the Coffee Nap</h2>
+    <p class="section-sub">Why combining coffee and napping outperforms caffeine or sleep alone.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>1. Releasing Adenosine</h3>
+        <p>Throughout your waking hours, adenosine builds up, binding to brain receptors to slow down cell activity. Sleeping naturally clears adenosine from your system. By napping, you reduce the competition caffeine faces for those receptors.</p>
+      </div>
+      <div class="info-card">
+        <h3>2. Preventing Deep Sleep</h3>
+        <p>A typical sleep cycle is 90 minutes. A short nap must be capped at 20 minutes to prevent you from sliding into slow-wave (deep) sleep. Waking up during deep sleep creates "sleep inertia" which leaves you feeling groggy for hours.</p>
+      </div>
+      <div class="info-card">
+        <h3>3. Absorption Window</h3>
+        <p>After consumption, caffeine passes to the small intestine and enters the bloodstream. This physiological absorption take precisely 20 minutes. The timeline perfectly aligns: you rest while caffeine travels, and wake up just as it strikes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// Timer State
+let timerInterval = null;
+let totalSeconds = 20 * 60; // 20 minutes
+let remainingSeconds = totalSeconds;
+let isTimerRunning = false;
+
+// Set default time to current time
+function setInitialTime() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('nap-start-time').value = `${h}:${m}`;
+}
+
+function updateFatigue() {
+  const slider = document.getElementById('fatigue-slider');
+  const label = document.getElementById('fatigue-label');
+  const val = parseInt(slider.value);
+  const text = (val === 1) ? 'Mild' : (val === 2) ? 'Moderate' : 'Exhausted';
+  label.textContent = text;
+  calculateNapTimeline();
+}
+
+// Convert minutes to string AM/PM
+function formatMinutes(min) {
+  const norm = (min + 24 * 60) % (24 * 60);
+  const h = Math.floor(norm / 60);
+  const m = norm % 60;
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const displayHrs = h % 12 === 0 ? 12 : h % 12;
+  const displayMin = String(m).padStart(2, '0');
+  return `${displayHrs}:${displayMin} ${ampm}`;
+}
+
+function calculateNapTimeline() {
+  const source = document.getElementById('caffeine-source').value;
+  const startTimeStr = document.getElementById('nap-start-time').value || '14:00';
+  const fatigue = parseInt(document.getElementById('fatigue-slider').value);
+  
+  const [h, m] = startTimeStr.split(':').map(Number);
+  const startMin = h * 60 + m;
+  
+  // Custom absorption intervals
+  let absorptionMin = 20;
+  if (source === 'filter' || source === 'coldbrew') {
+    absorptionMin = 25;
+  } else if (source === 'tea') {
+    absorptionMin = 30;
+  }
+  
+  // Drink phase: 0-5 mins
+  const drinkEnd = startMin + 5;
+  // Nap phase: 5 to (5 + 15 to 20 mins)
+  const napDuration = (fatigue === 3) ? 22 : (fatigue === 2) ? 20 : 15;
+  const napEnd = drinkEnd + napDuration;
+  // Caffeine kick window
+  const caffeineKick = drinkEnd + absorptionMin;
+  
+  // Set Timer duration based on calculation
+  if (!isTimerRunning) {
+    totalSeconds = napDuration * 60;
+    remainingSeconds = totalSeconds;
+    updateTimerDisplay();
+  }
+  
+  // Update UI outputs
+  document.getElementById('alarm-output').textContent = formatMinutes(napEnd);
+  
+  const alertOutput = document.getElementById('alertness-output');
+  if (source === 'coldbrew' || source === 'energy') {
+    alertOutput.textContent = 'Expected Alertness Boost: Extreme (Double Stimulant)';
+    alertOutput.style.color = 'var(--red)';
+  } else if (source === 'tea') {
+    alertOutput.textContent = 'Expected Alertness Boost: Mild & Sustained';
+    alertOutput.style.color = 'var(--teal)';
+  } else {
+    alertOutput.textContent = 'Expected Alertness Boost: High (Sharp Focus)';
+    alertOutput.style.color = 'var(--teal-dark)';
+  }
+  
+  // Update step timeline text
+  document.getElementById('step-1-time').textContent = formatMinutes(startMin);
+  document.getElementById('step-2-time').textContent = formatMinutes(drinkEnd);
+  document.getElementById('step-3-time').textContent = formatMinutes(napEnd);
+  document.getElementById('step-4-time').textContent = formatMinutes(caffeineKick);
+}
+
+// Timer Controls
+function updateTimerDisplay() {
+  const min = Math.floor(remainingSeconds / 60);
+  const sec = remainingSeconds % 60;
+  document.getElementById('timer-display').textContent = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  
+  // Update circular SVG progress
+  const progressCircle = document.getElementById('timer-progress');
+  const dashOffset = (remainingSeconds / totalSeconds) * 358;
+  progressCircle.style.strokeDashoffset = 358 - dashOffset;
+}
+
+function toggleTimer() {
+  const btn = document.getElementById('timer-toggle-btn');
+  if (isTimerRunning) {
+    // Pause
+    clearInterval(timerInterval);
+    isTimerRunning = false;
+    btn.textContent = 'Resume Nap';
+    btn.className = 'timer-btn timer-btn-start';
+  } else {
+    // Start
+    isTimerRunning = true;
+    btn.textContent = 'Pause';
+    btn.className = 'timer-btn timer-btn-reset'; // Swaps style temporarily
+    
+    timerInterval = setInterval(() => {
+      remainingSeconds--;
+      if (remainingSeconds <= 0) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        remainingSeconds = 0;
+        updateTimerDisplay();
+        btn.textContent = 'Finished!';
+        btn.className = 'timer-btn timer-btn-start';
+        playAlertSound();
+      } else {
+        updateTimerDisplay();
+      }
+    }, 1000);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  isTimerRunning = false;
+  const fatigue = parseInt(document.getElementById('fatigue-slider').value);
+  const napDuration = (fatigue === 3) ? 22 : (fatigue === 2) ? 20 : 15;
+  totalSeconds = napDuration * 60;
+  remainingSeconds = totalSeconds;
+  updateTimerDisplay();
+  const btn = document.getElementById('timer-toggle-btn');
+  btn.textContent = 'Start Nap';
+  btn.className = 'timer-btn timer-btn-start';
+}
+
+function playAlertSound() {
+  // Beep synthesis using Web Audio API (no external asset needed!)
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
+    gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start();
+    // Beep 3 times
+    setTimeout(() => { osc.stop(); audioCtx.close(); }, 800);
+  } catch (e) {
+    console.error('Audio synthesis failed', e);
+  }
+  alert('☕ Wake up! Your coffee nap is complete. Time to conquer your afternoon.');
+}
+
+// Generate stars animation in hero
+(function() {
+  const container = document.getElementById('stars');
+  if (!container) return;
+  for (let i = 0; i < 35; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--delay', Math.random() * 4 + 's');
+    star.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
+    container.appendChild(star);
+  }
+})();
+
+// Initialize
+window.addEventListener('DOMContentLoaded', () => {
+  setInitialTime();
+  calculateNapTimeline();
+});
+
+// ── THEME TOGGLE ──
+(function(){
+  var s=localStorage.getItem('gs-theme');
+  if(s)document.documentElement.setAttribute('data-theme',s);
+  var b=document.getElementById('theme-toggle');
+  if(b){
+    var th=document.documentElement.getAttribute('data-theme');
+    var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent=dk?'☀️':'🌙';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var r=document.documentElement;
+  var c=r.getAttribute('data-theme');
+  var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  var n=dk?'light':'dark';
+  r.setAttribute('data-theme',n);
+  localStorage.setItem('gs-theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
+</script>
+</body>
+</html>

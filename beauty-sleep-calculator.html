@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCQXSTXRFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JCQXSTXRFK');
+</script>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Beauty Sleep Window Calculator",
+  "url": "https://goodsleep.rest/beauty-sleep-calculator",
+  "description": "Calculate your optimal beauty sleep window to maximize collagen production, skin cell repair, and Human Growth Hormone (HGH) release.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5/JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beauty Sleep Window Calculator — GoodSleep</title>
+<meta name="description" content="Calculate your beauty sleep score. Find the best sleeping schedule for skin regeneration, collagen synthesis, and natural anti-aging cell renewal.">
+<meta property="og:title" content="Beauty Sleep Window Calculator — GoodSleep">
+<meta property="og:description" content="Optimize your sleep schedule for skin cellular repair. Calculate your HGH alignment and beauty sleep score instantly.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/beauty-sleep-calculator">
+<meta property="og:url" content="https://goodsleep.rest/beauty-sleep-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page specific styling overrides */
+.beauty-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .beauty-container {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 901px) {
+  .page {
+    max-width: 1100px;
+  }
+}
+.beauty-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.beauty-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.beauty-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.beauty-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--purple-light);
+  color: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+.beauty-form-group {
+  margin-bottom: 1.25rem;
+}
+.beauty-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.beauty-select, .beauty-input-time {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.beauty-select:focus, .beauty-input-time:focus {
+  border-color: var(--teal);
+}
+.beauty-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-soft);
+  padding: 12px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--border);
+}
+.beauty-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.beauty-checkbox-row input {
+  cursor: pointer;
+  accent-color: var(--teal);
+}
+.beauty-main-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.beauty-result-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-hint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+.beauty-score-display {
+  font-size: clamp(36px, 7vw, 48px);
+  font-weight: 800;
+  color: var(--teal-dark);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+.beauty-eval-display {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 0.75rem;
+}
+.beauty-desc-display {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.beauty-clock-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.beauty-clock-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 1.25rem auto 0;
+  display: block;
+}
+.beauty-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-hint);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+.color-golden {
+  background: var(--amber);
+}
+.color-sleep {
+  background: var(--teal-mid);
+}
+.beauty-recommendation-box {
+  background: var(--teal-light);
+  border: 1.5px solid var(--teal);
+  border-radius: var(--r-sm);
+  padding: 16px;
+}
+.beauty-recommendation-box h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--teal-dark);
+  margin-bottom: 8px;
+}
+.beauty-recommendation-box ul {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+.beauty-recommendation-box li {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.beauty-recommendation-box li:last-child {
+  margin-bottom: 0;
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<main>
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Beauty Sleep Window Calculator</div>
+  <h1>Beauty Sleep<br>Window Calculator</h1>
+  <p class="hero-sub">Maximize natural collagen synthesis and anti-aging cell renewal. Calculate your bedtime alignment with the biological "Golden Repair Window".</p>
+</div>
+
+<div class="page">
+  <div class="beauty-container">
+    <!-- INPUTS PANEL -->
+    <div class="beauty-panel">
+      <div class="beauty-title-row">
+        <div class="beauty-icon-circle">✨</div>
+        <h3>Calculator Inputs</h3>
+      </div>
+
+      <!-- Usual Bedtime -->
+      <div class="beauty-form-group">
+        <label for="bedtime">Usual Bedtime</label>
+        <input type="time" id="bedtime" class="beauty-input-time" value="23:30" onchange="calculateBeautySleep()">
+      </div>
+
+      <!-- Usual Wake Time -->
+      <div class="beauty-form-group">
+        <label for="waketime">Usual Wake Time</label>
+        <input type="time" id="waketime" class="beauty-input-time" value="07:30" onchange="calculateBeautySleep()">
+      </div>
+
+      <!-- Concerns checklist -->
+      <div class="beauty-form-group">
+        <label>Primary Wellness &amp; Skin Goals</label>
+        <div class="beauty-checkbox-group">
+          <label class="beauty-checkbox-row">
+            <input type="checkbox" id="concern-puff" checked onchange="calculateBeautySleep()">
+            Dark circles &amp; under-eye puffiness
+          </label>
+          <label class="beauty-checkbox-row">
+            <input type="checkbox" id="concern-aging" onchange="calculateBeautySleep()">
+            Fine lines &amp; premature aging
+          </label>
+          <label class="beauty-checkbox-row">
+            <input type="checkbox" id="concern-dull" checked onchange="calculateBeautySleep()">
+            Dullness / dry skin barrier
+          </label>
+          <label class="beauty-checkbox-row">
+            <input type="checkbox" id="concern-acne" onchange="calculateBeautySleep()">
+            Acne, redness &amp; inflammation
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="beauty-results">
+      <!-- Main Score Card -->
+      <div class="beauty-main-card">
+        <div class="beauty-result-label">Regenerative Alignment Score</div>
+        <div class="beauty-score-display" id="beauty-score">62%</div>
+        <div class="beauty-eval-display" id="beauty-eval">Suboptimal Peak Alignment</div>
+        <div class="beauty-desc-display" id="beauty-desc">
+          Your sleep schedule captures a portion of the prime skin-healing hours. Adjusting bedtime slightly earlier helps align deep sleep cycles with peak growth hormone release.
+        </div>
+      </div>
+
+      <!-- Clock Visualization -->
+      <div class="beauty-clock-card">
+        <div class="beauty-result-label" style="text-align:center;">24-Hour Circadian Repair Cycle</div>
+        <svg class="beauty-clock-svg" viewBox="0 0 200 200" id="clock-svg">
+          <!-- Outer circle border -->
+          <circle cx="100" cy="100" r="85" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="3" />
+          
+          <!-- Golden Repair Window Sector (10 PM to 2 AM => 22h to 2h) -->
+          <!-- Scaled to 24h clock: 24h = 360deg. 1h = 15deg. 0h = Top. 10 PM = 330deg, 2 AM = 30deg -->
+          <path d="M 100 100 L 100 15 A 85 85 0 0 1 142.5 26.3 L 100 100 Z" fill="var(--amber)" opacity="0.3" id="golden-sector-1" />
+          <path d="M 100 100 L 57.5 26.3 A 85 85 0 0 1 100 15 L 100 100 Z" fill="var(--amber)" opacity="0.3" id="golden-sector-2" />
+
+          <!-- Sleep Window Sector (Rendered dynamically by JS) -->
+          <path d="" fill="var(--teal)" opacity="0.25" id="sleep-sector" />
+          
+          <!-- Clock dial numbers -->
+          <text x="100" y="27" text-anchor="middle" class="beauty-axis-text" style="font-size:10px; font-weight:700;">12 (Midnight)</text>
+          <text x="100" y="181" text-anchor="middle" class="beauty-axis-text" style="font-size:10px; font-weight:700;">12 (Noon)</text>
+          <text x="175" y="104" text-anchor="middle" class="beauty-axis-text" style="font-size:10px; font-weight:700;">6 AM</text>
+          <text x="25" y="104" text-anchor="middle" class="beauty-axis-text" style="font-size:10px; font-weight:700;">6 PM</text>
+          
+          <!-- Clock Center Dot -->
+          <circle cx="100" cy="100" r="4" fill="var(--text-hint)" />
+        </svg>
+
+        <div class="beauty-legend">
+          <div class="legend-item">
+            <div class="legend-color color-golden"></div>
+            <span>Golden Repair (10PM - 2AM)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color color-sleep"></div>
+            <span>Your Sleep Window</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations Box -->
+      <div class="beauty-recommendation-box" id="rec-box">
+        <h4>✨ Targeted Anti-Aging &amp; Skincare Protocols</h4>
+        <ul id="rec-list">
+          <!-- Dynamic checklist items -->
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <strong>Cellular Science:</strong> Skin cell mitosis (division) doubles between 11 PM and midnight. Sleep deprivation during this time forces cortisol release, which degrades collagen structures and leads to premature skin thinning.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">The Science of "Beauty Sleep"</h2>
+    <p class="section-sub">How deep sleep acts as a natural biological anti-aging treatment.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>1. Human Growth Hormone (HGH) Peak</h3>
+        <p>During stage 3 deep sleep (typically occurring in the first few sleep cycles), your pituitary gland secretes a massive pulse of HGH. This hormone is essential for repairing skin cells, synthesizing proteins, and restoring cellular integrity.</p>
+      </div>
+      <div class="info-card">
+        <h3>2. Cortisol Regulation</h3>
+        <p>Restful sleep lowers systemic cortisol levels. High cortisol (the stress hormone) directly disrupts collagen production, drys out the epidermal barrier, and can trigger inflammatory flares like eczema or acne.</p>
+      </div>
+      <div class="info-card">
+        <h3>3. Microcirculation and Hydration</h3>
+        <p>During deep sleep, the body increases blood flow to the face. This delivers fresh oxygen, clears metabolic waste, and allows moisture levels to rebalance, preventing puffiness and under-eye dark circles.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// Convert "HH:MM" to minutes from midnight
+function timeToMin(timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  return h * 60 + m;
+}
+
+// Convert angle (degrees) to coordinates on SVG clock (radius 85, center 100,100)
+function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+  const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+  return {
+    x: centerX + (radius * Math.cos(angleInRadians)),
+    y: centerY + (radius * Math.sin(angleInRadians))
+  };
+}
+
+// Describe SVG sector arc
+function describeArc(x, y, radius, startAngle, endAngle){
+  const start = polarToCartesian(x, y, radius, endAngle);
+  const end = polarToCartesian(x, y, radius, startAngle);
+  const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+  const d = [
+    "M", start.x, start.y, 
+    "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+    "L", x, y,
+    "Z"
+  ].join(" ");
+  return d;       
+}
+
+function calculateBeautySleep() {
+  const bedtimeStr = document.getElementById('bedtime').value;
+  const waketimeStr = document.getElementById('waketime').value;
+  
+  const bedMin = timeToMin(bedtimeStr);
+  const wakeMin = timeToMin(waketimeStr);
+  
+  // Calculate total sleep minutes
+  let sleepDuration = 0;
+  if (wakeMin > bedMin) {
+    sleepDuration = wakeMin - bedMin;
+  } else {
+    sleepDuration = (24 * 60 - bedMin) + wakeMin;
+  }
+  
+  // Golden Window is 10 PM (22:00 = 1320 min) to 2 AM (02:00 = 120 min)
+  // Calculate intersection of sleep window and golden window
+  let overlapMin = 0;
+  const goldenStart = 22 * 60; // 1320
+  const goldenEnd = 2 * 60;   // 120 (next day)
+  
+  // Loop through sleep minutes to count overlap
+  for (let m = 0; m < sleepDuration; m++) {
+    const currentMin = (bedMin + m) % (24 * 60);
+    // Check if currentMin falls between 10 PM (1320) and 2 AM (120)
+    if (currentMin >= goldenStart || currentMin < goldenEnd) {
+      overlapMin++;
+    }
+  }
+  
+  // Calculate score (percentage of the 4-hour Golden Window captured)
+  const goldenDuration = 4 * 60; // 240 minutes
+  const score = Math.round((overlapMin / goldenDuration) * 100);
+  
+  // Render Score
+  const scoreDisp = document.getElementById('beauty-score');
+  const evalDisp = document.getElementById('beauty-eval');
+  const descDisp = document.getElementById('beauty-desc');
+  
+  scoreDisp.textContent = score + '%';
+  
+  if (score >= 90) {
+    evalDisp.textContent = 'Flawless Golden Alignment';
+    evalDisp.style.color = 'var(--teal-dark)';
+    descDisp.textContent = 'Outstanding! Your sleep window captures almost the entire 10 PM - 2 AM golden window. Your body maximizes cellular repair, collagen synthesis, and human growth hormone release daily.';
+  } else if (score >= 60) {
+    evalDisp.textContent = 'Moderate HGH Alignment';
+    evalDisp.style.color = 'var(--purple)';
+    descDisp.textContent = 'Good. Your schedule captures some critical anti-aging repair hours. Moving your bedtime 30-60 minutes earlier will significantly boost your cellular repair optimization.';
+  } else {
+    evalDisp.textContent = 'Poor Repair Phase Alignment';
+    evalDisp.style.color = 'var(--red)';
+    descDisp.textContent = 'Suboptimal. You miss a majority of the 10 PM to 2 AM peak cellular regeneration hours. Cortisol levels may remain high at night, increasing collagen degradation.';
+  }
+  
+  // Draw Sleep Sector on Clock
+  // 1440 min = 360 deg. 1 min = 0.25 deg.
+  const bedDeg = bedMin * 0.25;
+  let sleepDeg = sleepDuration * 0.25;
+  let endDeg = (bedMin + sleepDuration) * 0.25;
+  
+  const sleepSector = document.getElementById('sleep-sector');
+  if (sleepDuration > 0) {
+    // Sector description
+    sleepSector.setAttribute('d', describeArc(100, 100, 85, bedDeg, endDeg));
+  } else {
+    sleepSector.setAttribute('d', '');
+  }
+  
+  // Golden Window is static in design: 10 PM (330deg) to 2 AM (30deg next day)
+  const goldenS1 = document.getElementById('golden-sector-1');
+  const goldenS2 = document.getElementById('golden-sector-2');
+  goldenS1.setAttribute('d', describeArc(100, 100, 85, 330, 360));
+  goldenS2.setAttribute('d', describeArc(100, 100, 85, 0, 30));
+  
+  // Generate recommendations
+  const recList = document.getElementById('rec-list');
+  recList.innerHTML = '';
+  
+  // Common tips
+  if (score < 80) {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>Shift Bedtime:</strong> Try moving your bedtime to <strong>10:30 PM</strong> to align initial deep sleep phases with the natural growth hormone release peak.`;
+    recList.appendChild(li);
+  }
+  
+  // Goal specific tips
+  if (document.getElementById('concern-puff').checked) {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>For Dark Circles:</strong> Sleep on your back with a slightly elevated pillow. This prevents lymph fluid from pooling under your eyes, reducing morning puffiness.`;
+    recList.appendChild(li);
+  }
+  if (document.getElementById('concern-aging').checked) {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>For Fine Lines:</strong> Switch to a silk or satin pillowcase. Friction from standard cotton pillowcases causes micro-tears in fragile skin and speeds up wrinkle formation.`;
+    recList.appendChild(li);
+  }
+  if (document.getElementById('concern-dull').checked) {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>For Dry Skin:</strong> Apply a rich barrier cream 30 minutes before bed. During sleep, trans-epidermal water loss (TEWL) peaks; a night cream locks in vital moisture.`;
+    recList.appendChild(li);
+  }
+  if (document.getElementById('concern-acne').checked) {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>For Inflammatory Acne:</strong> Wash pillowcases twice a week. Dead skin cells, sweat, and hair product residues collect on fabric and harbor bacteria, triggering breakouts.`;
+    recList.appendChild(li);
+  }
+}
+
+// Generate stars animation in hero
+(function() {
+  const container = document.getElementById('stars');
+  if (!container) return;
+  for (let i = 0; i < 35; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--delay', Math.random() * 4 + 's');
+    star.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
+    container.appendChild(star);
+  }
+})();
+
+// Initialize
+window.addEventListener('DOMContentLoaded', () => {
+  calculateBeautySleep();
+});
+
+// ── THEME TOGGLE ──
+(function(){
+  var s=localStorage.getItem('gs-theme');
+  if(s)document.documentElement.setAttribute('data-theme',s);
+  var b=document.getElementById('theme-toggle');
+  if(b){
+    var th=document.documentElement.getAttribute('data-theme');
+    var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent=dk?'☀️':'🌙';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var r=document.documentElement;
+  var c=r.getAttribute('data-theme');
+  var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  var n=dk?'light':'dark';
+  r.setAttribute('data-theme',n);
+  localStorage.setItem('gs-theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
+</script>
+</body>
+</html>

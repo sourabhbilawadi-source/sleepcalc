@@ -84,6 +84,9 @@
     { "source": "/blog/best-time-to-wake-up-based-on-sleep-cycle", "destination": "/blog/best-time-to-wake-up-based-on-sleep-cycle.html" },
     { "source": "/blog/how-to-fix-sleep-schedule-in-one-day", "destination": "/blog/how-to-fix-sleep-schedule-in-one-day.html" },
     { "source": "/blog/signs-you-have-sleep-apnea", "destination": "/blog/signs-you-have-sleep-apnea.html" },
-    { "source": "/blog/how-to-sleep-better-with-anxiety", "destination": "/blog/how-to-sleep-better-with-anxiety.html" }
+    { "source": "/blog/how-to-sleep-better-with-anxiety", "destination": "/blog/how-to-sleep-better-with-anxiety.html" },
+    { "source": "/alcohol-clearance-calculator", "destination": "/alcohol-clearance-calculator.html" },
+    { "source": "/beauty-sleep-calculator", "destination": "/beauty-sleep-calculator.html" },
+    { "source": "/coffee-nap-planner", "destination": "/coffee-nap-planner.html" }
   ]
 }

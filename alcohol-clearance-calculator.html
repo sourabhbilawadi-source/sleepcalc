@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCQXSTXRFK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JCQXSTXRFK');
+</script>
+<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Alcohol Sleep Clearance Calculator",
+  "url": "https://goodsleep.rest/alcohol-clearance-calculator",
+  "description": "Calculate how long it takes for alcohol to clear your system before bedtime and understand its impact on your REM sleep cycles.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5/JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoodSleep">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    });
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alcohol Sleep Clearance Calculator — GoodSleep</title>
+<meta name="description" content="Calculate your blood alcohol level (BAC) decay over time. Find out when it's safe to sleep to prevent REM sleep suppression and midnight waking.">
+<meta property="og:title" content="Alcohol Sleep Clearance Calculator — GoodSleep">
+<meta property="og:description" content="How long after drinking before you can sleep? Calculate your BAC decay curve and sleep quality disruption scores instantly.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F6E56">
+<link rel="canonical" href="https://goodsleep.rest/alcohol-clearance-calculator">
+<meta property="og:url" content="https://goodsleep.rest/alcohol-clearance-calculator">
+<meta property="og:site_name" content="GoodSleep">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-Specific Styles */
+.alc-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .alc-container {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 901px) {
+  .page {
+    max-width: 1100px;
+  }
+}
+.alc-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+}
+.alc-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.alc-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.alc-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+.alc-form-group {
+  margin-bottom: 1.25rem;
+}
+.alc-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.alc-tabs {
+  display: flex;
+  background: var(--bg-soft);
+  padding: 4px;
+  border-radius: var(--r-sm);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.alc-tab-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-hint);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.2s;
+}
+.alc-tab-btn.active {
+  background: var(--bg-card);
+  color: var(--teal-dark);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.alc-select, .alc-input-num {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.alc-select:focus, .alc-input-num:focus {
+  border-color: var(--teal);
+}
+.alc-drink-tally {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px;
+  background: var(--bg-soft);
+}
+.alc-drink-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.alc-drink-row:last-child {
+  margin-bottom: 0;
+}
+.alc-drink-label {
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.alc-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.alc-counter-btn {
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.alc-counter-btn:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.alc-counter-val {
+  font-size: 14px;
+  font-weight: 700;
+  width: 20px;
+  text-align: center;
+}
+.alc-main-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.alc-result-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-hint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+.alc-time-display {
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 800;
+  color: var(--teal-dark);
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+.alc-disruption-display {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 0.75rem;
+}
+.alc-desc-display {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.alc-graph-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.alc-graph-svg {
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+}
+.alc-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-dasharray: 3;
+}
+.alc-axis-text {
+  font-size: 10px;
+  fill: var(--text-hint);
+  font-family: var(--font);
+}
+.alc-line {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+.alc-line-area {
+  fill: var(--teal-light);
+  opacity: 0.15;
+}
+.alc-bed-line {
+  stroke: var(--purple);
+  stroke-width: 2;
+  stroke-dasharray: 4;
+}
+.alc-alert-box {
+  background: var(--purple-light);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.alc-slider-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.alc-slider-val {
+  font-weight: 700;
+  color: var(--teal-dark);
+}
+.alc-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.alc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  cursor: pointer;
+  border: 2px solid var(--bg-card);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.alc-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  cursor: pointer;
+  border: 2px solid var(--bg-card);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+<body>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner-container">
+    <div class="loading-logo"><span class="logo-moon">🌙</span> GoodSleep</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-moon">🌙</span> GoodSleep</a>
+  <div class="nav-right">
+    <ul class="nav-mobile-hide">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+    </ul>
+    <a href="/explore" class="explore-btn" id="explore-btn" aria-label="Explore all tools">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<main>
+<div class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="breadcrumb"><a href="/">GoodSleep</a> › Alcohol Sleep Clearance Calculator</div>
+  <h1>Alcohol Bedtime<br>Clearance Calculator</h1>
+  <p class="hero-sub">Time your drinks to protect your sleep cycle. Calculate how long it takes for alcohol to exit your bloodstream and prevent midnight wakefulness.</p>
+</div>
+
+<div class="page">
+  <div class="alc-container">
+    <!-- INPUT PANEL -->
+    <div class="alc-panel">
+      <div class="alc-title-row">
+        <div class="alc-icon-circle">🍺</div>
+        <h3>Calculator Inputs</h3>
+      </div>
+
+      <!-- Biological Sex -->
+      <div class="alc-form-group">
+        <label>1. Biological Sex</label>
+        <div class="alc-tabs">
+          <button type="button" class="alc-tab-btn active" id="sex-m" onclick="setSex('male')">Male</button>
+          <button type="button" class="alc-tab-btn" id="sex-f" onclick="setSex('female')">Female</button>
+        </div>
+      </div>
+
+      <!-- Weight -->
+      <div class="alc-form-group">
+        <div class="alc-slider-row">
+          <label>2. Weight</label>
+          <span class="alc-slider-val" id="weight-val">160 lbs</span>
+        </div>
+        <input type="range" id="weight-slider" class="alc-slider" min="90" max="300" value="160" oninput="updateWeight()">
+        <div class="alc-tabs" style="margin-top:8px;">
+          <button type="button" class="alc-tab-btn active" id="unit-lbs" onclick="setUnit('lbs')">lbs</button>
+          <button type="button" class="alc-tab-btn" id="unit-kg" onclick="setUnit('kg')">kg</button>
+        </div>
+      </div>
+
+      <!-- Drinks Tally -->
+      <div class="alc-form-group">
+        <label>3. Drinks Consumed</label>
+        <div class="alc-drink-tally">
+          <!-- Beer -->
+          <div class="alc-drink-row">
+            <div class="alc-drink-label">🍺 Beer (12oz, 5%)</div>
+            <div class="alc-counter">
+              <button type="button" class="alc-counter-btn" onclick="adjustDrink('beer', -1)">−</button>
+              <span class="alc-counter-val" id="count-beer">0</span>
+              <button type="button" class="alc-counter-btn" onclick="adjustDrink('beer', 1)">+</button>
+            </div>
+          </div>
+          <!-- Wine -->
+          <div class="alc-drink-row">
+            <div class="alc-drink-label">🍷 Wine (5oz, 12%)</div>
+            <div class="alc-counter">
+              <button type="button" class="alc-counter-btn" onclick="adjustDrink('wine', -1)">−</button>
+              <span class="alc-counter-val" id="count-wine">0</span>
+              <button type="button" class="alc-counter-btn" onclick="adjustDrink('wine', 1)">+</button>
+            </div>
+          </div>
+          <!-- Spirit -->
+          <div class="alc-drink-row">
+            <div class="alc-drink-label">🥃 Spirit/Shot (1.5oz, 40%)</div>
+            <div class="alc-counter">
+              <button type="button" class="alc-counter-btn" onclick="adjustDrink('shot', -1)">−</button>
+              <span class="alc-counter-val" id="count-shot">0</span>
+              <button type="button" class="alc-counter-btn" onclick="adjustDrink('shot', 1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Elapsed Time -->
+      <div class="alc-form-group">
+        <div class="alc-slider-row">
+          <label>4. Hours Since First Drink</label>
+          <span class="alc-slider-val" id="elapsed-val">2 Hours</span>
+        </div>
+        <input type="range" id="elapsed-slider" class="alc-slider" min="0" max="12" value="2" step="0.5" oninput="calculateClearance()">
+      </div>
+
+      <!-- Bedtime Target -->
+      <div class="alc-form-group">
+        <label>5. Planned Bedtime (Hours from first drink)</label>
+        <input type="number" id="bedtime-target" class="alc-input-num" min="1" max="24" value="6" oninput="calculateClearance()">
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="alc-results">
+      <div class="alc-main-card">
+        <div class="alc-result-label" id="result-status-label">Estimated Clearance Time</div>
+        <div class="alc-time-display" id="clearance-time">Clear in 2.5 Hours</div>
+        <div class="alc-disruption-display" id="disruption-score">REM Sleep Disruption: Mild</div>
+        <div class="alc-desc-display" id="clearance-desc">
+          Your body requires time to metabolize alcohol. Drinking too close to bedtime blocks REM sleep, elevates heart rate, and causes micro-arousals during the second half of the night.
+        </div>
+      </div>
+
+      <div class="alc-alert-box" id="bedtime-verdict-box">
+        <strong>💤 Sleep Verdict:</strong> Your system is expected to be clear before bedtime. You will likely experience minimal sleep disturbance.
+      </div>
+
+      <!-- SVG Graph Curve -->
+      <div class="alc-graph-card">
+        <div class="alc-result-label">BAC Metabolism &amp; Bedtime Alignment</div>
+        <svg class="alc-graph-svg" viewBox="0 0 500 220" id="bac-chart">
+          <!-- Horizontal grid lines -->
+          <line x1="40" y1="20" x2="480" y2="20" class="alc-grid" />
+          <line x1="40" y1="70" x2="480" y2="70" class="alc-grid" />
+          <line x1="40" y1="120" x2="480" y2="120" class="alc-grid" />
+          <line x1="40" y1="170" x2="480" y2="170" class="alc-grid" />
+
+          <!-- Y-Axis labels (BAC) -->
+          <text x="32" y="24" text-anchor="end" class="alc-axis-text">0.12%</text>
+          <text x="32" y="74" text-anchor="end" class="alc-axis-text">0.08%</text>
+          <text x="32" y="124" text-anchor="end" class="alc-axis-text">0.04%</text>
+          <text x="32" y="174" text-anchor="end" class="alc-axis-text">0.00%</text>
+
+          <!-- X-Axis label -->
+          <text x="260" y="210" text-anchor="middle" class="alc-axis-text" style="font-weight:600;">Hours Since Drinking Started</text>
+
+          <!-- Dynamic SVG Path Area -->
+          <path d="" id="chart-area" class="alc-line-area" />
+          <!-- Dynamic SVG Path Line -->
+          <path d="" id="chart-line" class="alc-line" />
+
+          <!-- Bedtime Indicator Line -->
+          <line x1="260" y1="20" x2="260" y2="170" id="bedtime-marker" class="alc-bed-line" />
+          <text x="265" y="35" id="bedtime-marker-text" class="alc-axis-text" style="fill:var(--purple); font-weight:700;">Bedtime</text>
+
+          <!-- Current Time Indicator -->
+          <circle cx="100" cy="100" r="5" id="current-time-dot" fill="var(--teal)" stroke="#fff" stroke-width="2" />
+        </svg>
+      </div>
+
+      <div class="tip-box">
+        <strong>Sleep Science Tip:</strong> Even if your BAC returns to 0% before you sleep, aldehydes (byproducts of alcohol metabolism) can cause mild dehydration and sleep fragmentation. Drink a full glass of water with electrolytes before going to bed.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">The Physiology of Alcohol and Sleep</h2>
+    <p class="section-sub">Why alcohol acts as a sleeping aid initially, but destroys sleep quality later.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>1. REM Suppression</h3>
+        <p>Alcohol is a potent central nervous system depressant that increases GABA activity, helping you fall asleep fast. However, it severely suppresses REM (Rapid Eye Movement) sleep in the first half of the night, affecting cognitive function and memory consolidation.</p>
+      </div>
+      <div class="info-card">
+        <h3>2. Autonomic Disruption</h3>
+        <p>During normal sleep, your parasympathetic nervous system dominates, lowering your heart rate and allowing tissue repair. Alcohol keeps your sympathetic nervous system active, resulting in a higher sleeping heart rate and reduced heart rate variability (HRV).</p>
+      </div>
+      <div class="info-card">
+        <h3>3. Midnight Rebound</h3>
+        <p>As your liver clears the alcohol (usually at a rate of 0.015% BAC per hour), your body experiences a withdrawal-like stimulant rebound. This causes frequent micro-arousals, nighttime sweating, and early morning wakefulness, leaving you exhausted.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+<script>
+// State Management
+let biologicalSex = 'male';
+let currentUnit = 'lbs';
+let weightVal = 160;
+let drinks = {
+  beer: 0,
+  wine: 0,
+  shot: 0
+};
+
+// UI Toggles
+function setSex(sex) {
+  biologicalSex = sex;
+  document.getElementById('sex-m').classList.toggle('active', sex === 'male');
+  document.getElementById('sex-f').classList.toggle('active', sex === 'female');
+  calculateClearance();
+}
+
+function setUnit(unit) {
+  currentUnit = unit;
+  document.getElementById('unit-lbs').classList.toggle('active', unit === 'lbs');
+  document.getElementById('unit-kg').classList.toggle('active', unit === 'kg');
+  
+  const slider = document.getElementById('weight-slider');
+  if (unit === 'kg') {
+    slider.min = 40;
+    slider.max = 140;
+    slider.value = Math.round(weightVal * 0.453592);
+  } else {
+    slider.min = 90;
+    slider.max = 300;
+    slider.value = Math.round(weightVal);
+  }
+  updateWeight();
+}
+
+// Update Weight from Slider
+function updateWeight() {
+  const slider = document.getElementById('weight-slider');
+  const valSpan = document.getElementById('weight-val');
+  const val = parseInt(slider.value);
+  
+  if (currentUnit === 'kg') {
+    weightVal = val / 0.453592;
+    valSpan.textContent = val + ' kg';
+  } else {
+    weightVal = val;
+    valSpan.textContent = val + ' lbs';
+  }
+  calculateClearance();
+}
+
+function adjustDrink(type, change) {
+  drinks[type] = Math.max(0, drinks[type] + change);
+  document.getElementById(`count-${type}`).textContent = drinks[type];
+  calculateClearance();
+}
+
+// Widmark Blood Alcohol Clearance Calculation
+function calculateClearance() {
+  // Convert weight to grams
+  const weightGrams = weightVal * 453.592;
+  
+  // Calculate total pure alcohol in grams (1 standard drink = 14g)
+  const totalDrinks = drinks.beer + drinks.wine + drinks.shot;
+  const alcoholGrams = totalDrinks * 14;
+  
+  // Gender constant (r)
+  const r = (biologicalSex === 'male') ? 0.68 : 0.55;
+  
+  // Metabolic elimination rate per hour (beta)
+  const beta = 0.015;
+  
+  const elapsedSlider = document.getElementById('elapsed-slider');
+  const elapsedVal = parseFloat(elapsedSlider.value);
+  document.getElementById('elapsed-val').textContent = elapsedVal + ' Hour' + (elapsedVal === 1 ? '' : 's');
+  
+  // Calculate Peak BAC (assuming instant absorption for mathematical simplification)
+  let peakBac = 0;
+  if (weightGrams > 0 && totalDrinks > 0) {
+    peakBac = (alcoholGrams / (weightGrams * r)) * 100;
+  }
+  
+  // Current BAC (after elapsed hours)
+  const currentBac = Math.max(0, peakBac - (beta * elapsedVal));
+  
+  // Calculate hours to clear completely (from first drink)
+  const hoursToClear = peakBac / beta;
+  const remainingHoursToClear = Math.max(0, hoursToClear - elapsedVal);
+  
+  // Sleep target variables
+  const bedtimeTargetInput = document.getElementById('bedtime-target');
+  const bedtimeTargetHours = parseFloat(bedtimeTargetInput.value) || 6;
+  
+  // BAC at Bedtime
+  const bacAtBedtime = Math.max(0, peakBac - (beta * bedtimeTargetHours));
+  
+  // Render results
+  const timeDisplay = document.getElementById('clearance-time');
+  const disruptionDisplay = document.getElementById('disruption-score');
+  const descDisplay = document.getElementById('clearance-desc');
+  const verdictBox = document.getElementById('bedtime-verdict-box');
+  
+  if (totalDrinks === 0) {
+    timeDisplay.textContent = '0.00% BAC (Clear)';
+    disruptionDisplay.textContent = 'REM Sleep Disruption: None';
+    disruptionDisplay.style.color = 'var(--teal-dark)';
+    descDisplay.textContent = 'Your system is completely free of alcohol. You are set for natural, deep recovery cycles tonight.';
+    verdictBox.innerHTML = '<strong>💤 Sleep Verdict:</strong> Clear! You have not logged any drinks. Sleep quality will not be biologically altered.';
+    verdictBox.style.background = 'var(--teal-light)';
+    verdictBox.style.color = 'var(--teal-dark)';
+    verdictBox.style.borderColor = 'var(--teal)';
+    drawChart(0, 0, bedtimeTargetHours, elapsedVal);
+    return;
+  }
+  
+  // Set output
+  if (currentBac === 0) {
+    timeDisplay.textContent = '0.00% BAC (Clear)';
+  } else {
+    timeDisplay.textContent = `${currentBac.toFixed(3)}% BAC`;
+  }
+  
+  // Calculate disruption metrics
+  let disruptionText = 'None';
+  let disruptionColor = 'var(--teal-dark)';
+  let descText = '';
+  
+  if (bacAtBedtime > 0.08) {
+    disruptionText = 'Severe REM Suppression (Deep Disruptions)';
+    disruptionColor = 'var(--red)';
+    descText = `Your estimated BAC at bedtime (${bacAtBedtime.toFixed(3)}%) is above the legal driving limit. Alcohol will completely block REM sleep, increase sleep fragmentation, and cause frequent waking in the early morning.`;
+    
+    verdictBox.innerHTML = `<strong>⚠️ Critical Sleep Verdict: High Insomnia Risk</strong><br>Alcohol levels will remain dangerously high during sleep. Try to push your bedtime back by at least ${remainingHoursToClear.toFixed(1)} hours or drink plenty of water to assist hydration.`;
+    verdictBox.style.background = 'var(--amber-light)';
+    verdictBox.style.borderColor = 'var(--red)';
+    verdictBox.style.color = 'var(--text)';
+  } else if (bacAtBedtime > 0.02) {
+    disruptionText = 'Moderate Sleep Fragmentation';
+    disruptionColor = 'var(--amber)';
+    descText = `Your bedtime BAC (${bacAtBedtime.toFixed(3)}%) will cause moderate sleep disruptions. While you may fall asleep quickly, your sleep will be fragmented, and REM sleep will be reduced by 20-30%.`;
+    
+    verdictBox.innerHTML = `<strong>⚠️ Caution: Sleep Disruption Ahead</strong><br>Your BAC won't be fully clear at bedtime. Expect elevated resting heart rate and shallow sleep. Consider waiting another ${(hoursToClear - bedtimeTargetHours).toFixed(1)} hours before sleeping.`;
+    verdictBox.style.background = 'var(--amber-light)';
+    verdictBox.style.borderColor = 'var(--amber)';
+    verdictBox.style.color = 'var(--text)';
+  } else if (bacAtBedtime > 0) {
+    disruptionText = 'Minor Sleep Alteration';
+    disruptionColor = 'var(--teal)';
+    descText = `Your system is nearly clear (${bacAtBedtime.toFixed(3)}% BAC at bedtime). You might experience very slight disturbances or dry mouth, but overall sleep architecture will remain relatively intact.`;
+    
+    verdictBox.innerHTML = `<strong>💤 Good Sleep Verdict: Safe to Sleep</strong><br>Your BAC is virtually zero. Ensure you hydrate to offset any dehydration from metabolic clearance.`;
+    verdictBox.style.background = 'var(--teal-light)';
+    verdictBox.style.borderColor = 'var(--teal)';
+    verdictBox.style.color = 'var(--teal-dark)';
+  } else {
+    disruptionText = 'Minimal to None (Sleep-Safe)';
+    disruptionColor = 'var(--teal-dark)';
+    descText = `Excellent! Alcohol will be completely cleared from your system (${bacAtBedtime.toFixed(3)}% BAC) before you sleep. Your natural REM and deep sleep cycles will proceed normally.`;
+    
+    verdictBox.innerHTML = `<strong>🏆 Optimal Sleep Verdict: Sleep-Safe!</strong><br>Your body has cleared all logged alcohol prior to bedtime. You can expect high sleep quality and natural cellular restoration.`;
+    verdictBox.style.background = 'var(--teal-light)';
+    verdictBox.style.borderColor = 'var(--teal)';
+    verdictBox.style.color = 'var(--teal-dark)';
+  }
+  
+  disruptionDisplay.textContent = `REM Sleep Disruption: ${disruptionText}`;
+  disruptionDisplay.style.color = disruptionColor;
+  
+  drawChart(peakBac, hoursToClear, bedtimeTargetHours, elapsedVal);
+}
+
+// Draw dynamic chart SVG
+function drawChart(peak, clearHrs, bedtimeHrs, elapsedHrs) {
+  const chartLine = document.getElementById('chart-line');
+  const chartArea = document.getElementById('chart-area');
+  const bedtimeMarker = document.getElementById('bedtime-marker');
+  const bedtimeMarkerText = document.getElementById('bedtime-marker-text');
+  const currentDot = document.getElementById('current-time-dot');
+  
+  // Total span we map on X-axis is 12 hours or clearHrs + 2, max 24
+  const maxHrs = Math.max(12, Math.min(24, Math.ceil(clearHrs + 2)));
+  const yMax = Math.max(0.12, peak * 1.1); // Max BAC to scale graph
+  
+  // Map dimensions: width 500, height 220. Plot area: x in [40, 480], y in [20, 170]
+  const plotWidth = 440;
+  const plotHeight = 150;
+  const xOffset = 40;
+  const yOffset = 20;
+  
+  // Plot line calculations
+  let points = [];
+  const step = 0.2;
+  const beta = 0.015;
+  
+  for (let h = 0; h <= maxHrs; h += step) {
+    const val = Math.max(0, peak - (beta * h));
+    const x = xOffset + (h / maxHrs) * plotWidth;
+    const y = yOffset + plotHeight - (val / yMax) * plotHeight;
+    points.push(`${x},${y}`);
+  }
+  
+  // Set line paths
+  if (peak === 0) {
+    const flatY = yOffset + plotHeight;
+    chartLine.setAttribute('d', `M ${xOffset} ${flatY} L ${xOffset + plotWidth} ${flatY}`);
+    chartArea.setAttribute('d', `M ${xOffset} ${flatY} L ${xOffset + plotWidth} ${flatY} L ${xOffset + plotWidth} ${flatY} L ${xOffset} ${flatY} Z`);
+    
+    // Position current time dot
+    currentDot.setAttribute('cx', xOffset);
+    currentDot.setAttribute('cy', flatY);
+    
+    // Position Bedtime line
+    bedtimeMarker.setAttribute('x1', xOffset + (bedtimeHrs / maxHrs) * plotWidth);
+    bedtimeMarker.setAttribute('x2', xOffset + (bedtimeHrs / maxHrs) * plotWidth);
+    bedtimeMarkerText.setAttribute('x', xOffset + (bedtimeHrs / maxHrs) * plotWidth + 5);
+    return;
+  }
+  
+  const dPath = 'M ' + points.join(' L ');
+  chartLine.setAttribute('d', dPath);
+  
+  // Set area path
+  const areaPath = `${dPath} L ${xOffset + plotWidth},${yOffset + plotHeight} L ${xOffset},${yOffset + plotHeight} Z`;
+  chartArea.setAttribute('d', areaPath);
+  
+  // Position current time dot
+  const currentX = xOffset + (elapsedHrs / maxHrs) * plotWidth;
+  const currentBACVal = Math.max(0, peak - (beta * elapsedHrs));
+  const currentY = yOffset + plotHeight - (currentBACVal / yMax) * plotHeight;
+  currentDot.setAttribute('cx', currentX);
+  currentDot.setAttribute('cy', currentY);
+  
+  // Position Bedtime line
+  const bedX = xOffset + (Math.min(maxHrs, bedtimeHrs) / maxHrs) * plotWidth;
+  bedtimeMarker.setAttribute('x1', bedX);
+  bedtimeMarker.setAttribute('x2', bedX);
+  bedtimeMarkerText.setAttribute('x', bedX + 5);
+}
+
+// Generate stars animation in hero
+(function() {
+  const container = document.getElementById('stars');
+  if (!container) return;
+  for (let i = 0; i < 35; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--delay', Math.random() * 4 + 's');
+    star.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
+    container.appendChild(star);
+  }
+})();
+
+// Initialize
+window.addEventListener('DOMContentLoaded', () => {
+  calculateClearance();
+});
+
+// ── THEME TOGGLE ──
+(function(){
+  var s=localStorage.getItem('gs-theme');
+  if(s)document.documentElement.setAttribute('data-theme',s);
+  var b=document.getElementById('theme-toggle');
+  if(b){
+    var th=document.documentElement.getAttribute('data-theme');
+    var dk=th==='dark'||(th!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent=dk?'☀️':'🌙';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var r=document.documentElement;
+  var c=r.getAttribute('data-theme');
+  var dk=c==='dark'||(c!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  var n=dk?'light':'dark';
+  r.setAttribute('data-theme',n);
+  localStorage.setItem('gs-theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+
+// HIDE LOADING OVERLAY
+(function(){
+  var ov = document.getElementById('loading-overlay');
+  function hide() { if(ov && !ov.classList.contains('fade-out')) ov.classList.add('fade-out'); }
+  window.addEventListener('load', hide);
+  setTimeout(hide, 1200); // Safety timeout
+})();
+</script>
+</body>
+</html>
