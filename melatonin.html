@@ -63,6 +63,38 @@
   "dateModified": "2026-06-18"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is melatonin safe for long-term use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For most healthy adults, short-term use of melatonin is considered safe. However, there is a lack of long-term studies on its safety. Chronic use at high doses (such as 5 mg to 10 mg) can lead to desensitization of brain receptors, morning grogginess, and potential disruptions in normal hormone production."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the correct dosage of melatonin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clinical sleep specialists recommend micro-dosing melatonin rather than taking large over-the-counter doses. A dose of 0.3 mg to 1.5 mg is typically sufficient to mimic the natural melatonin levels produced by the pineal gland. It is highly effective and reduces the risk of receptor desensitization and grogginess."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can melatonin interact with other medications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, melatonin can interact with certain medications, including blood thinners, blood pressure drugs, immunosuppressants, diabetes medications, and sedatives. If you are taking any prescription medication, consult a healthcare professional before starting melatonin."
+      }
+    }
+  ]
+}
+</script>
 <style>
 .eyebrow {
   display: inline-block;
@@ -278,6 +310,23 @@
     </div>
   </div>
 
+  <!-- FAQ Section -->
+  <div class="section faq" style="margin-top: 2.5rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title" style="margin-bottom: 1.25rem; font-size: 22px; font-weight: 700;">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is melatonin safe for long-term use?<span class="faq-icon">+</span></button>
+      <div class="faq-a">For most healthy adults, short-term use of melatonin is considered safe. However, there is a lack of long-term studies on its safety. Chronic use at high doses (such as 5 mg to 10 mg) can lead to desensitization of brain receptors, morning grogginess, and potential disruptions in normal hormone production.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is the correct dosage of melatonin?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Clinical sleep specialists recommend micro-dosing melatonin rather than taking large over-the-counter doses. A dose of 0.3 mg to 1.5 mg is typically sufficient to mimic the natural melatonin levels produced by the pineal gland. It is highly effective and reduces the risk of receptor desensitization and grogginess.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can melatonin interact with other medications?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Yes, melatonin can interact with certain medications, including blood thinners, blood pressure drugs, immunosuppressants, diabetes medications, and sedatives. If you are taking any prescription medication, consult a healthcare professional before starting melatonin.</div>
+    </div>
+  </div>
+
   <!-- RELATED TOOLS -->
   <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
     <h2 class="section-title">Related Sleep Tools</h2>
@@ -361,6 +410,14 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   window.addEventListener('load', hide);
   setTimeout(hide, 1200);
 })();
+
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
+  if(!open){ans.classList.add('open');icon.textContent='×';}
+}
 </script>
 </body>
 </html>

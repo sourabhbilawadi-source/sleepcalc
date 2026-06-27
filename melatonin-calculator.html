@@ -28,6 +28,38 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much melatonin should I take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clinical sleep research suggests that less is more when it comes to melatonin. While over-the-counter supplements often sell 5 mg to 10 mg doses, the optimal dosage for circadian rhythm shifting is a microdose of 0.3 mg to 1.5 mg. High doses can desensitize your brain receptors and cause morning grogginess."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When is the best time to take melatonin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The timing depends on your goal. For general sleep onset, take it 1 to 2 hours before bedtime. If you are trying to shift your biological clock earlier (e.g., to cure night owl habits), take a low dose 4 to 6 hours before your typical sleep time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does melatonin help with jet lag?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. For eastward travel (which shortens your day), take melatonin at your destination's target bedtime to help shift your circadian rhythm earlier. For westward travel, melatonin is usually not needed unless you experience early morning awakenings."
+      }
+    }
+  ]
+}
+</script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -45,7 +77,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Melatonin Dosage & Timing Calculator — GoodSleep</title>
+<title>Melatonin Dosage Calculator: Timing & Micro-Dosing | GoodSleep</title>
 <meta name="description" content="Calculate exactly when and how much melatonin to take based on your goals: sleep onset, circadian clock shift, jet lag recovery, or shift work adjustment.">
 <meta property="og:title" content="Melatonin Dosage & Timing Calculator — GoodSleep">
 <meta property="og:description" content="Find the perfect timing and optimal dosage for melatonin based on sleep science and circadian rhythm phase shifting.">
@@ -232,6 +264,23 @@
         <li><strong>Circadian Phase Response Curves to Melatonin:</strong> A clinical study establishing that melatonin taken 4–6 hours before sleep onset produces the largest advance in sleep timing. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3995133/" target="_blank" rel="noopener">Read Study (NIH)</a></li>
         <li><strong>American Academy of Sleep Medicine (AASM):</strong> Clinical practice guidelines recommending low-dose melatonin for Delayed Sleep-Wake Phase Disorder and jet lag. <a href="https://aasm.org/" target="_blank" rel="noopener">AASM Website</a></li>
       </ol>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="section faq" style="margin-top: 2.5rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title" style="margin-bottom: 1.25rem; font-size: 22px; font-weight: 700;">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How much melatonin should I take?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Clinical sleep research suggests that less is more when it comes to melatonin. While over-the-counter supplements often sell 5 mg to 10 mg doses, the optimal dosage for circadian rhythm shifting is a microdose of 0.3 mg to 1.5 mg. High doses can desensitize your brain receptors and cause morning grogginess.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">When is the best time to take melatonin?<span class="faq-icon">+</span></button>
+      <div class="faq-a">The timing depends on your goal. For general sleep onset, take it 1 to 2 hours before bedtime. If you are trying to shift your biological clock earlier (e.g., to cure night owl habits), take a low dose 4 to 6 hours before your typical sleep time.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Does melatonin help with jet lag?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Yes. For eastward travel (which shortens your day), take melatonin at your destination's target bedtime to help shift your circadian rhythm earlier. For westward travel, melatonin is usually not needed unless you experience early morning awakenings.</div>
     </div>
   </div>
 
@@ -624,6 +673,14 @@ window.addEventListener('load', () => {
   window.addEventListener('load', hide);
   setTimeout(hide, 1200); // Safety timeout
 })();
+
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
+  if(!open){ans.classList.add('open');icon.textContent='×';}
+}
 </script>
 </body>
 </html>
