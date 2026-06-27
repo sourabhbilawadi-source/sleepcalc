@@ -28,6 +28,38 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do children's sleep cycles differ from adults?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Children have much shorter sleep cycles. While adult cycles are about 90 minutes, infants and toddlers have 50-minute cycles, preschoolers have 60-minute cycles, and school-age children have 70-minute cycles. Only in late adolescence do their cycles reach the adult 90-minute length."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much sleep does a child need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sleep needs vary significantly by age. Recommended daily durations (including naps) are: infants (4-11 months) need 12-15 hours; toddlers (1-2 years) need 11-14 hours; preschoolers (3-5 years) need 10-13 hours; and school-age children (6-13 years) need 9-11 hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the signs of sleep deprivation in kids?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unlike adults who show sluggishness and fatigue, sleep-deprived children often become hyperactive, experience frequent behavioral tantrums, resist bedtimes, show irritability, and have difficulty focusing or staying alert in school."
+      }
+    }
+  ]
+}
+</script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -492,6 +524,23 @@
     </div>
   </div>
 
+  <!-- FAQ Section -->
+  <div class="section faq" style="margin-top: 2.5rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title" style="margin-bottom: 1.25rem; font-size: 22px; font-weight: 700;">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How do children's sleep cycles differ from adults?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Children have much shorter sleep cycles. While adult cycles are about 90 minutes, infants and toddlers have 50-minute cycles, preschoolers have 60-minute cycles, and school-age children have 70-minute cycles. Only in late adolescence do their cycles reach the adult 90-minute length.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How much sleep does a child need?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Sleep needs vary significantly by age. Recommended daily durations (including naps) are: infants (4-11 months) need 12-15 hours; toddlers (1-2 years) need 11-14 hours; preschoolers (3-5 years) need 10-13 hours; and school-age children (6-13 years) need 9-11 hours.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What are the signs of sleep deprivation in kids?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Unlike adults who show sluggishness and fatigue, sleep-deprived children often become hyperactive, experience frequent behavioral tantrums, resist bedtimes, show irritability, and have difficulty focusing or staying alert in school.</div>
+    </div>
+  </div>
+
   <!-- RELATED TOOLS -->
   <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
     <h2 class="section-title">Related Sleep Tools</h2>
@@ -833,6 +882,14 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
   window.addEventListener('load', hide);
   setTimeout(hide, 1200); // Safety timeout
 })();
+
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
+  if(!open){ans.classList.add('open');icon.textContent='×';}
+}
 </script>
 </body>
 </html>

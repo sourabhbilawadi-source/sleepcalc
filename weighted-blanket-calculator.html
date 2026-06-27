@@ -28,6 +28,38 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How heavy should a weighted blanket be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "According to occupational therapy standards, a weighted blanket should be approximately 10% of your ideal body weight. For most adults, this falls between 12 and 20 pounds. If you are between standard weights (e.g., 15 lbs and 20 lbs), choose the lighter option for a milder pressure or the heavier option for a more grounding sensation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a weighted blanket safe for children?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weighted blankets are safe and highly effective for children aged 2 years or older who weigh at least 30 pounds, provided they have the strength to remove the blanket from their face independently. Never use a weighted blanket for babies or toddlers under 2, as it poses a severe suffocation hazard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should a weighted blanket match my bed mattress size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, a weighted blanket should fit your body, not the size of your bed. If the blanket hangs over the edge of the mattress, the force of gravity will cause it to slide off the bed during the night. Standard sizes like 48\" x 72\" (Twin) or 60\" x 80\" (Queen/Full) are designed to stay centered on top of the mattress."
+      }
+    }
+  ]
+}
+</script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -45,7 +77,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weighted Blanket Weight Calculator — GoodSleep</title>
+<title>Weighted Blanket Weight Calculator: Find Your Perfect Weight | GoodSleep</title>
 <meta name="description" content="Calculate your optimal weighted blanket weight and dimensions based on your body weight, age, and bed size. Includes critical pediatric safety guidelines.">
 <meta property="og:title" content="Weighted Blanket Weight Calculator — GoodSleep">
 <meta property="og:description" content="Find the perfect weighted blanket size and weight based on sleep science and occupational therapy standards.">
@@ -252,6 +284,23 @@
         <li><strong>American Journal of Occupational Therapy:</strong> Clinical review of Deep Touch Pressure and its regulatory effects on sensory modulation.</li>
         <li><strong>Harvard Medical School (Harvard Health Publishing):</strong> <em>"Do weighted blankets help with anxiety or insomnia? The physiological grounding effect of deep pressure stimulation."</em></li>
       </ol>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="section faq" style="margin-top: 2.5rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title" style="margin-bottom: 1.25rem; font-size: 22px; font-weight: 700;">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How heavy should a weighted blanket be?<span class="faq-icon">+</span></button>
+      <div class="faq-a">According to occupational therapy standards, a weighted blanket should be approximately 10% of your ideal body weight. For most adults, this falls between 12 and 20 pounds. If you are between standard weights (e.g., 15 lbs and 20 lbs), choose the lighter option for a milder pressure or the heavier option for a more grounding sensation.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is a weighted blanket safe for children?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Weighted blankets are safe and highly effective for children aged 2 years or older who weigh at least 30 pounds, provided they have the strength to remove the blanket from their face independently. Never use a weighted blanket for babies or toddlers under 2, as it poses a severe suffocation hazard.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Should a weighted blanket match my bed mattress size?<span class="faq-icon">+</span></button>
+      <div class="faq-a">No, a weighted blanket should fit your body, not the size of your bed. If the blanket hangs over the edge of the mattress, the force of gravity will cause it to slide off the bed during the night. Standard sizes like 48" x 72" (Twin) or 60" x 80" (Queen/Full) are designed to stay centered on top of the mattress.</div>
     </div>
   </div>
 
@@ -687,6 +736,14 @@ function updateBedPreview(bedSize, heightVal) {
 window.addEventListener('load', () => {
   calculateBlanket();
 });
+
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
+  if(!open){ans.classList.add('open');icon.textContent='×';}
+}
 </script>
 
 </body>

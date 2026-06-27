@@ -28,7 +28,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bedtime Calculator — Find the Best Bedtime | GoodSleep</title>
+<title>Bedtime Calculator: Find the Best Time to Go to Bed | GoodSleep</title>
 <meta name="description" content="Use our bedtime calculator to find the perfect time to fall asleep based on sleep cycles. Wake up refreshed at your target alarm time.">
 <meta property="og:title" content="Bedtime Calculator — Find the Best Bedtime | GoodSleep">
 <meta property="og:description" content="Calculate what time you should go to bed based on 90-minute sleep cycles. Free, instant bedtime calculator.">
@@ -45,6 +45,38 @@
 <link rel="apple-touch-icon" href="/icon-192.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"GoodSleep Bedtime Calculator","url":"https://goodsleep.rest/bedtime-calculator","description":"Calculate the best bedtime or wake-up time based on 90-minute sleep cycles","applicationCategory":"HealthApplication","offers":{"@type":"Offer","price":"0"}}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does a bedtime calculator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A bedtime calculator uses the science of biological 90-minute sleep cycles. By calculating backward or forward from a specific wake-up or sleep onset time, it suggests bedtimes or alarm times that align with the completion of a full sleep cycle. This prevents waking up during deep or REM sleep, which causes sleep inertia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I feel tired even after sleeping 8 hours?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Waking up in the middle of a deep sleep (Stage 3) or REM sleep cycle triggers sleep inertia, leaving you feeling groggy and foggy regardless of how long you slept. Other factors can include poor sleep quality, disrupted circadian rhythms, or undiagnosed conditions like sleep apnea."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to fall asleep?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The average healthy adult takes 10 to 20 minutes to transition from full wakefulness to light sleep (known as sleep latency). Most bedtime calculators, including ours, factor in a standard 14-minute buffer to ensure your cycles align correctly."
+      }
+    }
+  ]
+}
 </script>
 <link rel="stylesheet" href="/styles.css">
 <style>
@@ -276,6 +308,22 @@
   </div>
 </div>
 
+  <!-- FAQ Section -->
+  <div class="section faq" style="margin-top: 2.5rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
+    <h2 class="section-title" style="margin-bottom: 1.25rem; font-size: 22px; font-weight: 700;">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How does a bedtime calculator work?<span class="faq-icon">+</span></button>
+      <div class="faq-a">A bedtime calculator uses the science of biological 90-minute sleep cycles. By calculating backward or forward from a specific wake-up or sleep onset time, it suggests bedtimes or alarm times that align with the completion of a full sleep cycle. This prevents waking up during deep or REM sleep, which causes sleep inertia.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Why do I feel tired even after sleeping 8 hours?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Waking up in the middle of a deep sleep (Stage 3) or REM sleep cycle triggers sleep inertia, leaving you feeling groggy and foggy regardless of how long you slept. Other factors can include poor sleep quality, disrupted circadian rhythms, or undiagnosed conditions like sleep apnea.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How long does it take to fall asleep?<span class="faq-icon">+</span></button>
+      <div class="faq-a">The average healthy adult takes 10 to 20 minutes to transition from full wakefulness to light sleep (known as sleep latency). Most bedtime calculators, including ours, factor in a standard 14-minute buffer to ensure your cycles align correctly.</div>
+    </div>
+  </div>
 
   <!-- RELATED TOOLS -->
   <div class="section related-tools" style="margin-top: 3rem; border-top: 1.5px solid var(--border); padding-top: 2rem;">
@@ -577,6 +625,14 @@ document.getElementById('theme-toggle').addEventListener('click',function(){var 
   window.addEventListener('load', hide);
   setTimeout(hide, 1200); // Safety timeout
 })();
+
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
+  if(!open){ans.classList.add('open');icon.textContent='×';}
+}
 </script>
 </body>
 </html>

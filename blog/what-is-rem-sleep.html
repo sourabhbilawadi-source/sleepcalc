@@ -91,6 +91,68 @@
     text-decoration: underline;
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Is REM Sleep? Science, Dreams & Recovery",
+  "description": "What is REM sleep? Explore the science of Rapid Eye Movement cycles, dreaming biology, cognitive memory consolidation, and how to schedule your cycles.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://goodsleep.rest/blog/what-is-rem-sleep"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is REM sleep and why is it important?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rapid Eye Movement (REM) sleep is a highly active phase of sleep characterized by rapid eye movements, high brain activity (comparable to waking hours), and temporary skeletal muscle paralysis. It is critical for emotional regulation, memory consolidation, cognitive recovery, and creative problem-solving."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much REM sleep do you need per night?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In healthy adults, REM sleep typically accounts for 20% to 25% of total sleep, which amounts to roughly 90 to 120 minutes of REM sleep per night. REM cycles occur about every 90 minutes and grow longer in duration during the second half of the night."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if you do not get enough REM sleep?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A chronic deficit in REM sleep can lead to emotional instability, increased stress and anxiety levels, difficulty concentrating, impaired learning capabilities, and reduced creativity. Common suppressors of REM sleep include alcohol, sleep deprivation, and sleep apnea."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is REM rebound?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "REM rebound is the body's homeostatic response to a lack of REM sleep. When you undergo sleep deprivation or consume alcohol (which suppresses REM), your brain compensates by going into longer, more intense REM cycles when it finally has the chance, which often causes vivid dreams, nightmares, and fragmented sleep."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- Loading Overlay -->
@@ -173,6 +235,27 @@
       <div class="citation-item" id="ref-3">[3] Sharpless, B. A., & Barber, J. P. (2011). Lifetime prevalence rates of sleep paralysis: a systematic review. <em>Sleep Medicine Reviews</em>, 15(5), 311–315. <a href="https://pubmed.ncbi.nlm.nih.gov/21565529/" target="_blank" rel="noopener">PubMed Link</a></div>
     </div>
   </article>
+
+  <!-- FAQ Section -->
+  <div class="section faq" style="margin-top: 2.5rem;">
+    <h2 class="section-title" style="margin-bottom: 1.25rem; font-size: 22px; font-weight: 700;">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is REM sleep and why is it important?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Rapid Eye Movement (REM) sleep is a highly active phase of sleep characterized by rapid eye movements, high brain activity (comparable to waking hours), and temporary skeletal muscle paralysis. It is critical for emotional regulation, memory consolidation, cognitive recovery, and creative problem-solving.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How much REM sleep do you need per night?<span class="faq-icon">+</span></button>
+      <div class="faq-a">In healthy adults, REM sleep typically accounts for 20% to 25% of total sleep, which amounts to roughly 90 to 120 minutes of REM sleep per night. REM cycles occur about every 90 minutes and grow longer in duration during the second half of the night.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What happens if you do not get enough REM sleep?<span class="faq-icon">+</span></button>
+      <div class="faq-a">A chronic deficit in REM sleep can lead to emotional instability, increased stress and anxiety levels, difficulty concentrating, impaired learning capabilities, and reduced creativity. Common suppressors of REM sleep include alcohol, sleep deprivation, and sleep apnea.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is REM rebound?<span class="faq-icon">+</span></button>
+      <div class="faq-a">REM rebound is the body's homeostatic response to a lack of REM sleep. When you undergo sleep deprivation or consume alcohol (which suppresses REM), your brain compensates by going into longer, more intense REM cycles when it finally has the chance, which often causes vivid dreams, nightmares, and fragmented sleep.</div>
+    </div>
+  </div>
 </div>
 
 </main>
@@ -225,6 +308,14 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   window.addEventListener('load', hide);
   setTimeout(hide, 1200);
 })();
+
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
+  if(!open){ans.classList.add('open');icon.textContent='×';}
+}
 </script>
 </body>
 </html>

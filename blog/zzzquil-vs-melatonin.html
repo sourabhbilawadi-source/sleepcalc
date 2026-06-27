@@ -91,6 +91,68 @@
     text-decoration: underline;
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ZzzQuil vs Melatonin: Which Works Better for Sleep?",
+  "description": "Compare ZzzQuil vs Melatonin. Learn the science of diphenhydramine sedation vs. melatonin hormones, tolerance risk, and take our Insomnia Assessment.",
+  "author": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GoodSleep",
+    "url": "https://goodsleep.rest"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://goodsleep.rest/blog/zzzquil-vs-melatonin"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which is better for sleep: ZzzQuil or Melatonin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the cause of your sleep issues. ZzzQuil is a sedative antihistamine (diphenhydramine) that forces drowsiness, making it suitable for short-term, acute sleep disruptions. Melatonin is a biological hormone that regulates the timing of your sleep-wake cycles, making it ideal for jet lag, shift work, or circadian rhythm synchronization."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you take ZzzQuil and Melatonin together?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Combining ZzzQuil and melatonin is not recommended without a doctor's advice. Both affect your nervous system, and combining them can cause severe next-day drowsiness, next-day hangover, dizziness, and cognitive confusion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How quickly does tolerance to ZzzQuil develop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Very quickly. Clinical studies show that the brain adapts to H1 receptor blockade rapidly, and tolerance to the sedative effects of diphenhydramine (ZzzQuil) can develop in as little as 3 to 4 days of continuous nightly use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is ZzzQuil safe to take every night?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, ZzzQuil is not safe or intended for long-term chronic use. Continuous use suppresses REM sleep architecture, leads to dependency/tolerance, and exposes you to anticholinergic side effects such as dry mouth, constipation, and long-term cognitive decline."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- Loading Overlay -->
@@ -204,6 +266,27 @@
       <div class="citation-item" id="ref-2">[2] Kales, A., et al. (1983). Evaluation of diphenhydramine in sleep laboratory studies. <em>Journal of Clinical Pharmacology</em>, 23(1), 32-42. <a href="https://pubmed.ncbi.nlm.nih.gov/6131908/" target="_blank" rel="noopener">PubMed Link</a></div>
     </div>
   </article>
+
+  <!-- FAQ Section -->
+  <div class="section faq" style="margin-top: 2.5rem;">
+    <h2 class="section-title" style="margin-bottom: 1.25rem; font-size: 22px; font-weight: 700;">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Which is better for sleep: ZzzQuil or Melatonin?<span class="faq-icon">+</span></button>
+      <div class="faq-a">It depends on the cause of your sleep issues. ZzzQuil is a sedative antihistamine (diphenhydramine) that forces drowsiness, making it suitable for short-term, acute sleep disruptions. Melatonin is a biological hormone that regulates the timing of your sleep-wake cycles, making it ideal for jet lag, shift work, or circadian rhythm synchronization.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can you take ZzzQuil and Melatonin together?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Combining ZzzQuil and melatonin is not recommended without a doctor's advice. Both affect your nervous system, and combining them can cause severe next-day drowsiness, next-day hangover, dizziness, and cognitive confusion.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How quickly does tolerance to ZzzQuil develop?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Very quickly. Clinical studies show that the brain adapts to H1 receptor blockade rapidly, and tolerance to the sedative effects of diphenhydramine (ZzzQuil) can develop in as little as 3 to 4 days of continuous nightly use.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is ZzzQuil safe to take every night?<span class="faq-icon">+</span></button>
+      <div class="faq-a">No, ZzzQuil is not safe or intended for long-term chronic use. Continuous use suppresses REM sleep architecture, leads to dependency/tolerance, and exposes you to anticholinergic side effects such as dry mouth, constipation, and long-term cognitive decline.</div>
+    </div>
+  </div>
 </div>
 
 </main>
@@ -256,6 +339,14 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   window.addEventListener('load', hide);
   setTimeout(hide, 1200);
 })();
+
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
+  if(!open){ans.classList.add('open');icon.textContent='×';}
+}
 </script>
 </body>
 </html>
