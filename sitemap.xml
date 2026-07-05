@@ -97,6 +97,12 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://goodsleep.rest/explore</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://goodsleep.rest/world-cup-sleep-schedule</loc>
     <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
