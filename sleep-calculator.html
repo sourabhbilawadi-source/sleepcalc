@@ -717,13 +717,7 @@ function restartQuiz(){
 renderQuiz();
 
 // ── FAQ ──
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
-  const open=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
-}
+
 
 // ── BACK TO TOP ──
 window.addEventListener('scroll',()=>{
@@ -757,5 +751,6 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   setTimeout(hide, 1200); // Safety timeout
 })();
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>
