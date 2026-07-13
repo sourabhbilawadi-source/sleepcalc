@@ -610,6 +610,7 @@ function calculateBeautySleep() {
 (function() {
   const container = document.getElementById('stars');
   if (!container) return;
+  const fragment = document.createDocumentFragment();
   for (let i = 0; i < 35; i++) {
     const star = document.createElement('div');
     star.className = 'star';
@@ -617,8 +618,9 @@ function calculateBeautySleep() {
     star.style.top = Math.random() * 100 + '%';
     star.style.setProperty('--delay', Math.random() * 4 + 's');
     star.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
-    container.appendChild(star);
+    fragment.appendChild(star);
   }
+  container.appendChild(fragment);
 })();
 
 // Initialize
