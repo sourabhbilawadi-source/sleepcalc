@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "share-card.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sourabhbilawadi-source/sleepcalc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sourabhbilawadi-source/sleepcalc/issues"
+  },
+  "homepage": "https://github.com/sourabhbilawadi-source/sleepcalc#readme",
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "jest": "^30.4.2",
+    "jsdom": "^29.1.1"
+  }
+}
