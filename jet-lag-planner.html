@@ -808,7 +808,66 @@ function onCityChange(type) {
   calculateJetLagTimeline();
 }
 
-function calculateJetLagTimeline() {
+// Helper Functions
+const parseTime = (timeStr) => {
+  const parts = timeStr.split(':');
+  return parseInt(parts[0]) + parseInt(parts[1]) / 60;
+};
+
+const formatHour = (hourFloat) => {
+  const h = (Math.floor(hourFloat) + 24) % 24;
+  const m = Math.round((hourFloat - Math.floor(hourFloat)) * 60);
+  const dispH = h < 10 ? '0' + h : h;
+  const dispM = m < 10 ? '0' + m : m;
+
+  // AM/PM format
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  const mDisp = dispM;
+  return `${h12}:${mDisp} ${ampm}`;
+};
+
+const formatDateLabel = (d) => {
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+};
+
+const renderTimelineBlocks = (sleepStart, sleepEnd, seekStart, seekEnd, avoidStart, avoidEnd, isTransit = false, transitStart = 0, transitEnd = 0) => {
+  let html = '';
+
+  // Normalise all hours
+  const norm = h => (h + 24) % 24;
+  const sStart = norm(sleepStart);
+  const sEnd = norm(sleepEnd);
+  const skStart = norm(seekStart);
+  const skEnd = norm(seekEnd);
+  const avStart = norm(avoidStart);
+  const avEnd = norm(avoidEnd);
+
+  // Render helper
+  const makeBlock = (start, end, className, label, icon) => {
+    if (start === end) return '';
+    if (start < end) {
+      return `<div class="${className}" style="left: ${(start/24)*100}%; width: ${((end-start)/24)*100}%;" title="${label}">${icon}</div>`;
+    } else {
+      return `<div class="${className}" style="left: ${(start/24)*100}%; width: ${((24-start)/24)*100}%;" title="${label}">${icon}</div>` +
+             `<div class="${className}" style="left: 0%; width: ${(end/24)*100}%;" title="${label}">${icon}</div>`;
+    }
+  };
+
+  if (isTransit) {
+    const tStart = norm(transitStart);
+    const tEnd = norm(transitEnd);
+    html += makeBlock(tStart, tEnd, 'jl-block-transit', 'In-Transit Flight Window', '✈️');
+  }
+
+  html += makeBlock(sStart, sEnd, 'jl-block-sleep', 'Sleep Window', '💤');
+  html += makeBlock(skStart, skEnd, 'jl-block-seek', 'Seek Bright Light / Sunlight', '☀️');
+  html += makeBlock(avStart, avEnd, 'jl-block-avoid', 'Avoid Bright Light (Wear Blue Blockers)', '🕶️');
+
+  return html;
+};
+
+function getJetLagInputs() {
   const depOffset = parseFloat(document.getElementById('jl-dep-offset').value);
   const destOffset = parseFloat(document.getElementById('jl-dest-offset').value);
   const depDateStr = document.getElementById('jl-dep-date').value;
@@ -819,25 +878,13 @@ function calculateJetLagTimeline() {
   const wakeStr = document.getElementById('jl-sleep-wake').value;
   const preAdaptDays = parseInt(document.getElementById('jl-pre-adapt').value);
 
-  if (!depDateStr || !depTimeStr || isNaN(depOffset) || isNaN(destOffset)) return;
+  if (!depDateStr || !depTimeStr || isNaN(depOffset) || isNaN(destOffset)) return null;
 
-  const parseTime = (timeStr) => {
-    const parts = timeStr.split(':');
-    return parseInt(parts[0]) + parseInt(parts[1]) / 60;
-  };
+  return { depOffset, destOffset, depDateStr, depTimeStr, duration, bedtimeStr, wakeStr, preAdaptDays };
+}
 
-  const formatHour = (hourFloat) => {
-    const h = (Math.floor(hourFloat) + 24) % 24;
-    const m = Math.round((hourFloat - Math.floor(hourFloat)) * 60);
-    const dispH = h < 10 ? '0' + h : h;
-    const dispM = m < 10 ? '0' + m : m;
-    
-    // AM/PM format
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    const h12 = h % 12 === 0 ? 12 : h % 12;
-    const mDisp = dispM;
-    return `${h12}:${mDisp} ${ampm}`;
-  };
+function calculateJetLagStats(inputs) {
+  const { depOffset, destOffset, bedtimeStr, wakeStr, preAdaptDays } = inputs;
 
   const normBedtime = parseTime(bedtimeStr);
   const normWake = parseTime(wakeStr);
@@ -853,6 +900,21 @@ function calculateJetLagTimeline() {
   if (absDiff >= 8) severity = 'extreme';
   else if (absDiff >= 5) severity = 'severe';
   else if (absDiff >= 3) severity = 'moderate';
+
+  // Daily shifts: Westward: 1.5h per day. Eastward: 1.0h per day.
+  const rate = diff < 0 ? 1.5 : 1.0;
+
+  // Calculate total adaptation days
+  const shiftAchievedInPre = preAdaptDays * rate;
+  const remainingShift = Math.max(0, absDiff - shiftAchievedInPre);
+  const postArrivalDays = Math.ceil(remainingShift / rate);
+  const totalDaysNeeded = preAdaptDays + 1 + postArrivalDays;
+
+  return { diff, absDiff, severity, rate, totalDaysNeeded, normBedtime, normWake, tMinNorm };
+}
+
+function updateJetLagHeaders(stats) {
+  const { diff, absDiff, severity, totalDaysNeeded } = stats;
 
   // Update headers
   document.getElementById('jl-stat-diff').innerText = `${diff >= 0 ? '+' : ''}${diff} hrs`;
@@ -880,67 +942,15 @@ function calculateJetLagTimeline() {
     bannerDanger.style.display = 'none';
   }
 
-  // Daily shifts: Westward: 1.5h per day. Eastward: 1.0h per day.
-  const rate = diff < 0 ? 1.5 : 1.0;
-  
-  // Calculate total adaptation days
-  const shiftAchievedInPre = preAdaptDays * rate;
-  const remainingShift = Math.max(0, absDiff - shiftAchievedInPre);
-  const postArrivalDays = Math.ceil(remainingShift / rate);
-  const totalDaysNeeded = preAdaptDays + 1 + postArrivalDays;
-  
   document.getElementById('jl-stat-days').innerText = `${totalDaysNeeded} Day${totalDaysNeeded > 1 ? 's' : ''}`;
+}
 
-  // Build timeline and cards
-  const timelineRows = document.getElementById('jl-timeline-rows');
-  const cardDeck = document.getElementById('jl-card-deck');
-  timelineRows.innerHTML = '';
-  cardDeck.innerHTML = '';
+function generateJetLagDaysList(inputs, stats) {
+  const { depDateStr, depTimeStr, duration, preAdaptDays } = inputs;
+  const { diff, absDiff, rate, normBedtime, normWake, tMinNorm } = stats;
 
   // Parse flight departure datetime
   const depDateTime = new Date(`${depDateStr}T${depTimeStr}`);
-  
-  // Helper to format Date objects nicely
-  const formatDateLabel = (d) => {
-    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-  };
-
-  // Helper to construct absolute timeline blocks (handles wrap arounds)
-  const renderTimelineBlocks = (sleepStart, sleepEnd, seekStart, seekEnd, avoidStart, avoidEnd, isTransit = false, transitStart = 0, transitEnd = 0) => {
-    let html = '';
-    
-    // Normalise all hours
-    const norm = h => (h + 24) % 24;
-    const sStart = norm(sleepStart);
-    const sEnd = norm(sleepEnd);
-    const skStart = norm(seekStart);
-    const skEnd = norm(seekEnd);
-    const avStart = norm(avoidStart);
-    const avEnd = norm(avoidEnd);
-
-    // Render helper
-    const makeBlock = (start, end, className, label, icon) => {
-      if (start === end) return '';
-      if (start < end) {
-        return `<div class="${className}" style="left: ${(start/24)*100}%; width: ${((end-start)/24)*100}%;" title="${label}">${icon}</div>`;
-      } else {
-        return `<div class="${className}" style="left: ${(start/24)*100}%; width: ${((24-start)/24)*100}%;" title="${label}">${icon}</div>` +
-               `<div class="${className}" style="left: 0%; width: ${(end/24)*100}%;" title="${label}">${icon}</div>`;
-      }
-    };
-
-    if (isTransit) {
-      const tStart = norm(transitStart);
-      const tEnd = norm(transitEnd);
-      html += makeBlock(tStart, tEnd, 'jl-block-transit', 'In-Transit Flight Window', '✈️');
-    }
-
-    html += makeBlock(sStart, sEnd, 'jl-block-sleep', 'Sleep Window', '💤');
-    html += makeBlock(skStart, skEnd, 'jl-block-seek', 'Seek Bright Light / Sunlight', '☀️');
-    html += makeBlock(avStart, avEnd, 'jl-block-avoid', 'Avoid Bright Light (Wear Blue Blockers)', '🕶️');
-    
-    return html;
-  };
 
   // Generate Day-by-Day data structure
   let daysList = [];
@@ -1076,6 +1086,15 @@ function calculateJetLagTimeline() {
     if (dayNum > 15) break;
   }
 
+  return daysList;
+}
+
+function renderJetLagDaysList(daysList, diff) {
+  const timelineRows = document.getElementById('jl-timeline-rows');
+  const cardDeck = document.getElementById('jl-card-deck');
+  timelineRows.innerHTML = '';
+  cardDeck.innerHTML = '';
+
   // Render HTML for each day row
   daysList.forEach((d, idx) => {
     // 1. TIMELINE ROW
@@ -1159,6 +1178,11 @@ function calculateJetLagTimeline() {
     `;
     cardDeck.appendChild(card);
   });
+}
+
+function updateJetLagStorageAndShare(inputs, stats, daysList) {
+  const { depOffset, destOffset } = inputs;
+  const { diff, totalDaysNeeded } = stats;
 
   const depCityText = document.getElementById('jl-dep-city').value === 'custom' 
     ? `UTC${depOffset >= 0 ? '+' : ''}${depOffset}` 
@@ -1203,6 +1227,20 @@ function calculateJetLagTimeline() {
     guidelines: activeGuidelines
   };
 }
+
+function calculateJetLagTimeline() {
+  const inputs = getJetLagInputs();
+  if (!inputs) return;
+
+  const stats = calculateJetLagStats(inputs);
+  updateJetLagHeaders(stats);
+
+  const daysList = generateJetLagDaysList(inputs, stats);
+  renderJetLagDaysList(daysList, stats.diff);
+
+  updateJetLagStorageAndShare(inputs, stats, daysList);
+}
+
 
 function downloadJetLagCard() {
   const data = window.activeJetLagData;
