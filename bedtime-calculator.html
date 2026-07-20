@@ -420,8 +420,7 @@ const hours=[],mins=[],ampms=['AM','PM'];
 for(let i=1;i<=12;i++) hours.push(i<10?'0'+i:String(i));
 for(let i=0;i<60;i+=15) mins.push(i<10?'0'+i:String(i));
 
-function buildDrum(innerId,items,defaultIdx){
-  const el=document.getElementById(innerId);
+function buildDrum(el,items,defaultIdx){
   [null,...items,null].forEach((v,i)=>{
     const d=document.createElement('div');
     d.className='drum-item'+(i===defaultIdx+1?' selected':'');
@@ -454,9 +453,9 @@ function getDrumVal(innerId,items){
 }
 
 // Default: 7:00 AM
-buildDrum('di-hour',hours,6);
-buildDrum('di-min',mins,0);
-buildDrum('di-ampm',ampms,0);
+buildDrum(document.getElementById('di-hour'),hours,6);
+buildDrum(document.getElementById('di-min'),mins,0);
+buildDrum(document.getElementById('di-ampm'),ampms,0);
 
 // ── LIVE CLOCK ──
 function updateSleepNowTime(){
