@@ -288,8 +288,9 @@ function calcDebt(){
   const need=parseFloat(document.getElementById('need-select').value);
   let total=0;
   for(let i=0;i<7;i++){
-    const v=parseFloat(document.getElementById('day-'+i).value);
-    updateSelect(document.getElementById('day-'+i),v,need);
+    const dayEl=document.getElementById('day-'+i);
+    const v=parseFloat(dayEl.value);
+    updateSelect(dayEl,v,need);
     total+=v;
   }
   const needed=need*7;
