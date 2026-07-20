@@ -1081,16 +1081,38 @@ function calculateJetLagTimeline() {
     // 1. TIMELINE ROW
     const row = document.createElement('div');
     row.className = 'jl-day-row';
-    row.innerHTML = `
-      <div class="jl-day-meta">
-        <span class="jl-day-title">${d.title} <span style="font-weight:400; color:var(--text-muted);">(${d.dateStr})</span></span>
-        <span class="jl-day-desc">📍 ${d.location} | ${d.offsetDisp}</span>
-      </div>
-      <div class="jl-timeline-bar-wrapper">
-        <div class="jl-timeline-bar-bg"></div>
-        ${renderTimelineBlocks(d.sleepStart, d.sleepEnd, d.seekStart, d.seekEnd, d.avoidStart, d.avoidEnd, d.isTransit, d.transitStart, d.transitEnd)}
-      </div>
-    `;
+
+    const metaDiv = document.createElement('div');
+    metaDiv.className = 'jl-day-meta';
+
+    const titleSpan = document.createElement('span');
+    titleSpan.className = 'jl-day-title';
+    titleSpan.textContent = d.title + ' ';
+
+    const dateSpan = document.createElement('span');
+    dateSpan.style.cssText = 'font-weight:400; color:var(--text-muted);';
+    dateSpan.textContent = `(${d.dateStr})`;
+    titleSpan.appendChild(dateSpan);
+
+    const descSpan = document.createElement('span');
+    descSpan.className = 'jl-day-desc';
+    descSpan.textContent = `📍 ${d.location} | ${d.offsetDisp}`;
+
+    metaDiv.appendChild(titleSpan);
+    metaDiv.appendChild(descSpan);
+
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.className = 'jl-timeline-bar-wrapper';
+
+    const bgDiv = document.createElement('div');
+    bgDiv.className = 'jl-timeline-bar-bg';
+    wrapperDiv.appendChild(bgDiv);
+
+    wrapperDiv.insertAdjacentHTML('beforeend', renderTimelineBlocks(d.sleepStart, d.sleepEnd, d.seekStart, d.seekEnd, d.avoidStart, d.avoidEnd, d.isTransit, d.transitStart, d.transitEnd));
+
+    row.appendChild(metaDiv);
+    row.appendChild(wrapperDiv);
+
     timelineRows.appendChild(row);
 
     // 2. DAILY DETAIL CARD
