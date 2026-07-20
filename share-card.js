@@ -697,6 +697,18 @@ window.GoodSleepShare = GoodSleepShare;
 
 // 🔌 WIDGET EMBED MODAL FUNCTIONS
 window.openWidgetModal = function(pageSlug, pageTitle) {
+  const escapeHTML = (str) => {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+
+  const safeSlug = escapeHTML(pageSlug);
+  const safeTitle = escapeHTML(pageTitle);
+
   let modal = document.getElementById('widget-modal');
   if (!modal) {
     modal = document.createElement('div');
@@ -719,7 +731,7 @@ window.openWidgetModal = function(pageSlug, pageTitle) {
     document.body.appendChild(modal);
   }
   
-  const embedCode = `<iframe src="https://goodsleep.rest/${pageSlug}?embed=true" width="100%" height="600" style="border: 1px solid var(--border, #1f2d29); border-radius: 12px; background: #0B1512;" title="${pageTitle}"></iframe>\n<p style="font-size: 12px; text-align: center; color: #9ca3af;">Interactive Calculator by <a href="https://goodsleep.rest" target="_blank" style="color: #5dcaa5; text-decoration: none; font-weight: 600;">GoodSleep</a></p>`;
+  const embedCode = `<iframe src="https://goodsleep.rest/${safeSlug}?embed=true" width="100%" height="600" style="border: 1px solid var(--border, #1f2d29); border-radius: 12px; background: #0B1512;" title="${safeTitle}"></iframe>\n<p style="font-size: 12px; text-align: center; color: #9ca3af;">Interactive Calculator by <a href="https://goodsleep.rest" target="_blank" style="color: #5dcaa5; text-decoration: none; font-weight: 600;">GoodSleep</a></p>`;
 
   modal.innerHTML = `
     <div class="widget-modal-content" style="
@@ -760,7 +772,7 @@ window.openWidgetModal = function(pageSlug, pageTitle) {
         resize: none;
         margin-bottom: 1.25rem;
         box-sizing: border-box;
-      ">${embedCode}</textarea>
+      ">${escapeHTML(embedCode)}</textarea>
       <div style="display: flex; gap: 10px;">
         <button id="widget-copy-btn" onclick="copyWidgetCode()" style="
           flex: 1;
