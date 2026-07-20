@@ -392,6 +392,9 @@
 </footer>
 
 <script>
+// Cached elements
+const userTitleEl = document.getElementById('db-user-title');
+
 // Format date labels
 function formatDate(isoStr) {
   if (!isoStr) return '';
@@ -466,7 +469,7 @@ function loadDashboardWidgets() {
     const ani = animals[chronotype] || animals.bear;
     
     // Update user name title
-    document.getElementById('db-user-title').innerText = `Welcome Back, Bio-(${ani.name})`;
+    userTitleEl.innerText = `Welcome Back, Bio-(${ani.name})`;
 
     widgetChronotype.innerHTML = `
       <div class="db-card">
@@ -777,7 +780,7 @@ function resetAllData() {
       'gs-sleep-audit-score', 'gs-sleep-audit-date', 'gs-sleep-audit-disrupter'
     ];
     keys.forEach(k => localStorage.removeItem(k));
-    document.getElementById('db-user-title').innerText = `Welcome Back, Biohacker`;
+    userTitleEl.innerText = `Welcome Back, Biohacker`;
     loadDashboardWidgets();
   }
 }
