@@ -79,16 +79,22 @@ const GoodSleepShare = {
    * Draws a rounded rectangle on a canvas context.
    */
   drawRoundedRect(ctx, x, y, width, height, radius, fill, stroke) {
+    if (typeof radius === 'undefined') radius = 0;
+    if (typeof radius === 'number') {
+      radius = {tl: radius, tr: radius, br: radius, bl: radius};
+    } else {
+      radius = {...{tl: 0, tr: 0, br: 0, bl: 0}, ...radius};
+    }
     ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + width - radius, y);
-    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-    ctx.lineTo(x + width, y + height - radius);
-    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-    ctx.lineTo(x + radius, y + height);
-    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
     ctx.closePath();
     if (fill) ctx.fill();
     if (stroke) ctx.stroke();
@@ -697,6 +703,18 @@ window.GoodSleepShare = GoodSleepShare;
 
 // 🔌 WIDGET EMBED MODAL FUNCTIONS
 window.openWidgetModal = function(pageSlug, pageTitle) {
+  const escapeHTML = (str) => {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+
+  const safeSlug = escapeHTML(pageSlug);
+  const safeTitle = escapeHTML(pageTitle);
+
   let modal = document.getElementById('widget-modal');
   if (!modal) {
     modal = document.createElement('div');
@@ -719,7 +737,7 @@ window.openWidgetModal = function(pageSlug, pageTitle) {
     document.body.appendChild(modal);
   }
   
-  const embedCode = `<iframe src="https://goodsleep.rest/${pageSlug}?embed=true" width="100%" height="600" style="border: 1px solid var(--border, #1f2d29); border-radius: 12px; background: #0B1512;" title="${pageTitle}"></iframe>\n<p style="font-size: 12px; text-align: center; color: #9ca3af;">Interactive Calculator by <a href="https://goodsleep.rest" target="_blank" style="color: #5dcaa5; text-decoration: none; font-weight: 600;">GoodSleep</a></p>`;
+  const embedCode = `<iframe src="https://goodsleep.rest/${safeSlug}?embed=true" width="100%" height="600" style="border: 1px solid var(--border, #1f2d29); border-radius: 12px; background: #0B1512;" title="${safeTitle}"></iframe>\n<p style="font-size: 12px; text-align: center; color: #9ca3af;">Interactive Calculator by <a href="https://goodsleep.rest" target="_blank" style="color: #5dcaa5; text-decoration: none; font-weight: 600;">GoodSleep</a></p>`;
 
   modal.innerHTML = `
     <div class="widget-modal-content" style="
@@ -760,7 +778,7 @@ window.openWidgetModal = function(pageSlug, pageTitle) {
         resize: none;
         margin-bottom: 1.25rem;
         box-sizing: border-box;
-      ">${embedCode}</textarea>
+      ">${escapeHTML(embedCode)}</textarea>
       <div style="display: flex; gap: 10px;">
         <button id="widget-copy-btn" onclick="copyWidgetCode()" style="
           flex: 1;
