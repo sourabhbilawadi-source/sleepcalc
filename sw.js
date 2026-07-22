@@ -74,14 +74,16 @@ const ASSETS = [
   '/goodsleep-bear-chronotype.png'
 ];
 
+// Install Event - cache core assets
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      // Precache each asset individually so that a single failure doesn't halt the installation
-      return Promise.all(
+      // Instead of cache.addAll which fails completely if one file fails,
+      // we add them individually and catch errors
+      return Promise.allSettled(
         ASSETS.map(url => {
           return cache.add(url).catch(err => {
-            console.warn(`Failed to precache asset during install: ${url}`, err);
+            console.warn(`[SW] Failed to cache ${url}:`, err);
           });
         })
       );
