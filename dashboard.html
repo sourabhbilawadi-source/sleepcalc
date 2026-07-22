@@ -394,8 +394,7 @@ function formatDate(isoStr) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-function loadDashboardWidgets() {
-  // 0. Sleep Quality Audit Widget
+function loadSleepAuditWidget() {
   const auditScore = localStorage.getItem('gs-sleep-audit-score');
   const auditDate = localStorage.getItem('gs-sleep-audit-date');
   const auditDisrupter = localStorage.getItem('gs-sleep-audit-disrupter') || 'None Detected';
@@ -445,8 +444,9 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
 
-  // 1. Chronotype Animal Widget
+function loadChronotypeWidget() {
   const chronotype = localStorage.getItem('gs-chronotype');
   const chronotypeDate = localStorage.getItem('gs-chronotype-date');
   const widgetChronotype = document.getElementById('widget-chronotype');
@@ -491,8 +491,9 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
 
-  // 2. Sleep Apnea Risk Widget
+function loadSleepApneaWidget() {
   const apneaRisk = localStorage.getItem('gs-sleep-apnea-risk');
   const apneaScore = localStorage.getItem('gs-sleep-apnea-score');
   const apneaDate = localStorage.getItem('gs-sleep-apnea-date');
@@ -532,8 +533,9 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
 
-  // 3. Sleep Divorce Widget
+function loadSleepDivorceWidget() {
   const divorceScore = localStorage.getItem('gs-sleep-divorce-score');
   const divorceRec = localStorage.getItem('gs-sleep-divorce-rec');
   const divorceDate = localStorage.getItem('gs-sleep-divorce-date');
@@ -581,8 +583,9 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
 
-  // 4. Magnesium Match Widget
+function loadMagnesiumWidget() {
   const magForm = localStorage.getItem('gs-magnesium-form');
   const magDate = localStorage.getItem('gs-magnesium-form-date');
   const widgetMagnesium = document.getElementById('widget-magnesium');
@@ -622,8 +625,9 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
 
-  // 5. Ashwagandha Cycle Tracker Widget
+function loadAshwagandhaWidget() {
   const ashExtract = localStorage.getItem('gs-ashwagandha-extract');
   const ashDose = localStorage.getItem('gs-ashwagandha-dose');
   const ashStatus = localStorage.getItem('gs-ashwagandha-status');
@@ -664,8 +668,9 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
 
-  // 6. Polyphasic Sleep Planner Widget
+function loadPolyphasicWidget() {
   const polyRoutine = localStorage.getItem('gs-polyphasic-routine');
   const polySleep = localStorage.getItem('gs-polyphasic-sleep-hours');
   const polyDate = localStorage.getItem('gs-polyphasic-date');
@@ -714,8 +719,9 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
 
-  // 7. Jet Lag Planner Widget
+function loadJetLagWidget() {
   const jlDep = localStorage.getItem('gs-jet-lag-dep');
   const jlDest = localStorage.getItem('gs-jet-lag-dest');
   const jlDiff = localStorage.getItem('gs-jet-lag-diff');
@@ -757,6 +763,17 @@ function loadDashboardWidgets() {
       </div>
     `;
   }
+}
+
+function loadDashboardWidgets() {
+  loadSleepAuditWidget();
+  loadChronotypeWidget();
+  loadSleepApneaWidget();
+  loadSleepDivorceWidget();
+  loadMagnesiumWidget();
+  loadAshwagandhaWidget();
+  loadPolyphasicWidget();
+  loadJetLagWidget();
 }
 
 function resetAllData() {
