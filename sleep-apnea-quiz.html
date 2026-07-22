@@ -524,17 +524,17 @@ function updateQuiz() {
     riskLevel = 'High Risk';
     badgeClass = 'badge-high';
     descText = "Your answers indicate a high probability of Obstructive Sleep Apnea. It is strongly recommended that you consult a doctor or sleep specialist.";
-    recText = "<strong>Recommendation:</strong> Schedule an appointment with your primary care physician or a sleep specialist. Tell them about your screening results. They will likely recommend a sleep study (polysomnography or home sleep apnea test) to confirm a diagnosis and discuss CPAP or oral appliance treatments.";
+    recText = "Schedule an appointment with your primary care physician or a sleep specialist. Tell them about your screening results. They will likely recommend a sleep study (polysomnography or home sleep apnea test) to confirm a diagnosis and discuss CPAP or oral appliance treatments.";
   } else if (totalScore >= 3) {
     riskLevel = 'Moderate Risk';
     badgeClass = 'badge-intermediate';
     descText = "You have an intermediate risk of sleep apnea. Pay close attention to daytime sleepiness or concentration problems.";
-    recText = "<strong>Recommendation:</strong> Discuss these symptoms at your next routine medical checkup. Mention if your snoring is chronic or if you wake up feeling tired despite getting enough hours. Lifestyle changes (such as side sleeping or weight management) can help.";
+    recText = "Discuss these symptoms at your next routine medical checkup. Mention if your snoring is chronic or if you wake up feeling tired despite getting enough hours. Lifestyle changes (such as side sleeping or weight management) can help.";
   } else {
     riskLevel = 'Low Risk';
     badgeClass = 'badge-low';
     descText = "You have a low clinical risk of Obstructive Sleep Apnea based on the STOP-BANG criteria.";
-    recText = "<strong>Recommendation:</strong> Maintain healthy sleep hygiene habits. If you begin to develop symptoms like gasping in your sleep, high blood pressure, or severe daytime tiredness, re-take this quiz and speak to your doctor.";
+    recText = "Maintain healthy sleep hygiene habits. If you begin to develop symptoms like gasping in your sleep, high blood pressure, or severe daytime tiredness, re-take this quiz and speak to your doctor.";
   }
   
   // Update text results
@@ -544,9 +544,21 @@ function updateQuiz() {
   badge.textContent = riskLevel;
   badge.className = `sa-risk-badge ${badgeClass}`;
   
-  document.getElementById('sa-desc-output').innerHTML = `${descText}<br><span style="display:block;margin-top:8px;font-size:12px;color:var(--text-hint);">STOP symptoms score: ${stopScore}/4 | BANG physical score: ${bangScore}/4 (BMI: ${bmi > 0 ? bmi.toFixed(1) : '0'})</span>`;
+  const descOutput = document.getElementById('sa-desc-output');
+  descOutput.textContent = descText;
+  const br = document.createElement('br');
+  descOutput.appendChild(br);
+  const scoreSpan = document.createElement('span');
+  scoreSpan.style.cssText = 'display:block;margin-top:8px;font-size:12px;color:var(--text-hint);';
+  scoreSpan.textContent = `STOP symptoms score: ${stopScore}/4 | BANG physical score: ${bangScore}/4 (BMI: ${bmi > 0 ? bmi.toFixed(1) : '0'})`;
+  descOutput.appendChild(scoreSpan);
   
-  document.getElementById('sa-recommendation-box').innerHTML = recText;
+  const recBox = document.getElementById('sa-recommendation-box');
+  recBox.textContent = '';
+  const strongEl = document.createElement('strong');
+  strongEl.textContent = 'Recommendation:';
+  recBox.appendChild(strongEl);
+  recBox.appendChild(document.createTextNode(` ${recText}`));
   
   // Rotate Gauge Needle (-90 deg for 0 score, to +90 deg for 8 score)
   // Formula: Angle = -90 + (Score * 22.5)
