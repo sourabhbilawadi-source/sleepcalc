@@ -10,22 +10,14 @@
 
   gtag('config', 'G-JCQXSTXRFK');
 </script>
-<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script src="/js/theme.js"></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GoodSleep">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('Service Worker registered', reg))
-        .catch(err => console.error('Service Worker registration failed', err));
-    });
-  }
-</script>
+<script src="/sw-register.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>World Cup Sleep Schedule Planner — GoodSleep</title>
@@ -70,11 +62,6 @@
     height: fit-content;
     z-index: 5;
   }
-}
-
-/* Fix sticky nav overlap by ensuring nav has higher z-index than relative match cards */
-nav {
-  z-index: 1000 !important;
 }
 
 .match-list-card {
@@ -1026,15 +1013,7 @@ function changeTimezone(tzValue) {
   }
 }
 
-// Toggle FAQ Cards
-function toggleFaq(card) {
-  const isOpen = card.classList.contains("open");
-  // Close all other FAQs
-  document.querySelectorAll(".faq-card").forEach(c => c.classList.remove("open"));
-  if (!isOpen) {
-    card.classList.add("open");
-  }
-}
+
 
 // Format date helper
 function formatInTimezone(date, tz) {
@@ -1395,5 +1374,6 @@ function formatTimeOnly(date) {
   return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>

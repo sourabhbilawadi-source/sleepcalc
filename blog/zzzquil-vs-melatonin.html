@@ -10,7 +10,7 @@
 
   gtag('config', 'G-JCQXSTXRFK');
 </script>
-<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script src="/js/theme.js"></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -340,13 +340,8 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   setTimeout(hide, 1200);
 })();
 
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
-  const open=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
-}
+
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>

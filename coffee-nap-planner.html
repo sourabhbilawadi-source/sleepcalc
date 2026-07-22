@@ -9,7 +9,7 @@
   gtag('js', new Date());
   gtag('config', 'G-JCQXSTXRFK');
 </script>
-<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script src="/js/theme.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,15 +33,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GoodSleep">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('Service Worker registered', reg))
-        .catch(err => console.error('Service Worker registration failed', err));
-    });
-  }
-</script>
+<script src="/sw-register.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coffee Nap Timing Planner — GoodSleep</title>
@@ -680,6 +672,7 @@ function playAlertSound() {
 (function() {
   const container = document.getElementById('stars');
   if (!container) return;
+  const fragment = document.createDocumentFragment();
   for (let i = 0; i < 35; i++) {
     const star = document.createElement('div');
     star.className = 'star';
@@ -687,8 +680,9 @@ function playAlertSound() {
     star.style.top = Math.random() * 100 + '%';
     star.style.setProperty('--delay', Math.random() * 4 + 's');
     star.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
-    container.appendChild(star);
+    fragment.appendChild(star);
   }
+  container.appendChild(fragment);
 })();
 
 // Initialize
