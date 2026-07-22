@@ -37,7 +37,7 @@ html{scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
 
 /* ── NAV ── */
-nav{border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;background:var(--bg);z-index:100;backdrop-filter:blur(8px);transition:background .3s,border-color .3s}
+nav{border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;background:var(--bg);z-index:1000;backdrop-filter:blur(8px);transition:background .3s,border-color .3s}
 .logo{font-size:16px;font-weight:700;color:var(--teal-dark);text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:-0.3px}
 .logo-moon{font-size:20px}
 .nav-right{display:flex;align-items:center;gap:clamp(0.75rem,2vw,1.5rem)}
