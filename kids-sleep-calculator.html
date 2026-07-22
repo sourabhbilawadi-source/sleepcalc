@@ -885,13 +885,8 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
   setTimeout(hide, 1200); // Safety timeout
 })();
 
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
-  const open=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
-}
+
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>

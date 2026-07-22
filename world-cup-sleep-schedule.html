@@ -1021,15 +1021,7 @@ function changeTimezone(tzValue) {
   }
 }
 
-// Toggle FAQ Cards
-function toggleFaq(card) {
-  const isOpen = card.classList.contains("open");
-  // Close all other FAQs
-  document.querySelectorAll(".faq-card").forEach(c => c.classList.remove("open"));
-  if (!isOpen) {
-    card.classList.add("open");
-  }
-}
+
 
 // Format date helper
 function formatInTimezone(date, tz) {
@@ -1390,5 +1382,6 @@ function formatTimeOnly(date) {
   return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>

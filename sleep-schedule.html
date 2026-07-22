@@ -490,13 +490,7 @@ function buildMorningRoutine(wh,wm){
     </div>`).join('');
 }
 
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
-  const open=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
-}
+
 
 window.addEventListener('scroll',()=>{
   document.getElementById('back-top').classList.toggle('show',window.scrollY>400);
@@ -519,5 +513,6 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   setTimeout(hide, 1200); // Safety timeout
 })();
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>

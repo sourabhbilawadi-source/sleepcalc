@@ -737,14 +737,9 @@ window.addEventListener('load', () => {
   calculateBlanket();
 });
 
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
-  const open=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
-}
+
 </script>
 
+<script src="/faq.js"></script>
 </body>
 </html>

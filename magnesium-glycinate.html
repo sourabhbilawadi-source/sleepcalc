@@ -427,20 +427,7 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
   }
 })();
 
-// FAQ toggle helper
-function toggleFaqBox(btn, id) {
-  const ans = document.getElementById(id);
-  const isOpen = ans.classList.contains('open');
-  
-  // Close others
-  document.querySelectorAll('.faq-ans').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-q-btn').forEach(b => b.classList.remove('active'));
-  
-  if (!isOpen) {
-    ans.classList.add('open');
-    btn.classList.add('active');
-  }
-}
+
 </script>
 
 <script>
@@ -452,5 +439,6 @@ function toggleFaqBox(btn, id) {
   setTimeout(hide, 1200); // Safety timeout
 })();
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>
