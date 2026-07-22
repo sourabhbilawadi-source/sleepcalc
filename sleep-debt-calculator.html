@@ -10,22 +10,14 @@
 
   gtag('config', 'G-JCQXSTXRFK');
 </script>
-<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script src="/js/theme.js"></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GoodSleep">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('Service Worker registered', reg))
-        .catch(err => console.error('Service Worker registration failed', err));
-    });
-  }
-</script>
+<script src="/sw-register.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sleep Debt Calculator — How Much Sleep Do You Owe? | GoodSleep</title>
@@ -261,12 +253,14 @@
 const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const defaults=[6,6,7,6,5,8,8];
 const grid=document.getElementById('days-grid');
+const dayInputs = [];
 days.forEach((d,i)=>{
   const wrap=document.createElement('div');
   wrap.className='day-input';
   const lbl=document.createElement('div');
   lbl.className='day-label';lbl.textContent=d;
   const sel=document.createElement('select');
+  dayInputs[i] = sel;
   sel.className='day-select';sel.id='day-'+i;
   for(let h=3;h<=12;h+=0.5){
     const o=document.createElement('option');
@@ -288,9 +282,8 @@ function calcDebt(){
   const need=parseFloat(document.getElementById('need-select').value);
   let total=0;
   for(let i=0;i<7;i++){
-    const el=document.getElementById('day-'+i);
-    const v=parseFloat(el.value);
-    updateSelect(el,v,need);
+    const v=parseFloat(dayInputs[i].value);
+    updateSelect(dayInputs[i],v,need);
     total+=v;
   }
   const needed=need*7;
