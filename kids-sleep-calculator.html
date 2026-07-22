@@ -820,6 +820,7 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
 
     let defaultSelectMs = 0;
     let defaultCycles = 0;
+    const cards = [];
 
     suggestedCycles.forEach((c, index) => {
       // 15 mins bedtime wind-down is standard for kids
@@ -848,13 +849,14 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
       `;
       
       card.onclick = () => {
-        document.querySelectorAll('.cycle-card').forEach(x => x.style.transform = '');
+        cards.forEach(x => x.style.transform = '');
         card.style.transform = 'scale(1.04)';
         const drawMs = mode === 'wakeup' ? ms : targetMs;
         drawGraph(drawMs, c);
       };
 
       cyclesGrid.appendChild(card);
+      cards.push(card);
     });
 
     drawGraph(defaultSelectMs, defaultCycles);
