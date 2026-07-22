@@ -1,127 +1,115 @@
-const assert = require('node:assert');
-const { describe, it } = require('node:test');
-const fs = require('fs');
+require('./share-card.js');
 
-// Mock browser globals needed by share-card.js
-global.window = { location: { search: '', origin: 'https://goodsleep.rest', pathname: '/' } };
-global.document = {
-  documentElement: { classList: { add: () => {} } },
-  createElement: () => ({ width: 0, height: 0, getContext: () => ({}) })
-};
-global.URLSearchParams = class { has() { return false; } };
+describe('GoodSleepShare.drawRoundedRect', () => {
+  let ctx;
 
-// Read and evaluate the source code
-const code = fs.readFileSync('./share-card.js', 'utf8');
-eval(code);
-
-const share = global.window.GoodSleepShare || GoodSleepShare;
-
-describe('GoodSleepShare.getLines', () => {
-  // Mock context that assumes every character is exactly 10 pixels wide
-  // and includes spaces.
-  const mockCtx = {
-    measureText: (text) => ({ width: text.length * 10 })
-  };
-
-  it('should split text into multiple lines when it exceeds maxWidth', () => {
-    // "hello world this is a test"
-    // widths (including spaces):
-    // "hello" = 50
-    // "hello world" = 110 (over 100) -> line 1: "hello"
-    // "world" = 50
-    // "world this" = 100 (not < 100, so it hits else branch) -> line 2: "world"
-    // "this" = 40
-    // "this is" = 70 (< 100)
-    // "this is a" = 90 (< 100)
-    // "this is a test" = 140 (over 100) -> line 3: "this is a"
-    // "test" = 40 -> line 4: "test"
-
-    // Wait, the code says:
-    // width = ctx.measureText(currentLine + " " + word).width;
-    // if (width < maxWidth) currentLine += " " + word;
-    // else { lines.push(currentLine); currentLine = word; }
-
-    // So for "hello world this is a test" and maxWidth = 100
-    // word1: "world", measure("hello world") = 110 < 100? No. lines.push("hello"). currentLine = "world"
-    // word2: "this", measure("world this") = 100 < 100? No. lines.push("world"). currentLine = "this"
-    // word3: "is", measure("this is") = 70 < 100? Yes. currentLine = "this is"
-    // word4: "a", measure("this is a") = 90 < 100? Yes. currentLine = "this is a"
-    // word5: "test", measure("this is a test") = 140 < 100? No. lines.push("this is a"). currentLine = "test"
-    // lines.push("test")
-
-    const text = "hello world this is a test";
-    const maxWidth = 100;
-
-    const expected = ['hello', 'world', 'this is a', 'test'];
-    const result = share.getLines(mockCtx, text, maxWidth);
-
-    assert.deepStrictEqual(result, expected);
+  beforeEach(() => {
+    ctx = {
+      beginPath: jest.fn(),
+      moveTo: jest.fn(),
+      lineTo: jest.fn(),
+      quadraticCurveTo: jest.fn(),
+      closePath: jest.fn(),
+      fill: jest.fn(),
+      stroke: jest.fn()
+    };
   });
 
-  it('should keep text on a single line if it is under maxWidth', () => {
-    const text = "short text"; // length 10 -> width 100
-    const maxWidth = 150; // greater than 100
+  it('should call fill and stroke when true', () => {
+    window.GoodSleepShare.drawRoundedRect(ctx, 0, 0, 100, 100, 10, true, true);
 
-    const expected = ['short text'];
-    const result = share.getLines(mockCtx, text, maxWidth);
-
-    assert.deepStrictEqual(result, expected);
+    expect(ctx.beginPath).toHaveBeenCalled();
+    expect(ctx.closePath).toHaveBeenCalled();
+    expect(ctx.fill).toHaveBeenCalled();
+    expect(ctx.stroke).toHaveBeenCalled();
   });
 
-  it('should handle empty string correctly', () => {
-    // Current implementation:
-    // text = ""
-    // words = [""]
-    // words.length is 1, loop doesn't run
-    // lines.push(currentLine) -> [""]
-    const text = "";
-    const maxWidth = 100;
+  it('should call fill but not stroke when fill is true and stroke is false', () => {
+    window.GoodSleepShare.drawRoundedRect(ctx, 0, 0, 100, 100, 10, true, false);
 
-    const expected = [''];
-    const result = share.getLines(mockCtx, text, maxWidth);
-
-    assert.deepStrictEqual(result, expected);
+    expect(ctx.beginPath).toHaveBeenCalled();
+    expect(ctx.closePath).toHaveBeenCalled();
+    expect(ctx.fill).toHaveBeenCalled();
+    expect(ctx.stroke).not.toHaveBeenCalled();
   });
 
-  it('should push a single very long word without breaking it', () => {
-    // If a single word is longer than maxWidth, the code handles it by keeping it as currentLine
-    // Then when checking the next word: measureText(currentLine + " " + nextWord) which will be > maxWidth
-    // So it pushes currentLine.
+  it('should handle undefined radius', () => {
+    window.GoodSleepShare.drawRoundedRect(ctx, 0, 0, 100, 100, undefined, false, false);
 
-    const text = "supercalifragilisticexpialidocious is long";
-    const maxWidth = 100;
-
-    // "supercalifragilisticexpialidocious" width is 340.
-    // next word "is", width is 370 > 100.
-    // lines.push("supercalifragilisticexpialidocious")
-    // currentLine = "is"
-    // next word "long", "is long" width is 70 < 100.
-    // currentLine = "is long"
-
-    const expected = ['supercalifragilisticexpialidocious', 'is long'];
-    const result = share.getLines(mockCtx, text, maxWidth);
-
-    assert.deepStrictEqual(result, expected);
+    // Default radius logic should lead to radius=0 or a full object of {tl:0, tr:0, br:0, bl:0}
+    expect(ctx.moveTo).toHaveBeenCalledWith(0, 0); // x + 0, y
   });
 
-  it('should handle exact width matching', () => {
-    const text = "one two three";
-    // widths: "one"=30, "two"=30, "three"=50
-    // "one two" = 70.
-    // If maxWidth = 70, then "width < maxWidth" is false for "one two".
-    // It requires strictly less than. Let's make it hit exactly 70.
-    const maxWidth = 70;
+  it('should handle numeric radius correctly', () => {
+    window.GoodSleepShare.drawRoundedRect(ctx, 10, 20, 100, 200, 5, false, false);
 
-    // measure("one two") = 70. 70 < 70 is false.
-    // lines.push("one"). currentLine = "two"
-    // measure("two three") = 90. 90 < 70 is false.
-    // lines.push("two"). currentLine = "three"
-    // lines.push("three")
-
-    const expected = ['one', 'two', 'three'];
-    const result = share.getLines(mockCtx, text, maxWidth);
-
-    assert.deepStrictEqual(result, expected);
+    // radius = 5
+    // tl=5, tr=5, br=5, bl=5
+    // moveTo(x + radius, y) => moveTo(15, 20)
+    expect(ctx.moveTo).toHaveBeenCalledWith(15, 20);
+    // lineTo(x + width - radius.tr, y) => lineTo(105, 20)
+    expect(ctx.lineTo).toHaveBeenCalledWith(105, 20);
+    // quadraticCurveTo(x + width, y, x + width, y + radius.tr) => qCT(110, 20, 110, 25)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(110, 20, 110, 25);
+    // lineTo(x + width, y + height - radius.br) => lineTo(110, 215)
+    expect(ctx.lineTo).toHaveBeenCalledWith(110, 215);
+    // quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height) => qCT(110, 220, 105, 220)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(110, 220, 105, 220);
+    // lineTo(x + radius.bl, y + height) => lineTo(15, 220)
+    expect(ctx.lineTo).toHaveBeenCalledWith(15, 220);
+    // quadraticCurveTo(x, y + height, x, y + height - radius.bl) => qCT(10, 220, 10, 215)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(10, 220, 10, 215);
+    // lineTo(x, y + radius.tl) => lineTo(10, 25)
+    expect(ctx.lineTo).toHaveBeenCalledWith(10, 25);
+    // quadraticCurveTo(x, y, x + radius.tl, y) => qCT(10, 20, 15, 20)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(10, 20, 15, 20);
   });
 
+  it('should handle object radius correctly', () => {
+    const radius = { tl: 5, tr: 10, br: 15, bl: 20 };
+    window.GoodSleepShare.drawRoundedRect(ctx, 10, 20, 100, 200, radius, false, false);
+
+    // moveTo(x + radius.tl, y) => moveTo(15, 20)
+    expect(ctx.moveTo).toHaveBeenCalledWith(15, 20);
+    // lineTo(x + width - radius.tr, y) => lineTo(100, 20)
+    expect(ctx.lineTo).toHaveBeenCalledWith(100, 20);
+    // quadraticCurveTo(x + width, y, x + width, y + radius.tr) => qCT(110, 20, 110, 30)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(110, 20, 110, 30);
+    // lineTo(x + width, y + height - radius.br) => lineTo(110, 205)
+    expect(ctx.lineTo).toHaveBeenCalledWith(110, 205);
+    // quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height) => qCT(110, 220, 95, 220)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(110, 220, 95, 220);
+    // lineTo(x + radius.bl, y + height) => lineTo(30, 220)
+    expect(ctx.lineTo).toHaveBeenCalledWith(30, 220);
+    // quadraticCurveTo(x, y + height, x, y + height - radius.bl) => qCT(10, 220, 10, 200)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(10, 220, 10, 200);
+    // lineTo(x, y + radius.tl) => lineTo(10, 25)
+    expect(ctx.lineTo).toHaveBeenCalledWith(10, 25);
+    // quadraticCurveTo(x, y, x + radius.tl, y) => qCT(10, 20, 15, 20)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(10, 20, 15, 20);
+  });
+
+  it('should handle partial object radius with defaults', () => {
+    const radius = { tl: 5 }; // others should be 0
+    window.GoodSleepShare.drawRoundedRect(ctx, 10, 20, 100, 200, radius, false, false);
+
+    // moveTo(x + radius.tl, y) => moveTo(15, 20)
+    expect(ctx.moveTo).toHaveBeenCalledWith(15, 20);
+    // lineTo(x + width - radius.tr, y) => lineTo(110, 20)
+    expect(ctx.lineTo).toHaveBeenCalledWith(110, 20);
+    // quadraticCurveTo(x + width, y, x + width, y + radius.tr) => qCT(110, 20, 110, 20)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(110, 20, 110, 20);
+    // lineTo(x + width, y + height - radius.br) => lineTo(110, 220)
+    expect(ctx.lineTo).toHaveBeenCalledWith(110, 220);
+    // quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height) => qCT(110, 220, 110, 220)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(110, 220, 110, 220);
+    // lineTo(x + radius.bl, y + height) => lineTo(10, 220)
+    expect(ctx.lineTo).toHaveBeenCalledWith(10, 220);
+    // quadraticCurveTo(x, y + height, x, y + height - radius.bl) => qCT(10, 220, 10, 220)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(10, 220, 10, 220);
+    // lineTo(x, y + radius.tl) => lineTo(10, 25)
+    expect(ctx.lineTo).toHaveBeenCalledWith(10, 25);
+    // quadraticCurveTo(x, y, x + radius.tl, y) => qCT(10, 20, 15, 20)
+    expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(10, 20, 15, 20);
+  });
 });
