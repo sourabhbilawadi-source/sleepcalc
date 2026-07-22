@@ -623,8 +623,7 @@ function adjustDrink(type, change) {
   calculateClearance();
 }
 
-// Widmark Blood Alcohol Clearance Calculation
-function calculateClearance() {
+function calculateClearanceData(weightVal, drinks, biologicalSex, elapsedVal, bedtimeTargetHours) {
   // Convert weight to grams
   const weightGrams = weightVal * 453.592;
   
@@ -637,10 +636,6 @@ function calculateClearance() {
   
   // Metabolic elimination rate per hour (beta)
   const beta = 0.015;
-  
-  const elapsedSlider = document.getElementById('elapsed-slider');
-  const elapsedVal = parseFloat(elapsedSlider.value);
-  document.getElementById('elapsed-val').textContent = elapsedVal + ' Hour' + (elapsedVal === 1 ? '' : 's');
   
   // Calculate Peak BAC (assuming instant absorption for mathematical simplification)
   let peakBac = 0;
@@ -655,12 +650,31 @@ function calculateClearance() {
   const hoursToClear = peakBac / beta;
   const remainingHoursToClear = Math.max(0, hoursToClear - elapsedVal);
   
+  // BAC at Bedtime
+  const bacAtBedtime = Math.max(0, peakBac - (beta * bedtimeTargetHours));
+
+  return {
+    totalDrinks,
+    peakBac,
+    currentBac,
+    hoursToClear,
+    remainingHoursToClear,
+    bacAtBedtime
+  };
+}
+
+// Widmark Blood Alcohol Clearance Calculation
+function calculateClearance() {
+  const elapsedSlider = document.getElementById('elapsed-slider');
+  const elapsedVal = parseFloat(elapsedSlider.value);
+  document.getElementById('elapsed-val').textContent = elapsedVal + ' Hour' + (elapsedVal === 1 ? '' : 's');
+
   // Sleep target variables
   const bedtimeTargetInput = document.getElementById('bedtime-target');
   const bedtimeTargetHours = parseFloat(bedtimeTargetInput.value) || 6;
   
-  // BAC at Bedtime
-  const bacAtBedtime = Math.max(0, peakBac - (beta * bedtimeTargetHours));
+  const data = calculateClearanceData(weightVal, drinks, biologicalSex, elapsedVal, bedtimeTargetHours);
+  const { totalDrinks, peakBac, currentBac, hoursToClear, remainingHoursToClear, bacAtBedtime } = data;
   
   // Render results
   const timeDisplay = document.getElementById('clearance-time');
