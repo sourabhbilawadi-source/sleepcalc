@@ -10,22 +10,14 @@
 
   gtag('config', 'G-JCQXSTXRFK');
 </script>
-<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script src="/js/theme.js"></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GoodSleep">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('Service Worker registered', reg))
-        .catch(err => console.error('Service Worker registration failed', err));
-    });
-  }
-</script>
+<script src="/sw-register.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sleep Cycle Calculator — Calculate Bedtime & Wake Times | GoodSleep</title>
@@ -442,8 +434,7 @@ const hours=[],mins=[],ampms=['AM','PM'];
 for(let i=1;i<=12;i++) hours.push(i<10?'0'+i:String(i));
 for(let i=0;i<60;i+=15) mins.push(i<10?'0'+i:String(i));
 
-function buildDrum(innerId,items,defaultIdx){
-  const el=document.getElementById(innerId);
+function buildDrum(el,items,defaultIdx){
   [null,...items,null].forEach((v,i)=>{
     const d=document.createElement('div');
     d.className='drum-item'+(i===defaultIdx+1?' selected':'');
@@ -476,9 +467,9 @@ function getDrumVal(innerId,items){
 }
 
 // Default: 7:00 AM
-buildDrum('di-hour',hours,6);
-buildDrum('di-min',mins,0);
-buildDrum('di-ampm',ampms,0);
+buildDrum(document.getElementById('di-hour'),hours,6);
+buildDrum(document.getElementById('di-min'),mins,0);
+buildDrum(document.getElementById('di-ampm'),ampms,0);
 
 // ── LIVE CLOCK ──
 function updateSleepNowTime(){
@@ -717,13 +708,7 @@ function restartQuiz(){
 renderQuiz();
 
 // ── FAQ ──
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
-  const open=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
-}
+
 
 // ── BACK TO TOP ──
 window.addEventListener('scroll',()=>{
@@ -757,5 +742,6 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   setTimeout(hide, 1200); // Safety timeout
 })();
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>
