@@ -1,4 +1,6 @@
-const test = require('node:test');
+const nodeTest = typeof describe === 'undefined' ? require('node:test') : null;
+const describeFn = typeof describe !== 'undefined' ? describe : (nodeTest ? nodeTest.describe : describe);
+const itFn = typeof it !== 'undefined' ? it : (nodeTest ? nodeTest.it : it);
 const assert = require('node:assert');
 const fs = require('node:fs');
 const vm = require('node:vm');
@@ -60,7 +62,7 @@ vm.runInContext(shareCardCode, context);
 
 const GoodSleepShare = context.window.GoodSleepShare;
 
-test.describe('GoodSleepShare.drawRoundedRect', () => {
+describeFn('GoodSleepShare.drawRoundedRect', () => {
 
   function createMockCtx() {
     const calls = [];
@@ -76,7 +78,7 @@ test.describe('GoodSleepShare.drawRoundedRect', () => {
     };
   }
 
-  test.it('should draw a rounded rectangle with only fill', () => {
+  itFn('should draw a rounded rectangle with only fill', () => {
     const ctx = createMockCtx();
     GoodSleepShare.drawRoundedRect(ctx, 10, 20, 100, 50, 5, true, false);
 
@@ -96,7 +98,7 @@ test.describe('GoodSleepShare.drawRoundedRect', () => {
     ]);
   });
 
-  test.it('should draw a rounded rectangle with only stroke', () => {
+  itFn('should draw a rounded rectangle with only stroke', () => {
     const ctx = createMockCtx();
     GoodSleepShare.drawRoundedRect(ctx, 0, 0, 50, 50, 10, false, true);
 
@@ -106,7 +108,7 @@ test.describe('GoodSleepShare.drawRoundedRect', () => {
     assert.strictEqual(ctx.calls[ctx.calls.length - 1][0], 'stroke', 'stroke should be the last call');
   });
 
-  test.it('should draw a rounded rectangle with both fill and stroke', () => {
+  itFn('should draw a rounded rectangle with both fill and stroke', () => {
     const ctx = createMockCtx();
     GoodSleepShare.drawRoundedRect(ctx, 5, 5, 20, 20, 2, true, true);
 
@@ -120,7 +122,7 @@ test.describe('GoodSleepShare.drawRoundedRect', () => {
     assert.ok(fillIndex < strokeIndex, 'fill should be called before stroke');
   });
 
-  test.it('should trace the correct path when parameters vary', () => {
+  itFn('should trace the correct path when parameters vary', () => {
     const ctx = createMockCtx();
     GoodSleepShare.drawRoundedRect(ctx, 100, 200, 300, 150, 15, false, false);
 

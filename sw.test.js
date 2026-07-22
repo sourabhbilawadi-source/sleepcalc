@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 const makeServiceWorkerEnv = require('service-worker-mock');
 
 describe('Service Worker', () => {
