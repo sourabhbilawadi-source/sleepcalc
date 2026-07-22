@@ -1077,11 +1077,13 @@ function calculateJetLagTimeline() {
   }
 
   // Render HTML for each day row
+  let timelineHtml = '';
+  let cardsHtml = '';
+
   daysList.forEach((d, idx) => {
     // 1. TIMELINE ROW
-    const row = document.createElement('div');
-    row.className = 'jl-day-row';
-    row.innerHTML = `
+    timelineHtml += `
+    <div class="jl-day-row">
       <div class="jl-day-meta">
         <span class="jl-day-title">${d.title} <span style="font-weight:400; color:var(--text-muted);">(${d.dateStr})</span></span>
         <span class="jl-day-desc">📍 ${d.location} | ${d.offsetDisp}</span>
@@ -1090,13 +1092,10 @@ function calculateJetLagTimeline() {
         <div class="jl-timeline-bar-bg"></div>
         ${renderTimelineBlocks(d.sleepStart, d.sleepEnd, d.seekStart, d.seekEnd, d.avoidStart, d.avoidEnd, d.isTransit, d.transitStart, d.transitEnd)}
       </div>
+    </div>
     `;
-    timelineRows.appendChild(row);
 
     // 2. DAILY DETAIL CARD
-    const card = document.createElement('div');
-    card.className = 'jl-card';
-    
     let badgeClass = 'jl-badge-pre';
     if (d.type === 'travel') badgeClass = 'jl-badge-travel';
     if (d.type === 'arrival') badgeClass = 'jl-badge-arrival';
@@ -1132,7 +1131,8 @@ function calculateJetLagTimeline() {
       }
     }
 
-    card.innerHTML = `
+    cardsHtml += `
+    <div class="jl-card">
       <div class="jl-card-header">
         <span class="jl-card-title">${d.title}</span>
         <span class="jl-card-badge ${badgeClass}">${d.location}</span>
@@ -1156,9 +1156,12 @@ function calculateJetLagTimeline() {
         </div>
       </div>
       ${melatoninHtml}
+    </div>
     `;
-    cardDeck.appendChild(card);
   });
+
+  timelineRows.innerHTML = timelineHtml;
+  cardDeck.innerHTML = cardsHtml;
 
   const depCityText = document.getElementById('jl-dep-city').value === 'custom' 
     ? `UTC${depOffset >= 0 ? '+' : ''}${depOffset}` 
