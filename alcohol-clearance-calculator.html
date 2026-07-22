@@ -751,6 +751,46 @@ function calculateClearance() {
   drawChart(peakBac, hoursToClear, bedtimeTargetHours, elapsedVal);
 }
 
+function drawChartPaths(chartLine, chartArea, points, peak, xOffset, yOffset, plotWidth, plotHeight) {
+  if (peak === 0) {
+    const flatY = yOffset + plotHeight;
+    chartLine.setAttribute('d', `M ${xOffset} ${flatY} L ${xOffset + plotWidth} ${flatY}`);
+    chartArea.setAttribute('d', `M ${xOffset} ${flatY} L ${xOffset + plotWidth} ${flatY} L ${xOffset + plotWidth} ${flatY} L ${xOffset} ${flatY} Z`);
+    return;
+  }
+
+  const dPath = 'M ' + points.join(' L ');
+  chartLine.setAttribute('d', dPath);
+
+  // Set area path
+  const areaPath = `${dPath} L ${xOffset + plotWidth},${yOffset + plotHeight} L ${xOffset},${yOffset + plotHeight} Z`;
+  chartArea.setAttribute('d', areaPath);
+}
+
+function positionCurrentTimeDot(currentDot, peak, elapsedHrs, maxHrs, yMax, xOffset, yOffset, plotWidth, plotHeight) {
+  if (peak === 0) {
+    const flatY = yOffset + plotHeight;
+    currentDot.setAttribute('cx', xOffset);
+    currentDot.setAttribute('cy', flatY);
+    return;
+  }
+
+  const beta = 0.015;
+  const currentX = xOffset + (elapsedHrs / maxHrs) * plotWidth;
+  const currentBACVal = Math.max(0, peak - (beta * elapsedHrs));
+  const currentY = yOffset + plotHeight - (currentBACVal / yMax) * plotHeight;
+  currentDot.setAttribute('cx', currentX);
+  currentDot.setAttribute('cy', currentY);
+}
+
+function positionBedtimeMarker(bedtimeMarker, bedtimeMarkerText, bedtimeHrs, maxHrs, xOffset, plotWidth, peak) {
+  const adjustedBedtimeHrs = peak === 0 ? bedtimeHrs : Math.min(maxHrs, bedtimeHrs);
+  const bedX = xOffset + (adjustedBedtimeHrs / maxHrs) * plotWidth;
+  bedtimeMarker.setAttribute('x1', bedX);
+  bedtimeMarker.setAttribute('x2', bedX);
+  bedtimeMarkerText.setAttribute('x', bedX + 5);
+}
+
 // Draw dynamic chart SVG
 function drawChart(peak, clearHrs, bedtimeHrs, elapsedHrs) {
   const chartLine = document.getElementById('chart-line');
@@ -781,42 +821,9 @@ function drawChart(peak, clearHrs, bedtimeHrs, elapsedHrs) {
     points.push(`${x},${y}`);
   }
   
-  // Set line paths
-  if (peak === 0) {
-    const flatY = yOffset + plotHeight;
-    chartLine.setAttribute('d', `M ${xOffset} ${flatY} L ${xOffset + plotWidth} ${flatY}`);
-    chartArea.setAttribute('d', `M ${xOffset} ${flatY} L ${xOffset + plotWidth} ${flatY} L ${xOffset + plotWidth} ${flatY} L ${xOffset} ${flatY} Z`);
-    
-    // Position current time dot
-    currentDot.setAttribute('cx', xOffset);
-    currentDot.setAttribute('cy', flatY);
-    
-    // Position Bedtime line
-    bedtimeMarker.setAttribute('x1', xOffset + (bedtimeHrs / maxHrs) * plotWidth);
-    bedtimeMarker.setAttribute('x2', xOffset + (bedtimeHrs / maxHrs) * plotWidth);
-    bedtimeMarkerText.setAttribute('x', xOffset + (bedtimeHrs / maxHrs) * plotWidth + 5);
-    return;
-  }
-  
-  const dPath = 'M ' + points.join(' L ');
-  chartLine.setAttribute('d', dPath);
-  
-  // Set area path
-  const areaPath = `${dPath} L ${xOffset + plotWidth},${yOffset + plotHeight} L ${xOffset},${yOffset + plotHeight} Z`;
-  chartArea.setAttribute('d', areaPath);
-  
-  // Position current time dot
-  const currentX = xOffset + (elapsedHrs / maxHrs) * plotWidth;
-  const currentBACVal = Math.max(0, peak - (beta * elapsedHrs));
-  const currentY = yOffset + plotHeight - (currentBACVal / yMax) * plotHeight;
-  currentDot.setAttribute('cx', currentX);
-  currentDot.setAttribute('cy', currentY);
-  
-  // Position Bedtime line
-  const bedX = xOffset + (Math.min(maxHrs, bedtimeHrs) / maxHrs) * plotWidth;
-  bedtimeMarker.setAttribute('x1', bedX);
-  bedtimeMarker.setAttribute('x2', bedX);
-  bedtimeMarkerText.setAttribute('x', bedX + 5);
+  drawChartPaths(chartLine, chartArea, points, peak, xOffset, yOffset, plotWidth, plotHeight);
+  positionCurrentTimeDot(currentDot, peak, elapsedHrs, maxHrs, yMax, xOffset, yOffset, plotWidth, plotHeight);
+  positionBedtimeMarker(bedtimeMarker, bedtimeMarkerText, bedtimeHrs, maxHrs, xOffset, plotWidth, peak);
 }
 
 // Generate stars animation in hero
