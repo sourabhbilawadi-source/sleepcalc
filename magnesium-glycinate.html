@@ -10,7 +10,7 @@
 
   gtag('config', 'G-JCQXSTXRFK');
 </script>
-<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script src="/js/theme.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -49,15 +49,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GoodSleep">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('Service Worker registered', reg))
-        .catch(err => console.error('Service Worker registration failed', err));
-    });
-  }
-</script>
+<script src="/sw-register.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Magnesium Glycinate for Sleep — Science-Backed Dosage &amp; Guide | GoodSleep</title>
@@ -427,20 +419,7 @@ document.getElementById('back-top').addEventListener('click',function(){window.s
   }
 })();
 
-// FAQ toggle helper
-function toggleFaqBox(btn, id) {
-  const ans = document.getElementById(id);
-  const isOpen = ans.classList.contains('open');
-  
-  // Close others
-  document.querySelectorAll('.faq-ans').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-q-btn').forEach(b => b.classList.remove('active'));
-  
-  if (!isOpen) {
-    ans.classList.add('open');
-    btn.classList.add('active');
-  }
-}
+
 </script>
 
 <script>
@@ -452,5 +431,6 @@ function toggleFaqBox(btn, id) {
   setTimeout(hide, 1200); // Safety timeout
 })();
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>
