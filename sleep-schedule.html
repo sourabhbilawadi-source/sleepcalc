@@ -10,22 +10,14 @@
 
   gtag('config', 'G-JCQXSTXRFK');
 </script>
-<script>(function(){var s=localStorage.getItem('gs-theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<script src="/js/theme.js"></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GoodSleep">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('Service Worker registered', reg))
-        .catch(err => console.error('Service Worker registration failed', err));
-    });
-  }
-</script>
+<script src="/sw-register.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sleep Schedule Builder — Fix Your Sleep in 7 Days | GoodSleep</title>
@@ -490,13 +482,7 @@ function buildMorningRoutine(wh,wm){
     </div>`).join('');
 }
 
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling,icon=btn.querySelector('.faq-icon');
-  const open=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!open){ans.classList.add('open');icon.textContent='×';}
-}
+
 
 window.addEventListener('scroll',()=>{
   document.getElementById('back-top').classList.toggle('show',window.scrollY>400);
@@ -519,5 +505,6 @@ window.addEventListener('scroll',function(){var b=document.getElementById('back-
   setTimeout(hide, 1200); // Safety timeout
 })();
 </script>
+<script src="/faq.js"></script>
 </body>
 </html>
