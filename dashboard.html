@@ -425,7 +425,7 @@ function loadSleepAuditWidget() {
           <span class="db-card-badge ${badge}">${scoreVal}/100 (${label})</span>
         </div>
         <div class="db-card-body">
-          Primary disrupter: <strong>${auditDisrupter}</strong>.<br>
+          Primary disrupter: <strong class="audit-disrupter-name"></strong>.<br>
           We recommend pursuing the circadian recovery steps outlined in your action plan.
         </div>
         <div class="db-card-actions">
@@ -434,6 +434,7 @@ function loadSleepAuditWidget() {
         </div>
       </div>
     `;
+    widgetAudit.querySelector('.audit-disrupter-name').textContent = auditDisrupter;
   } else {
     widgetAudit.innerHTML = `
       <div class="db-card db-placeholder">
