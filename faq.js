@@ -25,13 +25,24 @@ function toggleFaq(btn){
 }
 
 // FAQ toggle helper for Magnesium Glycinate page and similar layouts
+let cachedFaqAns = null;
+let cachedFaqBtns = null;
+
 function toggleFaqBox(btn, id) {
   const ans = document.getElementById(id);
   const isOpen = ans.classList.contains('open');
 
+  // Cache elements on first toggle
+  if (!cachedFaqAns) {
+    cachedFaqAns = document.querySelectorAll('.faq-ans');
+  }
+  if (!cachedFaqBtns) {
+    cachedFaqBtns = document.querySelectorAll('.faq-q-btn');
+  }
+
   // Close others
-  document.querySelectorAll('.faq-ans').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-q-btn').forEach(b => b.classList.remove('active'));
+  cachedFaqAns.forEach(a => a.classList.remove('open'));
+  cachedFaqBtns.forEach(b => b.classList.remove('active'));
 
   if (!isOpen) {
     ans.classList.add('open');
