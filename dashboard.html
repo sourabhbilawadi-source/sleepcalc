@@ -638,26 +638,60 @@ function loadAshwagandhaWidget() {
     const badge = ashStatus === 'active' ? 'db-badge-teal' : 'db-badge-amber';
     const statusDisp = ashStatus === 'active' ? 'Active ON-Cycle' : 'Washout OFF-Cycle';
 
-    widgetAsh.innerHTML = `
-      <div class="db-card">
-        <div class="db-card-title-row">
-          <div class="db-card-title-left">
-            <div class="db-card-icon">🌿</div>
-            <span class="db-card-name">Ashwagandha Cycling</span>
-          </div>
-          <span class="db-card-badge ${badge}">${statusDisp}</span>
-        </div>
-        <div class="db-card-body">
-          Extract Type: <strong>${ashExtract.toUpperCase()}</strong>.<br>
-          Recommended Dose: <strong>${ashDose} mg</strong>.<br>
-          Always cycle (e.g. 5 days on, 2 days off) to protect receptor sensitivity.
-        </div>
-        <div class="db-card-actions">
-          <a href="/ashwagandha-calculator" class="db-action-link">Update Cycle</a>
-          <span class="db-date-tag">Started ${formatDate(ashDate)}</span>
-        </div>
-      </div>
-    `;
+    widgetAsh.textContent = '';
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'db-card';
+
+    const titleRow = document.createElement('div');
+    titleRow.className = 'db-card-title-row';
+    const titleLeft = document.createElement('div');
+    titleLeft.className = 'db-card-title-left';
+    const iconDiv = document.createElement('div');
+    iconDiv.className = 'db-card-icon';
+    iconDiv.textContent = '🌿';
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'db-card-name';
+    nameSpan.textContent = 'Ashwagandha Cycling';
+    titleLeft.appendChild(iconDiv);
+    titleLeft.appendChild(nameSpan);
+    const badgeSpan = document.createElement('span');
+    badgeSpan.className = `db-card-badge ${badge}`;
+    badgeSpan.textContent = statusDisp;
+    titleRow.appendChild(titleLeft);
+    titleRow.appendChild(badgeSpan);
+
+    const bodyDiv = document.createElement('div');
+    bodyDiv.className = 'db-card-body';
+    bodyDiv.appendChild(document.createTextNode('Extract Type: '));
+    const strongExtract = document.createElement('strong');
+    strongExtract.textContent = ashExtract.toUpperCase();
+    bodyDiv.appendChild(strongExtract);
+    bodyDiv.appendChild(document.createTextNode('.'));
+    bodyDiv.appendChild(document.createElement('br'));
+    bodyDiv.appendChild(document.createTextNode('Recommended Dose: '));
+    const strongDose = document.createElement('strong');
+    strongDose.textContent = `${ashDose} mg`;
+    bodyDiv.appendChild(strongDose);
+    bodyDiv.appendChild(document.createTextNode('.'));
+    bodyDiv.appendChild(document.createElement('br'));
+    bodyDiv.appendChild(document.createTextNode('Always cycle (e.g. 5 days on, 2 days off) to protect receptor sensitivity.'));
+
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'db-card-actions';
+    const linkAction = document.createElement('a');
+    linkAction.href = '/ashwagandha-calculator';
+    linkAction.className = 'db-action-link';
+    linkAction.textContent = 'Update Cycle';
+    const dateSpan = document.createElement('span');
+    dateSpan.className = 'db-date-tag';
+    dateSpan.textContent = `Started ${formatDate(ashDate)}`;
+    actionsDiv.appendChild(linkAction);
+    actionsDiv.appendChild(dateSpan);
+
+    cardDiv.appendChild(titleRow);
+    cardDiv.appendChild(bodyDiv);
+    cardDiv.appendChild(actionsDiv);
+    widgetAsh.appendChild(cardDiv);
   } else {
     widgetAsh.innerHTML = `
       <div class="db-card db-placeholder">
