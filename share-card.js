@@ -9,6 +9,18 @@
 })();
 
 const GoodSleepShare = {
+  /**
+   * Truncates text to fit within a maximum width.
+   */
+  truncateText: (ctx, text, maxWidth) => {
+    if (ctx.measureText(text).width <= maxWidth) return text;
+    let truncated = text;
+    while (ctx.measureText(truncated + '...').width > maxWidth && truncated.length > 0) {
+      truncated = truncated.slice(0, -1);
+    }
+    return truncated + '...';
+  },
+
   // CSS design tokens mapping to concrete hexadecimal colors
   designTokens: {
     '--teal': '#1d9e75',

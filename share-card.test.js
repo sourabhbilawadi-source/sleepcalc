@@ -113,3 +113,43 @@ describe('GoodSleepShare.drawRoundedRect', () => {
     expect(ctx.quadraticCurveTo).toHaveBeenCalledWith(10, 20, 15, 20);
   });
 });
+
+describe('GoodSleepShare.truncateText', () => {
+  let ctx;
+
+  beforeEach(() => {
+    ctx = {
+      measureText: jest.fn((text) => ({ width: text.length * 10 }))
+    };
+  });
+
+  it('should return the original text if it fits within maxWidth', () => {
+    const text = 'Hello'; // length 5, width 50
+    const maxWidth = 100;
+    const result = window.GoodSleepShare.truncateText(ctx, text, maxWidth);
+    expect(result).toBe('Hello');
+  });
+
+  it('should truncate the text and append ... if it exceeds maxWidth', () => {
+    const text = 'Hello World'; // length 11, width 110
+    const maxWidth = 90;
+    const result = window.GoodSleepShare.truncateText(ctx, text, maxWidth);
+    expect(result).toBe('Hello ...');
+    expect(ctx.measureText(result).width).toBeLessThanOrEqual(maxWidth);
+  });
+
+  it('should return only ... if maxWidth is extremely small', () => {
+    const text = 'Hello'; // length 5, width 50
+    const maxWidth = 30; // '...' is width 30
+    const result = window.GoodSleepShare.truncateText(ctx, text, maxWidth);
+    expect(result).toBe('...');
+    expect(ctx.measureText(result).width).toBeLessThanOrEqual(maxWidth);
+  });
+
+  it('should handle empty string correctly', () => {
+    const text = ''; // length 0, width 0
+    const maxWidth = 50;
+    const result = window.GoodSleepShare.truncateText(ctx, text, maxWidth);
+    expect(result).toBe('');
+  });
+});
