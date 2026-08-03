@@ -61,10 +61,17 @@ const GoodSleepShare = {
     
     let svgStr = new XMLSerializer().serializeToString(clone);
     
+    // Initialize token regexes once
+    if (!this._tokenRegexes) {
+      this._tokenRegexes = {};
+      for (const token of Object.keys(this.designTokens)) {
+        this._tokenRegexes[token] = new RegExp(`var\\(${token}\\)`, 'g');
+      }
+    }
+
     // Replace all CSS custom property occurrences with hex colors
     for (const [token, value] of Object.entries(this.designTokens)) {
-      const regex = new RegExp(`var\\(${token}\\)`, 'g');
-      svgStr = svgStr.replace(regex, value);
+      svgStr = svgStr.replace(this._tokenRegexes[token], value);
     }
     
     // Fallback for var(--text-hint) etc.
