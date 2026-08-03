@@ -302,6 +302,7 @@
   var wrapper = document.getElementById('stars');
   if(!wrapper) return;
   var count = 30;
+  var fragment = document.createDocumentFragment();
   for(var i=0; i<count; i++){
     var star = document.createElement('div');
     star.className = 'star';
@@ -309,8 +310,9 @@
     star.style.top = Math.random()*100 + '%';
     star.style.setProperty('--d', (Math.random()*3 + 2) + 's');
     star.style.setProperty('--delay', (Math.random()*5) + 's');
-    wrapper.appendChild(star);
+    fragment.appendChild(star);
   }
+  wrapper.appendChild(fragment);
 })();
 
 // HIDE LOADING OVERLAY
