@@ -422,18 +422,22 @@ function loadSleepAuditWidget() {
             <div class="db-card-icon">📊</div>
             <span class="db-card-name">Sleep Quality Audit</span>
           </div>
-          <span class="db-card-badge ${badge}">${scoreVal}/100 (${label})</span>
+          <span class="db-card-badge ${badge}"><span class="val-score"></span>/100 (<span class="val-label"></span>)</span>
         </div>
         <div class="db-card-body">
-          Primary disrupter: <strong>${auditDisrupter}</strong>.<br>
+          Primary disrupter: <strong class="val-disrupter"></strong>.<br>
           We recommend pursuing the circadian recovery steps outlined in your action plan.
         </div>
         <div class="db-card-actions">
           <a href="/sleep-audit" class="db-action-link">Retake Audit</a>
-          <span class="db-date-tag">Audited ${formatDate(auditDate)}</span>
+          <span class="db-date-tag">Audited <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetAudit.querySelector('.val-score').textContent = scoreVal;
+    widgetAudit.querySelector('.val-label').textContent = label;
+    widgetAudit.querySelector('.val-disrupter').textContent = auditDisrupter;
+    widgetAudit.querySelector('.val-date').textContent = formatDate(auditDate);
   } else {
     widgetAudit.innerHTML = `
       <div class="db-card db-placeholder">
@@ -470,17 +474,21 @@ function loadChronotypeWidget() {
             <div class="db-card-icon">🦁</div>
             <span class="db-card-name">Chronotype</span>
           </div>
-          <span class="db-card-badge ${ani.badge}">${ani.emoji} ${ani.name}</span>
+          <span class="db-card-badge ${ani.badge}"><span class="val-emoji"></span> <span class="val-name"></span></span>
         </div>
-        <div class="db-card-body">
-          ${ani.desc}
+        <div class="db-card-body val-desc">
+
         </div>
         <div class="db-card-actions">
           <a href="/chronotype" class="db-action-link">Retake Quiz</a>
-          <span class="db-date-tag">Completed ${formatDate(chronotypeDate)}</span>
+          <span class="db-date-tag">Completed <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetChronotype.querySelector('.val-emoji').textContent = ani.emoji;
+    widgetChronotype.querySelector('.val-name').textContent = ani.name;
+    widgetChronotype.querySelector('.val-desc').textContent = ani.desc;
+    widgetChronotype.querySelector('.val-date').textContent = formatDate(chronotypeDate);
   } else {
     widgetChronotype.innerHTML = `
       <div class="db-card db-placeholder">
@@ -511,18 +519,22 @@ function loadSleepApneaWidget() {
             <div class="db-card-icon">🫁</div>
             <span class="db-card-name">Sleep Apnea Risk</span>
           </div>
-          <span class="db-card-badge ${badge}">${apneaRisk}</span>
+          <span class="db-card-badge ${badge} val-risk"></span>
         </div>
         <div class="db-card-body">
-          Your STOP-BANG screening score: <strong>${apneaScore} / 8</strong>.<br>
-          ${apneaRisk.includes('High') ? '⚠️ Recommended to speak with a physician about a home sleep study.' : 'Maintain standard nasal breathing protocols.'}
+          Your STOP-BANG screening score: <strong class="val-score"></strong>.<br>
+          <span class="val-rec"></span>
         </div>
         <div class="db-card-actions">
           <a href="/sleep-apnea-quiz" class="db-action-link">Update Answers</a>
-          <span class="db-date-tag">Screened ${formatDate(apneaDate)}</span>
+          <span class="db-date-tag">Screened <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetApnea.querySelector('.val-risk').textContent = apneaRisk;
+    widgetApnea.querySelector('.val-score').textContent = apneaScore + ' / 8';
+    widgetApnea.querySelector('.val-rec').textContent = apneaRisk.includes('High') ? '⚠️ Recommended to speak with a physician about a home sleep study.' : 'Maintain standard nasal breathing protocols.';
+    widgetApnea.querySelector('.val-date').textContent = formatDate(apneaDate);
   } else {
     widgetApnea.innerHTML = `
       <div class="db-card db-placeholder">
@@ -561,18 +573,21 @@ function loadSleepDivorceWidget() {
             <div class="db-card-icon">👩‍❤️‍👨</div>
             <span class="db-card-name">Sleep Compatibility</span>
           </div>
-          <span class="db-card-badge ${badge}">Score: ${divorceScore}%</span>
+          <span class="db-card-badge ${badge}">Score: <span class="val-score"></span>%</span>
         </div>
         <div class="db-card-body">
-          Recommended Solution: <strong>${recLabel}</strong>.<br>
+          Recommended Solution: <strong class="val-rec"></strong>.<br>
           Making these changes will decrease micro-arousals from motion, noise, or temperature friction.
         </div>
         <div class="db-card-actions">
           <a href="/sleep-divorce-quiz" class="db-action-link">Retake Quiz</a>
-          <span class="db-date-tag">Completed ${formatDate(divorceDate)}</span>
+          <span class="db-date-tag">Completed <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetDivorce.querySelector('.val-score').textContent = divorceScore;
+    widgetDivorce.querySelector('.val-rec').textContent = recLabel;
+    widgetDivorce.querySelector('.val-date').textContent = formatDate(divorceDate);
   } else {
     widgetDivorce.innerHTML = `
       <div class="db-card db-placeholder">
@@ -603,18 +618,21 @@ function loadMagnesiumWidget() {
             <div class="db-card-icon">💊</div>
             <span class="db-card-name">Magnesium Form Match</span>
           </div>
-          <span class="db-card-badge ${badge}">${magForm.split(' (')[0]}</span>
+          <span class="db-card-badge ${badge} val-form-short"></span>
         </div>
         <div class="db-card-body">
-          Your optimal matched compound is <strong>${magForm}</strong>.<br>
+          Your optimal matched compound is <strong class="val-form"></strong>.<br>
           Provides bioavailable relaxation and targets your specific sleep hurdles.
         </div>
         <div class="db-card-actions">
           <a href="/magnesium-type-quiz" class="db-action-link">Retake Quiz</a>
-          <span class="db-date-tag">Matched ${formatDate(magDate)}</span>
+          <span class="db-date-tag">Matched <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetMagnesium.querySelector('.val-form-short').textContent = magForm.split(' (')[0];
+    widgetMagnesium.querySelector('.val-form').textContent = magForm;
+    widgetMagnesium.querySelector('.val-date').textContent = formatDate(magDate);
   } else {
     widgetMagnesium.innerHTML = `
       <div class="db-card db-placeholder">
@@ -645,19 +663,23 @@ function loadAshwagandhaWidget() {
             <div class="db-card-icon">🌿</div>
             <span class="db-card-name">Ashwagandha Cycling</span>
           </div>
-          <span class="db-card-badge ${badge}">${statusDisp}</span>
+          <span class="db-card-badge ${badge} val-status"></span>
         </div>
         <div class="db-card-body">
-          Extract Type: <strong>${ashExtract.toUpperCase()}</strong>.<br>
-          Recommended Dose: <strong>${ashDose} mg</strong>.<br>
+          Extract Type: <strong class="val-extract"></strong>.<br>
+          Recommended Dose: <strong class="val-dose"></strong>.<br>
           Always cycle (e.g. 5 days on, 2 days off) to protect receptor sensitivity.
         </div>
         <div class="db-card-actions">
           <a href="/ashwagandha-calculator" class="db-action-link">Update Cycle</a>
-          <span class="db-date-tag">Started ${formatDate(ashDate)}</span>
+          <span class="db-date-tag">Started <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetAsh.querySelector('.val-status').textContent = statusDisp;
+    widgetAsh.querySelector('.val-extract').textContent = ashExtract.toUpperCase();
+    widgetAsh.querySelector('.val-dose').textContent = ashDose + ' mg';
+    widgetAsh.querySelector('.val-date').textContent = formatDate(ashDate);
   } else {
     widgetAsh.innerHTML = `
       <div class="db-card db-placeholder">
@@ -697,18 +719,21 @@ function loadPolyphasicWidget() {
             <div class="db-card-icon">⏰</div>
             <span class="db-card-name">Polyphasic Sleep</span>
           </div>
-          <span class="db-card-badge ${badge}">${dispName}</span>
+          <span class="db-card-badge ${badge} val-name"></span>
         </div>
         <div class="db-card-body">
-          Target Routine Total Sleep: <strong>${polySleep} hours</strong>.<br>
+          Target Routine Total Sleep: <strong class="val-sleep"></strong>.<br>
           Co-ordinates sleep cores and power naps. Focus on strict nap hygiene.
         </div>
         <div class="db-card-actions">
           <a href="/polyphasic-sleep-planner" class="db-action-link">Modify Schedule</a>
-          <span class="db-date-tag">Planned ${formatDate(polyDate)}</span>
+          <span class="db-date-tag">Planned <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetPoly.querySelector('.val-name').textContent = dispName;
+    widgetPoly.querySelector('.val-sleep').textContent = polySleep + ' hours';
+    widgetPoly.querySelector('.val-date').textContent = formatDate(polyDate);
   } else {
     widgetPoly.innerHTML = `
       <div class="db-card db-placeholder">
@@ -740,19 +765,23 @@ function loadJetLagWidget() {
             <div class="db-card-icon">✈️</div>
             <span class="db-card-name">Jet Lag Plan</span>
           </div>
-          <span class="db-card-badge ${badge}">${jlDep} ➔ ${jlDest}</span>
+          <span class="db-card-badge ${badge} val-route"></span>
         </div>
         <div class="db-card-body">
-          Timezone difference: <strong>${shiftHrs >= 0 ? '+' : ''}${shiftHrs} hours</strong>.<br>
-          Total adaptation schedule duration: <strong>${jlDays} days</strong>.<br>
+          Timezone difference: <strong class="val-diff"></strong>.<br>
+          Total adaptation schedule duration: <strong class="val-days"></strong>.<br>
           Reset your clock using target light exposure windows.
         </div>
         <div class="db-card-actions">
           <a href="/jet-lag-planner" class="db-action-link">View Travel Plan</a>
-          <span class="db-date-tag">Calculated ${formatDate(jlDate)}</span>
+          <span class="db-date-tag">Calculated <span class="val-date"></span></span>
         </div>
       </div>
     `;
+    widgetJl.querySelector('.val-route').textContent = `${jlDep} ➔ ${jlDest}`;
+    widgetJl.querySelector('.val-diff').textContent = `${shiftHrs >= 0 ? '+' : ''}${shiftHrs} hours`;
+    widgetJl.querySelector('.val-days').textContent = `${jlDays} days`;
+    widgetJl.querySelector('.val-date').textContent = formatDate(jlDate);
   } else {
     widgetJl.innerHTML = `
       <div class="db-card db-placeholder">
