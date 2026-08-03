@@ -690,25 +690,57 @@ function loadPolyphasicWidget() {
     if (polyRoutine.includes('everyman')) badge = 'db-badge-amber';
     if (polyRoutine.includes('uberman') || polyRoutine.includes('dymaxion')) badge = 'db-badge-purple';
 
-    widgetPoly.innerHTML = `
-      <div class="db-card">
-        <div class="db-card-title-row">
-          <div class="db-card-title-left">
-            <div class="db-card-icon">⏰</div>
-            <span class="db-card-name">Polyphasic Sleep</span>
-          </div>
-          <span class="db-card-badge ${badge}">${dispName}</span>
-        </div>
-        <div class="db-card-body">
-          Target Routine Total Sleep: <strong>${polySleep} hours</strong>.<br>
-          Co-ordinates sleep cores and power naps. Focus on strict nap hygiene.
-        </div>
-        <div class="db-card-actions">
-          <a href="/polyphasic-sleep-planner" class="db-action-link">Modify Schedule</a>
-          <span class="db-date-tag">Planned ${formatDate(polyDate)}</span>
-        </div>
-      </div>
-    `;
+    widgetPoly.innerHTML = '';
+
+    const card = document.createElement('div');
+    card.className = 'db-card';
+
+    const titleRow = document.createElement('div');
+    titleRow.className = 'db-card-title-row';
+
+    const titleLeft = document.createElement('div');
+    titleLeft.className = 'db-card-title-left';
+    titleLeft.innerHTML = '<div class="db-card-icon">⏰</div><span class="db-card-name">Polyphasic Sleep</span>';
+
+    const badgeSpan = document.createElement('span');
+    badgeSpan.className = `db-card-badge ${badge}`;
+    badgeSpan.textContent = dispName;
+
+    titleRow.appendChild(titleLeft);
+    titleRow.appendChild(badgeSpan);
+
+    const cardBody = document.createElement('div');
+    cardBody.className = 'db-card-body';
+
+    const strongEl = document.createElement('strong');
+    strongEl.textContent = `${polySleep} hours`;
+
+    cardBody.appendChild(document.createTextNode('Target Routine Total Sleep: '));
+    cardBody.appendChild(strongEl);
+    cardBody.appendChild(document.createTextNode('.'));
+    cardBody.appendChild(document.createElement('br'));
+    cardBody.appendChild(document.createTextNode('Co-ordinates sleep cores and power naps. Focus on strict nap hygiene.'));
+
+    const cardActions = document.createElement('div');
+    cardActions.className = 'db-card-actions';
+
+    const actionLink = document.createElement('a');
+    actionLink.href = '/polyphasic-sleep-planner';
+    actionLink.className = 'db-action-link';
+    actionLink.textContent = 'Modify Schedule';
+
+    const dateTag = document.createElement('span');
+    dateTag.className = 'db-date-tag';
+    dateTag.textContent = `Planned ${formatDate(polyDate)}`;
+
+    cardActions.appendChild(actionLink);
+    cardActions.appendChild(dateTag);
+
+    card.appendChild(titleRow);
+    card.appendChild(cardBody);
+    card.appendChild(cardActions);
+
+    widgetPoly.appendChild(card);
   } else {
     widgetPoly.innerHTML = `
       <div class="db-card db-placeholder">
