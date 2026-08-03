@@ -740,11 +740,11 @@ function loadJetLagWidget() {
             <div class="db-card-icon">✈️</div>
             <span class="db-card-name">Jet Lag Plan</span>
           </div>
-          <span class="db-card-badge ${badge}">${jlDep} ➔ ${jlDest}</span>
+          <span class="db-card-badge ${badge}" id="jl-badge"></span>
         </div>
         <div class="db-card-body">
           Timezone difference: <strong>${shiftHrs >= 0 ? '+' : ''}${shiftHrs} hours</strong>.<br>
-          Total adaptation schedule duration: <strong>${jlDays} days</strong>.<br>
+          Total adaptation schedule duration: <strong id="jl-days"></strong>.<br>
           Reset your clock using target light exposure windows.
         </div>
         <div class="db-card-actions">
@@ -753,6 +753,8 @@ function loadJetLagWidget() {
         </div>
       </div>
     `;
+    widgetJl.querySelector('#jl-badge').textContent = `${jlDep} ➔ ${jlDest}`;
+    widgetJl.querySelector('#jl-days').textContent = `${jlDays} days`;
   } else {
     widgetJl.innerHTML = `
       <div class="db-card db-placeholder">
