@@ -819,7 +819,7 @@ window.copyWidgetCode = function() {
   const textarea = document.getElementById('widget-code-text');
   const btn = document.getElementById('widget-copy-btn');
   textarea.select();
-  document.execCommand('copy');
+  navigator.clipboard.writeText(textarea.value);
   
   const originalText = btn.textContent;
   btn.textContent = '✅ Copied!';
